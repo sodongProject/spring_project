@@ -10,11 +10,11 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="" alias="" />
+
     </typeAliases>
 
     <mappers>
-        <mapper resource="" />
+
     </mappers>
 
 </configuration>
