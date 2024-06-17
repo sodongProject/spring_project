@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78dbf6a8-b8a6-42c7-8bc5-e9d68aa21c4e" name="변경" comment="# initial commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/resource/mappers/mappers.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/css/common.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/img/asda.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/js/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/include/static-head.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/resource/mappers/mappers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/mappers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/resource/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/assets/css/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/img/asda.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/assets/img/asda.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/resource/static/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +148,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718353141427</updated>
       <workItem from="1718609936388" duration="621000" />
-      <workItem from="1718610796926" duration="697000" />
+      <workItem from="1718610796926" duration="1110000" />
     </task>
     <task id="LOCAL-00001" summary="# initial commit">
       <option name="closed" value="true" />
