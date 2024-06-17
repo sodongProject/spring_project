@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 
 application.properties
+
 mybatis-config.xml
 ### IntelliJ IDEA ###
 .idea/modules.xml
