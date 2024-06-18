@@ -1,8 +1,17 @@
 package com.project.club.entity;
 
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Club {
     // 클럽 번호
     private long clubNo;

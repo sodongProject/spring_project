@@ -27,7 +27,7 @@
         </if>
     </sql>
 
-    <select id="findAll" resultType="club">
+    <select id="findAll" resultType="com.project.club.dto.ClubFindAllDto">
         SELECT
         C.*,
         (SELECT COUNT(*)

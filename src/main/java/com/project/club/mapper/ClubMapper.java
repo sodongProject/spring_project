@@ -1,5 +1,7 @@
 package com.project.club.mapper;
 
+import com.project.club.common.Search;
+import com.project.club.dto.ClubFindAllDto;
 import com.project.club.entity.Club;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,7 +11,7 @@ import java.util.List;
 public interface ClubMapper {
 
     // 동호회 목록 조회
-    List<Club> findAll();
+    List<ClubFindAllDto> findAll(Search search);
 
     // 동호회 등록
     boolean save(Club club);
@@ -21,7 +23,7 @@ public interface ClubMapper {
     Club findOne(long clubNo);
 
     // 동호회 가입유저 수
-    long count();
+    long count(Search search);
 
 
 
