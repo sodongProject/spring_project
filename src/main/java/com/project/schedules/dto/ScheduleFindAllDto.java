@@ -1,6 +1,5 @@
 package com.project.schedules.dto;
 
-import com.project.schedules.entity.Schedules;
 import lombok.*;
 
 import java.time.LocalDateTime;

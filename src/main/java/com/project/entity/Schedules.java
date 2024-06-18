@@ -1,4 +1,4 @@
-package com.project.schedules.entity;
+package com.project.entity;
 
 
 import lombok.*;
