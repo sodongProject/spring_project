@@ -10,7 +10,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.project.schedules.entity.Schedules" alias="schedules" />
+        <typeAlias type="com.project.entity.Schedules" alias="schedules" />
     </typeAliases>
 
     <mappers>

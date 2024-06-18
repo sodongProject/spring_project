@@ -1,7 +1,7 @@
 package com.project.schedules.mapper;
 
 import com.project.schedules.dto.ScheduleFindAllDto;
-import com.project.schedules.entity.Schedules;
+import com.project.entity.Schedules;
 
 import java.util.List;
 
