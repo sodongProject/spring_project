@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.club.mapper.ClubMapper">
+
+    <!-- 동적 SQL 조건을 분리 -->
+    <sql id="search">
+        <if test="type == 'total'">
+            WHERE club_name LIKE CONCAT('%', #{keyword}, '%')
+            OR club_description LIKE CONCAT('%', #{keyword}, '%')
+            OR account LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'club_name'">
+            WHERE club_name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'club_description'">
+            WHERE club_description LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'account'">
+            WHERE account LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'cd'">
+            WHERE club_name LIKE CONCAT('%', #{keyword}, '%')
+            OR club_description LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </sql>
+
+    <select id="findAll" resultType="club">
+        SELECT
+        C.*,
+        (SELECT COUNT(*)
+        FROM users_clubs UC
+        WHERE UC.club_no = C.club_no
+        AND UC.user_club_is_withdrawn = FALSE) AS member_count
+        FROM clubs C
+        LEFT JOIN users U ON C.account = U.account
+        <include refid="search"/>
+        AND C.club_is_deleted = FALSE
+        ORDER BY C.club_no DESC
+        LIMIT #{pageStart}, #{amount}
+    </select>
+
+    <insert id="save">
+        INSERT INTO clubs
+        (club_name, club_description, club_profile, account)
+        VALUES
+        (#{clubName}, #{clubDescription}, #{clubProfile}, #{account})
+    </insert>
+
+    <update id="delete">
+        UPDATE clubs
+        SET club_is_deleted = TRUE
+        WHERE club_no = #{clubNo}
+    </update>
+
+    <select id="findOne" resultType="club">
+        SELECT
+        C.*,
+        (SELECT COUNT(*)
+        FROM users_clubs UC
+        WHERE UC.club_no = C.club_no AND UC.user_club_is_withdrawn = FALSE) AS member_count
+        FROM clubs C
+        LEFT JOIN users U ON C.account = U.account
+        WHERE C.club_no = #{clubNo}
+        AND C.club_is_deleted = FALSE
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT
+        COUNT(*)
+        FROM clubs C
+        LEFT JOIN users U ON C.account = U.account
+        <include refid="search"/>
+        AND C.club_is_deleted = FALSE
+    </select>
+
+</mapper>

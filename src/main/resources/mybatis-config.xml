@@ -10,11 +10,11 @@
     </settings>
 
     <typeAliases>
-
+        <typeAlias type="com.project.club.mapper.ClubMapper" alias="club" />
     </typeAliases>
 
     <mappers>
-
+        <mapper resource="mappers/ClubMapper.xml" />
     </mappers>
 
 </configuration>
