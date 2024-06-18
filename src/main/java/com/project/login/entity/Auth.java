@@ -12,6 +12,5 @@ public enum Auth {
 
     private String desc; //권한 역할
     private int authNumber; //권한 번호
-
 }
 
