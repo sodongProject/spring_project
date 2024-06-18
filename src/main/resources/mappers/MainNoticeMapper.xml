@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.homepage.mapper.NoticeMapper">
+<mapper namespace="com.project.mainpage.mapper.MainNoticeMapper">
 
     <insert id="save">
         INSERT INTO main_notice_boards
@@ -23,5 +23,13 @@
         DELETE FROM main_notice_boards
         WHERE main_notice_no = #{mainNoticeNo}
     </delete>
+
+    <select id="findOne">
+
+    </select>
+
+    <select id="findAll" resultType="com.project.mainpage.dto.response.NoticeFindAllDto">
+
+    </select>
 
 </mapper>

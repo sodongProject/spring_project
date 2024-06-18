@@ -1,17 +1,17 @@
-package com.project.homepage.entity;
+package com.project.mainpage.entity;
 
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter @ToString
+@Setter @Getter @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NoticeBoard {
+public class MainNoticeBoard {
 
-    private long mainNoticeNo; // 공지 번호
+    private long mainNoticeNo; // 공지글 번호
     private String mainNoticeTitle; // 제목
     private String mainNoticeContent; // 내용
     private LocalDateTime mainNoticeCreatedAt; // 작성시간
