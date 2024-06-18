@@ -14,12 +14,14 @@
 
     <update id="modify">
         UPDATE main_notice_boards
-        SET main_notice_title = #{mainNoticeTitle}
-        AND main_notice_content = #{mainNoticeContent}
+        SET main_notice_title = #{mainNoticeTitle},
+            main_notice_content = #{mainNoticeContent}
         WHERE main_notice_no = #{mainNoticeNo}
     </update>
 
     <delete id="delete">
-        DELETE FROM tbl_reply
-        WHERE reply_no = #{replyNo}
+        DELETE FROM main_notice_boards
+        WHERE main_notice_no = #{mainNoticeNo}
     </delete>
+
+</mapper>
