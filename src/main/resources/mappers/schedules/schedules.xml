@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.schedules.entity.Schedules.ScheduleMapper">
+    <select id="findOne" resultType="schedules">
+        SELECT
+            *
+        FROM schedules
+        WHERE schedule_no = #{scheduleNo}
+    </select>
+
+    <select id="findAll" resultType="com.project.schedules.dto.ScheduleFindAllDto">
+        SELECT
+        schedule_no,
+        schedule_title,
+        schedule_image,
+        schedule_view_count,
+        schedule_count,
+        schedule_at
+        FROM schedules
+        WHERE club_no = #{clubNo}
+        ORDER BY schedule_created_at DESC
+    </select>
+
+    <insert id="save">
+        INSERT INTO schedules
+            (schedule_title, schedule_content, schedule_image, account, club_no, schedule_at)
+        VALUES
+            (#{scheduleTitle}, #{scheduleContent}, #{scheduleImage}, #{account}, #{clubNo}, #{scheduleAt})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM schedules
+        WHERE schedule_no = #{scheduleNo}
+    </delete>
+
+    <update id="upViewCount">
+        UPDATE schedules
+        SET schedule_view_count = schedule_view_count + 1
+        WHERE schedule_no = #{scheduleNo}
+    </update>
+</mapper>

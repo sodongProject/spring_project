@@ -10,11 +10,13 @@
     </settings>
 
     <typeAliases>
-
+        <typeAlias type="com.project.schedules.entity.Schedules" alias="schedules" />
     </typeAliases>
 
     <mappers>
-
+        <mapper resource="mappers/schedules/schedules.xml" />
     </mappers>
 
 </configuration>
+
+
