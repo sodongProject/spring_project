@@ -1,7 +1,7 @@
-package com.project.schedules.dto;
+package com.project.util;
 
-import com.project.schedules.entity.User;
-import com.project.schedules.entity.UserAuth;
+import com.project.entity.Auth;
+import com.project.entity.Users;
 import lombok.*;
 
 @Getter
@@ -17,10 +17,10 @@ public class LoginUserInfoDto {
     private String email;
     private String phoneNumber;
     private String address;
-    private UserAuth auth;
+    private Auth auth;
     private double temperature;
 
-    LoginUserInfoDto(User user) {
+    LoginUserInfoDto(Users user) {
         this.account = user.getAccount();
         this.userName = user.getUserName();
         this.email = user.getEmail();
