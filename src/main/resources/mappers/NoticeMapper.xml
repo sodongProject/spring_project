@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.homepage.mapper.NoticeMapper">
+
+    <insert id="save">
+        INSERT INTO main_notice_boards
+        (main_notice_title, main_notice_content, main_notice_created_at, main_notice_view_count)
+        VALUES
+        (#{mainNoticeTitle}, #{mainNoticeContent}, #{mainNoticeCreatedAt}, #{mainNoticeViewCount})
+    </insert>
+
+    <update id="modify">
+        UPDATE main_notice_boards
+        SET main_notice_title = #{mainNoticeTitle}
+        AND main_notice_content = #{mainNoticeContent}
+        WHERE main_notice_no = #{mainNoticeNo}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tbl_reply
+        WHERE reply_no = #{replyNo}
+    </delete>
