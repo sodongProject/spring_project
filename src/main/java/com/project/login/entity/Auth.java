@@ -14,3 +14,4 @@ public enum Auth {
     private int authNumber; //권한 번호
 
 }
+

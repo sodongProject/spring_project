@@ -13,5 +13,4 @@ public enum Gender {
     FEMALE("F");
 
     private String gender;
-
 }
