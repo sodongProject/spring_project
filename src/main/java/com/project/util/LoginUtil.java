@@ -1,7 +1,6 @@
-package com.project.schedules.util;
+package com.project.util;
 
-import com.project.schedules.dto.LoginUserInfoDto;
-import com.project.schedules.entity.UserAuth;
+import com.project.entity.Auth;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,11 +23,11 @@ public class LoginUtil {
     // 로그인한 회원의 권한이 USER인지 ADMIN 인지
     public static boolean isAdmin(HttpSession session) {
         LoginUserInfoDto loggedInUser = getLoggedInUser(session);
-        UserAuth auth = null;
+        Auth auth = null;
         if (isLoggedIn(session)) {
             auth = loggedInUser.getAuth();
         }
-        return auth == UserAuth.ADMIN;
+        return auth == Auth.ADMIN;
     }
 
 
