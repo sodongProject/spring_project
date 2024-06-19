@@ -24,4 +24,9 @@ public interface ScheduleMapper {
     // 조회수 상승
     void upViewCount(long scheduleNo);
 
+    // 유저 - 클럽 가입 내역 추출
+    long userInClub(long clubNo, String account);
+
+    // 스케줄 참여 유저 등록
+    void registerUserIntoSchedule(long scheduleNo, long userClubJoinNo);
 }

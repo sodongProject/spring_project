@@ -23,4 +23,16 @@ public class ScheduleService {
 
         scheduleMapper.delete(scheduleNo);
     }
+
+    public Schedules detailSchedule(Long scheduleNo) {
+
+        return scheduleMapper.findOne(scheduleNo);
+    }
+
+    public void registerUserIntoSchedule(long scheduleNo, String account, long clubNo) {
+
+        long a = scheduleMapper.userInClub(clubNo, account);
+
+        scheduleMapper.registerUserIntoSchedule(scheduleNo, a);
+    }
 }

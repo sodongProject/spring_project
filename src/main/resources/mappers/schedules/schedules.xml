@@ -24,12 +24,28 @@
         ORDER BY schedule_created_at DESC
     </select>
 
+    <select id="userInClub" resultType="long">
+        SELECT user_club_join_no
+        FROM users_clubs
+        WHERE club_no = #{clubNo}
+        AND account = #{account}
+    </select>
+
     <insert id="save">
         INSERT INTO schedules
             (schedule_title, schedule_content, schedule_image, account, club_no, schedule_at)
         VALUES
             (#{scheduleTitle}, #{scheduleContent}, #{scheduleImage}, #{account}, #{clubNo}, #{scheduleAt})
     </insert>
+
+    <insert id="registerUserIntoSchedule">
+        INSERT INTO users_schedules
+        (schedule_no, user_club_join_no)
+        VALUES
+        (#{scheduleNo}, #{userClubJoinNo})
+    </insert>
+
+
 
     <delete id="delete">
         DELETE FROM schedules
@@ -41,4 +57,6 @@
         SET schedule_view_count = schedule_view_count + 1
         WHERE schedule_no = #{scheduleNo}
     </update>
+
+
 </mapper>

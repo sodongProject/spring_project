@@ -6,34 +6,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/schedules/schedules.css">
 </head>
 <body>
 
-<h1>스케줄 등록하는 jsp</h1>
-
-</body>
-schedule_title, schedule_content, schedule_image, account, club_no, schedule_at
-
-<div>
+<div class="schedule_modal">
     <form action="/schedules/write" method="POST">
-        <label>제목</label>
-        <input type="text" class="title" name="scheduleTitle">
-
-        <label>내용</label>
-        <input type="text" class="title" name="scheduleContent">
-
-        <label>이미지</label>
-        <input type="text" class="title" name="scheduleImage">
-
-        <label>계정</label>
-        <input type="text" class="title" name="account">
-
-        <label>동호회번호</label>
-        <input type="number" class="title" name="clubNo">
+        <div class="schedule_title">
+            <label>제목</label>
+            <input type="text" class="title" name="scheduleTitle">
+        </div>
+        <div class="schedule_content">
+            <label>내용</label>
+            <textarea type="text" class="title" name="scheduleContent">
+            </textarea>
+        </div>
+        <div class="schedule_image">
+            <div class="schedule_image_box">
+                <img src="#" alt="/">
+            </div>
+            <label>이미지 추가</label>
+            <input type="file" id="schedule_image" name="schedule_image" style="display: none">
+        </div>
+        <div class="schedule_at">
+            <label>모임 시간</label>
+            <input type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">
+        </div>
 
         <button type="submit">등록</button>
     </form>
 </div>
 
+<script>
+    const $profile = document.querySelector('.schedule_image');
 
+    const $fileInput = document.getElementById('schedule_image');
+
+    $profile.addEventListener('click', e => {
+        $fileInput.click();
+    });
+
+    $fileInput.addEventListener('change', e => {
+        const fileData = $fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.readAsDataURL(fileData);
+
+        reader.onloadend = e=> {
+            const $img = document.querySelector('.schedule_image_box img');
+            $img.src = reader.result;
+        }
+    })
+</script>
+
+</body>
 </html>

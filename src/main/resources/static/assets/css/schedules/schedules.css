@@ -1,0 +1,13 @@
+body {
+    background: rgba(0,0,0,0.3);
+}
+
+.schedule_modal {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    background: white;
+}
