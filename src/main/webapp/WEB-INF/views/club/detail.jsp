@@ -95,7 +95,7 @@
         button.notice-btn:hover {
             background-color: #5a6268;
         }
-        button.freeboard-btn:hover {
+        button.free_board-btn:hover {
             background-color: #5a6268;
         }
     </style>
