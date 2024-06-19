@@ -19,6 +19,7 @@
         <h1 class="main-title">클럽 만들기</h1>
         <button class="add-btn">새 글 쓰기</button>
     </div>
+
     <div class="card-container">
         <c:forEach var="b" items="${clubList}">
             <div class="card-wrapper">

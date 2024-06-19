@@ -36,7 +36,7 @@
         AND UC.user_club_is_withdrawn = FALSE) AS member_count
         FROM clubs C
         LEFT JOIN users U ON C.account = U.account
-        <include refid="search"/>
+<!--        <include refid="search"/>-->
         WHERE C.club_is_deleted = FALSE
         ORDER BY C.club_no DESC
         LIMIT #{pageStart}, #{amount}
@@ -71,8 +71,9 @@
         SELECT
         COUNT(*)
         FROM clubs C
-        LEFT JOIN users U ON C.account = U.account
-        <include refid="search"/>
+        LEFT JOIN users U
+        ON C.account = U.account
+<!--        <include refid="search"/>-->
         AND C.club_is_deleted = FALSE
     </select>
 

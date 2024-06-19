@@ -10,7 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- reset -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
@@ -18,100 +18,92 @@
     <!-- fontawesome css: https://fontawesome.com -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 
+    <!-- main css -->
     <link rel="stylesheet" href="/assets/css/club/main.css">
 
-
     <style>
-
-
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Nunito Sans', sans-serif;
+        }
         .form-container {
-            width: 500px;
-            margin: auto;
-            padding: 20px;
-            background-image: linear-gradient(135deg, #a1c4fd, #fbc2eb);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            font-size: 18px;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.05);
+            border-radius: 8px;
         }
         .form-container h1 {
-            font-size: 40px;
-            font-weight: 700;
-            letter-spacing: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #ffffff;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
         }
         .form-container h2 {
-            font-size: 30px;
-            color: #222;
-            text-align: center;
+            font-size: 16px;
+            color: #555;
             margin-bottom: 20px;
         }
         label {
+            color: #666;
+            font-weight: bold;
             display: block;
             margin-bottom: 5px;
-            font-size: 20px;
         }
-
-        #title, #writer {
-            font-size: 18px;
+        input[type="text"], #content {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 2px solid #ffffff;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fafafa;
         }
         #content {
-            height: 400px;
-            font-size: 18px;
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 2px solid #ffffff;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        textarea {
-            resize: none;
-            height: 200px;
+            height: 150px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         .buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
+            text-align: right;
         }
         button {
-            font-size: 20px;
             padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007bff;
             border: none;
-            margin-right: 10px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
             border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        button.list-btn {
-            background: #e61e8c;
+        button.list-btn, button.notice-btn, button.freeboard-btn {
+            background-color: #6c757d;
+            margin-left: 10px;
         }
         button:hover {
-            background-color: #3d8b40;
+            opacity: 0.9;
         }
         button.list-btn:hover {
-            background: #e61e8c93;
+            background-color: #5a6268;
+        }
+        button.notice-btn:hover {
+            background-color: #5a6268;
+        }
+        button.freeboard-btn:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
 <body>
 <div id="wrap" class="form-container">
-
-    <h1>${bbb.boardNo}번 게시물 내용~ </h1>
-    <h2># 작성일자: ${bbb.regDateTime}</h2>
+    <h1>게시물 번호: ${bbb.boardNo}</h1>
+    <h2>작성일자: ${bbb.regDateTime}</h2>
     <label for="writer">작성자</label>
     <input type="text" id="writer" name="writer" value="${bbb.writer}" readonly>
     <label for="title">제목</label>
@@ -119,9 +111,10 @@
     <label for="content">내용</label>
     <div id="content">${bbb.content}</div>
     <div class="buttons">
-        <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
+        <button class="notice-btn" type="button" onclick="window.location.href='/club/notice'">공지사항</button>
+        <button class="free_board-btn" type="button" onclick="window.location.href='/club/freeBoard'">자유게시판</button>
+        <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
     </div>
-
 </div>
 </body>
 </html>
