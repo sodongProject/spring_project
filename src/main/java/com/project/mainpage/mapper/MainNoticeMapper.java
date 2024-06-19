@@ -24,4 +24,7 @@ public interface MainNoticeMapper {
 
     // 공지사항 상세 조회
     MainNoticeBoard findOne(int boardNo);
+
+    // 총 게시물 수 조회
+    int count(Search search);
 }
