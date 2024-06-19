@@ -10,7 +10,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.project.club.mapper.ClubMapper" alias="club" />
+        <typeAlias type="com.project.club.entity.Club" alias="club" />
     </typeAliases>
 
     <mappers>

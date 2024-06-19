@@ -4,16 +4,12 @@ import com.project.club.common.PageMaker;
 import com.project.club.common.Search;
 import com.project.club.dto.ClubListResponseDto;
 import com.project.club.dto.ClubWriteRequestDto;
-import com.project.club.entity.Club;
 import com.project.club.service.ClubService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,16 +24,11 @@ public class ClubController {
     // 1. 전체조회
     @GetMapping("/list")
     public String clubList(@ModelAttribute("s") Search search, Model model) {
-
         List<ClubListResponseDto> clubList = clubService.findList(search);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
-
-
         model.addAttribute("clubList", clubList);
         model.addAttribute("s", search);
-
         return "club/list";
-
     }
 
     // 2. 게시글 쓰기 양식 화면 열기 요청
@@ -52,4 +43,21 @@ public class ClubController {
         clubService.insert(C);
         return "redirect:/club/list";
     }
+
+    // 4. 삭제요청
+    @GetMapping("/delete")
+    public String delete(@RequestParam("clubNo") long clubNo) {
+        clubService.remove(clubNo);
+        return "redirect:/club/list";
+    }
+
+    // 5. 상세조회 요청
+    @GetMapping("/detail")
+    public String detail(@RequestParam("bno") long bno, Model model) {
+        clubService.detail(bno);
+        log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
+        return "club/detail";
+    }
+
+
 }

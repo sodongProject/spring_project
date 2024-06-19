@@ -37,7 +37,7 @@
         FROM clubs C
         LEFT JOIN users U ON C.account = U.account
         <include refid="search"/>
-        AND C.club_is_deleted = FALSE
+        WHERE C.club_is_deleted = FALSE
         ORDER BY C.club_no DESC
         LIMIT #{pageStart}, #{amount}
     </select>

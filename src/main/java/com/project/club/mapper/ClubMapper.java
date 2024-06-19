@@ -25,9 +25,5 @@ public interface ClubMapper {
     // 동호회 가입유저 수
     long count(Search search);
 
-
-
-
-
 }
 
