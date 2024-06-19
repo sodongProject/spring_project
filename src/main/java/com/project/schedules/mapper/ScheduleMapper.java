@@ -1,5 +1,6 @@
 package com.project.schedules.mapper;
 
+import com.project.entity.Users;
 import com.project.schedules.dto.ScheduleFindAllDto;
 import com.project.entity.Schedules;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,6 @@ public interface ScheduleMapper {
 
     // 스케줄 참여 유저 등록
     void registerUserIntoSchedule(long scheduleNo, long userClubJoinNo);
+
+    Users findUser(String account);
 }

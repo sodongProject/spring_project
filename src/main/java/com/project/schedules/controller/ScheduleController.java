@@ -8,9 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +25,8 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping("/write")
-    public String Write(Model model) {
+    public String Write(Model model, HttpSession session) {
+        scheduleService.findLoginUser("qwdk0406", session);
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         String now = LocalDateTime.now().format(pattern);
 
@@ -35,10 +38,13 @@ public class ScheduleController {
     }
 
     @PostMapping("/write")
-    public String write(ScheduleWriteDto dto) {
+    public String write(ScheduleWriteDto dto, HttpSession session) {
+
 
         System.out.println("dto = " + dto);
-        scheduleService.addSchedule(dto);
+        System.out.println("dto.getScheduleAt() = " + dto.getScheduleAt());
+        scheduleService.addSchedule(dto, session);
+
 
         return "/schedules/write";
 

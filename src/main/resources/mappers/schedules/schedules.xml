@@ -31,6 +31,13 @@
         AND account = #{account}
     </select>
 
+    <select id="findUser" resultType="com.project.entity.Users">
+        SELECT
+            *
+        FROM Users
+        WHERE account = #{account}
+    </select>
+
     <insert id="save">
         INSERT INTO schedules
             (schedule_title, schedule_content, schedule_image, account, club_no, schedule_at)
