@@ -7,24 +7,26 @@
 
     <!-- 동적 SQL 조건을 분리 -->
     <sql id="search">
-        <if test="type == 'total'">
-            WHERE club_name LIKE CONCAT('%', #{keyword}, '%')
-            OR club_description LIKE CONCAT('%', #{keyword}, '%')
-            OR account LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'club_name'">
-            WHERE club_name LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'club_description'">
-            WHERE club_description LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'account'">
-            WHERE account LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'cd'">
-            WHERE club_name LIKE CONCAT('%', #{keyword}, '%')
-            OR club_description LIKE CONCAT('%', #{keyword}, '%')
-        </if>
+        <trim prefix="AND" prefixOverrides="AND |OR ">
+            <if test="type == 'total'">
+                (C.club_name LIKE CONCAT('%', #{keyword}, '%')
+                OR C.club_description LIKE CONCAT('%', #{keyword}, '%')
+                OR C.account LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="type == 'club_name'">
+                C.club_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type == 'club_description'">
+                C.club_description LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type == 'account'">
+                C.account LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type == 'cd'">
+                (C.club_name LIKE CONCAT('%', #{keyword}, '%')
+                OR C.club_description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </trim>
     </sql>
 
     <select id="findAll" resultType="com.project.club.dto.ClubFindAllDto">
@@ -36,8 +38,10 @@
         AND UC.user_club_is_withdrawn = FALSE) AS member_count
         FROM clubs C
         LEFT JOIN users U ON C.account = U.account
-<!--        <include refid="search"/>-->
-        WHERE C.club_is_deleted = FALSE
+        <where>
+            C.club_is_deleted = FALSE
+            <include refid="search"/>
+        </where>
         ORDER BY C.club_no DESC
         LIMIT #{pageStart}, #{amount}
     </select>
@@ -73,8 +77,10 @@
         FROM clubs C
         LEFT JOIN users U
         ON C.account = U.account
-<!--        <include refid="search"/>-->
-        AND C.club_is_deleted = FALSE
+        <where>
+            C.club_is_deleted = FALSE
+            <include refid="search"/>
+        </where>
     </select>
 
 </mapper>

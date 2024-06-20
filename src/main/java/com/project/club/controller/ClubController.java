@@ -25,9 +25,9 @@ public class ClubController {
     @GetMapping("/list")
     public String clubList(@ModelAttribute("s") Search search, Model model) {
         List<ClubListResponseDto> clubList = clubService.findList(search);
-//        PageMaker maker = new PageMaker(search, clubService.getCount(search));
+        PageMaker maker = new PageMaker(search, clubService.getCount(search));
         model.addAttribute("clubList", clubList);
-//        model.addAttribute("maker", maker);
+        model.addAttribute("maker", maker);
         return "club/list";
     }
 
