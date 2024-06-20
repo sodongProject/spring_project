@@ -14,21 +14,42 @@
         WHERE account = #{account}
     </select>
 
-    <select id="editUserPhoneNumber">
+    <update id="editUserPhoneNumber">
         UPDATE users
         SET phoneNumber = #{ph}
         WHERE account = #{account}
-    </select>
+    </update>
 
-    <select id="editUserAdress">
+    <update id="editUserAdress">
         UPDATE users
         SET address = #{ad}
         WHERE account = #{account}
-    </select>
+    </update>
 
-    <select id="editUserPassword">
+    <update id="editUserPassword">
         UPDATE users
         SET password = #{pw}
         WHERE account = #{account}
+    </update>
+
+    <update id="withdrawal">
+        UPDATE users
+        SET is_withdrawn = true
+        WHERE account = #{account}
+    </update>
+
+
+    <select id="viewPoints" resultType="double">
+        SELECT remained_point FROM users
+        WHERE account = #{account}
     </select>
+
+    <update id="rechargePoints">
+        UPDATE users
+        SET
+    </update>
+
+    <update id="exchangePoints">
+
+    </update>
 </mapper>

@@ -4,12 +4,10 @@ package com.project.myPage.service;
 import com.project.entity.Users;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.mapper.myPageMapper;
-
 import com.project.util.LoginUserInfoDto;
 import com.project.util.LoginUtil;
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -113,5 +111,13 @@ public class MyPageService {
     public void modifyAdress(HttpSession session, String newAdress){
         myPageMapper.editUserAdress(getSessionAccount(session),newAdress);
     }
+
+
+
+    public void userWithdrawal(HttpSession session){
+        myPageMapper.withdrawal(getSessionAccount(session));
+    }
+
+
 
 }

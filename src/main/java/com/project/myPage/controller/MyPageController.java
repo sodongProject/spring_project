@@ -89,4 +89,15 @@ public class MyPageController {
         return "myPage/myPage-modifyInformations";
 
     }
+
+
+    //회원 탈퇴
+    @PostMapping("/withdrawal")
+    String withdrawal(HttpSession session){
+        myPageService.userWithdrawal(session);
+        return "redirect:/";
+    }
+
+
+
 }

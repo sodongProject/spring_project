@@ -21,4 +21,18 @@ public interface myPageMapper {
     // 비번 수정
     void editUserPassword(String account, String pw);
 
+    // 회원 탈퇴
+    void withdrawal(String account);
+
+
+
+    // 포인트 조회
+    double viewPoints(String account);
+
+    // 포인트 충전
+    void rechargePoints(String account, int points);
+
+    // 포인트 환전
+    void exchangePoints(String account, int points);
+
 }
