@@ -1,6 +1,7 @@
 package com.project.util;
 
 import com.project.entity.Auth;
+import com.project.login.dto.LoginUserInfoDto;
 
 import javax.servlet.http.HttpSession;
 

@@ -11,12 +11,12 @@
 
     <typeAliases>
         <typeAlias type="com.project.schedules.entity.Schedules" alias="schedules" />
+        <typeAlias type="com.project.login.entity.Users" alias="users" />
     </typeAliases>
 
     <mappers>
         <mapper resource="mappers/schedules/schedules.xml" />
+        <mapper resource="mappers/login/UsersMapper.xml" />
     </mappers>
 
 </configuration>
-
-

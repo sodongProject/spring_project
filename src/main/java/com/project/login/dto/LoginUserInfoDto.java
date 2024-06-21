@@ -1,7 +1,7 @@
-package com.project.util;
+package com.project.login.dto;
 
 import com.project.entity.Auth;
-import com.project.entity.Users;
+import com.project.login.entity.Users;
 import lombok.*;
 
 @Getter
