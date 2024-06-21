@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mainpage.mapper.ClubRankingMapper">
+
+    <!-- 회원 가장 많은 동호회 -->
+    <select id="mostMember" resultType="com.project.mainpage.dto.response.ClubListDto">
+        SELECT *
+        FROM clubs
+        ORDER BY club_member_max DESC
+    </select>
+
+    <!-- 가장 최근에 생긴 동호회 -->
+    <select id="recentClub" resultType="com.project.mainpage.dto.response.ClubListDto">
+        SELECT *
+        FROM clubs
+        ORDER BY club_created_at DESC
+    </select>
+
+    <!-- 1년 동안 스케줄이 가장 많은 동호회 -->
+<!--    <select id="mostSchedule" resultType="com.project.mainpage.dto.response.ClubListDto">-->
+
+<!--    </select>-->
+
+
+
+
+
+</mapper>
