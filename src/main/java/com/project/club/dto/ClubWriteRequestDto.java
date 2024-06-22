@@ -13,13 +13,14 @@ public class ClubWriteRequestDto {
     private String writer;
     private String content;
     private String title;
+    private Boolean clubCompetition = false; // 기본값 false
 
     public Club toEntity() {
         Club C = new Club();
         C.setAccount(this.writer);
         C.setClubDescription(this.content);
         C.setClubName(this.title);
+        C.setClubCompetition(this.clubCompetition);
         return C;
     }
-
 }

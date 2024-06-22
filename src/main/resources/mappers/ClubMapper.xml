@@ -49,9 +49,9 @@
 
     <insert id="save">
         INSERT INTO clubs
-        (club_name, club_description, club_profile, account)
+        (club_name, club_description, club_profile, account, club_competition)
         VALUES
-        (#{clubName}, #{clubDescription}, #{clubProfile}, #{account})
+        (#{clubName}, #{clubDescription}, #{clubProfile}, #{account}, #{clubCompetition})
     </insert>
 
     <update id="delete">

@@ -92,6 +92,8 @@
         <input type="text" id="title" name="title" required>
         <label for="content">내용</label>
         <textarea id="content" name="content" required></textarea>
+        <label for="clubCompetition">대회 참여 여부</label>
+        <input type="checkbox" id="clubCompetition" name="clubCompetition" value="true">
         <div class="buttons">
             <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
             <button type="submit">글쓰기</button>
