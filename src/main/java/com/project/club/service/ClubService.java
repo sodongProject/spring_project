@@ -21,12 +21,10 @@ public class ClubService {
     private final ClubMapper clubMapper;
 
     public List<ClubListResponseDto> findList(Search search) {
-
         List<ClubFindAllDto> clubList = clubMapper.findAll(search);
-
         List<ClubListResponseDto> dtoList = clubList
                 .stream()
-                .map(c -> new ClubListResponseDto(c))
+                .map(ClubListResponseDto::new)
                 .collect(Collectors.toList());
         return dtoList;
     }
@@ -37,10 +35,18 @@ public class ClubService {
 
     // 등록 요청 처리
     public void insert(ClubWriteRequestDto dto) {
-        Club C = dto.toEntity();
-        clubMapper.save(C);
-    }
+        Club club = dto.toEntity();
+        clubMapper.save(club);
 
+        // 동호회 가입정보 가져오기
+        Club lastSaveClubs = clubMapper.findLastSaveClubs();
+
+        // 가져온 정보를 넣어주기
+        clubMapper.saveUsers(lastSaveClubs.getClubNo(), lastSaveClubs.getAccount());
+
+        // 사용자 수 증가시키기
+        clubMapper.userCountUp(lastSaveClubs.getClubNo());
+    }
 
     public boolean remove(long clubNo) {
         log.info("삭제시킬 번호 가져와: {}", clubNo);
@@ -49,10 +55,13 @@ public class ClubService {
         return isDeleted;
     }
 
-
-    public void detail(long bno) {
-        clubMapper.findOne(bno);
+    public Club detail(long bno) {
+        return clubMapper.findOne(bno);
     }
 
+    // 사용자 수 증가시키기 메서드
+    public void increaseUserCount(long clubNo) {
+        clubMapper.userCountUp(clubNo);
+    }
 }
 

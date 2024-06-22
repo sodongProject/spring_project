@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,14 +13,16 @@
     <link rel="stylesheet" href="/assets/css/club/main.css">
     <link rel="stylesheet" href="/assets/css/club/list.css">
 
-    <!-- bootstrap css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+
 
 </head>
 <body>
 <div id="wrap">
     <div class="main-title-wrapper">
-        <h1 class="main-title"><button class="homeBtn">클럽 만들기</button></h1>
+        <h1 class="main-title">
+            <button class="homeBtn">클럽 만들기</button>
+        </h1>
         <button class="add-btn">새 글 쓰기</button>
     </div>
 
@@ -57,29 +59,31 @@
     <div class="card-container">
         <c:forEach var="b" items="${clubList}">
             <div class="card-wrapper">
-                <section class="card" data-bno="${b.clubNo}">
-                    <div class="card-title-wrapper">
-                        <h2 class="card-title">${b.shortTitle}</h2>
-                        <div class="time-view-wrapper">
-                            <div class="time">
-                                <i class="far fa-clock"></i>
-                                    ${b.date}
-                            </div>
-                            <div class="view">
-                                <i class="fas fa-eye"></i>
-                                <span class="view-count">${b.view}</span>
-                            </div>
+                <div class="container" data-bno="${b.clubNo}">
+                    <div class="top-section">
+                        <button class="del-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <i class='bx bxs-moon'></i>
+                    </div>
+                    <div class="middle-section">
+                        <img class="image" src="" alt="">
+                        <div class="view">
+                            <i class="fas fa-eye"></i>
+                            <span class="view-count">${b.view}</span>
+                        </div>
+                        <h2>${b.shortTitle}</h2>
+                        <p>${b.shortContent}</p>
+                        <div class="social-media">
+                            <i class='bx bxl-twitter'></i>
+                            <i class='bx bxl-facebook'></i>
+                            <i class='bx bxl-instagram'></i>
+                        </div>
+                        <div class="btnCenter">
+                            <button class="btn">상세보기</button>
+                            <button class="btn join-btn" data-href="/club/joinClub?clubNo=${b.clubNo}">가입하기</button>
                         </div>
                     </div>
-                    <div class="card-content">
-                            ${b.shortContent}
-                    </div>
-                </section>
-                <div class="card-btn-group">
-                    <button class="join-btn" data-href="/club/joinClub?clubNo=${b.clubNo}">가입하기</button>
-                    <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
-                        <i class="fas fa-times"></i>
-                    </button>
                 </div>
             </div>
         </c:forEach>
@@ -135,7 +139,6 @@
 <!-- end div.bottom-section -->
 
 
-
 <%-- 가입 모달 창 --%>
 <div class="loginModal" id="loginModal">
     <div class="modal-content">
@@ -147,7 +150,7 @@
     </div>
 </div>
 
-<!-- 모달 창 -->
+<%--<!-- 모달 창 -->--%>
 <div class="modal" id="modal">
     <div class="modal-content">
         <p>정말로 삭제할까요?</p>
@@ -170,7 +173,8 @@
     });
 
     $cardContainer.addEventListener('click', e => {
-        if (e.target.matches('.card-btn-group .del-btn .fas')) {
+        e.preventDefault()
+        if (e.target.matches('.top-section .del-btn .fas')) {
             modal.style.display = 'flex';
             const $delBtn = e.target.closest('.del-btn');
             const deleteLocation = $delBtn.dataset.href;
@@ -181,19 +185,23 @@
             cancelDelete.onclick = e => {
                 modal.style.display = 'none';
             };
-        }else {
-            const bno = e.target.closest('section.card').dataset.bno;
+        } else if (e.target.matches('.join-btn') || e.target.matches('.btn')
+            || e.target.closest('[data-href]') || e.target.closest('.bx')|| e.target.closest('.image')) {
+            // "가입하기", "상세보기" 버튼 또는 data-href 속성을 가진 요소 클릭 시 아무 동작도 하지 않음
+        } else {
+            const bno = e.target.closest('.container').dataset.bno;
             // 요청 보내기
             window.location.href = '/club/detail?bno=' + bno;
         }
     });
+
 
     const loginModal = document.getElementById('loginModal');
     const loginConfirmJoin = document.getElementById('loginConfirmDelete');
     const loginCancelJoin = document.getElementById('loginCancelDelete');
 
     $cardContainer.addEventListener('click', e => {
-        if (e.target.matches('.card-btn-group .join-btn')) {
+        if (e.target.matches('.btnCenter .join-btn')) {
             loginModal.style.display = 'flex'
             const $loginBtn = e.target.closest('.join-btn');
             const joinLocation = $loginBtn.dataset.href;
@@ -286,7 +294,21 @@
     appendActivePage();
     fixSearchOption();
 
+    const MoonIcon = document.querySelector('.bxs-moon');
+    const container = document.querySelector('.container');
+
+    MoonIcon.addEventListener('click', () => {
+        MoonIcon.classList.toggle('bxs-moon');
+        if (MoonIcon.classList.toggle('bxs-sun')) {
+            container.classList.add('active')
+        } else {
+            container.classList.remove('active')
+        }
+
+    });
+
 
 </script>
 </body>
 </html>
+

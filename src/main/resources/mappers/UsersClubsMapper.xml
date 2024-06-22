@@ -5,22 +5,9 @@
 
 <mapper namespace="com.project.club.mapper.UsersClubsMapper">
 
-    <update id="updateMemberRole">
-        UPDATE users_clubs
-        SET user_club_role = #{role}
-        WHERE user_club_join_no = #{joinNo}
-    </update>
-
-    <insert id="joinClub">
-        INSERT INTO users_clubs (club_no, account, user_club_role)
-        VALUES (#{clubNo}, #{account}, 'PENDING')
+    <insert id="insertUsersClubs" parameterType="com.project.club.entity.UsersClubs">
+        INSERT INTO users_clubs (club_no, account)
+        VALUES (#{clubNo}, #{account})
     </insert>
-
-    <update id="updateApplicationStatus">
-        UPDATE users_clubs
-        SET user_club_status = #{status}, user_club_updated_at = CURRENT_TIMESTAMP()
-        WHERE user_club_join_no = #{joinNo}
-    </update>
-
 
 </mapper>
