@@ -102,4 +102,23 @@
         SET club_member_max = club_member_max + 1
         WHERE club_no = #{clubNo}
     </update>
+
+    <!--  유저 정보를 유저스클럽스에 추가  -->
+    <insert id="insertUserClub">
+        INSERT INTO users_clubs (club_no, account, user_club_role, user_club_application_status)
+        VALUES (#{clubNo}, #{account}, 'MEMBER', 'APPROVED')
+    </insert>
+
+    <!--    가입신청자 리스트를 모아볼 수 있는 xml -->
+    <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
+        SELECT
+        u.user_name,
+        u.temperature
+        FROM users u
+        JOIN users_clubs uc
+        ON u.account = uc.account
+        WHERE uc.club_no = #{clubNo}
+        AND uc.user_club_application_status = 'PENDING'
+    </select>
+
 </mapper>

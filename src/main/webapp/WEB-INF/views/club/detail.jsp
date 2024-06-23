@@ -102,19 +102,25 @@
 </head>
 <body>
 <div id="wrap" class="form-container">
-    <h1>게시물 번호: ${bbb.boardNo}</h1>
-    <h2>작성일자: ${bbb.regDateTime}</h2>
+    <h1>게시물 번호: ${club.clubNo}</h1>
+    <h2>작성일자: ${club.regDateTime}</h2>
     <label for="writer">작성자</label>
-    <input type="text" id="writer" name="writer" value="${bbb.writer}" readonly>
+    <input type="text" id="writer" name="writer" value="${club.writer}" readonly>
     <label for="title">제목</label>
-    <input type="text" id="title" name="title" value="${bbb.title}" readonly>
+    <input type="text" id="title" name="title" value="${club.title}" readonly>
     <label for="content">내용</label>
-    <div id="content">${bbb.content}</div>
+    <div id="content">${club.content}</div>
     <div class="buttons">
         <button class="notice-btn" type="button" onclick="window.location.href='/club/notice'">공지사항</button>
         <button class="free_board-btn" type="button" onclick="window.location.href='/club/freeBoard'">자유게시판</button>
         <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
     </div>
 </div>
+
+<form action="/club/applicants" method="get">
+    <input type="hidden" name="clubNo" value="${club.clubNo}">
+    <button type="submit">가입 신청자 확인</button>
+</form>
+
 </body>
 </html>

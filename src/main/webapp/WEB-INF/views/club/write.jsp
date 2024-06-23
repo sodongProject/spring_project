@@ -105,7 +105,7 @@
 <body>
 <div id="wrap" class="form-container">
     <h1>클럽 만들기</h1>
-    <form action="/club/write" method="post" enctype="multipart/form-data">
+    <form action="/club/write" method="post" enctype="multipart/form-data" name="write">
         <div class="profile">
             <div class="thumbnail-box">
                 <img
@@ -121,7 +121,7 @@
                     id="profile-img"
                     accept="image/*"
                     style="display: none"
-                    name="profileImage"
+                    name="clubProfile"
             />
         </div>
         <label for="writer">작성자</label>

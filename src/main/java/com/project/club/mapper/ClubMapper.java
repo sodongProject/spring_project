@@ -1,6 +1,7 @@
 package com.project.club.mapper;
 
 import com.project.club.common.Search;
+import com.project.club.dto.ApplicantDto;
 import com.project.club.dto.ClubFindAllDto;
 import com.project.club.entity.Club;
 import org.apache.ibatis.annotations.Mapper;
@@ -36,6 +37,13 @@ public interface ClubMapper {
     // 위에 유저스클럽스에 저장시킬때 club_member_max 가 증가되어야함
     void userCountUp(@Param("clubNo") long clubNo);
 
-}
 
+    // 가입신청했을때 유저스클럽스에 넣어!
+    void insertUserClub(@Param("clubNo") long clubNo,
+                        @Param("account") String account);
+
+
+    List<ApplicantDto> findApplicants(@Param("clubNo") long clubNo);
+
+}
 

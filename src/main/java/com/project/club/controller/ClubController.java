@@ -2,12 +2,16 @@ package com.project.club.controller;
 
 import com.project.club.common.PageMaker;
 import com.project.club.common.Search;
+import com.project.club.dto.ApplicantDto;
+import com.project.club.dto.ClubDetailResponseDto;
 import com.project.club.dto.ClubListResponseDto;
 import com.project.club.dto.ClubWriteRequestDto;
 import com.project.club.entity.Club;
 import com.project.club.service.ClubService;
+import com.project.club.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +25,9 @@ import java.util.List;
 public class ClubController {
 
     private final ClubService clubService;
+
+    @Value("${file.upload.root-path}")
+    private String rootPath;
 
     // 1. 전체조회
     @GetMapping("/list")
@@ -41,7 +48,9 @@ public class ClubController {
     // 3. 게시글 등록 요청 (/club/write : POST)
     @PostMapping("/write")
     public String write(ClubWriteRequestDto C) {
-        clubService.insert(C);
+
+        String profilePath = FileUtil.uploadFile(rootPath, C.getClubProfile());
+        clubService.insert(C, profilePath);
         return "redirect:/club/list";
     }
 
@@ -55,7 +64,7 @@ public class ClubController {
     // 5. 상세조회 요청
     @GetMapping("/detail")
     public String detail(@RequestParam("bno") long bno, Model model) {
-        Club club = clubService.detail(bno);
+        ClubDetailResponseDto club = clubService.detail(bno);
         log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
         model.addAttribute("club", club);
         return "club/detail";
@@ -67,4 +76,22 @@ public class ClubController {
         clubService.increaseUserCount(clubNo);
         return "redirect:/club/detail?bno=" + clubNo;
     }
+
+    // 7. 클럽 가입 요청
+    @PostMapping("/join")
+    public String joinClub(@RequestParam("clubNo") long clubNo,
+                           @RequestParam("account") String account) {
+        clubService.joinClub(clubNo, account);
+        return "redirect:/club/detail?bno=" + clubNo;
+    }
+
+    // 8. 가입 신청자 목록 조회
+    @GetMapping("/applicants")
+    public String viewApplicants(@RequestParam("clubNo") long clubNo, Model model) {
+        List<ApplicantDto> applicants = clubService.getApplicants(clubNo);
+        model.addAttribute("applicants", applicants);
+        return "club/applicants";
+    }
+
+
 }

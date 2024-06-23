@@ -1,9 +1,7 @@
 package com.project.club.service;
 
 import com.project.club.common.Search;
-import com.project.club.dto.ClubFindAllDto;
-import com.project.club.dto.ClubListResponseDto;
-import com.project.club.dto.ClubWriteRequestDto;
+import com.project.club.dto.*;
 import com.project.club.entity.Club;
 import com.project.club.mapper.ClubMapper;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +32,9 @@ public class ClubService {
     }
 
     // 등록 요청 처리
-    public void insert(ClubWriteRequestDto dto) {
+    public void insert(ClubWriteRequestDto dto, String profilePath) {
         Club club = dto.toEntity();
+        club.setClubProfile(profilePath);
         clubMapper.save(club);
 
         // 동호회 가입정보 가져오기
@@ -55,13 +54,24 @@ public class ClubService {
         return isDeleted;
     }
 
-    public Club detail(long bno) {
-        return clubMapper.findOne(bno);
+    public ClubDetailResponseDto detail(long bno) {
+        Club club = clubMapper.findOne(bno);
+        return new ClubDetailResponseDto(club);
     }
 
     // 사용자 수 증가시키기 메서드
     public void increaseUserCount(long clubNo) {
         clubMapper.userCountUp(clubNo);
     }
-}
 
+    public void joinClub(long clubNo, String account) {
+        // 사용자 클럽 가입 정보 추가
+        clubMapper.insertUserClub(clubNo, account);
+        // 클럽의 사용자 수 증가
+        clubMapper.userCountUp(clubNo);
+    }
+
+    public List<ApplicantDto> getApplicants(long clubNo) {
+        return clubMapper.findApplicants(clubNo);
+    }
+}

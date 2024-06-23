@@ -81,7 +81,7 @@
                         </div>
                         <div class="btnCenter">
                             <button class="btn">상세보기</button>
-                            <button class="btn join-btn" data-href="/club/joinClub?clubNo=${b.clubNo}">가입하기</button>
+                            <button class="btn join-btn" data-href="/club/join?clubNo=${b.clubNo}">가입하기</button>
                         </div>
                     </div>
                 </div>
@@ -93,6 +93,7 @@
 
 <!-- 게시글 목록 하단 영역 -->
 <div class="bottom-section">
+
 
     <!-- 페이지 버튼 영역 -->
     <nav aria-label="Page navigation example">
