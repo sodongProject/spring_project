@@ -2,6 +2,7 @@ package com.project.club.dto;
 
 import com.project.club.entity.Club;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Setter @Getter @ToString
 @EqualsAndHashCode
@@ -14,6 +15,7 @@ public class ClubWriteRequestDto {
     private String content;
     private String title;
     private Boolean clubCompetition = false; // 기본값 false
+    private MultipartFile clubProfile;
 
     public Club toEntity() {
         Club C = new Club();

@@ -61,13 +61,13 @@
             <div class="card-wrapper">
                 <div class="container" data-bno="${b.clubNo}">
                     <div class="top-section">
-                        <button class="del-btn">
+                        <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
                             <i class="fas fa-times"></i>
                         </button>
                         <i class='bx bxs-moon'></i>
                     </div>
                     <div class="middle-section">
-                        <img class="image" src="" alt="">
+                        <img class="image" src="/assets/img/club/image-add.png" alt="profile image"/>
                         <div class="view">
                             <i class="fas fa-eye"></i>
                             <span class="view-count">${b.view}</span>
@@ -294,19 +294,18 @@
     appendActivePage();
     fixSearchOption();
 
-    const MoonIcon = document.querySelector('.bxs-moon');
-    const container = document.querySelector('.container');
+    document.querySelectorAll('.container').forEach(container => {
+        const moonIcon = container.querySelector('.bxs-moon');
 
-    MoonIcon.addEventListener('click', () => {
-        MoonIcon.classList.toggle('bxs-moon');
-        if (MoonIcon.classList.toggle('bxs-sun')) {
-            container.classList.add('active')
-        } else {
-            container.classList.remove('active')
-        }
-
+        moonIcon.addEventListener('click', () => {
+            moonIcon.classList.toggle('bxs-moon');
+            if (moonIcon.classList.toggle('bxs-sun')) {
+                container.classList.add('active');
+            } else {
+                container.classList.remove('active');
+            }
+        });
     });
-
 
 </script>
 </body>
