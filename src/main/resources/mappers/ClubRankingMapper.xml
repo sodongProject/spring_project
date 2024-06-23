@@ -6,26 +6,27 @@
 <mapper namespace="com.project.mainpage.mapper.ClubRankingMapper">
 
     <!-- 회원 가장 많은 동호회 -->
-    <select id="mostMember" resultType="com.project.mainpage.dto.response.ClubListDto">
+    <select id="mostMember" resultType="com.project.mainpage.entity.ClubRanking">
         SELECT *
         FROM clubs
         ORDER BY club_member_max DESC
     </select>
 
     <!-- 가장 최근에 생긴 동호회 -->
-    <select id="recentClub" resultType="com.project.mainpage.dto.response.ClubListDto">
+    <select id="recentClub" resultType="com.project.mainpage.entity.ClubRanking">
         SELECT *
         FROM clubs
         ORDER BY club_created_at DESC
     </select>
 
     <!-- 1년 동안 스케줄이 가장 많은 동호회 -->
-<!--    <select id="mostSchedule" resultType="com.project.mainpage.dto.response.ClubListDto">-->
-
-<!--    </select>-->
-
-
-
-
+    <select id="mostScheduled" resultType="com.project.mainpage.entity.ClubRanking">
+        SELECT c.*
+        FROM clubs c
+        JOIN schedules s ON c.club_no = s.club_no
+        WHERE s.schedule_date >= DATE_SUB(NOW(), INTERVAL 1 YEAR)
+        GROUP BY c.club_no
+        ORDER BY COUNT(s.schedule_id) DESC
+    </select>
 
 </mapper>

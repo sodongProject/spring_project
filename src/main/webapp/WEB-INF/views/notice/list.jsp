@@ -13,9 +13,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         height: 70px;
         width: 100px;
       }
+
+      .club-ranking {
+        border: 1px solid #000;
+        height: 70px;
+        width: 100px;
+      }
     </style>
   </head>
   <body>
+
     <div class="main-title-wrapper">
       <h1 class="main-title">공지사항</h1>
       <button class="add-btn">새 글 쓰기</button>
@@ -32,6 +39,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </c:forEach>
       </c:if>
     </div>
+
+    <%@ include file="../club-ranking/most-member.jsp" %>
+    <%@ include file="../club-ranking/recent.jsp" %>
+    <%@ include file="../club-ranking/most-scheduled.jsp" %>
+
 
     <script>
       // write button event

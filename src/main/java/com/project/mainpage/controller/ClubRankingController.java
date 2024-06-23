@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/club")
+@RequestMapping("/club-ranking")
 @RequiredArgsConstructor
 @Slf4j
 public class ClubRankingController {
@@ -23,31 +23,28 @@ public class ClubRankingController {
     private final ClubRankingService service;
 
     // 가장 가입자가 많은 동호회
-    @GetMapping("/club-ranking")
-    public String mostMember(ClubRanking club, Model model) {
-
-        // 서비스에게 조회 요청 위임
-        List<ClubListDto> memberList = service.member(club);
-
-        // JSP 파일에 해당 목록데이터를 보냄
+    @GetMapping("/most-member")
+    public String mostMember(Model model) {
+        List<ClubListDto> memberList = service.member();
         model.addAttribute("memberList", memberList);
-
-        return "notice/list";
+        System.out.println("memberList = " + memberList);
+        return "redirect:/notice/list";
     }
 
      // 가장 최근에 만들어진 동호회
-     @GetMapping("/club-ranking")
-     public String recentClub(ClubRanking club, Model model) {
-
-         // 서비스에게 조회 요청 위임
-         List<ClubListDto> recentList = service.member(club);
-
-         // JSP 파일에 해당 목록데이터를 보냄
+     @GetMapping("/recent")
+     public String recentClub(Model model) {
+         List<ClubListDto> recentList = service.member();
          model.addAttribute("recentList", recentList);
-
-         return "notice/list";
+         return "redirect:/notice/list";
      }
 
     // 1년 동안 스케줄이 가장 많은 동호회
+    @GetMapping("/most-scheduled")
+    public String mostScheduled(Model model) {
+        List<ClubListDto> scheduledList = service.mostScheduled();
+        model.addAttribute("scheduledList", scheduledList);
+        return "redirect:/notice/list";
+    }
 
 }
