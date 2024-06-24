@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApplicantDto {
+    private String account;
     private String userName;
     private double temperature;
 }

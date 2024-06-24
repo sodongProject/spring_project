@@ -15,6 +15,7 @@
         <tr>
             <th>이름</th>
             <th>체온</th>
+            <th>승인</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,13 @@
             <tr>
                 <td>${applicant.userName}</td>
                 <td>${applicant.temperature}</td>
+                <td>
+                    <form action="/club/approve" method="post">
+                        <input type="hidden" name="account" value="${applicant.userName}">
+                        <input type="hidden" name="clubNo" value="${param.clubNo}">
+                        <button type="submit">승인</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

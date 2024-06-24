@@ -71,7 +71,14 @@ public class ClubService {
         clubMapper.userCountUp(clubNo);
     }
 
+    // 가입신청 누른 사람조회
     public List<ApplicantDto> getApplicants(long clubNo) {
         return clubMapper.findApplicants(clubNo);
+    }
+
+    // 가입 승인시 권한 중간처리
+    public void approveApplicant(Long clubNo, String account) {
+        log.info("Approving applicant for account: {}, clubNo: {}", account, clubNo);
+        clubMapper.approveApplicant(clubNo, account);
     }
 }

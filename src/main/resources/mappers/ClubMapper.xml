@@ -112,13 +112,21 @@
     <!--    가입신청자 리스트를 모아볼 수 있는 xml -->
     <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
         SELECT
-        u.user_name,
-        u.temperature
-        FROM users u
-        JOIN users_clubs uc
-        ON u.account = uc.account
-        WHERE uc.club_no = #{clubNo}
-        AND uc.user_club_application_status = 'PENDING'
+        U.user_name,
+        U.temperature
+        FROM users U
+        JOIN users_clubs UC
+        ON U.account = UC.account
+        WHERE UC.club_no = #{clubNo}
+        AND uc.user_club_role = 'PENDING'
     </select>
+
+    <update id="approveApplicant">
+        UPDATE users_clubs
+        SET user_club_role = 'MEMBER',
+        user_club_application_status = 'APPROVED'
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
 
 </mapper>

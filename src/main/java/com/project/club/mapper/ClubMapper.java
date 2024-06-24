@@ -45,5 +45,9 @@ public interface ClubMapper {
 
     List<ApplicantDto> findApplicants(@Param("clubNo") long clubNo);
 
+    // 가입 승인 시 member 로 권한 상승
+    void approveApplicant(@Param("clubNo") Long clubNo,
+                          @Param("account") String account);
+
 }
 

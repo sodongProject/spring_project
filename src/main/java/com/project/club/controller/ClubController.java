@@ -93,5 +93,13 @@ public class ClubController {
         return "club/applicants";
     }
 
+    // 9. 가입 승인 시 권한 변경
+    @PostMapping("/approve")
+    public String approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
+        log.info("Approve request received for account: {}, clubNo: {}", account, clubNo);
+        clubService.approveApplicant(clubNo, account);
+        return "redirect:/club/applicants?clubNo=" + clubNo;
+    }
+
 
 }
