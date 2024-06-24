@@ -3,7 +3,7 @@ package com.project.myPage.service;
 
 import com.project.entity.Users;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
-import com.project.myPage.mapper.myPageMapper;
+import com.project.myPage.mapper.myPageMappers;
 import com.project.util.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
@@ -12,14 +12,30 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
+import static com.project.util.LoginUtil.LOGIN;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MyPageService {
 
 
-    private myPageMapper myPageMapper;
+    private final myPageMappers myPageMapper;
 
+
+    // 로그인 유저 저장
+    public void saveLoginUser(String account, HttpSession session) {
+        Users user = myPageMapper.findOne(account);
+        LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto(user);
+
+        session.setAttribute(LOGIN, loginUserInfoDto);
+    }
+
+    public Users findOneByAccount(String account){
+        Users one = myPageMapper.findOne(account);
+        System.out.println("one = " + one);
+        return one;
+    }
     /**
      * 세션 정보로 해당 유저 찾기 요청
      * @param session 세션 정보
@@ -52,6 +68,7 @@ public class MyPageService {
         Users findedUser = findUserBySession(session);
 
         return LoggedInUserInfoDto.builder()
+                .account(findedUser.getAccount())
                 .name(findedUser.getUserName())
                 .email(findedUser.getEmail())
                 .adress(findedUser.getAddress())

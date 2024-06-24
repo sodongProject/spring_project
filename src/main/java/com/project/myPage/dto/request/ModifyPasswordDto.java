@@ -8,9 +8,8 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Builder
 public class ModifyPasswordDto {
-    private String initialPassword;
+    private String oldPassword;
     private String newPassword;
 }

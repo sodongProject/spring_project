@@ -7,5 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <h1>포인트 환전</h1>
 </body>
 </html>

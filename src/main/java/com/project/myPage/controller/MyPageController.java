@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpSession;
 public class MyPageController {
 
     private final MyPageService myPageService;
+
+
 
     // @ 마이페이지 로그인상태로 진입 가능
 
@@ -34,12 +37,18 @@ public class MyPageController {
      * @return jsp
      */
     @GetMapping("/view")
-    @ResponseBody
     String view(HttpSession session, Model model) {
-        LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
 
+
+        myPageService.saveLoginUser("mmm", session);
+        LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
+        System.out.println("loggedInUserInfoDto = " + loggedInUserInfoDto);
+
+        model.addAttribute("dto", loggedInUserInfoDto);
         return "myPage/myPage-viewInformations";
     }
+
+
 
     /**
      * 비밀번호 검증 요청
@@ -47,16 +56,27 @@ public class MyPageController {
      * @param model 전송 데이터 - result: 검증 true/false
      * @return jsp
      */
-    @PostMapping("/confirmPw")
-    String confirmPw(HttpSession session, String inputPw, Model model) {
-        boolean isCorrect = myPageService.confirmPassword(session, inputPw);
+    @GetMapping("/confirmPw")
+    String confirmPw(HttpSession session, Model model) {
+        myPageService.saveLoginUser("mmm", session);
+        return "myPage/myPage-requiredPassword";
+    }
 
+    @PostMapping("/confirmPw")
+    String confirmPw(HttpSession session, String inputPw, Model model, HttpServletRequest request) {
+        myPageService.saveLoginUser("mmm", session);
+
+        boolean isCorrect = myPageService.confirmPassword(session, inputPw);
+        String referer = request.getHeader("Referer");
         if(isCorrect){
-            myPageService.modifyPassword(session, inputPw);
+//            myPageService.modifyPassword(session, inputPw);
+            return "redirect:"+ referer;
         }
         // 비번 일치 여부 전송
         model.addAttribute("result", isCorrect);
-        return "redirect:/myPage/myPage-modifyInformations";
+//        return "myPage/myPage-modifyInformations";
+//        return "redirect:/confirmPw";
+        return "redirect:"+ referer;
     }
 
 

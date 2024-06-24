@@ -6,7 +6,6 @@ import lombok.*;
 @Getter @Setter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Builder
 public class ModifyPhoneNumberDto {
 

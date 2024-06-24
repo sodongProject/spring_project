@@ -18,4 +18,7 @@ public class LoggedInUserInfoDto {
     private Gender gender;
     private double temperature;
     private double userPoint;
+
+
+
 }

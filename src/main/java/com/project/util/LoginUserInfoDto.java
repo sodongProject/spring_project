@@ -20,7 +20,7 @@ public class LoginUserInfoDto {
     private Auth auth;
     private double temperature;
 
-    LoginUserInfoDto(Users user) {
+    public LoginUserInfoDto(Users user) {
         this.account = user.getAccount();
         this.userName = user.getUserName();
         this.email = user.getEmail();

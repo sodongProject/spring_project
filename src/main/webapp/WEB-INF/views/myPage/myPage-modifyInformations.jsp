@@ -7,5 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
+  비밀번호 검증 결과 ${result}
 </body>
 </html>

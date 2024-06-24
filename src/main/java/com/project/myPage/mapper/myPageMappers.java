@@ -4,7 +4,9 @@ import com.project.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface myPageMapper {
+public interface myPageMappers {
+
+
 
 // 로그인 유저 정보 찾기
     Users findOne(String account);
