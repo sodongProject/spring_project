@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public enum Auth {
-    COMMON("일반회원", 1),
+    USER("일반회원", 1),
     ADMIN("관리자회원", 10);
 
     private String desc; //권한 역할

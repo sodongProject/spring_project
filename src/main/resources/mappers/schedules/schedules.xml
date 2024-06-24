@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.entity.Schedules.ScheduleMapper">
+<mapper namespace="com.project.schedules.mapper.ScheduleMapper">
     <select id="findOne" resultType="schedules">
         SELECT
             *
@@ -15,7 +15,6 @@
         SELECT
         schedule_no,
         schedule_title,
-        schedule_image,
         schedule_view_count,
         schedule_count,
         schedule_at
@@ -24,12 +23,41 @@
         ORDER BY schedule_created_at DESC
     </select>
 
+    <select id="findLastSaveSchedule" resultType="schedules">
+        SELECT *
+        FROM schedules
+        WHERE schedule_no = LAST_INSERT_ID()
+    </select>
+
+    <select id="userInClub" resultType="long">
+        SELECT user_club_join_no
+        FROM users_clubs
+        WHERE club_no = #{clubNo}
+        AND account = #{account}
+    </select>
+
+    <select id="findUser" resultType="com.project.entity.Users">
+        SELECT
+            *
+        FROM Users
+        WHERE account = #{account}
+    </select>
+
     <insert id="save">
         INSERT INTO schedules
-            (schedule_title, schedule_content, schedule_image, account, club_no, schedule_at)
+            (schedule_title, schedule_content, account, club_no, schedule_at)
         VALUES
-            (#{scheduleTitle}, #{scheduleContent}, #{scheduleImage}, #{account}, #{clubNo}, #{scheduleAt})
+            (#{scheduleTitle}, #{scheduleContent}, #{account}, #{clubNo}, #{scheduleAt})
     </insert>
+
+    <insert id="registerUserIntoSchedule">
+        INSERT INTO users_schedules
+        (schedule_no, user_club_join_no)
+        VALUES
+        (#{scheduleNo}, #{userClubJoinNo})
+    </insert>
+
+
 
     <delete id="delete">
         DELETE FROM schedules
@@ -41,4 +69,18 @@
         SET schedule_view_count = schedule_view_count + 1
         WHERE schedule_no = #{scheduleNo}
     </update>
+
+    <update id="upScheduleCount">
+        UPDATE schedules
+        SET schedule_count = schedule_count + 1
+        WHERE schedule_no = #{scheduleNo}
+    </update>
+
+    <update id="setUserRoleInSchedule">
+        UPDATE users_schedules
+        SET user_schedule_role = 'ADMIN'
+        WHERE schedule_no = #{scheduleNo}
+        AND user_club_join_no = #{userClubJoinNo}
+    </update>
+
 </mapper>
