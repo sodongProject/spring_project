@@ -16,6 +16,7 @@
         schedule_no,
         schedule_title,
         schedule_view_count,
+        schedule_content,
         schedule_count,
         schedule_at
         FROM schedules

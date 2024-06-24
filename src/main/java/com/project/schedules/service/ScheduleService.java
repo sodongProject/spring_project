@@ -74,4 +74,9 @@ public class ScheduleService {
 
         return scheduleMapper.findAll(clubNo);
     }
+
+    public void findOneSchedule(long scheduleNo) {
+
+        scheduleMapper.findOne(scheduleNo);
+    }
 }

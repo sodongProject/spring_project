@@ -71,6 +71,13 @@
     <meta charset="UTF-8">
     <title>스케줄 생성하기</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/schedules/schedules.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
 <h1>스케줄 생성하기!</h1>
@@ -101,8 +108,8 @@
     </div>
 </div>
 
-<div class="schedule_list">
-    <div id="schedule_box">
+<div id="wrap">
+    <div class="card-container">
 
     </div>
 </div>
@@ -126,6 +133,8 @@
             modal.style.display = "none";
         }
     };
+
+
 </script>
 
 <script type="module" src="/assets/js/schedules/list.js"></script>

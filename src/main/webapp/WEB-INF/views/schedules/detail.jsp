@@ -10,7 +10,7 @@
 <body>
 
 <h1>스케줄 상세보기</h1>
-<div>제목 ${schedule.scheduleTitle}</div>
+<div>제목${schedule.scheduleTitle}</div>
 
 </body>
 
