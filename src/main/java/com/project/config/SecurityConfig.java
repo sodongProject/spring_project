@@ -12,7 +12,7 @@ public class SecurityConfig {
     //시큐리티 기본 설정(인증 인가 처리, 초기 로그인 화면 없애기)
     @Bean // @Component(@Controller, @Service, @Repository, @Mapper)
     //내가 만든 객체가 아닐 때 사용하며 내가 만들지 않아도 주입받을 수 있다
-    public SecurityFilterChain fillterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
         http
                 .csrf() .disable() //csrf 토큰 공격방지 기능 off

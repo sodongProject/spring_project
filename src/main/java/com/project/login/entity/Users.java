@@ -30,6 +30,11 @@ public class Users {
     private Double remainedPoint;
     private Boolean isWithdrawn;
 
+    public Users(String account, String password, String userName) {
+        this.account = account;
+        this.password = password;
+    }
+
     public String getProfileImage() {
         return profileImage;
     }

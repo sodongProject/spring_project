@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <h2>Welcome ${loginUserName}</h2>
     <button onclick="saveReq()">글 작성</button>
     <a href="/index">글 작성 링크</a>
 

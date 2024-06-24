@@ -20,9 +20,10 @@
             <a href="/users/sign-in" id="signin">SIGN IN</a>
           </li>
           <li>
-            <a href="/users/sign-out" id="signup">SIGN UP</a>
+            <a href="/users/sign-up" id="signup">SIGN UP</a>
           </li>
         </ul>
+        
 
         <!-- Form -->
         <form action="/users/sign-up" name="signup" id="signUpForm" method="post" enctype="multipart/form-data">
@@ -45,14 +46,14 @@
           <div class="input__block">
             <p>비밀번호를 재입력해주세요</p>
             <span id="idChk2"></span>
-            <input id="password_check" class="form-control tooltipstered" type="password" name="password" placeholder="Confirm Password"  required />
+            <input id="password_check" class="form-control tooltipstered" type="password" name="password2" placeholder="Confirm Password"  required />
           </div>
 
           <!-- email 입력 -->
           <div class="input__block">
             <p>이메일을 입력해주세요</p>
-            <span id="emialChk"></span>
-            <input id="user_email" class="form-control tooltipstered" type="semail" name="email" placeholder="Email" required />
+            <span id="emailChk"></span>
+            <input id="user_email" class="form-control tooltipstered" type="email" name="email" placeholder="Email" required />
           </div>
 
           <br>
@@ -81,18 +82,20 @@
             <!-- phoneNumber 입력 -->
           <div class="input__block">
             <p>연락처를 입력해주세요</p>
-            <input id="user_phone" class="form-control tooltipstered" type="text" name="phoneNumber" placeholder="Email"  required />
+            <span id="phoneNumberChk"></span>
+            <input id="user_phone" class="form-control tooltipstered" type="text" name="phoneNumber" placeholder="PhoneNumber"  required />
           </div>
 
           <!-- address 입력 -->
           <div class="input__block">
             <p>주소를 입력해주세요</p>
+            <span id="addressChk"></span>
             <input id="user_address" class="form-control tooltipstered" type="text" name="address" placeholder="Address" required />
           </div>
           
 
           <!-- sign up button -->
-          <button type="submit" class="form-controller signup-btn">
+          <button type="submit" id="signup-btn" class="form-controller">
             Sign Up
           </button>
         </form>
@@ -108,6 +111,7 @@
       </footer>
 
       <!-- <script src="/assets/js/validation.js"></script> -->
-      <script src="/assets/js/validate.js"></script>
+      <!-- <script src="/assets/js/validate.js"></script> -->
+      <script type="module" src="/assets/js/signUp.js"></script>
 </body>
 </html>

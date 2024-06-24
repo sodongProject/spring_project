@@ -4,10 +4,13 @@ import com.project.entity.Gender;
 import com.project.login.dto.SignInDto;
 import com.project.login.dto.SignUpDto;
 import com.project.login.entity.Users;
+import com.project.login.mapper.UsersMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +19,10 @@ class UsersServiceTest {
 
     @Autowired
     UsersService usersService;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    private UsersMapper usersMapper;
 
     @Test
     @DisplayName("회원가입하면 비밀번호가 인코딩된다")
@@ -104,14 +111,13 @@ class UsersServiceTest {
     }
 
     @Test
-    @DisplayName("비밀번호 숫자 및 특수번호 넣어도 성공하는 테스트")
-    void loginSuccessTest() {
+    @DisplayName("로그인 성공 테스트")
+    void SuccessTest2(){
         //given
         SignInDto dto = SignInDto.builder()
-                .account("user1234")
-                .password("password123!") // 패턴에 맞는 비밀번호
+                .account("user123")
+                .password("password123!")
                 .build();
-
         //when
         LoginResult result = usersService.authenticate(dto);
 
@@ -139,6 +145,39 @@ class UsersServiceTest {
         assertTrue(isDuplicateAccount, "중복된 아이디가 중복되지 않은 것으로 나타났습니다.");
     }
 
+    @BeforeEach
+    @Test
+    void setUp2() {
+
+        // 테스트 사용자 생성
+        SignUpDto signUpDto = SignUpDto.builder()
+                .account("user9876")
+                .password("user9876!")
+                .userName("유저이")
+                .email("user9876@dafk.com")
+                .gender("F")
+                .phoneNumber("010-0202-1010")
+                .address("서울시 용산구")
+                .build();
+
+        usersService.join(signUpDto);
+    }
+
+    @Test
+    @DisplayName("로그인 성공 테스트")
+    void 로그인_성공_테스트() {
+        //given
+        SignInDto dto = SignInDto.builder()
+                .account("user123")
+                .password("user123!")
+                .build();
+
+        //when
+        LoginResult result = usersService.authenticate(dto);
+
+        //then
+        assertEquals(LoginResult.SUCCESS, result);
+    }
 
 
 

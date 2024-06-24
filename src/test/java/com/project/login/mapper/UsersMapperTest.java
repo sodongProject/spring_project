@@ -69,6 +69,28 @@ class UsersMapperTest {
     }
 
     @Test
+    @DisplayName("계정명이 dogdog123인 회원의 중복확인 결과 true이다")
+    void existsTest(){
+            //given
+            String acc = "dogdog123";
+            //when
+            boolean flag = usersMapper.existsById("account", acc);
+            //then
+            assertTrue(flag);
+        }
+
+    @Test
+    @DisplayName("계정명이 jhsij42인 회원은 중복확인 결과가 false이다.")
+    void existsTest2() {
+        //given
+        String acc = "jhsij42";
+        //when
+        boolean flag = usersMapper.existsById("account", acc);
+        //then
+        assertFalse(flag);
+    }
+
+    @Test
     @DisplayName("암호를 인코딩한다")
     void encodingTest(){
             //given

@@ -2,6 +2,7 @@ package com.project.login.dto;
 
 import lombok.*;
 
+@Setter
 @Getter @ToString
 @NoArgsConstructor
 @AllArgsConstructor

@@ -13,9 +13,7 @@ public interface UsersMapper {
     //회원정보 개별 조회(단일 조회)
     Users findOne(String account);
 
-    //이메일 중복 검사
-    //boolean existsById(String type, String keyword);
-
+    //아이디, 이메일, 연락처 중복 검사
     boolean existsById(
             @Param("type") String type,
             @Param("keyword") String keyword

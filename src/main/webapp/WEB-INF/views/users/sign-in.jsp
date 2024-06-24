@@ -19,32 +19,40 @@
         <!-- Links -->
         <ul class="links">
           <li>
-            <a href="#" id="signin">SIGN IN</a>
+            <a href="/users/sign-in" id="signin">SIGN IN</a>
           </li>
           <li>
-            <a href="#" id="signup">SIGN UP</a>
+            <a href="/users/sign-up" id="signup">SIGN UP</a>
           </li>
         </ul>
+  
         
         <!-- Form -->
-        <form  action="" method="post">
-          <!-- email input -->
+        <form  action="/users/sign-in" name="sign-in" method="post" id="signInForm">
+
+          <!-- account input -->
           <div class="first-input input__block first-input__block">
-             <input type="email" placeholder="Email" class="input" id="email"   />
+             <input type="text" name="account" id="signInId" class="input" maxlength="10" required="required" placeholder="Id"/>
           </div>
+
           <!-- password input -->
           <div class="input__block">
-             <input type="password" placeholder="Password" class="input" id="password"    />
+             <input type="password" size="17" maxlength="20"  placeholder="Password" class="input" id="signInPw" name="password" required="required"/>
           </div>
-          <!-- repeat password input -->
-          <div class="input__block">
-             <input type="password" placeholder="Repeat password" class="input repeat__password" id="repeat__password"    />
-          </div>
+
           <!-- sign in button -->
-          <button class="signin__btn">
+          <input type="submit" value="로그인" id="signIn-btn" class="signin__btn">
             Sign in
-          </button>
+          </input>
+
+          <!-- auto login -->
+          <label class="auto-label" for="auto-login">
+            <span><i class="fas fa-sign-in-alt"></i>자동 로그인</span>
+            <input type="checkbox" id="auto-login" name="autoLogin">
+        </label>
+
         </form>
+
         <!-- separator -->
         <div class="separator">
           <p>OR</p>
@@ -71,8 +79,21 @@
         
       </footer>
 
+      <!-- <script src="/assets/js/signIn.js"></script> -->
+
+      <script>
+        //서버에서 전송된 로그인 검증 메시지
+        const result = '${result}';
+        console.log('result: ', result);
 
 
-      <script src="/assets/js/login.js"></script>
+        if(result === 'NO_ACC'){
+            alert('아이디가 존재하지 않습니다.');
+        }else if(result === 'NO_PW'){
+            alert('비밀번호가 일치하지 않습니다.');
+        }
+
+      </script>
+
 </body>
 </html>

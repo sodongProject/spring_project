@@ -2,19 +2,19 @@
 
 // 서버에 중복확인 비동기 요청
 export const checkAvailability = async (type, keyword) => {
-  const response = await fetch(`http://localhost:8383/members/check?type=${type}&keyword=${keyword}`);
+  const response = await fetch(`http://localhost:8383/users/check?type=${type}&keyword=${keyword}`);
   const flag = await response.json();
   return !flag;
 };
 
 
-// 유효성 검증에 사용될 정규표현식 패턴들 정의
+// 유효성 검증에 사용될 정규표현식 패턴들 정의=================================================
 
 // 아이디 패턴: 영문 대소문자와 숫자, 4~14글자
 const accountPattern = /^[a-zA-Z0-9]{4,14}$/;
 
 // 비밀번호 패턴: 반드시 영문, 숫자, 특수문자를 포함하여 8자 이상
-const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*?_~])[A-Za-z\d!@#$%^&*?_~]{8,}$/;
+const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[\d!@#$%^&*?_~])[A-Za-z\d!@#$%^&*?_~]{8,}$/;
 
 // 이름 패턴: 한글만 허용
 const namePattern = /^[가-힣]+$/;
@@ -78,5 +78,25 @@ export const validateInput = {
     const isAvailable = await checkAvailability('email', value);
     // 중복 여부에 따라 결과 반환
     return isAvailable ? { valid: true } : { valid: false, message: '이메일이 중복되었습니다.' };
+  },
+  // 연락처 유효성 검사 함수
+  phoneNumber: async (value) => {
+    // 빈 값 검사
+    if (!value.trim()) return { valid: false, message: '연락처는 필수값입니다!' };
+    // 정규표현식 검사
+    if (!phonePattern.test(value)) return { valid: false, message: '연락처 형식을 지켜주세요. (000-0000-0000)' };
+    // 중복 검사
+    const isAvailable = await checkAvailability('phoneNumber', value)
+    // 중복 여부에 따라 결과 반환
+    return isAvailable ? { valid: true } : { valid: false, message: '이미 등록된 연락처입니다.' };
+  },
+  // 주소 유효성 검사 함수
+  address: async (value) => {
+    // 빈 값 검사
+    if (!value.trim()) return { valid: false, message: '주소는 필수값입니다!' };
+    // 정규표현식 검사
+    if (!addressPattern.test(value)) return { valid: false, message: '주소 형식을 지켜주세요. (ex. 서울시 용산구)' };
+    // 유효한 경우
+    return { valid: true };
   }
 };

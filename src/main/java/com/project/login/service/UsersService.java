@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static com.project.login.service.LoginResult.*;
 
@@ -26,18 +30,21 @@ public class UsersService {
 
         // 비밀번호를 인코딩_암호화
         String encodedPassword = encoder.encode(dto.getPassword());
-        System.out.println("encodedPassword = " + encodedPassword);
+        //System.out.println("encodedPassword = " + encodedPassword);
         users.setPassword(encodedPassword);
 
         return usersMapper.save(users);
     }
 
     // 로그인 검증 처리
-    public LoginResult authenticate(SignInDto dto) {
+    public LoginResult authenticate(SignInDto dto, RedirectAttributes ra) {
 
         // 회원가입 했는가
         String account = dto.getAccount();
+        log.info("Authenticating account: {}", account);
+
         Users foundUser = usersMapper.findOne(account);
+        log.info("Found user: {}", foundUser);
 
         // 회원가입 안했다면
         if (foundUser == null) {
@@ -45,21 +52,27 @@ public class UsersService {
             return NO_ACC;
         }
 
-        // 비밀번호 일치한가 검사
+        // 비밀번호 일치한가
         String inputPassword = dto.getPassword(); // -> 가입한 비번
         String originPassword = foundUser.getPassword(); // -> DB에 저장된 암호화된 비번
+
+        log.info("Input password: {}", inputPassword);
+        log.info("Stored password: {}", originPassword);
 
         // 암호화된 비밀번호와 매칭
         if (!encoder.matches(inputPassword, originPassword)) {
             log.info("비밀번호 불일치");
             return NO_PW;
         }
-        log.info("{}님 로그인 성공", foundUser.getUserName());
+        log.info("{}님 로그인 성공했습니다.", foundUser.getUserName());
+        ra.addFlashAttribute("loginUserName", foundUser.getUserName());
         return SUCCESS;
     }
 
     // 아이디, 이메일 중복검사
-    public boolean checkIdentifier(String type, String keyword){
+    public boolean checkIdentifier(String type, String keyword) {
         return usersMapper.existsById(type, keyword);
     }
 }
+
+

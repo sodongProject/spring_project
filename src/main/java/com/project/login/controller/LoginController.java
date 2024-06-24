@@ -1,13 +1,18 @@
 package com.project.login.controller;
 
+import com.project.login.dto.SignInDto;
 import com.project.login.dto.SignUpDto;
+import com.project.login.service.LoginResult;
 import com.project.login.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -18,13 +23,6 @@ public class LoginController {
 
     private final UsersService usersService;
 
-    // 로그인 페이지 열기
-    @GetMapping("/sign-in")
-    public String signInPage() {
-        log.info("/users/sign-in GET : forwarding to sign-in.jsp");
-        return "users/sign-in";
-    }
-
     // 회원가입 양식 열기
     @GetMapping("/sign-up")
     public String signUpPage() {
@@ -34,14 +32,14 @@ public class LoginController {
 
     // 회원가입 요청 처리
     @PostMapping("/sign-up")
-    public String signUp( @ModelAttribute SignUpDto signUpDto) {
+    public String signUp( @ModelAttribute SignUpDto dto) {
         log.info("/users/sign-up POST");
-        log.info("SignUp request: {}", signUpDto);
+        log.info("SignUp request: {}", dto);
 
-        boolean flag = usersService.join(signUpDto);  // 회원가입 서비스 호출
+        boolean flag = usersService.join(dto);  // 회원가입 서비스 호출
 
         // ⭐수정해야함⭐ 회원가입 성공 시 메인 페이지로, 실패 시 회원가입 페이지로 리다이렉트
-        return flag ? "redirect:/main/list" : "redirect:/users/sign-up";
+        return flag ? "redirect:/index" : "redirect:/users/sign-up";
     }
 
     // 아이디, 이메일 중복검사 비동기 요청 처리
@@ -53,6 +51,34 @@ public class LoginController {
         return ResponseEntity
                 .ok()
                 .body(flag);
+    }
+
+
+    // 로그인 양식 열기 ==================================================
+    @GetMapping("/sign-in")
+    public void signIn() {
+        log.info("/users/sign-in GET : forwarding to sign-in.jsp");
+    }
+
+    //로그인 요청 처리✨
+    @PostMapping("/sign-in")   //get방식으로 하면 로그인 노출됨
+    public String signIn(SignInDto dto, RedirectAttributes ra, HttpServletRequest request){ //LoginDto.java에서 사용한 이름을 쓴다
+        log.info("/users/sign-in POST");
+        log.debug("parameter: {}", dto);
+
+        // 세션 열기
+        HttpSession session = request.getSession();
+
+        LoginResult result = usersService.authenticate(dto, ra);
+        log.info("Authentication result: {}", result);
+
+        ra.addFlashAttribute("result", result);
+
+        if (result == LoginResult.SUCCESS) {
+            return "redirect:/index"; // 로그인 성공시
+        }
+
+        return "redirect:/users/sign-in"; // 로그인 실패시
     }
 
 }

@@ -26,9 +26,12 @@
         <if test="type == 'account'">
             WHERE account = #{keyword}
         </if>
-<!--        <if test="type == 'email'">-->
-<!--            WHERE email = #{keyword}-->
-<!--        </if>-->
+        <if test="type == 'email'">
+            WHERE email = #{keyword}
+        </if>
+        <if test="type == 'phoneNumber'">
+            WHERE phone_number = #{keyword}
+        </if>
     </select>
 
     <update id = "updateAutoLogin">
