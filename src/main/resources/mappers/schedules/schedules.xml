@@ -15,7 +15,6 @@
         SELECT
         schedule_no,
         schedule_title,
-        schedule_image,
         schedule_view_count,
         schedule_count,
         schedule_at

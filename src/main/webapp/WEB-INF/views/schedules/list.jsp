@@ -80,32 +80,30 @@
 <div id="scheduleModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form action="/schedules/write" method="POST">
+        <form>
+            <div id="club_no"  >
+                <input type="number" name="clubNo" value="1" disabled>
+            </div>
             <div class="schedule_title">
                 <label>제목</label>
-                <input type="text" class="title" name="scheduleTitle">
+                <input id="schedule_title" type="text" class="title" name="scheduleTitle">
             </div>
             <div class="schedule_content">
                 <label>내용</label>
-                <textarea class="content" name="scheduleContent"></textarea>
+                <textarea id="schedule_content" class="content" name="scheduleContent"></textarea>
             </div>
             <div class="schedule_at">
-                <label>모임 시간
-                <input type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">
-                </label>
+                <label>모임 시간</label>
+                <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">
             </div>
-            <button type="submit">등록</button>
+            <button id="add_schedule_button" type="submit">등록</button>
         </form>
     </div>
 </div>
 
 <div class="schedule_list">
-    <div class="schedule_box">
-        <h1 class="schedule_list_title">스케줄 제목</h1>
-        <p class="schedule_list_writer">스케줄 개설자</p>
-        <p class="schedule_list_content">스케줄 내용</p>
-        <p class="schedule_list_at">모임 시간</p>
-        <p class="schedule_list_count">참여자 수 ?/?</p>
+    <div id="schedule_box">
+
     </div>
 </div>
 
@@ -129,5 +127,7 @@
         }
     };
 </script>
+
+<script type="module" src="/assets/js/schedules/list.js"></script>
 </body>
 </html>

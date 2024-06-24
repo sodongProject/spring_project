@@ -2,6 +2,7 @@ package com.project.schedules.service;
 
 import com.project.entity.Schedules;
 import com.project.entity.Users;
+import com.project.schedules.dto.ScheduleFindAllDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.mapper.ScheduleMapper;
 import com.project.util.LoginUserInfoDto;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
 
 import static com.project.util.LoginUtil.LOGIN;
 
@@ -65,5 +68,10 @@ public class ScheduleService {
         LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto(user);
 
         session.setAttribute(LOGIN, loginUserInfoDto);
+    }
+
+    public List<ScheduleFindAllDto> findAllSchedule(long clubNo) {
+
+        return scheduleMapper.findAll(clubNo);
     }
 }

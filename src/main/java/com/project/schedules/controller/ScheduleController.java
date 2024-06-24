@@ -36,18 +36,18 @@ public class ScheduleController {
         return "/schedules/list";
     }
 
-    @PostMapping("/write")
-    public String write(ScheduleWriteDto dto, HttpSession session) {
-
-
-        System.out.println("dto = " + dto);
-        System.out.println("dto.getScheduleAt() = " + dto.getScheduleAt());
-        scheduleService.addSchedule(dto, session);
-
-
-        return "/schedules/list";
-
-    }
+//    @PostMapping("/write")
+//    public String write(ScheduleWriteDto dto, HttpSession session) {
+//
+//
+//        System.out.println("dto = " + dto);
+//        System.out.println("dto.getScheduleAt() = " + dto.getScheduleAt());
+//        scheduleService.addSchedule(dto, session);
+//
+//
+//        return "/schedules/list";
+//
+//    }
 
 //    @PostMapping
 //    public ResponseEntity<?> posts(

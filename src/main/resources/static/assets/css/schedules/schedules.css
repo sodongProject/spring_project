@@ -1,63 +1,4 @@
 
-/*.schedule_modal {*/
-/*    position: fixed;*/
-/*    left: 0;*/
-/*    top: 0;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    background: rgba(0,0,0,0.5);*/
-/*    width: 100%;*/
-/*    height: 100vh;*/
-
-/*}*/
-
-/*.schedule_modal form {*/
-/*    background: #fff;*/
-/*    width: 800px;*/
-/*    height: 500px;*/
-/*    margin: 0 auto;*/
-/*    position: relative;*/
-/*}*/
-
-/*.schedule_title {*/
-/*    width: 350px;*/
-/*    border: 1px black solid;*/
-/*    margin: 20px;*/
-/*    height: 50px;*/
-/*    position:relative;*/
-/*}*/
-/*.schedule_title label {*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*}*/
-/*.schedule_title input {*/
-/*    position: absolute;*/
-/*    left: 0;*/
-/*    bottom: 0;*/
-/*}*/
-/*.schedule_content {*/
-/*    width: 350px;*/
-/*    border: 1px black solid;*/
-/*    margin: 20px;*/
-/*    height: 300px;*/
-/*}*/
-/*.schedule_image {*/
-/*    width: 350px;*/
-/*    border: 1px black solid;*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    right: 0;*/
-/*    margin: 20px;*/
-/*    height: 300px;*/
-/*}*/
-/*.schedule_at {*/
-/*    width: 700px;*/
-/*    border: 1px black solid;*/
-/*    margin: 20px;*/
-/*    height: 50px;*/
-/*}*/
 
 /* styles.css */
 body {
@@ -128,6 +69,17 @@ button {
     border-radius: 4px;
 }
 
+#aaa {
+    border: 1px solid black;
+    position: relative;
+}
+
+#detail_btn {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    border: 1px solid black;
+}
 
 
 

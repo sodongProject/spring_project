@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @RestController
@@ -22,19 +23,29 @@ public class ScheduleApiController {
 
     private final ScheduleService scheduleService;
 
-    @PostMapping
+    @PostMapping("/list")
     public ResponseEntity<?> addSchedules(
             @Validated @RequestBody ScheduleWriteDto dto
             , BindingResult result // 입력값 검증 결과 데이터를 갖고 있는 객체
             , HttpSession session
     ) {
         scheduleService.addSchedule(dto, session);
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleService.findAllSchedule(dto.getClubNo()));
     }
 
     @GetMapping("/list/{clubNo}")
     public ResponseEntity<?> ScheduleList(@PathVariable long clubNo, HttpSession session) {
 
+        List<ScheduleFindAllDto> scheduleList = scheduleService.findAllSchedule(clubNo);
 
+        System.out.println("scheduleList = " + scheduleList);
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleList);
     }
 
 
