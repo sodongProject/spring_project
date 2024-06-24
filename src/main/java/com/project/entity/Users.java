@@ -1,16 +1,16 @@
-package com.project.schedules.entity;
+package com.project.entity;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class User {
+public class Users {
     private String account;
     private String password;
     private String userName;
@@ -18,9 +18,11 @@ public class User {
     private Gender gender;
     private String phoneNumber;
     private String address;
-    private UserAuth auth;
+    private Auth auth;
     private double temperature;
-    private LocalDate createdAt;
+    private String profile_image;
+    private LocalDateTime joinedAt;
     private double remainedPoint;
-    public boolean isWithdrawn;
+    private boolean isWithdrawn;
+
 }
