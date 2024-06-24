@@ -1,9 +1,11 @@
 package com.project.login.controller;
 
+import com.project.login.dto.LoginUserInfoDto;
 import com.project.login.dto.SignInDto;
 import com.project.login.dto.SignUpDto;
 import com.project.login.service.LoginResult;
 import com.project.login.service.UsersService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,13 @@ public class LoginController {
 
     // 회원가입 양식 열기
     @GetMapping("/sign-up")
-    public String signUpPage() {
+    public String signUpPage(HttpSession session) {
+
+        //로그인을 한 사람이 요청을 보내면 돌려보낸다.
+        if(LoginUtil.isLoggedIn(session)){
+            return "redirect:/";
+        }
+
         log.info("/users/sign-up GET : forwarding to sign-up.jsp");
         return "/users/sign-up";
     }
@@ -57,8 +65,15 @@ public class LoginController {
 
     // 로그인 양식 열기 ==================================================
     @GetMapping("/sign-in")
-    public void signIn() {
+    public String signIn(HttpSession session) {
+
+//        //로그인을 한 사람이 요청을 보내면 돌려보낸다.
+//       if(LoginUtil.isLoggedIn(session)){
+//            return "redirect:/";
+//        }
+
         log.info("/users/sign-in GET : forwarding to sign-in.jsp");
+        return "users/sign-in";
     }
 
     //로그인 요청 처리✨
