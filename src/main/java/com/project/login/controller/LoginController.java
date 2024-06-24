@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -66,10 +67,11 @@ public class LoginController {
         log.info("/users/sign-in POST");
         log.debug("parameter: {}", dto);
 
-        // 세션 열기
+        // 세션 얻기
         HttpSession session = request.getSession();
 
-        LoginResult result = usersService.authenticate(dto, ra);
+        LoginResult result = usersService.authenticate(dto, session);
+
         log.info("Authentication result: {}", result);
 
         ra.addFlashAttribute("result", result);
@@ -79,6 +81,27 @@ public class LoginController {
         }
 
         return "redirect:/users/sign-in"; // 로그인 실패시
+    }
+
+    @GetMapping("/sign-out")
+    public String signOut(HttpSession session) {
+        // 세션 구하기
+        //HttpSession session = request.getSession();
+
+//        // 자동로그인 상태인지 확인
+//        if (LoginUtil.isAutoLogin(request)) {
+//            // 쿠키를 제거하고, DB에도 자동로그인 관련데이터를 원래대로 해놓음
+//            memberService.autoLoginClear(request, response);
+//        }
+
+        // 세션에서 로그인 기록 삭제
+        session.removeAttribute("login");
+
+        // 세션을 초기화 (reset)
+        session.invalidate();
+
+        // 홈으로 보내기
+        return "redirect:/";
     }
 
 }
