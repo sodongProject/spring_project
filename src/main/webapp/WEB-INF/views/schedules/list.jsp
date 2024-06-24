@@ -89,13 +89,6 @@
                 <label>내용</label>
                 <textarea class="content" name="scheduleContent"></textarea>
             </div>
-            <div class="schedule_image">
-                <div class="schedule_image_box">
-                    <img src="#" alt="/">
-                </div>
-                <label>이미지 추가</label>
-                <input type="file" id="schedule_image" name="scheduleImage" style="display: none">
-            </div>
             <div class="schedule_at">
                 <label>모임 시간
                 <input type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">
@@ -103,6 +96,16 @@
             </div>
             <button type="submit">등록</button>
         </form>
+    </div>
+</div>
+
+<div class="schedule_list">
+    <div class="schedule_box">
+        <h1 class="schedule_list_title">스케줄 제목</h1>
+        <p class="schedule_list_writer">스케줄 개설자</p>
+        <p class="schedule_list_content">스케줄 내용</p>
+        <p class="schedule_list_at">모임 시간</p>
+        <p class="schedule_list_count">참여자 수 ?/?</p>
     </div>
 </div>
 
@@ -114,37 +117,17 @@
 
     btn.onclick = function() {
         modal.style.display = "block";
-    }
+    };
 
     span.onclick = function() {
         modal.style.display = "none";
-    }
+    };
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
-
-    // 이미지 미리보기 관련 JavaScript
-    const $profile = document.querySelector('.schedule_image');
-    const $fileInput = document.getElementById('schedule_image');
-
-    $profile.addEventListener('click', e => {
-        $fileInput.click();
-    });
-
-    $fileInput.addEventListener('change', e => {
-        const fileData = $fileInput.files[0];
-        const reader = new FileReader();
-
-        reader.readAsDataURL(fileData);
-
-        reader.onloadend = e => {
-            const $img = document.querySelector('.schedule_image_box img');
-            $img.src = reader.result;
-        }
-    });
+    };
 </script>
 </body>
 </html>

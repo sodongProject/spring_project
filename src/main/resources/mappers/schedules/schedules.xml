@@ -24,6 +24,12 @@
         ORDER BY schedule_created_at DESC
     </select>
 
+    <select id="findLastSaveSchedule" resultType="schedules">
+        SELECT *
+        FROM schedules
+        WHERE schedule_no = LAST_INSERT_ID()
+    </select>
+
     <select id="userInClub" resultType="long">
         SELECT user_club_join_no
         FROM users_clubs
@@ -40,9 +46,9 @@
 
     <insert id="save">
         INSERT INTO schedules
-            (schedule_title, schedule_content, schedule_image, account, club_no, schedule_at)
+            (schedule_title, schedule_content, account, club_no, schedule_at)
         VALUES
-            (#{scheduleTitle}, #{scheduleContent}, #{scheduleImage}, #{account}, #{clubNo}, #{scheduleAt})
+            (#{scheduleTitle}, #{scheduleContent}, #{account}, #{clubNo}, #{scheduleAt})
     </insert>
 
     <insert id="registerUserIntoSchedule">
@@ -65,5 +71,17 @@
         WHERE schedule_no = #{scheduleNo}
     </update>
 
+    <update id="upScheduleCount">
+        UPDATE schedules
+        SET schedule_count = schedule_count + 1
+        WHERE schedule_no = #{scheduleNo}
+    </update>
+
+    <update id="setUserRoleInSchedule">
+        UPDATE users_schedules
+        SET user_schedule_role = 'ADMIN'
+        WHERE schedule_no = #{scheduleNo}
+        AND user_club_join_no = #{userClubJoinNo}
+    </update>
 
 </mapper>

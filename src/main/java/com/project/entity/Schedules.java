@@ -22,9 +22,6 @@ public class Schedules {
     private String scheduleContent;
     // 스케줄 생성 시간
     private LocalDateTime scheduleCreatedAt = LocalDateTime.now();
-    // 스케줄 이미지
-    @Setter
-    private String scheduleImage;
     // 스케줄 조회수
     private int scheduleViewCount;
     // 스케줄 삭제 여부

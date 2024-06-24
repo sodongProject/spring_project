@@ -17,7 +17,6 @@ public class ScheduleWriteDto {
 
     private String scheduleTitle;
     private String scheduleContent;
-    private String scheduleImage;
     private String scheduleAt;
 
     public Schedules toEntity() {
@@ -28,7 +27,6 @@ public class ScheduleWriteDto {
         Schedules s = new Schedules();
         s.setScheduleTitle(this.scheduleTitle);
         s.setScheduleContent(this.scheduleContent);
-        s.setScheduleImage(this.scheduleImage);
         s.setScheduleAt(dateTime);
         return s;
     }

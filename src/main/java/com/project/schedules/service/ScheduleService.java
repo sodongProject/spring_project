@@ -26,7 +26,21 @@ public class ScheduleService {
         s.setAccount(loginUserAccount);
         s.setClubNo(1);
         System.out.println("s = " + s);
+        // 스케줄 테이블에 스케줄 등록
         scheduleMapper.save(s);
+
+        // 스케줄을 개설한 유저 등록
+        Schedules newSchedules = scheduleMapper.findLastSaveSchedule();
+        long scheduleNo = newSchedules.getScheduleNo();
+        long loginUserInClubNo = scheduleMapper.userInClub(1, loginUserAccount);
+        scheduleMapper.registerUserIntoSchedule(scheduleNo, loginUserInClubNo);
+
+        // 스케줄 생성자 권한 업데이트
+        scheduleMapper.setUserRoleInSchedule(scheduleNo, loginUserInClubNo);
+
+        // 스케줄 정원 증가
+        scheduleMapper.upScheduleCount(scheduleNo);
+
     }
 
     public void deleteSchedule(Long scheduleNo) {
