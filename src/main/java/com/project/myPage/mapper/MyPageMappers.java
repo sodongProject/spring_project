@@ -4,7 +4,7 @@ import com.project.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface myPageMappers {
+public interface MyPageMappers {
 
 
 

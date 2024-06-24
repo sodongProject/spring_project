@@ -3,7 +3,7 @@ package com.project.myPage.service;
 
 import com.project.entity.Users;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
-import com.project.myPage.mapper.myPageMappers;
+import com.project.myPage.mapper.MyPageMappers;
 import com.project.util.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +20,14 @@ import static com.project.util.LoginUtil.LOGIN;
 public class MyPageService {
 
 
-    private final myPageMappers myPageMapper;
+    private final MyPageMappers myPageMapper;
 
 
     // 로그인 유저 저장
     public void saveLoginUser(String account, HttpSession session) {
         Users user = myPageMapper.findOne(account);
         LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto(user);
+//        initConfirmPassword(session);
 
         session.setAttribute(LOGIN, loginUserInfoDto);
     }
@@ -82,6 +83,9 @@ public class MyPageService {
     }
 
 
+    public void initConfirmPassword(HttpSession session){
+        session.setAttribute("isConfirmedPw", "false");
+    }
 
     /**
      * 비밀번호 검증
@@ -94,10 +98,19 @@ public class MyPageService {
         String correctPw = findedUser.getPassword();
 
         if (!inputPw.equals(correctPw)){
+
             return false;
         }
+        session.setAttribute("isConfirmedPw", "true");
         return true;
 
+    }
+
+    public boolean isConfirmPassword (HttpSession session){
+        String  isConfirmedPw = (String) session.getAttribute("isConfirmedPw");
+        if (isConfirmedPw.equals("false")) return false;
+
+        return true;
     }
 
 
