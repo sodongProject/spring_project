@@ -2,7 +2,10 @@ package com.project.util;
 
 import com.project.entity.Auth;
 import com.project.login.dto.LoginUserInfoDto;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class LoginUtil {
@@ -15,6 +18,11 @@ public class LoginUtil {
         return session.getAttribute(LOGIN) != null;
     }
 
+    //로그인 회원의 계정명 얻기
+    public static String getLoggedInUserAccount(HttpSession session) {
+        LoginUserInfoDto loggedInUser = getLoggedInUser(session);
+        return loggedInUser != null ? loggedInUser.getAccount() : null;
+    }
 
     // 로그인한 회원의 정보 얻기
     public static LoginUserInfoDto getLoggedInUser(HttpSession session) {
@@ -32,5 +40,9 @@ public class LoginUtil {
     }
 
 
+    public static boolean isAutoLogin(HttpServletRequest request) {
+        Cookie autoLoginCookie = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+        return  autoLoginCookie != null;
+    }
 
 }

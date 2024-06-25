@@ -31,7 +31,7 @@ public class LoginController {
     public String signUpPage(HttpSession session) {
 
         //로그인을 한 사람이 요청을 보내면 돌려보낸다.
-        if(LoginUtil.isLoggedIn(session)){
+        if (LoginUtil.isLoggedIn(session)) {
             return "redirect:/";
         }
 
@@ -41,7 +41,7 @@ public class LoginController {
 
     // 회원가입 요청 처리
     @PostMapping("/sign-up")
-    public String signUp( @ModelAttribute SignUpDto dto) {
+    public String signUp(@ModelAttribute SignUpDto dto) {
         log.info("/users/sign-up POST");
         log.info("SignUp request: {}", dto);
 
@@ -80,7 +80,7 @@ public class LoginController {
 
     //로그인 요청 처리✨
     @PostMapping("/sign-in")   //get방식으로 하면 로그인 노출됨
-    public String signIn(SignInDto dto, RedirectAttributes ra, HttpServletRequest request, HttpServletResponse response){ //LoginDto.java에서 사용한 이름을 쓴다
+    public String signIn(SignInDto dto, RedirectAttributes ra, HttpServletRequest request, HttpServletResponse response) { //LoginDto.java에서 사용한 이름을 쓴다
         log.info("/users/sign-in POST");
         log.debug("parameter: {}", dto);
 
@@ -97,9 +97,9 @@ public class LoginController {
 
             //리다이렉트 URL이 있다면
             String redirect = (String) session.getAttribute("redirect");
-            if(redirect != null){
+            if (redirect != null) {
                 session.removeAttribute("redirect");
-                return "redirect: "+ redirect;
+                return "redirect: " + redirect;
             }
 
             return "redirect:/index"; // 로그인 성공시
@@ -109,24 +109,26 @@ public class LoginController {
     }
 
     @GetMapping("/sign-out")
-    public String signOut(HttpSession session) {
+    public String signOut(HttpServletRequest request, HttpServletResponse response) {
         // 세션 구하기
-        //HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
-//        // 자동로그인 상태인지 확인
-//        if (LoginUtil.isAutoLogin(request)) {
-//            // 쿠키를 제거하고, DB에도 자동로그인 관련데이터를 원래대로 해놓음
-//            memberService.autoLoginClear(request, response);
-//        }
+        // 자동로그인 상태인지 확인
+        if (LoginUtil.isAutoLogin(request)) {
+            // 쿠키를 제거하고, DB에도 자동로그인 관련데이터를 원래대로 해놓음
+            usersService.autoLoginClear(request, response);
+        }
 
-        // 세션에서 로그인 기록 삭제
-        session.removeAttribute("login");
+            // 세션에서 로그인 기록 삭제
+            session.removeAttribute("login");
 
-        // 세션을 초기화 (reset)
-        session.invalidate();
+            // 세션을 초기화 (reset)
+            session.invalidate();
 
-        // 홈으로 보내기
-        return "redirect:/";
+            // 홈으로 보내기
+            return "redirect:/";
+        }
+
     }
 
-}
+

@@ -5,7 +5,6 @@ import com.project.login.mapper.UsersMapper;
 import com.project.login.service.UsersService;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
@@ -43,6 +42,6 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
             }
 
         }
-            return false;
+            return true;
     }
 }

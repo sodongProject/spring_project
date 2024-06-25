@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -101,5 +103,24 @@ public class UsersService {
     // 아이디, 이메일 중복검사
     public boolean checkIdentifier(String type, String keyword) {
         return usersMapper.existsById(type, keyword);
+    }
+
+    //자동로그인 제거
+    public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
+        //1. 쿠키 제거
+        Cookie c = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+        if( c != null){
+            c.setPath("/");
+            c.setMaxAge(0);
+            response.addCookie(c);
+        }
+        //2. DB 자동로그인 컬럼 원상태로 복구
+        usersMapper.updateAutoLogin(
+                AutoLoginDto.builder()
+                        .sessionId("none")
+                        .limitTime(LocalDateTime.now())
+                        .account(LoginUtil.getLoggedInUserAccount(request.getSession()))
+                        .build()
+        );
     }
 }
