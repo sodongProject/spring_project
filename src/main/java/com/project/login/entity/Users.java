@@ -30,6 +30,9 @@ public class Users {
     private Double remainedPoint;
     private Boolean isWithdrawn;
 
+    private String sessionId;
+    private LocalDateTime limitTime;
+
     public Users(String account, String password, String userName) {
         this.account = account;
         this.password = password;

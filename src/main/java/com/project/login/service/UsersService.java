@@ -82,6 +82,12 @@ public class UsersService {
 
         }
 
+        maintainLoginState(session, foundUser);
+        //session.setAttribute("login", new LoginUserInfoDto(foundUser));
+        return SUCCESS;
+    }
+
+    public static void maintainLoginState(HttpSession session, Users foundUser) {
         log.info("{}님 로그인 성공했습니다.", foundUser.getUserName());
 
         // 세션의 수명
@@ -90,8 +96,6 @@ public class UsersService {
         log.debug("session time: {}", maxInactiveInterval);
 
         session.setAttribute("login", foundUser);
-        //session.setAttribute("login", new LoginUserInfoDto(foundUser));
-        return SUCCESS;
     }
 
     // 아이디, 이메일 중복검사

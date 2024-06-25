@@ -1,4 +1,5 @@
 package com.project.login.mapper;
+import com.project.login.dto.AutoLoginDto;
 import com.project.login.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,9 +21,9 @@ public interface UsersMapper {
     );
 
     //자동로그인 쿠키값, 만료시간 업데이트
-    //void updateAutoLogin(AutoLoginDto dto);
+    void updateAutoLogin(AutoLoginDto dto);
 
     //세션 아이디로 회원정보 조회
-    Users findMemberBySessionId(String sessionId);
+    Users findUserBySessionId(String sessionId);
 
 }

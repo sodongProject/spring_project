@@ -40,11 +40,11 @@
         WHERE account = #{account}
     </update>
 
-    <select id = "findMemberBySessionId" resultType="users">
+    <select id = "findUserBySessionId" resultType="users">
         SELECT
-        userName, account, auth, profileImage
+        user_name as userName, account, email, auth, limit_time
         FROM users
-        WHERE sessionId = #{sessionId}
+        WHERE session_id = #{sessionId}
     </select>
 
 </mapper>
