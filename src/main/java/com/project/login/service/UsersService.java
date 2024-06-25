@@ -1,5 +1,6 @@
 package com.project.login.service;
 
+import com.project.login.dto.AutoLoginDto;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.login.dto.SignInDto;
 import com.project.login.dto.SignUpDto;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.time.LocalDateTime;
 
 import static com.project.login.service.LoginResult.*;
 import static com.project.util.LoginUtil.AUTO_LOGIN_COOKIE;
@@ -61,13 +64,22 @@ public class UsersService {
         // 자동로그인 추가 처리
         if(dto.isAutoLogin()){
             //1. 자동 로그인 쿠키 생성(중복x)
-            Cookie autoLoginCookie = new Cookie(AUTO_LOGIN_COOKIE, session.getId());
+            String sessionId = session.getId();
+            Cookie autoLoginCookie = new Cookie(AUTO_LOGIN_COOKIE, sessionId);
             // - 쿠키 설정
             autoLoginCookie.setPath("/"); //쿠키 사용 경로
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 30); // 자동로그인 유지(30일)
             //2. 쿠키 클라이언트 전송
             response.addCookie(autoLoginCookie);
-            //
+            //3. 쿠키값 DB저장
+            usersMapper.updateAutoLogin(
+                    AutoLoginDto.builder()
+                            .sessionId(sessionId)
+                            .limitTime(LocalDateTime.now().plusDays(30))
+                            .account(account)
+                            .build()
+            );
+
         }
 
         log.info("{}님 로그인 성공했습니다.", foundUser.getUserName());
