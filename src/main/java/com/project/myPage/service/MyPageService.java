@@ -37,6 +37,7 @@ public class MyPageService {
         System.out.println("one = " + one);
         return one;
     }
+
     /**
      * 세션 정보로 해당 유저 찾기 요청
      * @param session 세션 정보
@@ -96,12 +97,12 @@ public class MyPageService {
     public boolean confirmPassword(HttpSession session, String inputPw){
         Users findedUser = findUserBySession(session);
         String correctPw = findedUser.getPassword();
+        System.out.println("correctPw = " + correctPw);
 
         if (!inputPw.equals(correctPw)){
 
             return false;
         }
-        session.setAttribute("isConfirmedPw", "true");
         return true;
 
     }
@@ -143,6 +144,48 @@ public class MyPageService {
     }
 
 
+    /**
+     * 포인트 조회
+     * @param session 세션 정보
+     * @return 보유 포인트
+     */
+    public double viewPoints(HttpSession session){
+        Users findedUser = findUserBySession(session);
+
+        return myPageMapper.viewPoints(findedUser.getAccount());
+    }
+
+    /**
+     * 포인트 충전
+     * @param session 세션 정보
+     * @param amount 충전할 금액
+     * @return 충전 후 잔여 포인트
+     */
+    public double pointsRecharge(HttpSession session, double amount){
+        Users findedUser = findUserBySession(session);
+        myPageMapper.rechargePoints(findedUser.getAccount(), amount);
+        return viewPoints(session);
+    }
+
+    public boolean isPossibleExchange(HttpSession session, double amount){
+        double remainedPoints = viewPoints(session);
+        if (amount > remainedPoints){
+            return false;
+        }
+        return true;
+    }
+    /**
+     * 포인트 환전
+     * @param session 세션 정보
+     * @param amount 환전할 금액
+     * @return 환전 후 잔여 포인트
+     */
+    public double pointsExchange(HttpSession session, double amount){
+
+        Users findedUser = findUserBySession(session);
+        myPageMapper.exchangePoints(findedUser.getAccount(), amount);
+        return viewPoints(session);
+    }
 
     public void userWithdrawal(HttpSession session){
         myPageMapper.withdrawal(getSessionAccount(session));

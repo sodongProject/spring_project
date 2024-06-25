@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class LoggedInUserInfoDto {
+
     private String account;
     private String email;
     private String phoneNumber;
@@ -18,7 +19,5 @@ public class LoggedInUserInfoDto {
     private Gender gender;
     private double temperature;
     private double userPoint;
-
-
 
 }

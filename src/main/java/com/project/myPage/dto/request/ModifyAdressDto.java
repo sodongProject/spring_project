@@ -11,5 +11,6 @@ import lombok.*;
 @Builder
 public class ModifyAdressDto {
 
-    private String newAdress;
+    private String city;
+    private String town;
 }

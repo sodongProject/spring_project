@@ -1,6 +1,5 @@
 package com.project.myPage.dto.request;
 
-
 import lombok.*;
 
 @Getter
@@ -9,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ModifyPasswordDto {
-    private String newPassword;
-    private String newPasswordConfirm;
+public class ExchangingPointDto {
+    private double exPointsAmount;
 }

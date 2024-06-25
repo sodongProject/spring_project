@@ -2,6 +2,7 @@ package com.project.myPage.mapper;
 
 import com.project.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MyPageMappers {
@@ -32,9 +33,9 @@ public interface MyPageMappers {
     double viewPoints(String account);
 
     // 포인트 충전
-    void rechargePoints(String account, int points);
+    void rechargePoints(@Param("account") String account, @Param("amount") double amount);
 
     // 포인트 환전
-    void exchangePoints(String account, int points);
+    void exchangePoints(@Param("account") String account, @Param("amount") double amount);
 
 }

@@ -46,10 +46,13 @@
 
     <update id="rechargePoints">
         UPDATE users
-        SET
+        SET remained_point = remained_point + #{amount}
+        WHERE account = #{account}
     </update>
 
     <update id="exchangePoints">
-
+        UPDATE users
+        SET remained_point = remained_point - #{amount}
+        WHERE account = #{account}
     </update>
 </mapper>
