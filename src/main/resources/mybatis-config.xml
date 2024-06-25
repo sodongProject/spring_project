@@ -14,6 +14,7 @@
         <typeAlias type="com.project.club.entity.Club" alias="club" />
         <typeAlias type="com.project.club.entity.UsersClubs" alias="userClub" />
         <typeAlias type="com.project.entity.Schedules" alias="schedules" />
+        <typeAlias type="com.project.club.entity.ClubNoticeBoard" alias="clubNoticeBoard" />
     </typeAliases>
 
   <!-- SQL 을 적어놓은 ...Mapper.xml 파일들을 사용등록하는 영역 -->
@@ -21,6 +22,7 @@
         <mapper resource="mappers/ClubMapper.xml" />
         <mapper resource="mappers/UsersClubsMapper.xml" />
         <mapper resource="mappers/schedules/schedules.xml" />
+        <mapper resource="mappers/ClubNoticeBoardMapper.xml" />
     </mappers>
 
 </configuration>
