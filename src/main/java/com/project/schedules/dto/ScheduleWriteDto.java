@@ -18,6 +18,7 @@ public class ScheduleWriteDto {
     private String scheduleTitle;
     private String scheduleContent;
     private String scheduleAt;
+    private long participationPoints;
     private long clubNo;
 
     public Schedules toEntity() {
@@ -28,6 +29,7 @@ public class ScheduleWriteDto {
         Schedules s = new Schedules();
         s.setScheduleTitle(this.scheduleTitle);
         s.setScheduleContent(this.scheduleContent);
+        s.setParticipationPoints(this.participationPoints);
         s.setScheduleAt(dateTime);
         s.setClubNo(this.clubNo);
         return s;

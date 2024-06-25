@@ -37,4 +37,12 @@ public class Schedules {
     // 스케줄 일자
     @Setter
     private LocalDateTime scheduleAt;
+
+    // 스케줄 총 포인트
+
+    private long totalPoint;
+
+    // 스케줄 참가 포인트
+    @Setter
+    private long participationPoints;
 }

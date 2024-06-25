@@ -17,4 +17,5 @@ public class ScheduleFindAllDto {
     private int scheduleCount;
     private LocalDateTime scheduleAt;
     private String scheduleContent;
+    private long participationPoints;
 }

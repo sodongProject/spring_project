@@ -1,16 +1,10 @@
 
 
 /* styles.css */
-body {
-    font-family: Arial, sans-serif;
-}
 
-h1 {
-    text-align: center;
-    margin-top: 50px;
-}
 
-button {
+
+#add_schedule_button {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
@@ -432,6 +426,53 @@ button {
     color: #fff !important;
     transform: scale(1.1); /* 활성화된 상태에서 크기 확대 */
 }
+#page-btn-box {
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+#page-btn {
 
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    position: relative;
+    display: flex;
+    width: 50%;
+    padding: 20px;
+}
+
+#page-btn .page-item {
+    width: 50%;
+}
+
+#page-btn .page-item .page-link {
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Single Day', cursive;
+}
+
+button {
+    outline: none;
+    border: none;
+}
+
+
+
+#wrap {
+    width: 60%;
+    margin: 100px auto;
+}
 
 
