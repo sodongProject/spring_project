@@ -9,6 +9,8 @@
 <body>
     <h2>Welcome ${login.userName}</h2>
 
+    <br><br><br>
+    <p>Account: ${login.account}</p>
     <p>Email: ${login.email}</p>
     <p>Phone: ${login.phoneNumber}</p>
     <p>Address: ${login.address}</p>

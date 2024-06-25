@@ -65,12 +65,14 @@ public class LoginController {
 
     // 로그인 양식 열기 ==================================================
     @GetMapping("/sign-in")
-    public String signIn(HttpSession session) {
+    public String signIn(HttpSession session, @RequestParam(required = false) String redirect) {
 
 //        //로그인을 한 사람이 요청을 보내면 돌려보낸다.
 //       if(LoginUtil.isLoggedIn(session)){
 //            return "redirect:/";
 //        }
+
+        session.setAttribute("redirect", redirect);
 
         log.info("/users/sign-in GET : forwarding to sign-in.jsp");
         return "users/sign-in";
@@ -78,20 +80,28 @@ public class LoginController {
 
     //로그인 요청 처리✨
     @PostMapping("/sign-in")   //get방식으로 하면 로그인 노출됨
-    public String signIn(SignInDto dto, RedirectAttributes ra, HttpServletRequest request){ //LoginDto.java에서 사용한 이름을 쓴다
+    public String signIn(SignInDto dto, RedirectAttributes ra, HttpServletRequest request, HttpServletResponse response){ //LoginDto.java에서 사용한 이름을 쓴다
         log.info("/users/sign-in POST");
         log.debug("parameter: {}", dto);
 
         // 세션 얻기
         HttpSession session = request.getSession();
 
-        LoginResult result = usersService.authenticate(dto, session);
+        LoginResult result = usersService.authenticate(dto, session, response);
 
         log.info("Authentication result: {}", result);
 
         ra.addFlashAttribute("result", result);
 
         if (result == LoginResult.SUCCESS) {
+
+            //리다이렉트 URL이 있다면
+            String redirect = (String) session.getAttribute("redirect");
+            if(redirect != null){
+                session.removeAttribute("redirect");
+                return "redirect: "+ redirect;
+            }
+
             return "redirect:/index"; // 로그인 성공시
         }
 

@@ -5,14 +5,18 @@ import com.project.login.dto.SignInDto;
 import com.project.login.dto.SignUpDto;
 import com.project.login.entity.Users;
 import com.project.login.mapper.UsersMapper;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static com.project.login.service.LoginResult.*;
+import static com.project.util.LoginUtil.AUTO_LOGIN_COOKIE;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +35,7 @@ public class UsersService {
     }
 
     // 로그인 검증 처리
-    public LoginResult authenticate(SignInDto dto, HttpSession session) {
+    public LoginResult authenticate(SignInDto dto, HttpSession session, HttpServletResponse response) {
         String account = dto.getAccount();
         log.info("Authenticating account: {}", account);
 
@@ -53,6 +57,19 @@ public class UsersService {
             log.info("비밀번호 불일치");
             return NO_PW;
         }
+
+        // 자동로그인 추가 처리
+        if(dto.isAutoLogin()){
+            //1. 자동 로그인 쿠키 생성(중복x)
+            Cookie autoLoginCookie = new Cookie(AUTO_LOGIN_COOKIE, session.getId());
+            // - 쿠키 설정
+            autoLoginCookie.setPath("/"); //쿠키 사용 경로
+            autoLoginCookie.setMaxAge(60 * 60 * 24 * 30); // 자동로그인 유지(30일)
+            //2. 쿠키 클라이언트 전송
+            response.addCookie(autoLoginCookie);
+            //
+        }
+
         log.info("{}님 로그인 성공했습니다.", foundUser.getUserName());
 
         // 세션의 수명
