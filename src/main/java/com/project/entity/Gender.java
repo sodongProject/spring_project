@@ -8,7 +8,6 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public enum Gender {
-
    M,F;
 
 }
