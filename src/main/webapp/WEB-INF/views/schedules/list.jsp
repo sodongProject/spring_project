@@ -70,12 +70,19 @@
 <head>
     <meta charset="UTF-8">
     <title>스케줄 생성하기</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/schedules/schedules.css">
+    <link rel="stylesheet" href="/assets/css/schedules/schedules.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 <body>
 <h1>스케줄 생성하기!</h1>
 <h1>${login.account}</h1>
-<button id="openModalBtn">모달 열기</button>
+<button id="openModalBtn">스케줄 생성하기</button>
 
 <div id="scheduleModal" class="modal">
     <div class="modal-content">
@@ -96,17 +103,26 @@
                 <label>모임 시간</label>
                 <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">
             </div>
+            <div class="participation_points">
+                <label>회비</label>
+                <input type="number" id="participation_points" name="participationPoints" min="0">
+            </div>
             <button id="add_schedule_button" type="submit">등록</button>
         </form>
     </div>
 </div>
 
-<div class="schedule_list">
-    <div id="schedule_box">
+<div id="wrap">
+    <div class="card-container">
 
     </div>
 </div>
 
+<div id="page-btn-box">
+    <div id="page-btn" class="paginations">
+
+    </div>
+</div>
 <script>
     // Modal 관련 JavaScript
     const modal = document.getElementById("scheduleModal");
@@ -122,10 +138,12 @@
     };
 
     window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     };
+
+
 </script>
 
 <script type="module" src="/assets/js/schedules/list.js"></script>

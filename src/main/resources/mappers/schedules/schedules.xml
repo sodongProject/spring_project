@@ -9,6 +9,7 @@
             *
         FROM schedules
         WHERE schedule_no = #{scheduleNo}
+        AND schedule_is_deleted = false
     </select>
 
     <select id="findAll" resultType="com.project.schedules.dto.ScheduleFindAllDto">
@@ -16,10 +17,14 @@
         schedule_no,
         schedule_title,
         schedule_view_count,
+        schedule_content,
         schedule_count,
-        schedule_at
+        schedule_at,
+        total_point,
+        participation_points
         FROM schedules
         WHERE club_no = #{clubNo}
+        AND schedule_is_deleted = false
         ORDER BY schedule_created_at DESC
     </select>
 
@@ -45,9 +50,9 @@
 
     <insert id="save">
         INSERT INTO schedules
-            (schedule_title, schedule_content, account, club_no, schedule_at)
+            (schedule_title, schedule_content, account, club_no, schedule_at, participation_points)
         VALUES
-            (#{scheduleTitle}, #{scheduleContent}, #{account}, #{clubNo}, #{scheduleAt})
+            (#{scheduleTitle}, #{scheduleContent}, #{account}, #{clubNo}, #{scheduleAt}, #{participationPoints})
     </insert>
 
     <insert id="registerUserIntoSchedule">

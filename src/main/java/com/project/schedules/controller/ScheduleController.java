@@ -67,7 +67,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/detail")
-    public String Detail(Long scheduleNo, Model model) {
+    public String Detail(long scheduleNo, Model model) {
 
         // ScheduleNo를 통하여 Schedule의 정보를 가져온다.
         Schedules schedules = scheduleService.detailSchedule(scheduleNo);

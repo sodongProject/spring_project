@@ -25,6 +25,7 @@ public class ScheduleService {
     public void addSchedule(ScheduleWriteDto dto, HttpSession session) {
 
         Schedules s = dto.toEntity();
+        System.out.println("s = " + s);
         String loginUserAccount = LoginUtil.getLoggedInUser(session).getAccount();
         s.setAccount(loginUserAccount);
         s.setClubNo(1);
@@ -73,5 +74,10 @@ public class ScheduleService {
     public List<ScheduleFindAllDto> findAllSchedule(long clubNo) {
 
         return scheduleMapper.findAll(clubNo);
+    }
+
+    public void findOneSchedule(long scheduleNo) {
+
+        scheduleMapper.findOne(scheduleNo);
     }
 }
