@@ -3,8 +3,9 @@ package com.project.mainpage.controller;
 import com.project.mainpage.common.PageMaker;
 import com.project.mainpage.common.Search;
 import com.project.mainpage.dto.request.NoticeWritePostDto;
+import com.project.mainpage.dto.response.ClubListDto;
 import com.project.mainpage.dto.response.NoticeListDto;
-import com.project.mainpage.mapper.MainNoticeMapper;
+import com.project.mainpage.service.ClubRankingService;
 import com.project.mainpage.service.MainNoticeBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,25 +21,18 @@ import java.util.List;
 @Slf4j
 public class MainNoticeController {
 
-    private final MainNoticeMapper mapper;
     private final MainNoticeBoardService service;
 
     // 1. 목록 조회 요청 (/board/list : GET)
     @GetMapping("/list")
     public String list(Search page, Model model) {
 
-        // 1. 데이터베이스로 부터 게시글 목록 조회
-
-        // 서비스에게 조회 요청 위임
+        // 메인페이지 - 공지사항 목록 조회
         List<NoticeListDto> list = service.findList(page);
-        // 페이지 정보를 생성하여 JSP 에게 전송
         PageMaker maker = new PageMaker(page, service.getCount(page));
 
-        System.out.println("list = " + list);
-        // 3. JSP 파일에 해당 목록데이터를 보냄
         model.addAttribute("list", list);
         model.addAttribute("maker", maker);
-
         return "notice/list";
     }
 

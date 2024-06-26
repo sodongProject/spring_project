@@ -2,7 +2,6 @@ package com.project.mainpage.service;
 
 import com.project.mainpage.common.Search;
 import com.project.mainpage.dto.request.NoticeWritePostDto;
-import com.project.mainpage.dto.response.NoticeDetailDto;
 import com.project.mainpage.dto.response.NoticeFindAllDto;
 import com.project.mainpage.dto.response.NoticeListDto;
 import com.project.mainpage.entity.MainNoticeBoard;
@@ -14,7 +13,6 @@ import org.springframework.web.util.WebUtils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

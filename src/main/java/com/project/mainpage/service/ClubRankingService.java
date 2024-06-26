@@ -1,10 +1,7 @@
 package com.project.mainpage.service;
 
-import com.project.mainpage.common.Search;
+import com.project.mainpage.dto.response.ClubFindAllDto;
 import com.project.mainpage.dto.response.ClubListDto;
-import com.project.mainpage.dto.response.NoticeFindAllDto;
-import com.project.mainpage.dto.response.NoticeListDto;
-import com.project.mainpage.entity.ClubRanking;
 import com.project.mainpage.mapper.ClubRankingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +17,10 @@ public class ClubRankingService {
 
     // 가입자가 가장 많은 동호회
     public List<ClubListDto> member() {
-        List<ClubRanking> list = mapper.mostMember();
-        List<ClubListDto> memberList = list.stream()
+        List<ClubFindAllDto> memberRank = mapper.mostMember();
+//        System.out.println("memberRank = " + memberRank);
+
+        List<ClubListDto> memberList = memberRank.stream()
                 .map(ClubListDto::new)
                 .collect(Collectors.toList());
         return memberList;
@@ -29,8 +28,10 @@ public class ClubRankingService {
 
     // 가장 최근에 만들어진 동호회
     public List<ClubListDto> recent() {
-        List<ClubRanking> list = mapper.recentClub();
-        List<ClubListDto> recentList = list.stream()
+        List<ClubFindAllDto> recentRank = mapper.recentClub();
+//        System.out.println("recentRank = " + recentRank);
+
+        List<ClubListDto> recentList = recentRank.stream()
                 .map(ClubListDto::new)
                 .collect(Collectors.toList());
         return recentList;
@@ -38,11 +39,24 @@ public class ClubRankingService {
 
     // 1년 동안 스케줄이 가장 많은 동호회
     public List<ClubListDto> mostScheduled() {
-        List<ClubRanking> list = mapper.mostScheduled();
-        List<ClubListDto> scheduledList = list.stream()
+        List<ClubFindAllDto> scheduleRank = mapper.mostScheduled();
+//        System.out.println("scheduleRank = " + scheduleRank);
+
+        List<ClubListDto> scheduledList = scheduleRank.stream()
                 .map(ClubListDto::new)
                 .collect(Collectors.toList());
         return scheduledList;
+    }
+
+    // 로그인한 유저의 가입한 동호회 목록
+    public List<ClubListDto> loginUsersClub() {
+        List<ClubFindAllDto> usersClub = mapper.loginUsersClub();
+//        System.out.println("usersClub = " + usersClub);
+
+        List<ClubListDto> clubList = usersClub.stream()
+                .map(ClubListDto::new)
+                .collect(Collectors.toList());
+        return clubList;
     }
 
 }
