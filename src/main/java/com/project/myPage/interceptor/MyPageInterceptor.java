@@ -2,7 +2,6 @@ package com.project.myPage.interceptor;
 
 import com.project.myPage.mapper.MyPageMappers;
 import com.project.myPage.service.MyPageService;
-import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@Configuration
+@Configuration("myPageInterceptorConfig")
 @RequiredArgsConstructor
 public class MyPageInterceptor implements HandlerInterceptor {
     private final MyPageMappers myPageMappers;

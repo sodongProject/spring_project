@@ -2,9 +2,9 @@ package com.project.myPage.service;
 
 
 import com.project.entity.Users;
+import com.project.login.dto.LoginUserInfoDto;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.mapper.MyPageMappers;
-import com.project.util.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class MyPageService {
     // 로그인 유저 저장
     public void saveLoginUser(String account, HttpSession session) {
         Users user = myPageMapper.findOne(account);
-        LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto(user);
+        LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto();
 //        initConfirmPassword(session);
 
         session.setAttribute(LOGIN, loginUserInfoDto);
@@ -44,8 +44,8 @@ public class MyPageService {
      * @return 세션에 저장된 유저 엔터티
      */
     private Users findUserBySession (HttpSession session){
-        LoginUserInfoDto loginUserDto = LoginUtil.getLoggedInUser(session);
-        String account = loginUserDto.getAccount();
+        com.project.login.dto.LoginUserInfoDto loginUserInfoDto =  LoginUtil.getLoggedInUser(session);
+        String account = loginUserInfoDto.getAccount();
         return myPageMapper.findOne(account);
     }
 

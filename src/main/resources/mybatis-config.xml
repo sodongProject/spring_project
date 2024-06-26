@@ -26,6 +26,7 @@
         <mapper resource="mappers/schedules/schedules.xml" />
         <mapper resource="mappers/ClubNoticeBoardMapper.xml" />
         <mapper resource="mappers/myPageMappers/myPageMappers.xml" />
+        <mapper resource="mappers/login/UsersMapper.xml" />
     </mappers>
 
 </configuration>
