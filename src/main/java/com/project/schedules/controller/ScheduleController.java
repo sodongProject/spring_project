@@ -3,6 +3,7 @@ package com.project.schedules.controller;
 import com.project.entity.Schedules;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.service.ScheduleService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -79,10 +80,12 @@ public class ScheduleController {
     }
 
     @GetMapping("/register")
-    public String Register(long scheduleNo, String account, long clubNo) {
+    public String Register(long scheduleNo, long clubNo, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
 
         scheduleService.registerUserIntoSchedule(scheduleNo, account, clubNo);
-        return "/schedules/detail";
+
+        return "/schedules/list";
     }
 
 }

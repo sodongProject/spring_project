@@ -82,9 +82,9 @@
 <body>
 <h1>스케줄 생성하기!</h1>
 <h1>${login.account}</h1>
-<button id="openModalBtn">스케줄 생성하기</button>
+<button id="open_modal_btn">스케줄 생성하기</button>
 
-<div id="scheduleModal" class="modal">
+<div id="scheduleModal" class="modal" data-clubNo="1">
     <div class="modal-content">
         <span class="close">&times;</span>
         <form>
@@ -93,19 +93,19 @@
             </div>
             <div class="schedule_title">
                 <label>제목</label>
-                <input id="schedule_title" type="text" class="title" name="scheduleTitle">
+                <input id="schedule_title" type="text" class="title" name="scheduleTitle" required>
             </div>
             <div class="schedule_content">
                 <label>내용</label>
-                <textarea id="schedule_content" class="content" name="scheduleContent"></textarea>
+                <textarea id="schedule_content" class="content" name="scheduleContent" required></textarea>
             </div>
             <div class="schedule_at">
                 <label>모임 시간</label>
-                <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">
+                <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}" required>
             </div>
             <div class="participation_points">
                 <label>회비</label>
-                <input type="number" id="participation_points" name="participationPoints" min="0">
+                <input type="text" id="participation_points" name="participationPoints" pattern="[0-9]+" required>
             </div>
             <button id="add_schedule_button" type="submit">등록</button>
         </form>
@@ -126,8 +126,9 @@
 <script>
     // Modal 관련 JavaScript
     const modal = document.getElementById("scheduleModal");
-    const btn = document.getElementById("openModalBtn");
+    const btn = document.getElementById("open_modal_btn");
     const span = document.getElementsByClassName("close")[0];
+    const registerBtn = document.getElementById('add_schedule_button');
 
     btn.onclick = function() {
         modal.style.display = "block";
@@ -136,6 +137,11 @@
     span.onclick = function() {
         modal.style.display = "none";
     };
+
+    registerBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
 
     window.onclick = function(event) {
         if (event.target === modal) {

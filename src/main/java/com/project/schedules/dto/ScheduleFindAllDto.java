@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ScheduleFindAllDto {
+    private String account;
     private long scheduleNo;
     private String scheduleTitle;
     private int scheduleViewCount;
