@@ -92,6 +92,7 @@ public class UsersService {
     public static void maintainLoginState(HttpSession session, Users foundUser) {
         log.info("{}님 로그인 성공했습니다.", foundUser.getUserName());
 
+
         // 세션의 수명
         int maxInactiveInterval = session.getMaxInactiveInterval();
         session.setMaxInactiveInterval(60 * 60 * 24 * 30); // 30일
