@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.project.club.mapper.ClubNoticeBoardMapper">
+
+    <select id="findAll" resultType="clubNoticeBoard">
+        SELECT
+            *
+        FROM clubs_notice_boards
+        WHERE club_notice_is_deleted = FALSE
+    </select>
+
+    <select id="findOne" resultType="clubNoticeBoard">
+        SELECT
+        *
+        FROM clubs_notice_boards
+        WHERE club_notice_no = #{clubNoticeNo}
+    </select>
+
+    <insert id="save">
+        INSERT INTO clubs_notice_boards
+        (club_notice_title, club_notice_content, account, club_no)
+        VALUES
+        (#{clubNoticeTitle}, #{clubNoticeContent}, #{account}, #{clubNo})
+    </insert>
+
+    <update id="upViewCount">
+        UPDATE clubs
+        SET club_notice_view_count = club_notice_view_count + 1
+        WHERE club_notice_no = #{clubNoticeNo}
+    </update>
+
+    <update id="delete">
+        UPDATE clubs_notice_boards
+        SET club_notice_is_deleted = TRUE
+        WHERE club_notice_no = #{clubNoticeNo}
+    </update>
+
+
+</mapper>

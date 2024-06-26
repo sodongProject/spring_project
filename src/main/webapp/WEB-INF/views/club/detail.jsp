@@ -111,7 +111,7 @@
     <label for="content">내용</label>
     <div id="content">${club.content}</div>
     <div class="buttons">
-        <button class="notice-btn" type="button" onclick="window.location.href='/club/notice'">공지사항</button>
+        <button class="notice-btn" type="button" onclick="window.location.href='/clubNoticeBoard/list'">공지사항</button>
         <button class="free_board-btn" type="button" onclick="window.location.href='/club/freeBoard'">자유게시판</button>
         <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
     </div>
