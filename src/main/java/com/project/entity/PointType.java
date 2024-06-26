@@ -1,4 +1,4 @@
-package com.project;
+package com.project.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,10 +7,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public enum Gender {
+public enum PointType {
+    CREDIT("입금"), DEBIT("출금");
 
-    MALE("M"),
-    FEMALE("F");
-
-    private String gender;
+    private String pointType;
 }

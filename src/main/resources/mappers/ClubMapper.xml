@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.club.mapper.ClubMapper">
+
+    <!-- 동적 SQL 조건을 분리 -->
+    <sql id="search">
+        <trim prefix="AND" prefixOverrides="AND |OR ">
+            <if test="type == 'total'">
+                (C.club_name LIKE CONCAT('%', #{keyword}, '%')
+                OR C.club_description LIKE CONCAT('%', #{keyword}, '%')
+                OR C.account LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="type == 'club_name'">
+                C.club_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type == 'club_description'">
+                C.club_description LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type == 'account'">
+                C.account LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type == 'cd'">
+                (C.club_name LIKE CONCAT('%', #{keyword}, '%')
+                OR C.club_description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </trim>
+    </sql>
+
+    <select id="findAll" resultType="com.project.club.dto.ClubFindAllDto">
+        SELECT
+        C.*,
+        (SELECT COUNT(*)
+        FROM users_clubs UC
+        WHERE UC.club_no = C.club_no
+        AND UC.user_club_is_withdrawn = FALSE) AS member_count
+        FROM clubs C
+        LEFT JOIN users U ON C.account = U.account
+        <where>
+            C.club_is_deleted = FALSE
+            <include refid="search"/>
+        </where>
+        ORDER BY C.club_no DESC
+        LIMIT #{pageStart}, #{amount}
+    </select>
+
+
+    <insert id="save">
+        INSERT INTO clubs
+        (club_name, club_description, club_profile, account, club_competition)
+        VALUES
+        (#{clubName}, #{clubDescription}, #{clubProfile}, #{account}, #{clubCompetition})
+    </insert>
+
+    <update id="delete">
+        UPDATE clubs
+        SET club_is_deleted = TRUE
+        WHERE club_no = #{clubNo}
+    </update>
+
+    <select id="findOne" resultType="club">
+        SELECT
+        C.*,
+        (SELECT COUNT(*)
+        FROM users_clubs UC
+        WHERE UC.club_no = C.club_no AND UC.user_club_is_withdrawn = FALSE) AS member_count
+        FROM clubs C
+        LEFT JOIN users U ON C.account = U.account
+        WHERE C.club_no = #{clubNo}
+        AND C.club_is_deleted = FALSE
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT
+        COUNT(*)
+        FROM clubs C
+        LEFT JOIN users U
+        ON C.account = U.account
+        <where>
+            C.club_is_deleted = FALSE
+            <include refid="search"/>
+        </where>
+    </select>
+
+    <select id="findLastSaveClubs" resultType="club">
+        SELECT *
+        FROM clubs
+        WHERE club_no = LAST_INSERT_ID()
+    </select>
+
+    <insert id="saveUsers">
+        INSERT INTO users_clubs
+        (club_no, account, user_club_role, user_club_application_status)
+        VALUES
+        (#{clubNo}, #{account}, 'ADMIN' , 'APPROVED')
+    </insert>
+
+    <update id="userCountUp">
+        UPDATE clubs
+        SET club_member_max = club_member_max + 1
+        WHERE club_no = #{clubNo}
+    </update>
+
+    <!--  유저 정보를 유저스클럽스에 추가  -->
+    <insert id="insertUserClub">
+        INSERT INTO users_clubs (club_no, account, user_club_role, user_club_application_status)
+        VALUES (#{clubNo}, #{account}, 'MEMBER', 'APPROVED')
+    </insert>
+
+    <!--    가입신청자 리스트를 모아볼 수 있는 xml -->
+    <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
+        SELECT
+        U.user_name,
+        U.temperature
+        FROM users U
+        JOIN users_clubs UC
+        ON U.account = UC.account
+        WHERE UC.club_no = #{clubNo}
+        AND uc.user_club_role = 'PENDING'
+    </select>
+
+    <update id="approveApplicant">
+        UPDATE users_clubs
+        SET user_club_role = 'MEMBER',
+        user_club_application_status = 'APPROVED'
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
+
+</mapper>
