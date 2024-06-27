@@ -54,12 +54,13 @@ public class LoginController {
         //프로필 사진 추출
         MultipartFile profileImage = dto.getProfileImage();
 
-        String profilePath = null;
-        if(!profileImage.isEmpty()){
-            log.debug("attached profile image name: {}", profileImage.getOriginalFilename());
-            //서버에 업로드
-            profilePath = FileUtil.uploadFile(rootPath, profileImage);
-        }
+//        String profilePath = null;
+//        if(!profileImage.isEmpty()){
+//            log.debug("attached profile image name: {}", profileImage.getOriginalFilename());
+//            //서버에 업로드
+//            profilePath = FileUtil.uploadFile(rootPath, profileImage);
+//        }
+        String profilePath = FileUtil.uploadFile(rootPath, dto.getProfileImage());
 
         boolean flag = usersService.join(dto, profilePath);  // 회원가입 서비스 호출
 
