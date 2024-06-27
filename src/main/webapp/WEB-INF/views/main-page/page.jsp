@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -18,6 +19,12 @@
     height: 70px;
     width: 100px;
   }
+
+  .bi-bi-search {
+    text-align: right;
+    width: 100px;
+    height: 100px;
+  }
 </style>
 
 </head>
@@ -27,7 +34,6 @@
     <h1 class="main-title">sodong</h1>
   </div>
 
-  <%@ include file="../notice/list.jsp" %>
   <%@ include file="../club-ranking/most-member.jsp" %>
   <%@ include file="../club-ranking/recent.jsp" %>
   <%@ include file="../club-ranking/most-scheduled.jsp" %>

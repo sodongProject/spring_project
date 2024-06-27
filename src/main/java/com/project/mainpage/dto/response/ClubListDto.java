@@ -27,9 +27,6 @@ public class ClubListDto  {
         this.clubMemberMax = dto.getClubMemberMax();
         this.account = dto.getAccount();
         this.scheduleCount = dto.getScheduleCount();
-
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 a hh시 mm분");
-        this.clubCreatedAt = LocalDateTime.parse(pattern.format(dto.getClubCreatedAt()));
     }
 
 }
