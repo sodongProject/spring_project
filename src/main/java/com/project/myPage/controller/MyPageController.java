@@ -151,12 +151,10 @@ public class MyPageController {
      * @param modifyAdressDto 유저에게 받은 새 주소
      * @return jsp
      */
-    @PostMapping("/modifyAdress")
+    @PostMapping("/modifyAddress")
     public String modifyAdress(HttpSession session, ModifyAdressDto modifyAdressDto,RedirectAttributes redirectAttributes) {
 
-
-        String newAdress = modifyAdressDto.getCity() + " " + modifyAdressDto.getTown();
-        myPageService.modifyAdress(session, newAdress);
+        myPageService.modifyAdress(session, modifyAdressDto.getNewAddress());
         setLoggedInUserRedirectionAttr(session,redirectAttributes);
 
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
@@ -242,8 +240,6 @@ public class MyPageController {
 //    @PostMapping("/withdrawal")
 //    public String withdrawal(HttpSession session,boolean isConfirmed) {
 //        myPageService.userWithdrawal(session);
-//
-//
 //
 //        return "myPage/myPage-requiredPassword";
 //

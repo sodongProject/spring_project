@@ -1,0 +1,14 @@
+body,html{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:root{
+  --color-bk:#0d0d0d;
+  --color-wh:#f2f2f2;
+  --color-point:#f2cb05;
+  --color-sub-point:#f2e205;
+  --color-exception:#1bafbf;
+}
+
+/* 공통 스타일 */

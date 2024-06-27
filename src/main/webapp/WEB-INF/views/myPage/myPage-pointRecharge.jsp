@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <%@ include file="../include/static-head.jsp" %>
+  <link rel="stylesheet"  href="/assets/css/myPage.css" />
 </head>
 <body>
   <h1>포인트 충전</h1>
