@@ -17,26 +17,26 @@ public class MyPageInterceptor implements HandlerInterceptor {
     private final MyPageService myPageService;
 
 
-    // 비밀번호 검증 후 리다이렉션할 것!
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        HttpSession session = request.getSession();
-        myPageService.saveLoginUser("mmm", session);
-
-        System.out.println("request = " + request);
-        System.out.println("response = " + response);
-
-//        System.out.println("session.getAttribute(\"isConfirmedPw\") = " + session.getAttribute("isConfirmedPw"));
-
-//        String redirectUri = request.getRequestURI();
-
-//        if(!myPageService.isConfirmPassword(session)){
-//            response.sendRedirect("/myPage/confirmPw");
-//            return false;
-//        }
-
-        return true;
-
-    }
+//    // 비밀번호 검증 후 리다이렉션할 것!
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//
+//        HttpSession session = request.getSession();
+//        myPageService.saveLoginUser("mmm", session);
+//
+//        System.out.println("request = " + request);
+//        System.out.println("response = " + response);
+//
+////        System.out.println("session.getAttribute(\"isConfirmedPw\") = " + session.getAttribute("isConfirmedPw"));
+//
+////        String redirectUri = request.getRequestURI();
+//
+////        if(!myPageService.isConfirmPassword(session)){
+////            response.sendRedirect("/myPage/confirmPw");
+////            return false;
+////        }
+//
+//        return true;
+//
+//    }
 }
