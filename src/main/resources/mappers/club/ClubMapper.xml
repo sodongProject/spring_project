@@ -103,11 +103,32 @@
         WHERE club_no = #{clubNo}
     </update>
 
-    <!--  유저 정보를 유저스클럽스에 추가  -->
+<!--    &lt;!&ndash;  유저 정보를 유저스클럽스에 추가  &ndash;&gt;-->
+<!--    <insert id="insertAdminClub">-->
+<!--        INSERT INTO users_clubs (club_no, account, user_club_role, user_club_application_status)-->
+<!--        VALUES (#{clubNo}, #{account}, 'MEMBER', 'APPROVED')-->
+<!--    </insert>-->
+
+    <!-- 사용자 역할 조회 -->
+    <select id="findUserRole" resultType="string">
+        SELECT user_club_role
+        FROM users_clubs
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </select>
+
+    <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
-        INSERT INTO users_clubs (club_no, account, user_club_role, user_club_application_status)
-        VALUES (#{clubNo}, #{account}, 'MEMBER', 'APPROVED')
+        INSERT INTO users_clubs (club_no, account, user_club_role)
+        VALUES (#{clubNo}, #{account}, 'PENDING')
     </insert>
+
+    <!-- 사용자 역할 업데이트 -->
+    <update id="updateUserRole">
+        UPDATE users_clubs
+        SET user_club_role = #{role}
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
 
     <!--    가입신청자 리스트를 모아볼 수 있는 xml -->
     <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">

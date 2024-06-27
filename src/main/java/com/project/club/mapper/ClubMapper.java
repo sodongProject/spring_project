@@ -38,16 +38,26 @@ public interface ClubMapper {
     void userCountUp(@Param("clubNo") long clubNo);
 
 
-    // 가입신청했을때 유저스클럽스에 넣어!
-    void insertUserClub(@Param("clubNo") long clubNo,
-                        @Param("account") String account);
+//    // 가입신청했을때 유저스클럽스에 넣어!
+//    void insertUserClub(@Param("clubNo") long clubNo,
+//                        @Param("account") String account);
 
 
     List<ApplicantDto> findApplicants(@Param("clubNo") long clubNo);
 
+
+    String findUserRole(@Param("clubNo")long clubNo,
+                        @Param("account")String account);
+
+    void insertUserClub(@Param("clubNo")long clubNo,
+                        @Param("account")String account,
+                        @Param("role")String role);
+
     // 가입 승인 시 member 로 권한 상승
-    void approveApplicant(@Param("clubNo") Long clubNo,
-                          @Param("account") String account);
+    void updateUserRole(@Param("clubNo")long clubNo,
+                        @Param("account")String account,
+                        @Param("role")String role);
+
 
 }
 

@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<div id="wrap">
+ <div id="wrap">
     <div class="main-title-wrapper">
         <h1 class="main-title">
             <button class="homeBtn">클럽 만들기</button>
@@ -61,9 +61,12 @@
             <div class="card-wrapper">
                 <div class="container" data-bno="${b.clubNo}">
                     <div class="top-section">
-                        <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
-                            <i class="fas fa-times"></i>
-                        </button>
+
+                        <c:if test="${login.auth == 'ADMIN'}">
+                            <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </c:if>
                         <i class='bx bxs-moon'></i>
                     </div>
                     <div class="middle-section">
@@ -162,6 +165,12 @@
     </div>
 </div>
 
+<!-- 로그인된 사용자 정보와 권한을 JavaScript 변수로 설정 -->
+<script>
+    const loginUser = "${currentUser}";
+    const auth = "${userRole}";
+</script>
+
 <script>
     const $homeBtn = document.querySelector('.homeBtn')
     const $cardContainer = document.querySelector('.card-container');
@@ -174,6 +183,7 @@
     });
 
     $cardContainer.addEventListener('click', e => {
+        <%--const $login = ${login.auth eq 'ADMIN'}--%>
         e.preventDefault()
         if (e.target.matches('.top-section .del-btn .fas')) {
             modal.style.display = 'flex';
@@ -191,8 +201,10 @@
             // "가입하기", "상세보기" 버튼 또는 data-href 속성을 가진 요소 클릭 시 아무 동작도 하지 않음
         } else {
             const bno = e.target.closest('.container').dataset.bno;
-            // 요청 보내기
+
             window.location.href = '/club/detail?bno=' + bno;
+
+
         }
     });
 
@@ -307,6 +319,38 @@
             }
         });
     });
+
+    <%--document.addEventListener('DOMContentLoaded', function() {--%>
+    <%--    const joinButton = document.querySelector('.join-btn');--%>
+    <%--    joinButton.addEventListener('click', function(e) {--%>
+    <%--        const clubNo = this.dataset.clubNo;--%>
+    <%--        fetch(`/club/join?clubNo=${clubNo}`, { method: 'POST' })--%>
+    <%--            .then(response => response.json())--%>
+    <%--            .then(data => {--%>
+    <%--                if (data.pending) {--%>
+    <%--                    document.getElementById('joinStatus').innerHTML = '<div>가입 대기중</div>';--%>
+    <%--                    joinButton.style.display = 'none';--%>
+    <%--                } else if (data.message) {--%>
+    <%--                    document.getElementById('joinStatus').innerHTML = `<div>${data.message}</div>`;--%>
+    <%--                }--%>
+    <%--            })--%>
+    <%--            .catch(error => console.error('Error:', error));--%>
+    <%--    });--%>
+    <%--});--%>
+
+    <%--approveButton.addEventListener('click', function(event) {--%>
+    <%--    fetch(`/club/approve?clubNo=${clubNo}&account=${account}`, { method: 'POST' })--%>
+    <%--        .then(response => response.json())--%>
+    <%--        .then(data => {--%>
+    <%--            if (data.success) {--%>
+    <%--                document.getElementById('joinStatus').innerHTML = '<div>가입 승인됨</div>';--%>
+    <%--                document.querySelector('.join-btn').remove(); // 가입 버튼 제거--%>
+    <%--                document.querySelector('.pending-div').remove(); // 대기중 div 제거--%>
+    <%--            }--%>
+    <%--        })--%>
+    <%--        .catch(error => console.error('Error:', error));--%>
+    <%--});--%>
+
 
 </script>
 </body>
