@@ -4,12 +4,15 @@ import com.project.login.dto.SignInDto;
 import com.project.login.dto.SignUpDto;
 import com.project.login.service.LoginResult;
 import com.project.login.service.UsersService;
+import com.project.util.FileUtil;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +25,9 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @RequiredArgsConstructor
 public class LoginController {
+
+    @Value("${file.upload.root-path}")
+    private String rootPath;
 
     private final UsersService usersService;
 
@@ -43,11 +49,22 @@ public class LoginController {
     public String signUp(@ModelAttribute SignUpDto dto) {
         log.info("/users/sign-up POST");
         log.info("SignUp request: {}", dto);
+        log.info("attached profile image name: {}", dto.getProfileImage().getOriginalFilename());
 
-        boolean flag = usersService.join(dto);  // 회원가입 서비스 호출
+        //프로필 사진 추출
+        MultipartFile profileImage = dto.getProfileImage();
 
-        // ⭐수정해야함⭐ 회원가입 성공 시 메인 페이지로, 실패 시 회원가입 페이지로 리다이렉트
-        return flag ? "redirect:/index" : "redirect:/users/sign-up";
+        String profilePath = null;
+        if(!profileImage.isEmpty()){
+            log.debug("attached profile image name: {}", profileImage.getOriginalFilename());
+            //서버에 업로드
+            profilePath = FileUtil.uploadFile(rootPath, profileImage);
+        }
+
+        boolean flag = usersService.join(dto, profilePath);  // 회원가입 서비스 호출
+
+        // 회원가입 성공 시 메인 페이지로, 실패 시 회원가입 페이지로 리다이렉트
+        return flag ? "redirect:/users/sign-in" : "redirect:/users/sign-up";
     }
 
     // 아이디, 이메일 중복검사 비동기 요청 처리
@@ -87,7 +104,6 @@ public class LoginController {
         HttpSession session = request.getSession();
 
         LoginResult result = usersService.authenticate(dto, session, response);
-
         log.info("Authentication result: {}", result);
 
         ra.addFlashAttribute("result", result);

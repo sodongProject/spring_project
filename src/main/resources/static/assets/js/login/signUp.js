@@ -1,7 +1,7 @@
 
 // 유효성 검증 함수들을 import
-import { validateInput } from '../js/validate.js';
-import { debounce } from '../js/util.js';
+import { validateInput } from '../js/login/validate.js';
+import { debounce } from '../js/login/util.js';
 
 // 폼과 회원가입 버튼 요소를 가져옴
 const form = document.getElementById('signUpForm');
@@ -29,10 +29,10 @@ const updateButtonState = () => {
 
   if (isFormValid) {
     //signupButton.disabled = false; // 버튼 활성화
-    signupButton.style.backgroundColor = 'orangered'; // 활성화된 버튼 배경색
+    //signupButton.style.backgroundColor = 'orangered'; // 활성화된 버튼 배경색
   } else {
     //signupButton.disabled = true; // 버튼 비활성화
-    signupButton.style.backgroundColor = 'lightgray'; // 비활성화된 버튼 배경색
+    //signupButton.style.backgroundColor = 'lightgray'; // 비활성화된 버튼 배경색
   }
 };
 
