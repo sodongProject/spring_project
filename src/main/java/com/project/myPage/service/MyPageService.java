@@ -73,7 +73,7 @@ public class MyPageService {
                 .account(findedUser.getAccount())
                 .name(findedUser.getUserName())
                 .email(findedUser.getEmail())
-                .adress(findedUser.getAddress())
+                .address(findedUser.getAddress())
                 .imgAdress(findedUser.getProfileImage())
                 .gender(findedUser.getGender())
                 .password(findedUser.getPassword())
