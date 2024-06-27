@@ -75,11 +75,7 @@
 
           <br>
 
-          <!-- profileImage 입력 -->
-          <div class="input__block">
-            <p>프로필 사진을 등록해주세요 (선택)</p>
-            <input id="user_profile" class="form-control tooltipstered" accept="image/*" type="file" name="profileImage" placeholder="profileImage"/>
-          </div>
+          
 
           <!-- userName 입력 -->
           <div class="input__block">
@@ -126,6 +122,8 @@
           <i class="fa fa-heart"></i>
         </p>
       </footer>
+
+      
 
       <script type="module" src="/assets/js/login/signUp.js"></script>
       <script type="module" src="/assets/js/login/proFileImg.js"></script>

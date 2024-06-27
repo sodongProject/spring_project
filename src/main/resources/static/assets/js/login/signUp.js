@@ -1,7 +1,8 @@
 
+
 // 유효성 검증 함수들을 import
-import { validateInput } from '../js/login/validate.js';
-import { debounce } from '../js/login/util.js';
+import { validateInput } from '../login/validate.js';
+import { debounce } from '../login/util.js';
 
 // 폼과 회원가입 버튼 요소를 가져옴
 const form = document.getElementById('signUpForm');
