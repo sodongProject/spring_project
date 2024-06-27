@@ -1,6 +1,6 @@
 package com.project.myPage.mapper;
 
-import com.project.entity.Users;
+import com.project.login.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

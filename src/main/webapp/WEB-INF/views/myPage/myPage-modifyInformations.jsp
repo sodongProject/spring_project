@@ -37,7 +37,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <option>전라북도</option>
         <option>전라남도</option>
       </select>
-      <select class="town">
+      <select name="town">
         <option>강동구</option>
         <option>강서구</option>
         <option>강북구</option>
@@ -107,5 +107,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <h3>이름: ${dto.name}</h3>
     <h3>성별: ${dto.gender}</h3>
     <h3>온도: ${dto.temperature}</h3>
+
+    <!-- <form action="">
+      <h3>회원 탈퇴</h3>
+    </form> -->
   </body>
 </html>

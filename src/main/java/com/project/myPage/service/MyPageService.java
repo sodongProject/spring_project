@@ -1,7 +1,7 @@
 package com.project.myPage.service;
 
 
-import com.project.entity.Users;
+import com.project.login.entity.Users;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.mapper.MyPageMappers;
@@ -26,17 +26,17 @@ public class MyPageService {
     // 로그인 유저 저장
     public void saveLoginUser(String account, HttpSession session) {
         Users user = myPageMapper.findOne(account);
-        LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto();
-//        initConfirmPassword(session);
+        LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto(user);
+
 
         session.setAttribute(LOGIN, loginUserInfoDto);
     }
 
-    public Users findOneByAccount(String account){
-        Users one = myPageMapper.findOne(account);
-        System.out.println("one = " + one);
-        return one;
-    }
+//    public Users findOneByAccount(String account){
+//        Users one = myPageMapper.findOne(account);
+//        System.out.println("one = " + one);
+//        return one;
+//    }
 
     /**
      * 세션 정보로 해당 유저 찾기 요청
@@ -74,7 +74,7 @@ public class MyPageService {
                 .name(findedUser.getUserName())
                 .email(findedUser.getEmail())
                 .adress(findedUser.getAddress())
-                .imgAdress(findedUser.getProfile_image())
+                .imgAdress(findedUser.getProfileImage())
                 .gender(findedUser.getGender())
                 .password(findedUser.getPassword())
                 .phoneNumber(findedUser.getPhoneNumber())
@@ -83,10 +83,6 @@ public class MyPageService {
                 .build();
     }
 
-
-    public void initConfirmPassword(HttpSession session){
-        session.setAttribute("isConfirmedPw", "false");
-    }
 
     /**
      * 비밀번호 검증
@@ -100,19 +96,11 @@ public class MyPageService {
         System.out.println("correctPw = " + correctPw);
 
         if (!inputPw.equals(correctPw)){
-
             return false;
         }
         return true;
-
     }
 
-    public boolean isConfirmPassword (HttpSession session){
-        String  isConfirmedPw = (String) session.getAttribute("isConfirmedPw");
-        if (isConfirmedPw.equals("false")) return false;
-
-        return true;
-    }
 
 
     /**

@@ -1,7 +1,7 @@
 package com.project.mainpage.entity;
 
-import com.project.Auth;
-import com.project.Gender;
+import com.project.entity.Auth;
+import com.project.entity.Gender;
 
 import lombok.*;
 

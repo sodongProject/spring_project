@@ -1,6 +1,6 @@
 package com.project.mainpage.dto.response;
 
-import com.project.Auth;
+import com.project.entity.Auth;
 import com.project.mainpage.entity.User;
 import lombok.*;
 

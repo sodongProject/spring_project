@@ -1,6 +1,5 @@
 package com.project.myPage.controller;
 
-import com.project.entity.Users;
 import com.project.myPage.dto.request.*;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.service.MyPageService;
@@ -29,6 +28,25 @@ public class MyPageController {
     // @ 마이페이지 로그인상태로 진입 가능
 
 
+    /**
+     * LoggedInUserInfoDto 모델 저장 - getMapping
+     * @param session
+     * @param model
+     */
+    private void setLoggedInUserModel(HttpSession session,Model model){
+        LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
+        model.addAttribute("dto", loggedInUserInfoDto);
+    }
+
+    /**
+     * LoggedInUserInfoDto 모델 저장 - postMapping
+     * @param session
+     * @param redirectAttributes
+     */
+    private void setLoggedInUserRedirectionAttr(HttpSession session,RedirectAttributes redirectAttributes){
+        LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
+        redirectAttributes.addFlashAttribute("dto", loggedInUserInfoDto);
+    }
 
     /**
      * 개인 정보 조회 요청
@@ -40,9 +58,7 @@ public class MyPageController {
     public String view(HttpSession session, Model model) {
 
         myPageService.saveLoginUser("mmm", session);
-        LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
-
-        model.addAttribute("dto", loggedInUserInfoDto);
+        setLoggedInUserModel(session,model);
         return "myPage/myPage-viewInformations";
     }
 
@@ -93,8 +109,7 @@ public class MyPageController {
             return "redirect:/myPage/modifyInformations?isConfirmed=false";
         }
 
-        LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
-        redirectAttributes.addFlashAttribute("dto", loggedInUserInfoDto);
+        setLoggedInUserRedirectionAttr(session,redirectAttributes);
         redirectAttributes.addFlashAttribute("result",true);
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
     }
@@ -106,9 +121,10 @@ public class MyPageController {
      * @return jsp
      */
     @PostMapping("/modifyPassword")
-    public String modifyPassword(HttpSession session, ModifyPasswordDto modifyPasswordDto) {
+    public String modifyPassword(HttpSession session, ModifyPasswordDto modifyPasswordDto,RedirectAttributes redirectAttributes) {
 
         myPageService.modifyPassword(session,modifyPasswordDto.getNewPassword());
+        setLoggedInUserRedirectionAttr(session,redirectAttributes);
 
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
     }
@@ -119,15 +135,16 @@ public class MyPageController {
      * @return jsp
      */
     @PostMapping("/modifyPhNum")
-    public String modifyPassword(HttpSession session, ModifyPhoneNumberDto modifyPhoneNumberDto) {
+    public String modifyPassword(HttpSession session, ModifyPhoneNumberDto modifyPhoneNumberDto, RedirectAttributes redirectAttributes) {
 
         String newPhoneNumber = modifyPhoneNumberDto.getPhoneNumFront() + modifyPhoneNumberDto.getPhoneNumMid() + modifyPhoneNumberDto.getPhoneNumLast();
 
         myPageService.modifyPhoneNumber(session, newPhoneNumber);
+        setLoggedInUserRedirectionAttr(session,redirectAttributes);
 
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
     }
-//
+
     /**
      * 주소 수정
      * @param session   세션 정보
@@ -135,11 +152,12 @@ public class MyPageController {
      * @return jsp
      */
     @PostMapping("/modifyAdress")
-    public String modifyAdress(HttpSession session, ModifyAdressDto modifyAdressDto) {
+    public String modifyAdress(HttpSession session, ModifyAdressDto modifyAdressDto,RedirectAttributes redirectAttributes) {
 
 
         String newAdress = modifyAdressDto.getCity() + " " + modifyAdressDto.getTown();
-        myPageService.modifyPhoneNumber(session, newAdress);
+        myPageService.modifyAdress(session, newAdress);
+        setLoggedInUserRedirectionAttr(session,redirectAttributes);
 
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
 
@@ -172,8 +190,6 @@ public class MyPageController {
     public String viewPointPost(String inputValue, HttpSession session, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("points", myPageService.viewPoints(session));
         boolean isCorrect = myPageService.confirmPassword(session,inputValue);
-//        session.setAttribute("ref", "viewPoint");
-//        redirectAttributes.addFlashAttribute("ref","viewPoint");
 
         if(!isCorrect){
             redirectAttributes.addFlashAttribute("result",false);
