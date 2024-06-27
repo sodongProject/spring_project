@@ -1,5 +1,6 @@
 package com.project.login.dto;
 
+import com.project.entity.Auth;
 import com.project.entity.Gender;
 import com.project.login.entity.Users;
 import lombok.*;
@@ -52,11 +53,13 @@ public class SignUpDto {
     @Size(max = 255, message = "주소는 최대 255자까지 입력 가능합니다.")
     private String address;
 
+    //private String auth;
+
+    //private String temperature;
 
     public Users toEntity() {
 
         return Users.builder()
-                
                 .account(this.account)
                 .userName(this.userName)
                 .email(this.email)
@@ -64,6 +67,8 @@ public class SignUpDto {
                 .phoneNumber(this.phoneNumber)
                 .gender(Gender.valueOf(this.gender))
                 .address(this.address)
+                //.auth(Auth.valueOf(this.auth))
+                //.temperature(Double.valueOf(this.temperature))
                 .build();
     }
 }

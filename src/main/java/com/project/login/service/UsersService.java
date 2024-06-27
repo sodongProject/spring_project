@@ -1,5 +1,6 @@
 package com.project.login.service;
 
+import com.project.entity.Auth;
 import com.project.login.dto.AutoLoginDto;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.login.dto.SignInDto;
@@ -36,12 +37,22 @@ public class UsersService {
     public boolean join(SignUpDto dto, String profilePath) {
         //dto 엔터티 변환
         Users users = dto.toEntity();
-        users.setProfileImage(profilePath);
+        users.setProfileImage(profilePath); //프로필 사진 경로 엔터티에 설정
 
         //비밀번호 암호화
         String encodedPassword = encoder.encode(dto.getPassword());
         users.setPassword(encodedPassword);
+
+        // 기본값 설정 👻
+        if (users.getTemperature() == null) {
+            users.setTemperature(36.5);
+        }
+        if (users.getAuth() == null) {
+            users.setAuth(Auth.USER);
+        }
+
         return usersMapper.save(users);
+
     }
 
     // 로그인 검증 처리

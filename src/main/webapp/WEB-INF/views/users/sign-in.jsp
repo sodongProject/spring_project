@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +78,7 @@
         
       </footer>
 
-      <script src="/assets/css/login/signIn.js"></script>
+      <script src="/assets/js/login/signIn.js"></script>
 
 </body>
 </html>
