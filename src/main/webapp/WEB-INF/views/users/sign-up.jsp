@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="stylesheet" href="/assets/css/login/signUp.css">
 </head>
 <body>
 
@@ -27,6 +27,23 @@
 
         <!-- Form -->
         <form action="/users/sign-up" name="signup" id="signUpForm" method="post" enctype="multipart/form-data">
+
+         <!-- Profile -->
+            <div class="profile">
+                <div class="thumbnail-box">
+                  <img src="/assets/img/image-add.png" alt="프로필 썸네일">
+                </div>
+
+                <label>프로필 이미지 추가</label>
+
+                <input
+                        type="file"
+                        id="profile-img"
+                        accept="image/*"
+                        style="display: none;"
+                        name="profileImage"
+                >
+              </div>
 
           <!-- account 입력 -->
           <div class="input__block">
@@ -110,8 +127,7 @@
         </p>
       </footer>
 
-      <!-- <script src="/assets/js/validation.js"></script> -->
-      <!-- <script src="/assets/js/validate.js"></script> -->
-      <script type="module" src="/assets/js/signUp.js"></script>
+      <script type="module" src="/assets/js/login/signUp.js"></script>
+      <script type="module" src="/assets/js/login/proFileImg.js"></script>
 </body>
 </html>

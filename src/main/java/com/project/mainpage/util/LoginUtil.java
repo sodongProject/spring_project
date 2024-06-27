@@ -1,7 +1,8 @@
 package com.project.mainpage.util;
 
+
 import com.project.entity.Auth;
-import com.project.mainpage.dto.response.LoginUserInfoDto;
+import com.project.login.dto.LoginUserInfoDto;
 
 import javax.servlet.http.HttpSession;
 

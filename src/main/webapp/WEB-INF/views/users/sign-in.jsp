@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="stylesheet" href="/assets/css/login/signIn.css">
 </head>
 <body>
     
@@ -79,21 +79,7 @@
         
       </footer>
 
-      <!-- <script src="/assets/js/signIn.js"></script> -->
-
-      <script>
-        //서버에서 전송된 로그인 검증 메시지
-        const result = '${result}';
-        console.log('result: ', result);
-
-
-        if(result === 'NO_ACC'){
-            alert('아이디가 존재하지 않습니다.');
-        }else if(result === 'NO_PW'){
-            alert('비밀번호가 일치하지 않습니다.');
-        }
-
-      </script>
+      <script src="/assets/css/login/signIn.js"></script>
 
 </body>
 </html>
