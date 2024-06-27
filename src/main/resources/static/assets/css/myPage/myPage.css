@@ -18,7 +18,9 @@
   font-size: 14px;
 }
 
-.myPage_nav
+.myPage_nav{
+  
+}
 
 .myPage_inner{
   width: calc(100% - 340px);
