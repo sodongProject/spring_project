@@ -70,7 +70,7 @@ public class MyPageController {
      * @return false시 검증 요청 페이지로이동
      */
     private String isPwConfirmedBefore(boolean isConfirmed, String ref, Model model){
-        model.addAttribute("ref",ref);
+        model.addAttribute("ref", ref);
         if (isConfirmed){
             return "myPage/myPage-" + ref;
         }
@@ -85,7 +85,6 @@ public class MyPageController {
     @GetMapping("/modifyInformations")
     public String modifyInformationsPwConfirm(HttpSession session, boolean isConfirmed, Model model){
         myPageService.saveLoginUser("mmm", session);
-
         String ref = "modifyInformations";
         return isPwConfirmedBefore(isConfirmed, ref,model);
     }
@@ -100,7 +99,8 @@ public class MyPageController {
     @PostMapping("/modifyInformations")
     public String modifyInformations(HttpSession session,String inputValue,  RedirectAttributes redirectAttributes){
         myPageService.saveLoginUser("mmm", session);
-        boolean isCorrect = myPageService.confirmPassword(session,inputValue);
+        boolean isCorrect = myPageService.confirmPassword(session, inputValue);
+        System.out.println("isCorrect = " + isCorrect);
 //        session.setAttribute("ref", "modifyInformations");
 //        redirectAttributes.addFlashAttribute("ref","modifyInformations" );
 
@@ -244,9 +244,8 @@ public class MyPageController {
 //        myPageService.userWithdrawal(session);
 //
 //
-//        String ref = "withdrawal";
 //
-//        return isPwConfirmed(isConfirmed, ref);
+//        return "myPage/myPage-requiredPassword";
 //
 //    }
 

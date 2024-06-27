@@ -108,8 +108,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <h3>성별: ${dto.gender}</h3>
     <h3>온도: ${dto.temperature}</h3>
 
-    <!-- <form action="">
-      <h3>회원 탈퇴</h3>
+    <!-- <form action="/myPage/withdrawal" method="post">
+      <button type="submit">회원 탈퇴</button>
     </form> -->
   </body>
 </html>

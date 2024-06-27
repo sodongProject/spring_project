@@ -95,6 +95,7 @@ public class MyPageService {
         String correctPw = findedUser.getPassword();
         System.out.println("correctPw = " + correctPw);
 
+
         if (!inputPw.equals(correctPw)){
             return false;
         }
