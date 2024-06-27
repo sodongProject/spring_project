@@ -1,28 +1,91 @@
+body{
+  /* background-color: red; */
+}
+
 .myPage_wrap{
   display: flex;
   padding: 100px calc((100% - 1200px)/2);
 }
-
+.myPage_wrap h1{
+  font-size: 24px;
+  font-weight: 700;
+}
+.myPage_nav .menu-wrap {
+  margin-bottom: 20px;
+}
+.myPage_nav .menu-wrap:last-child{
+  margin-bottom: 0;
+}
 .myPage_nav{
   width: 300px;
-  margin-right: 40px;
-  border-radius: 22px;
+  margin-right: 100px;
+  border-radius: 28px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 30px 10px;
+  padding: 50px 30px 100px;
+  border: solid 1px var(--color-wh);
 }
 .myPage_nav .menu-tit{
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 500px;
+  width: fit-content;
+}
+.myPage_nav .menu-tit.is-active{
+  color: var(--color-bk);
+  background-color: var(--color-point);
+}
+.myPage_nav .menu-list{
+  margin-top: 20px;
+  padding-left: 20px;
+}
+.myPage_nav .menu-list  li{
+  margin-bottom: 16px;
 
+}
+.myPage_nav .menu-list li:last-child{
+  margin-bottom: 0;
 }
 .myPage_nav .menu-list a{
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 
+
+.myPage_nav .menu-list a.is-active::before{
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 1px;
+  background-color: var(--color-point);
+  margin-right: 8px;
+}
 .myPage_nav{
-  
+
 }
 
 .myPage_inner{
-  width: calc(100% - 340px);
+  width: calc(100% - 400px);
+  padding-top: 60px;
+}
+.myPage_dep{
+  padding-top: 80px;
+}
 
+input{
+  width: 300px;
+  height: 40px;
+  background-color: var(--color-wh);
+  border-radius: 500px;
+  font-size: 16px;
+
+}
+button[type="submit"]{
+  width: 140px;
+  height: 40px;
+  border-radius: 500px;
+  background-color: var(--color-bk);
+  font-size: 16px;
 }
