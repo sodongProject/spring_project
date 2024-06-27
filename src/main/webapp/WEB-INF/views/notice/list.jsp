@@ -5,56 +5,82 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
-
+    <title>Sodong</title>
     <style>
-      #notice-board {
-        border: 1px solid blue;
-        height: 100%;
-        width: 200px;
+      body {
+        font-family: Arial, sans-serif;
       }
-
-      .notice-box {
-        border: 1px solid #000;
-        height: 70px;
-        width: 100px;
+      .header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
       }
-
-      .club-ranking {
-        border: 1px solid #000;
-        height: 70px;
-        width: 100px;
+      .container {
+        width: 80%;
+        margin: 0 auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #dddddd;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .pagination {
+        text-align: center;
+        margin-top: 10px;
       }
     </style>
   </head>
   <body>
-    <!-- <%@ include file="../include/header.jsp" %> -->
-
-    <div id="notice-board">
-      <div class="main-title-wrapper">
-        <h1 class="main-title">공지사항</h1>
-        <button class="add-btn">새 글 쓰기</button>
-      </div>
-
-      <div class="notice-list-box">
+    <div class="header">
+      <h1>Sodong</h1>
+    </div>
+    <div class="container">
+      <h2>Sodong 공지사항</h2>
+      <p>공지사항을 만나 공지사항을 확인합니다.</p>
+      <form>
+        <input type="date" name="start_date" />
+        <input type="date" name="end_date" />
+        <button type="submit">검색</button>
+      </form>
+      <table>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일자</th>
+          <th>조회수</th>
+        </tr>
         <c:if test="${list.size() > 0}">
           <c:forEach var="b" items="${list}">
-            <div class="notice-box">
-              <div>작성자: ${b.account}</div>
-              <div>공지사항 제목: ${b.mainNoticeTitle}</div>
-              <div>공지사항 내용: ${b.mainNoticeContent}</div>
-              <div>작성 시간: ${b.mainNoticeCreatedAt}</div>
-            </div>
+            <tr>
+              <td>${b.mainNoticeNo}</td>
+              <td>${b.mainNoticeTitle}</td>
+              <td>관리자</td>
+              <td>${b.mainNoticeCreatedAt}</td>
+              <td>${b.mainNoticeViewCount}</td>
+            </tr>
           </c:forEach>
         </c:if>
+      </table>
+      <div class="pagination">
+        <button>&lt;</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>&gt;</button>
       </div>
     </div>
-
-    <script>
-      // write button event
-      document.querySelector(".add-btn").onclick = (e) => {
-        window.location.href = "/notice/write";
-      };
-    </script>
   </body>
 </html>
