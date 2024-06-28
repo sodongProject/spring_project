@@ -58,28 +58,31 @@ public class LoginUtil {
     // 클럽 로그인 회원의 권한이 ADMIN 인지 확인
     public static boolean isClubAdmin(HttpSession session) {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
-        if (clubLoggedInUser != null && clubLoggedInUser.getClubAuth() != null) {
-            return clubLoggedInUser.getClubAuth() == ClubAuth.ADMIN;
+        ClubAuth clubAuth = null;
+        if (isLoggedIn(session)) {
+            clubAuth = clubLoggedInUser.getClubAuth();
         }
-        return false;
+        return clubAuth == ClubAuth.ADMIN;
     }
 
     // 클럽 로그인 회원의 권한이 MEMBER 인지 확인
     public static boolean isClubMember(HttpSession session) {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
-        if (clubLoggedInUser != null && clubLoggedInUser.getClubAuth() != null) {
-            return clubLoggedInUser.getClubAuth() == ClubAuth.MEMBER;
+        ClubAuth clubAuth = null;
+        if (isLoggedIn(session)) {
+            clubAuth = clubLoggedInUser.getClubAuth();
         }
-        return false;
+        return clubAuth == ClubAuth.MEMBER;
     }
 
     // 클럽 로그인 회원의 권한이 PENDING 인지 확인
     public static boolean isClubPending(HttpSession session) {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
-        if (clubLoggedInUser != null && clubLoggedInUser.getClubAuth() != null) {
-            return clubLoggedInUser.getClubAuth() == ClubAuth.PENDING;
+        ClubAuth clubAuth = null;
+        if (isLoggedIn(session)) {
+            clubAuth = clubLoggedInUser.getClubAuth();
         }
-        return false;
+        return clubAuth == ClubAuth.PENDING;
     }
 
     // 클럽 로그인 여부 확인

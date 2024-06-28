@@ -1,20 +1,24 @@
 package com.project.club.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.club.common.PageMaker;
 import com.project.club.common.Search;
-import com.project.club.dto.ApplicantDto;
-import com.project.club.dto.ClubDetailResponseDto;
-import com.project.club.dto.ClubListResponseDto;
-import com.project.club.dto.ClubWriteRequestDto;
+import com.project.club.dto.*;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -26,6 +30,7 @@ import java.util.List;
 public class ClubController {
 
     private final ClubService clubService;
+    private final ObjectMapper objectMapper;
 
     @Value("${file.upload.root-path}")
     private String rootPath;
@@ -33,16 +38,24 @@ public class ClubController {
     // 1. 전체조회
     @GetMapping("/list")
     public String clubList(@ModelAttribute("s") Search search, Model model, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
         List<ClubListResponseDto> clubList = clubService.findList(search);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
+
+        // 사용자 클럽 정보 추가
+        for (ClubListResponseDto club : clubList) {
+            if (!clubService.checkIfUserExistsInClub(account, club.getClubNo())) {
+                clubService.insertUserClub(club.getClubNo(), account, "PENDING");
+            }
+        }
+
+        ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
         model.addAttribute("clubList", clubList);
         model.addAttribute("maker", maker);
 
-
         return "club/list";
     }
-
     // 2. 게시글 쓰기 양식 화면 열기 요청
     @GetMapping("/write")
     public String write() {
@@ -52,7 +65,6 @@ public class ClubController {
     // 3. 게시글 등록 요청 (/club/write : POST)
     @PostMapping("/write")
     public String write(ClubWriteRequestDto C) {
-
         String profilePath = FileUtil.uploadFile(rootPath, C.getClubProfile());
         clubService.insert(C, profilePath);
         return "redirect:/club/list";
@@ -102,6 +114,7 @@ public class ClubController {
         }
     }
 
+
     // 8. 가입 신청자 목록 조회
     @GetMapping("/applicants")
     public String viewApplicants(@RequestParam("clubNo") long clubNo, Model model) {
@@ -113,10 +126,7 @@ public class ClubController {
     // 9. 가입 승인 시 권한 변경
     @PostMapping("/approve")
     public String approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
-        log.info("Approve request received for account: {}, clubNo: {}", account, clubNo);
         clubService.approveApplicant(clubNo, account);
         return "redirect:/club/applicants?clubNo=" + clubNo;
     }
-
-
 }

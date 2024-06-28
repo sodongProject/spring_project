@@ -4,12 +4,18 @@ import com.project.club.common.Search;
 import com.project.club.dto.*;
 import com.project.club.entity.Club;
 import com.project.club.mapper.ClubMapper;
+import com.project.login.dto.LoginUserInfoDto;
+import com.project.login.entity.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.project.util.LoginUtil.CLUB_LOGIN;
+import static com.project.util.LoginUtil.LOGIN;
 
 @Service
 @RequiredArgsConstructor
@@ -85,7 +91,32 @@ public class ClubService {
         clubMapper.insertUserClub(clubNo, account, "PENDING");
     }
 
+    // 서비스 계층에서 승인 처리를 정확하게 수행하기 위한 메서드
     public void approveApplicant(Long clubNo, String account) {
+        log.info("Approve request received for account: {}, clubNo: {}", account, clubNo);
+        // 특정 클럽의 특정 사용자만 업데이트
         clubMapper.updateUserRole(clubNo, account, "MEMBER");
+    }
+
+
+    // 클럽 로그인 사용자 정보 조회
+    public ClubLoginUserInfoDto getClubLoginUserInfo(String account, HttpSession session) {
+        ClubLoginUserInfoDto clubLoginUserInfo = clubMapper.findClubLoginUserInfo(account);
+        maintainClubLoginState(session, clubLoginUserInfo);
+        return clubLoginUserInfo;
+    }
+
+    private void maintainClubLoginState(HttpSession session, ClubLoginUserInfoDto clubLoginUserInfo) {
+        session.setAttribute(CLUB_LOGIN, clubLoginUserInfo);
+    }
+
+    // 사용자 클럽 정보 확인
+    public boolean checkIfUserExistsInClub(String account, long clubNo) {
+        return clubMapper.checkIfUserExistsInClub(account, clubNo) > 0;
+    }
+
+    // 사용자 클럽 정보 추가
+    public void insertUserClub(long clubNo, String account, String role) {
+        clubMapper.insertUserClubAdd(clubNo, account, role);
     }
 }
