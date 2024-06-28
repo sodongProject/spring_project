@@ -15,7 +15,7 @@
     <select id="findOne" resultType="com.project.login.entity.Users">
         SELECT
         account, email, password, user_name as userName, gender, phone_number as phoneNumber,
-        address, profile_image as profileImage
+        address, profile_image as profileImage, auth, temperature
         FROM users
         WHERE account = #{account}
     </select>
