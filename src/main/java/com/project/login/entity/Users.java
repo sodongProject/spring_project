@@ -47,13 +47,12 @@ public class Users {
 
     private LocalDateTime limitTime;
 
+    private String profileImg;
+
     public Users(String account, String password, String userName) {
         this.account = account;
         this.password = password;
     }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
 
 }

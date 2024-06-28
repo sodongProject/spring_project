@@ -20,6 +20,7 @@ public class LoginUserInfoDto {
     private String address;
     private Auth auth;
     private double temperature;
+    private String profile;
 
     public LoginUserInfoDto(Users user) {
         this.account = user.getAccount();
@@ -28,6 +29,7 @@ public class LoginUserInfoDto {
         this.phoneNumber = user.getPhoneNumber();
         this.address = user.getAddress();
         this.auth = user.getAuth();
+        this.profile = user.getProfileImage();
 //        this.temperature = user.getTemperature();
     }
 }
