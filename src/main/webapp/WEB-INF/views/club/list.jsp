@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<div id="wrap">
+ <div id="wrap">
     <div class="main-title-wrapper">
         <h1 class="main-title">
             <button class="homeBtn">클럽 만들기</button>
@@ -61,9 +61,12 @@
             <div class="card-wrapper">
                 <div class="container" data-bno="${b.clubNo}">
                     <div class="top-section">
-                        <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
-                            <i class="fas fa-times"></i>
-                        </button>
+
+                        <c:if test="${login.auth == 'ADMIN'}">
+                            <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </c:if>
                         <i class='bx bxs-moon'></i>
                     </div>
                     <div class="middle-section">
@@ -162,6 +165,12 @@
     </div>
 </div>
 
+<!-- 로그인된 사용자 정보와 권한을 JavaScript 변수로 설정 -->
+<script>
+    const loginUser = "${currentUser}";
+    const auth = "${userRole}";
+</script>
+
 <script>
     const $homeBtn = document.querySelector('.homeBtn')
     const $cardContainer = document.querySelector('.card-container');
@@ -174,6 +183,7 @@
     });
 
     $cardContainer.addEventListener('click', e => {
+        <%--const $login = ${login.auth eq 'ADMIN'}--%>
         e.preventDefault()
         if (e.target.matches('.top-section .del-btn .fas')) {
             modal.style.display = 'flex';
@@ -191,8 +201,9 @@
             // "가입하기", "상세보기" 버튼 또는 data-href 속성을 가진 요소 클릭 시 아무 동작도 하지 않음
         } else {
             const bno = e.target.closest('.container').dataset.bno;
-            // 요청 보내기
+
             window.location.href = '/club/detail?bno=' + bno;
+
         }
     });
 
@@ -222,38 +233,6 @@
             loginModal.style.display = 'none';
         }
     });
-
-    function removeDown(e) {
-        if (!e.target.matches('.card-container *')) return;
-        const $targetCard = e.target.closest('.card-wrapper');
-        $targetCard?.removeAttribute('id', 'card-down');
-    }
-
-    function removeHover(e) {
-        if (!e.target.matches('.card-container *')) return;
-        const $targetCard = e.target.closest('.card');
-        $targetCard?.classList.remove('card-hover');
-        const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
-        $delBtn.style.opacity = '0';
-    }
-
-    $cardContainer.onmouseover = e => {
-        if (!e.target.matches('.card-container *')) return;
-        const $targetCard = e.target.closest('.card');
-        $targetCard?.classList.add('card-hover');
-        const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
-        $delBtn.style.opacity = '1';
-    }
-
-    $cardContainer.onmousedown = e => {
-        if (e.target.matches('.card-container .card-btn-group *')) return;
-        const $targetCard = e.target.closest('.card-wrapper');
-        $targetCard?.setAttribute('id', 'card-down');
-    };
-
-    $cardContainer.onmouseup = removeDown;
-    $cardContainer.addEventListener('mouseout', removeDown);
-    $cardContainer.addEventListener('mouseout', removeHover);
 
     document.querySelector('.add-btn').onclick = e => {
         window.location.href = '/club/write';

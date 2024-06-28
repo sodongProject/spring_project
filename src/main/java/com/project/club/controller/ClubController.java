@@ -6,9 +6,9 @@ import com.project.club.dto.ApplicantDto;
 import com.project.club.dto.ClubDetailResponseDto;
 import com.project.club.dto.ClubListResponseDto;
 import com.project.club.dto.ClubWriteRequestDto;
-import com.project.club.entity.Club;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -31,11 +32,14 @@ public class ClubController {
 
     // 1. 전체조회
     @GetMapping("/list")
-    public String clubList(@ModelAttribute("s") Search search, Model model) {
+    public String clubList(@ModelAttribute("s") Search search, Model model, HttpSession session) {
         List<ClubListResponseDto> clubList = clubService.findList(search);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
+
         model.addAttribute("clubList", clubList);
         model.addAttribute("maker", maker);
+
+
         return "club/list";
     }
 
@@ -79,10 +83,23 @@ public class ClubController {
 
     // 7. 클럽 가입 요청
     @PostMapping("/join")
-    public String joinClub(@RequestParam("clubNo") long clubNo,
-                           @RequestParam("account") String account) {
-        clubService.joinClub(clubNo, account);
-        return "redirect:/club/detail?bno=" + clubNo;
+    public String joinClub(@RequestParam("clubNo") long clubNo, HttpSession session, Model model) {
+        String currentUserAccount = LoginUtil.getLoggedInUserAccount(session);
+        if (currentUserAccount == null) {
+            return "redirect:/users/sign-in";
+        }
+
+        String userRole = clubService.getUserRole(clubNo, currentUserAccount);
+        if ("PENDING".equals(userRole)) {
+            return "redirect:/club/applicants?clubNo=" + clubNo; // 대기 중인 사용자를 신청자 페이지로 리다이렉션
+        } else if ("MEMBER".equals(userRole)) {
+            model.addAttribute("message", "이미 가입되었거나 승인된 회원입니다.");
+            return "redirect:/club/detail?bno=" + clubNo;
+        } else {
+            clubService.requestJoin(clubNo, currentUserAccount);
+            model.addAttribute("PENDING", true); // 대기 중 상태를 나타내는 속성
+            return "redirect:/club/detail?bno=" + clubNo;
+        }
     }
 
     // 8. 가입 신청자 목록 조회
