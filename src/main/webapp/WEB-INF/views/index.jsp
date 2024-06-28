@@ -5,8 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
+    <div class="profile-box">
+      <img src="${login.profile}" alt="프로필이미지">
+    </div>
+
     <h2>Welcome ${login.userName}</h2>
 
     <br><br><br>
