@@ -8,6 +8,7 @@ import com.project.myPage.mapper.MyPageMappers;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ public class MyPageService {
 
 
     private final MyPageMappers myPageMapper;
+    private final PasswordEncoder passwordEncoder;
 
 
     // 로그인 유저 저장
@@ -44,7 +46,7 @@ public class MyPageService {
      * @return 세션에 저장된 유저 엔터티
      */
     private Users findUserBySession (HttpSession session){
-        com.project.login.dto.LoginUserInfoDto loginUserInfoDto =  LoginUtil.getLoggedInUser(session);
+        LoginUserInfoDto loginUserInfoDto =  LoginUtil.getLoggedInUser(session);
         String account = loginUserInfoDto.getAccount();
         return myPageMapper.findOne(account);
     }
@@ -74,7 +76,7 @@ public class MyPageService {
                 .name(findedUser.getUserName())
                 .email(findedUser.getEmail())
                 .address(findedUser.getAddress())
-                .imgAdress(findedUser.getProfileImage())
+                .profileImage(findedUser.getProfileImage())
                 .gender(findedUser.getGender())
                 .password(findedUser.getPassword())
                 .phoneNumber(findedUser.getPhoneNumber())
@@ -96,7 +98,10 @@ public class MyPageService {
         System.out.println("correctPw = " + correctPw);
 
 
-        if (!inputPw.equals(correctPw)){
+//        String encoded = passwordEncoder.encode(inputPw);
+
+//        System.out.println("encoded = " + encoded);
+        if (!passwordEncoder.matches(inputPw,correctPw)){
             return false;
         }
         return true;
