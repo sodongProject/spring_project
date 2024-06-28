@@ -5,7 +5,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>
     <%@ include file="../include/static-head.jsp" %>
-    <link rel="stylesheet" href="/assets/css/myPage.css" />
+    <link href="/assets/css/myPage/myPage.css" rel="stylesheet" />
+
   </head>
   <body>
     <div class="myPage_wrap">

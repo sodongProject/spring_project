@@ -1,7 +1,4 @@
-body{
-  /* background-color: red; */
-}
-
+/* 마이페이지 공통 */
 .myPage_wrap{
   display: flex;
   padding: 100px calc((100% - 1200px)/2);
@@ -15,7 +12,6 @@ body{
 
 .myPage_nav .menu-wrap {
   padding: 24px 0;
-  /* padding-bottom: 40px; */
   position: relative;
 }
 .myPage_nav .menu-wrap::after{
@@ -34,10 +30,6 @@ body{
 }
 .myPage_nav{
   width: 300px;
-  /* border-radius: 28px; */
-  /* box-shadow: 0 5px 22px rgba(0, 0, 0, 0.1); */
-  /* padding: 50px 30px 100px; */
-  /* border: solid 1px var(--color-wh); */
   border-right: solid 1px var(--color-wh);
   padding: 40px 0;
   padding-right: 80px;
@@ -51,14 +43,13 @@ body{
   width: 100%;
   text-align: center;
 }
-.myPage_nav .menu-tit.is-active{
+.myPage_nav  .menu-wrap.is-active .menu-tit{
   color: var(--color-bk);
   background-color: var(--color-point);
 }
 .myPage_nav .menu-list{
   margin-top: 32px;
   padding-bottom: 20px;
-  /* padding-left: 20px; */
 }
 .myPage_nav .menu-list  li{
   margin-bottom: 22px;
@@ -86,18 +77,16 @@ body{
   margin-right: 8px;
   border-radius: 50%;
 }
-.myPage_nav{
 
-}
 
 .myPage_inner{
   width: calc(100% - 400px);
-  padding-top: 80px;
+  padding-top: 68px;
   padding-left: 160px;
 }
 .myPage_inner h2{
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   padding-left: 10px;
   display: flex;
   align-items: center;
@@ -134,4 +123,80 @@ button#confirmPwBtn{
   font-weight: 500;
   margin-left: 10px;
   
+}
+
+
+/* viewInformations */
+.myPage_wrap .main_profile{
+  margin-top: 64px;
+}
+.myPage_wrap .main_profile>div{
+  margin-bottom: 28px;
+}
+.myPage_wrap .main_profile h2{
+  
+}
+.myPage_wrap .main_profile .text{
+  font-size: 16px;
+  padding-left: 30px;
+  font-weight: 500;
+  padding: 12px 23px;
+  padding-right: 8px;
+  background-color: var(--color-wh);
+  border-radius: 500px;
+  margin-left: 8px;
+  width: calc(100% - 8px);
+  color: #0d0d0d80;
+}
+.myPage_wrap .sub_profile{
+
+  margin-top: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-radius: 22px;
+  border: solid 2px var(--color-wh);
+  padding: 16px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+
+}
+.myPage_wrap .sub_profile>div{
+  width: 50%;
+  border-radius: 22px;
+  padding: 20px 40px;
+  position: relative;
+}
+.myPage_wrap .sub_profile>div::after{
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 50%;
+  background-color: var(--color-wh);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+}
+.myPage_wrap .sub_profile>div:nth-child(2n)::after{
+  display: none;
+}
+
+.myPage_wrap .sub_profile h2{
+  width: fit-content;
+  border-radius: 500px;
+  padding: 0;
+  padding: 7px 12px;
+  font-size: 14px;
+  background-color: var(--color-bk);
+  font-weight: 500;
+  color: var(--color-point);
+}
+.myPage_wrap .sub_profile h2::before{
+  display: none;
+}
+.myPage_wrap .sub_profile .text{
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 10px;
 }

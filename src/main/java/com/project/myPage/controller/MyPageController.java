@@ -57,7 +57,7 @@ public class MyPageController {
     @GetMapping("/view")
     public String view(HttpSession session, Model model) {
 
-//        myPageService.saveLoginUser("mmm", session);
+        myPageService.saveLoginUser("mmm", session);
         setLoggedInUserModel(session,model);
         return "myPage/myPage-viewInformations";
     }

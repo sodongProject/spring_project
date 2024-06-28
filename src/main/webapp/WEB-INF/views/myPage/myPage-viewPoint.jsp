@@ -5,13 +5,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>
     <%@ include file="../include/static-head.jsp" %>
-    <link rel="stylesheet" href="/assets/css/myPage.css" />
+    <link href="/assets/css/myPage/myPage.css" rel="stylesheet" />
+
   </head>
   <body>
     <div class="myPage_wrap">
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner">
-        <h1>포인트 조회 페이지</h1>
+        <h1>포인트 조회</h1>
         <h2>잔여 포인트: ${points}</h2>
         <form action="/myPage/rechargePoint" method="post">
           <input name="rePointsAmount" type="number" min="1" />
