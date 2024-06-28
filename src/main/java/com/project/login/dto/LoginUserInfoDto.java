@@ -30,6 +30,6 @@ public class LoginUserInfoDto {
         this.address = user.getAddress();
         this.auth = user.getAuth();
         this.profile = user.getProfileImage();
-//        this.temperature = user.getTemperature();
+        this.temperature = user.getTemperature();
     }
 }
