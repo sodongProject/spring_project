@@ -29,10 +29,10 @@ public class Users {
 
     @Setter
     @Enumerated(EnumType.STRING)
-    private Auth auth = Auth.USER; // 기본값 설정
+    private Auth auth; // 기본값 설정
 
     @Setter
-    private Double temperature = 36.5; // 기본값 설정
+    private Double temperature; // 기본값 설정
 
     @Setter
     private String profileImage;
