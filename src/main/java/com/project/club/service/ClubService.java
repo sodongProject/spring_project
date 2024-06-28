@@ -82,6 +82,8 @@ public class ClubService {
         return clubMapper.findApplicants(clubNo);
     }
 
+
+
     // 가입 승인 시 권한 중간처리
     public String getUserRole(long clubNo, String account) {
         return clubMapper.findUserRole(clubNo, account);
@@ -90,14 +92,6 @@ public class ClubService {
     public void requestJoin(long clubNo, String account) {
         clubMapper.insertUserClub(clubNo, account, "PENDING");
     }
-
-    // 서비스 계층에서 승인 처리를 정확하게 수행하기 위한 메서드
-    public void approveApplicant(Long clubNo, String account) {
-        log.info("Approve request received for account: {}, clubNo: {}", account, clubNo);
-        // 특정 클럽의 특정 사용자만 업데이트
-        clubMapper.updateUserRole(clubNo, account, "MEMBER");
-    }
-
 
     // 클럽 로그인 사용자 정보 조회
     public ClubLoginUserInfoDto getClubLoginUserInfo(String account, HttpSession session) {
@@ -110,6 +104,8 @@ public class ClubService {
         session.setAttribute(CLUB_LOGIN, clubLoginUserInfo);
     }
 
+
+
     // 사용자 클럽 정보 확인
     public boolean checkIfUserExistsInClub(String account, long clubNo) {
         return clubMapper.checkIfUserExistsInClub(account, clubNo) > 0;
@@ -119,4 +115,40 @@ public class ClubService {
     public void insertUserClub(long clubNo, String account, String role) {
         clubMapper.insertUserClubAdd(clubNo, account, role);
     }
+
+
+
+
+    // 가입 승인 수향 메서드
+    public void approveApplicant(Long clubNo, String account) {
+        try {
+            log.info("approveApplicant - clubNo: {}, account: {}", clubNo, account);
+            clubMapper.updateUserRole(clubNo, account, "MEMBER");
+            log.info("User approved successfully - clubNo: {}, account: {}", clubNo, account);
+        } catch (Exception e) {
+            log.error("Error in approveApplicant - clubNo: {}, account: {}", clubNo, account, e);
+            throw e; // Rethrow the exception to be handled by the controller
+        }
+    }
+
+    // 가입 거절 수행 메서드
+    public void denyApplicant(Long clubNo, String account) {
+        try {
+            log.info("denyApplicant - clubNo: {}, account: {}", clubNo, account);
+            String currentRole = clubMapper.findUserRole(clubNo, account);
+            log.info("Current role for account {}: {}", account, currentRole);
+
+            if ("PENDING".equals(currentRole)) {
+                clubMapper.denyApplicant(clubNo, account, "PENDING");
+                log.info("User denied successfully - clubNo: {}, account: {}", clubNo, account);
+            } else {
+                log.warn("Cannot deny user - current role is not PENDING: {}", currentRole);
+            }
+        } catch (Exception e) {
+            log.error("Error in denyApplicant - clubNo: {}, account: {}", clubNo, account, e);
+            throw e; // Rethrow the exception to be handled by the controller
+        }
+    }
+
+
 }

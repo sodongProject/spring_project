@@ -118,26 +118,38 @@
     <!-- 사용자 역할 업데이트 -->
     <update id="updateUserRole">
         UPDATE users_clubs
-        SET user_club_role = #{role}
+        SET user_club_role = #{role},
+        user_club_application_status = 'APPROVED'
         WHERE club_no = #{clubNo} AND account = #{account}
     </update>
 
     <!-- 가입신청자 리스트 조회 -->
     <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
         SELECT
+        U.account,
         U.user_name,
-        U.temperature
+        U.temperature,
+        UC.user_club_role AS role,
+        UC.user_club_application_status AS status
         FROM users U
         JOIN users_clubs UC
         ON U.account = UC.account
         WHERE UC.club_no = #{clubNo}
         AND UC.user_club_role = 'PENDING'
+        AND UC.user_club_application_status != 'DENIED'
     </select>
 
     <update id="approveApplicant">
         UPDATE users_clubs
         SET user_club_role = 'MEMBER',
         user_club_application_status = 'APPROVED'
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
+    <update id="denyApplicant">
+        UPDATE users_clubs
+        SET user_club_role = 'PENDING',
+        user_club_application_status = 'DENIED'
         WHERE club_no = #{clubNo} AND account = #{account}
     </update>
 

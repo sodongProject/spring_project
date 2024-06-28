@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/club/main.css">
     <link rel="stylesheet" href="/assets/css/club/list.css">
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -54,7 +55,7 @@
                 <div class="container" data-bno="${b.clubNo}">
                     <div class="top-section">
                         <i class='bx bxs-moon'></i>
-                        <c:if test="${clubLogin.clubAuth == 'ADMIN'}">
+                        <c:if test="${login.auth == 'ADMIN' || clubLogin.account == b.account}">
                             <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -76,7 +77,7 @@
                         <div class="btnCenter">
                             <button class="btn">상세보기</button>
                             <c:if test="${clubLogin.clubAuth == 'PENDING'}">
-                                <button class="btn join-btn" data-href="/club/join?clubNo=${b.clubNo}">가입하기</button>
+                                <button class="btn join-btn" data-bno="${b.clubNo}">가입하기</button>
                             </c:if>
                         </div>
                     </div>
@@ -98,7 +99,8 @@
             </c:if>
             <c:if test="${maker.prev}">
                 <li class="page-item">
-                    <a class="page-link" href="/club/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a>
+                    <a class="page-link"
+                       href="/club/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a>
                 </li>
             </c:if>
             <c:forEach var="i" begin="${maker.begin}" end="${maker.end}">
@@ -113,7 +115,8 @@
             </c:if>
             <c:if test="${maker.pageInfo.pageNo != maker.finalPage}">
                 <li class="page-item">
-                    <a class="page-link" href="/club/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a>
+                    <a class="page-link"
+                       href="/club/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a>
                 </li>
             </c:if>
         </ul>
@@ -121,18 +124,18 @@
 </div>
 <!-- end div.bottom-section -->
 
-<%-- 가입 모달 창 --%>
+<!-- 가입 모달 창 -->
 <div class="loginModal" id="loginModal">
     <div class="modal-content">
         <p>가입 하실건가요??</p>
         <div class="loginModal-buttons">
-            <button class="loginConfirm" id="loginConfirmDelete"><i class="fas fa-check"></i> 예</button>
-            <button class="loginCancel" id="loginCancelDelete"><i class="fas fa-times"></i> 아니오</button>
+            <button class="loginConfirm" id="loginConfirmJoin"><i class="fas fa-check"></i> 예</button>
+            <button class="loginCancel" id="loginCancelJoin"><i class="fas fa-times"></i> 아니오</button>
         </div>
     </div>
 </div>
 
-<%--<!-- 모달 창 -->--%>
+<!-- 모달 창 -->
 <div class="modal" id="modal">
     <div class="modal-content">
         <p>정말로 삭제할까요?</p>
@@ -149,6 +152,10 @@
     const modal = document.getElementById('modal');
     const confirmDelete = document.getElementById('confirmDelete');
     const cancelDelete = document.getElementById('cancelDelete');
+    const loginModal = document.getElementById('loginModal');
+    const loginConfirmJoin = document.getElementById('loginConfirmJoin');
+    const loginCancelJoin = document.getElementById('loginCancelJoin');
+    let currentClubNo;
 
     $homeBtn.addEventListener('click', e => {
         window.location.href = '/club/list';
@@ -168,34 +175,37 @@
             cancelDelete.onclick = e => {
                 modal.style.display = 'none';
             };
-        } else if (e.target.matches('.join-btn') || e.target.matches('.btn')
-            || e.target.closest('[data-href]') || e.target.closest('.bx') || e.target.closest('.image')) {
+        } else if (e.target.matches('.join-btn')) {
+            currentClubNo = e.target.dataset.bno;
+            loginModal.style.display = 'flex';
+        } else if (e.target.matches('.btn') || e.target.closest('[data-href]') || e.target.closest('.bx') || e.target.closest('.image')) {
             // "가입하기", "상세보기" 버튼 또는 data-href 속성을 가진 요소 클릭 시 아무 동작도 하지 않음
-        } else if (${clubLogin.clubAuth == 'ADMIN' || lubLogin.clubAut == 'MEMBER'} ) {
+        } else if (${clubLogin.clubAuth == 'ADMIN' || lubLogin.clubAut == 'MEMBER'}) {
             const bno = e.target.closest('.container').dataset.bno;
             console.log("${clubLogin.clubAuth}");
             window.location.href = '/club/detail?bno=' + bno;
         }
     });
 
-    const loginModal = document.getElementById('loginModal');
-    const loginConfirmJoin = document.getElementById('loginConfirmDelete');
-    const loginCancelJoin = document.getElementById('loginCancelDelete');
+    loginConfirmJoin.onclick = () => {
+        $.ajax({
+            type: 'POST',
+            url: '/club/join',
+            data: { clubNo: currentClubNo },
+            success: function(response) {
+                alert('가입 신청이 완료되었습니다.');
+                location.reload(); // 목록을 새로고침하여 업데이트
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        loginModal.style.display = 'none';
+    };
 
-    $cardContainer.addEventListener('click', e => {
-        if (e.target.matches('.btnCenter .join-btn')) {
-            loginModal.style.display = 'flex';
-            const $loginBtn = e.target.closest('.join-btn');
-            const joinLocation = $loginBtn.dataset.href;
-            loginConfirmJoin.onclick = () => {
-                window.location.href = joinLocation;
-                loginModal.style.display = 'none';
-            };
-            loginCancelJoin.onclick = () => {
-                loginModal.style.display = 'none';
-            };
-        }
-    });
+    loginCancelJoin.onclick = () => {
+        loginModal.style.display = 'none';
+    };
 
     window.addEventListener('click', e => {
         if (e.target === modal || e.target === loginModal) {

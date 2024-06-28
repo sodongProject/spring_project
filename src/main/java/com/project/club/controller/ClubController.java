@@ -42,13 +42,6 @@ public class ClubController {
         List<ClubListResponseDto> clubList = clubService.findList(search);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
 
-        // 사용자 클럽 정보 추가
-        for (ClubListResponseDto club : clubList) {
-            if (!clubService.checkIfUserExistsInClub(account, club.getClubNo())) {
-                clubService.insertUserClub(club.getClubNo(), account, "PENDING");
-            }
-        }
-
         ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
         model.addAttribute("clubList", clubList);
@@ -56,6 +49,7 @@ public class ClubController {
 
         return "club/list";
     }
+
     // 2. 게시글 쓰기 양식 화면 열기 요청
     @GetMapping("/write")
     public String write() {
@@ -93,27 +87,26 @@ public class ClubController {
         return "redirect:/club/detail?bno=" + clubNo;
     }
 
-    // 7. 클럽 가입 요청
+    // 클럽 가입 요청
     @PostMapping("/join")
-    public String joinClub(@RequestParam("clubNo") long clubNo, HttpSession session, Model model) {
+    public ResponseEntity<String> joinClub(@RequestParam("clubNo") long clubNo, HttpSession session) {
         String currentUserAccount = LoginUtil.getLoggedInUserAccount(session);
         if (currentUserAccount == null) {
-            return "redirect:/users/sign-in";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
 
         String userRole = clubService.getUserRole(clubNo, currentUserAccount);
-        if ("PENDING".equals(userRole)) {
-            return "redirect:/club/applicants?clubNo=" + clubNo; // 대기 중인 사용자를 신청자 페이지로 리다이렉션
-        } else if ("MEMBER".equals(userRole)) {
-            model.addAttribute("message", "이미 가입되었거나 승인된 회원입니다.");
-            return "redirect:/club/detail?bno=" + clubNo;
+        if ("MEMBER".equals(userRole)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 가입되었거나 승인된 회원입니다.");
         } else {
-            clubService.requestJoin(clubNo, currentUserAccount);
-            model.addAttribute("PENDING", true); // 대기 중 상태를 나타내는 속성
-            return "redirect:/club/detail?bno=" + clubNo;
+            try {
+                clubService.requestJoin(clubNo, currentUserAccount);
+                return ResponseEntity.ok("가입 신청이 완료되었습니다.");
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("가입 신청에 실패하였습니다.");
+            }
         }
     }
-
 
     // 8. 가입 신청자 목록 조회
     @GetMapping("/applicants")
@@ -125,8 +118,26 @@ public class ClubController {
 
     // 9. 가입 승인 시 권한 변경
     @PostMapping("/approve")
-    public String approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
-        clubService.approveApplicant(clubNo, account);
-        return "redirect:/club/applicants?clubNo=" + clubNo;
+    public ResponseEntity<String> approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
+        try {
+            log.info("approveApplicant - clubNo: {}, account: {}", clubNo, account);
+            clubService.approveApplicant(clubNo, account);
+            return ResponseEntity.ok("User approved successfully");
+        } catch (Exception e) {
+            log.error("Error approving applicant - clubNo: {}, account: {}", clubNo, account, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to approve user");
+        }
+    }
+
+    @PostMapping("/deny")
+    public ResponseEntity<String> denyApplicant(@RequestParam Long clubNo, @RequestParam String account) {
+        try {
+            log.info("denyApplicant - clubNo: {}, account: {}", clubNo, account);
+            clubService.denyApplicant(clubNo, account);
+            return ResponseEntity.ok("User denied successfully");
+        } catch (Exception e) {
+            log.error("Error denying applicant - clubNo: {}, account: {}", clubNo, account, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to deny user");
+        }
     }
 }
