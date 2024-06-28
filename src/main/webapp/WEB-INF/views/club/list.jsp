@@ -204,7 +204,6 @@
 
             window.location.href = '/club/detail?bno=' + bno;
 
-
         }
     });
 
@@ -234,38 +233,6 @@
             loginModal.style.display = 'none';
         }
     });
-
-    function removeDown(e) {
-        if (!e.target.matches('.card-container *')) return;
-        const $targetCard = e.target.closest('.card-wrapper');
-        $targetCard?.removeAttribute('id', 'card-down');
-    }
-
-    function removeHover(e) {
-        if (!e.target.matches('.card-container *')) return;
-        const $targetCard = e.target.closest('.card');
-        $targetCard?.classList.remove('card-hover');
-        const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
-        $delBtn.style.opacity = '0';
-    }
-
-    $cardContainer.onmouseover = e => {
-        if (!e.target.matches('.card-container *')) return;
-        const $targetCard = e.target.closest('.card');
-        $targetCard?.classList.add('card-hover');
-        const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
-        $delBtn.style.opacity = '1';
-    }
-
-    $cardContainer.onmousedown = e => {
-        if (e.target.matches('.card-container .card-btn-group *')) return;
-        const $targetCard = e.target.closest('.card-wrapper');
-        $targetCard?.setAttribute('id', 'card-down');
-    };
-
-    $cardContainer.onmouseup = removeDown;
-    $cardContainer.addEventListener('mouseout', removeDown);
-    $cardContainer.addEventListener('mouseout', removeHover);
 
     document.querySelector('.add-btn').onclick = e => {
         window.location.href = '/club/write';
@@ -319,38 +286,6 @@
             }
         });
     });
-
-    <%--document.addEventListener('DOMContentLoaded', function() {--%>
-    <%--    const joinButton = document.querySelector('.join-btn');--%>
-    <%--    joinButton.addEventListener('click', function(e) {--%>
-    <%--        const clubNo = this.dataset.clubNo;--%>
-    <%--        fetch(`/club/join?clubNo=${clubNo}`, { method: 'POST' })--%>
-    <%--            .then(response => response.json())--%>
-    <%--            .then(data => {--%>
-    <%--                if (data.pending) {--%>
-    <%--                    document.getElementById('joinStatus').innerHTML = '<div>가입 대기중</div>';--%>
-    <%--                    joinButton.style.display = 'none';--%>
-    <%--                } else if (data.message) {--%>
-    <%--                    document.getElementById('joinStatus').innerHTML = `<div>${data.message}</div>`;--%>
-    <%--                }--%>
-    <%--            })--%>
-    <%--            .catch(error => console.error('Error:', error));--%>
-    <%--    });--%>
-    <%--});--%>
-
-    <%--approveButton.addEventListener('click', function(event) {--%>
-    <%--    fetch(`/club/approve?clubNo=${clubNo}&account=${account}`, { method: 'POST' })--%>
-    <%--        .then(response => response.json())--%>
-    <%--        .then(data => {--%>
-    <%--            if (data.success) {--%>
-    <%--                document.getElementById('joinStatus').innerHTML = '<div>가입 승인됨</div>';--%>
-    <%--                document.querySelector('.join-btn').remove(); // 가입 버튼 제거--%>
-    <%--                document.querySelector('.pending-div').remove(); // 대기중 div 제거--%>
-    <%--            }--%>
-    <%--        })--%>
-    <%--        .catch(error => console.error('Error:', error));--%>
-    <%--});--%>
-
 
 </script>
 </body>

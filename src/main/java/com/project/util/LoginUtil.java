@@ -16,7 +16,6 @@ public class LoginUtil {
     public static final String LOGIN = "login";
     public static final String AUTO_LOGIN_COOKIE = "auto";
     public static final String CLUB_LOGIN = "clubLogin";
-    public static final String CLUB_ROLE = "clubRoles";
 
     // 로그인 여부 확인
     public static boolean isLoggedIn(HttpSession session) {
@@ -50,11 +49,35 @@ public class LoginUtil {
         return autoLoginCookie != null;
     }
 
+
+
+
+
+
+
     // 클럽 로그인 회원의 권한이 ADMIN 인지 확인
-    public static boolean clubIsAdmin(HttpSession session) {
+    public static boolean isClubAdmin(HttpSession session) {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
         if (clubLoggedInUser != null && clubLoggedInUser.getClubAuth() != null) {
             return clubLoggedInUser.getClubAuth() == ClubAuth.ADMIN;
+        }
+        return false;
+    }
+
+    // 클럽 로그인 회원의 권한이 MEMBER 인지 확인
+    public static boolean isClubMember(HttpSession session) {
+        ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
+        if (clubLoggedInUser != null && clubLoggedInUser.getClubAuth() != null) {
+            return clubLoggedInUser.getClubAuth() == ClubAuth.MEMBER;
+        }
+        return false;
+    }
+
+    // 클럽 로그인 회원의 권한이 PENDING 인지 확인
+    public static boolean isClubPending(HttpSession session) {
+        ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
+        if (clubLoggedInUser != null && clubLoggedInUser.getClubAuth() != null) {
+            return clubLoggedInUser.getClubAuth() == ClubAuth.PENDING;
         }
         return false;
     }
@@ -75,13 +98,13 @@ public class LoginUtil {
         return clubLoggedInUser != null ? clubLoggedInUser.getAccount() : null;
     }
 
-    // 클럽 로그인한 회원의 권한 확인
+    // 클럽 로그인한 회원의 권한 얻기
     public static ClubAuth getClubLoggedInUserAuth(HttpSession session) {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
         return clubLoggedInUser != null ? clubLoggedInUser.getClubAuth() : null;
     }
 
-    // 클럽 로그인한 회원의 역할 확인
+    // 클럽 로그인한 회원의 역할 얻기
     public static UsersClubAuth getClubLoggedInUserRole(HttpSession session) {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
         return clubLoggedInUser != null ? clubLoggedInUser.getRole() : null;
