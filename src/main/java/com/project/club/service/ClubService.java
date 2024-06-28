@@ -20,11 +20,10 @@ public class ClubService {
 
     public List<ClubListResponseDto> findList(Search search) {
         List<ClubFindAllDto> clubList = clubMapper.findAll(search);
-        List<ClubListResponseDto> dtoList = clubList
+        return clubList
                 .stream()
                 .map(ClubListResponseDto::new)
                 .collect(Collectors.toList());
-        return dtoList;
     }
 
     public int getCount(Search search) {
@@ -66,19 +65,27 @@ public class ClubService {
 
     public void joinClub(long clubNo, String account) {
         // 사용자 클럽 가입 정보 추가
-        clubMapper.insertUserClub(clubNo, account);
+        clubMapper.insertUserClub(clubNo, account, "MEMBER");
+
         // 클럽의 사용자 수 증가
         clubMapper.userCountUp(clubNo);
     }
 
-    // 가입신청 누른 사람조회
+    // 가입신청 누른 사람 조회
     public List<ApplicantDto> getApplicants(long clubNo) {
         return clubMapper.findApplicants(clubNo);
     }
 
-    // 가입 승인시 권한 중간처리
+    // 가입 승인 시 권한 중간처리
+    public String getUserRole(long clubNo, String account) {
+        return clubMapper.findUserRole(clubNo, account);
+    }
+
+    public void requestJoin(long clubNo, String account) {
+        clubMapper.insertUserClub(clubNo, account, "PENDING");
+    }
+
     public void approveApplicant(Long clubNo, String account) {
-        log.info("Approving applicant for account: {}, clubNo: {}", account, clubNo);
-        clubMapper.approveApplicant(clubNo, account);
+        clubMapper.updateUserRole(clubNo, account, "MEMBER");
     }
 }
