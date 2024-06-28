@@ -57,7 +57,7 @@ public class MyPageController {
     @GetMapping("/view")
     public String view(HttpSession session, Model model) {
 
-        myPageService.saveLoginUser("mmm", session);
+//        myPageService.saveLoginUser("mmm", session);
         setLoggedInUserModel(session,model);
         return "myPage/myPage-viewInformations";
     }
@@ -84,7 +84,7 @@ public class MyPageController {
      */
     @GetMapping("/modifyInformations")
     public String modifyInformationsPwConfirm(HttpSession session, boolean isConfirmed, Model model){
-        myPageService.saveLoginUser("mmm", session);
+//        myPageService.saveLoginUser("mmm", session);
         String ref = "modifyInformations";
         return isPwConfirmedBefore(isConfirmed, ref,model);
     }
@@ -98,7 +98,7 @@ public class MyPageController {
      */
     @PostMapping("/modifyInformations")
     public String modifyInformations(HttpSession session,String inputValue,  RedirectAttributes redirectAttributes){
-        myPageService.saveLoginUser("mmm", session);
+//        myPageService.saveLoginUser("mmm", session);
         boolean isCorrect = myPageService.confirmPassword(session, inputValue);
         System.out.println("isCorrect = " + isCorrect);
 //        session.setAttribute("ref", "modifyInformations");
@@ -170,7 +170,7 @@ public class MyPageController {
      */
     @GetMapping("/viewPoint")
     public String viewPoint(HttpSession session, Model model, boolean isConfirmed){
-        myPageService.saveLoginUser("mmm", session);
+//        myPageService.saveLoginUser("mmm", session);
         String ref = "viewPoint";
 
        return isPwConfirmedBefore(isConfirmed,ref,model);
