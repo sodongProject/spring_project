@@ -20,8 +20,8 @@ public class ClubLoginUserInfoDto {
 
     public ClubLoginUserInfoDto(Users user, UsersClubs UC) {
         this.account = user.getAccount();
-        this.role = UC.getUserClubStatus();
         this.clubAuth = UC.getUserClubRole();
+        this.role = UC.getUserClubStatus();
     }
 
 

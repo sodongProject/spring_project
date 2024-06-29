@@ -20,8 +20,9 @@ public class ClubListResponseDto {
     private int view; // 조회 수
     private String account;
     private String clubProfile;
+    private String userAuthStatus; // 사용자 권한 상태 추가
 
-    public ClubListResponseDto (ClubFindAllDto C){
+    public ClubListResponseDto (ClubFindAllDto C, String userAuthStatus){
         this.clubNo = C.getClubNo();
         this.shortTitle = makeShortTitle(C.getClubName());
         this.shortContent = makeShortContent(C.getClubDescription());
@@ -32,6 +33,7 @@ public class ClubListResponseDto {
         LocalDateTime regTime = C.getClubCreatedAt();
         this.date = dateFormatting(regTime);
         this.view = (int) C.getClubMemberMax();
+        this.userAuthStatus = userAuthStatus; // 사용자 권한 상태 설정
     }
 
     private String dateFormatting(LocalDateTime regDateTime) {

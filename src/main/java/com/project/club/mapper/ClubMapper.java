@@ -3,6 +3,7 @@ package com.project.club.mapper;
 import com.project.club.common.Search;
 import com.project.club.dto.ApplicantDto;
 import com.project.club.dto.ClubFindAllDto;
+import com.project.club.dto.ClubLoginUserInfoDto;
 import com.project.club.entity.Club;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -38,11 +39,6 @@ public interface ClubMapper {
     void userCountUp(@Param("clubNo") long clubNo);
 
 
-//    // 가입신청했을때 유저스클럽스에 넣어!
-//    void insertUserClub(@Param("clubNo") long clubNo,
-//                        @Param("account") String account);
-
-
     List<ApplicantDto> findApplicants(@Param("clubNo") long clubNo);
 
 
@@ -53,11 +49,27 @@ public interface ClubMapper {
                         @Param("account")String account,
                         @Param("role")String role);
 
+
+    // 클럽 로그인 사용자 정보 조회
+    ClubLoginUserInfoDto findClubLoginUserInfo(@Param("account") String account);
+
+    // 사용자 클럽 정보 추가
+    int checkIfUserExistsInClub(@Param("account") String account, @Param("clubNo") long clubNo);
+
+    void insertUserClubAdd(@Param("clubNo") long clubNo,
+                           @Param("account") String account,
+                           @Param("role") String role);
+
+
     // 가입 승인 시 member 로 권한 상승
     void updateUserRole(@Param("clubNo")long clubNo,
                         @Param("account")String account,
                         @Param("role")String role);
 
+    void denyApplicant(@Param("clubNo")long clubNo,
+                        @Param("account")String account,
+                        @Param("role")String role);
+
+
 
 }
-
