@@ -1,10 +1,10 @@
 package com.project.myPage.service;
 
 
-import com.project.entity.Users;
+import com.project.login.entity.Users;
+import com.project.login.dto.LoginUserInfoDto;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.mapper.MyPageMappers;
-import com.project.util.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,16 +27,16 @@ public class MyPageService {
     public void saveLoginUser(String account, HttpSession session) {
         Users user = myPageMapper.findOne(account);
         LoginUserInfoDto loginUserInfoDto = new LoginUserInfoDto(user);
-//        initConfirmPassword(session);
+
 
         session.setAttribute(LOGIN, loginUserInfoDto);
     }
 
-    public Users findOneByAccount(String account){
-        Users one = myPageMapper.findOne(account);
-        System.out.println("one = " + one);
-        return one;
-    }
+//    public Users findOneByAccount(String account){
+//        Users one = myPageMapper.findOne(account);
+//        System.out.println("one = " + one);
+//        return one;
+//    }
 
     /**
      * 세션 정보로 해당 유저 찾기 요청
@@ -44,8 +44,8 @@ public class MyPageService {
      * @return 세션에 저장된 유저 엔터티
      */
     private Users findUserBySession (HttpSession session){
-        LoginUserInfoDto loginUserDto = LoginUtil.getLoggedInUser(session);
-        String account = loginUserDto.getAccount();
+        com.project.login.dto.LoginUserInfoDto loginUserInfoDto =  LoginUtil.getLoggedInUser(session);
+        String account = loginUserInfoDto.getAccount();
         return myPageMapper.findOne(account);
     }
 
@@ -73,8 +73,8 @@ public class MyPageService {
                 .account(findedUser.getAccount())
                 .name(findedUser.getUserName())
                 .email(findedUser.getEmail())
-                .adress(findedUser.getAddress())
-                .imgAdress(findedUser.getProfile_image())
+                .address(findedUser.getAddress())
+                .imgAdress(findedUser.getProfileImage())
                 .gender(findedUser.getGender())
                 .password(findedUser.getPassword())
                 .phoneNumber(findedUser.getPhoneNumber())
@@ -83,10 +83,6 @@ public class MyPageService {
                 .build();
     }
 
-
-    public void initConfirmPassword(HttpSession session){
-        session.setAttribute("isConfirmedPw", "false");
-    }
 
     /**
      * 비밀번호 검증
@@ -99,20 +95,13 @@ public class MyPageService {
         String correctPw = findedUser.getPassword();
         System.out.println("correctPw = " + correctPw);
 
-        if (!inputPw.equals(correctPw)){
 
+        if (!inputPw.equals(correctPw)){
             return false;
         }
         return true;
-
     }
 
-    public boolean isConfirmPassword (HttpSession session){
-        String  isConfirmedPw = (String) session.getAttribute("isConfirmedPw");
-        if (isConfirmedPw.equals("false")) return false;
-
-        return true;
-    }
 
 
     /**

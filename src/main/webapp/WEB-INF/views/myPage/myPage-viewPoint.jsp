@@ -3,19 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <%@ include file="../include/static-head.jsp" %>
+  <link rel="stylesheet"  href="/assets/css/myPage.css" />
 </head>
 <body>
 
   <h1>포인트 조회 페이지</h1>
   <h2>잔여 포인트: ${points}</h2>
   <form action="/myPage/rechargePoint" method="post">
-    <input name="rePointsAmount" type="number">
+    <input name="rePointsAmount" type="number" min="1">
     <button type="submit">충전</button>
   </form>
   <form action="/myPage/exchangePoint" method="post">
-    <input name="exPointsAmount" type="number"/>
+    <input name="exPointsAmount" type="number" min="1"/>
     <button type="submit">환전</button>
   </form>
   <c:if test="${isPossible == false}">보유 금액보다 작은 금액을 입력해주세요.</c:if>

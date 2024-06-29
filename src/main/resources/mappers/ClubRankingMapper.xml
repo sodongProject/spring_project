@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mainpage.mapper.ClubRankingMapper">
+
+    <!-- 회원 가장 많은 동호회 -->
+    <select id="mostMember" resultType="com.project.mainpage.dto.response.ClubFindAllDto">
+        SELECT *
+        FROM clubs
+        ORDER BY club_member_max DESC
+    </select>
+
+    <!-- 가장 최근에 생긴 동호회 -->
+    <select id="recentClub" resultType="com.project.mainpage.dto.response.ClubFindAllDto">
+        SELECT *
+        FROM clubs
+        ORDER BY club_created_at DESC
+    </select>
+
+    <!-- 스케줄활동이 가장 많은 동호회 -->
+    <select id="mostScheduled" resultType="com.project.mainpage.dto.response.ClubFindAllDto">
+        SELECT c.*, IFNULL(s.schedule_no, 0) AS schedule_count
+        FROM clubs c
+        LEFT JOIN (
+        SELECT club_no, COUNT(*) AS schedule_no
+        FROM schedules
+        GROUP BY club_no
+        ) s ON c.club_no = s.club_no
+        ORDER BY schedule_count DESC;
+    </select>
+
+    <!-- 로그인한 유저의 가입한 동호회 목록  -->
+    <select id="loginUsersClub" resultType="com.project.mainpage.dto.response.ClubFindAllDto">
+        SELECT club_name, club_created_at, club_member_max
+        FROM clubs
+        WHERE account = #{account}
+    </select>
+
+</mapper>

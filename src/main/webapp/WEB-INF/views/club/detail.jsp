@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,30 +26,35 @@
             background-color: #f4f4f4;
             font-family: 'Nunito Sans', sans-serif;
         }
+
         .form-container {
             max-width: 800px;
             margin: 50px auto;
             padding: 40px;
             background-color: #fff;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
         }
+
         .form-container h1 {
             font-size: 24px;
             color: #333;
             margin-bottom: 10px;
         }
+
         .form-container h2 {
             font-size: 16px;
             color: #555;
             margin-bottom: 20px;
         }
+
         label {
             color: #666;
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
         }
+
         input[type="text"], #content {
             width: 100%;
             padding: 10px;
@@ -58,6 +63,7 @@
             border-radius: 4px;
             background-color: #fafafa;
         }
+
         #content {
             height: 150px;
             overflow-y: auto;
@@ -69,9 +75,11 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         .buttons {
             text-align: right;
         }
+
         button {
             padding: 10px 20px;
             font-size: 14px;
@@ -82,25 +90,31 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+
         button.list-btn, button.notice-btn, button.freeboard-btn {
             background-color: #6c757d;
             margin-left: 10px;
         }
+
         button:hover {
             opacity: 0.9;
         }
+
         button.list-btn:hover {
             background-color: #5a6268;
         }
+
         button.notice-btn:hover {
             background-color: #5a6268;
         }
+
         button.free_board-btn:hover {
             background-color: #5a6268;
         }
     </style>
 </head>
 <body>
+<%--<c:if test="${not empty club}">--%>
 <div id="wrap" class="form-container">
     <h1>게시물 번호: ${club.clubNo}</h1>
     <h2>작성일자: ${club.regDateTime}</h2>
@@ -116,11 +130,18 @@
         <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
     </div>
 </div>
+<%--</c:if>--%>
 
-<form action="/club/applicants" method="get">
-    <input type="hidden" name="clubNo" value="${club.clubNo}">
-    <button type="submit">가입 신청자 확인</button>
-</form>
+<%--<c:if test="${empty club}">--%>
+<%--    <p>클럽 정보를 찾을 수 없습니다.</p>--%>
+<%--</c:if>--%>
+
+<c:if test="${club.userAuthStatus == 'ADMIN'}">
+    <form action="/club/applicants" method="get">
+        <input type="hidden" name="clubNo" value="${club.clubNo}">
+        <button type="submit">가입 신청자 확인</button>
+    </form>
+</c:if>
 
 </body>
 </html>

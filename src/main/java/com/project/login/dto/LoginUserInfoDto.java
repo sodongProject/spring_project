@@ -1,7 +1,7 @@
-package com.project.util;
+package com.project.login.dto;
 
 import com.project.entity.Auth;
-import com.project.entity.Users;
+import com.project.login.entity.Users;
 import lombok.*;
 
 @Getter
@@ -12,6 +12,7 @@ import lombok.*;
 @Builder
 public class LoginUserInfoDto {
 
+    //클라이언트에게 보낼 정보들
     private String account;
     private String userName;
     private String email;
@@ -19,6 +20,7 @@ public class LoginUserInfoDto {
     private String address;
     private Auth auth;
     private double temperature;
+    private String profile;
 
     public LoginUserInfoDto(Users user) {
         this.account = user.getAccount();
@@ -27,6 +29,7 @@ public class LoginUserInfoDto {
         this.phoneNumber = user.getPhoneNumber();
         this.address = user.getAddress();
         this.auth = user.getAuth();
+        this.profile = user.getProfileImage();
         this.temperature = user.getTemperature();
     }
 }
