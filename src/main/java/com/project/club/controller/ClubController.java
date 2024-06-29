@@ -14,14 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/club")
@@ -39,8 +36,15 @@ public class ClubController {
     @GetMapping("/list")
     public String clubList(@ModelAttribute("s") Search search, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
-        List<ClubListResponseDto> clubList = clubService.findList(search);
+        List<ClubListResponseDto> clubList = clubService.findList(search, account);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
+
+        // 사용자 클럽 정보 추가
+        for (ClubListResponseDto club : clubList) {
+            if (!clubService.checkIfUserExistsInClub(account, club.getClubNo())) {
+                clubService.insertUserClub(club.getClubNo(), account, "PENDING");
+            }
+        }
 
         ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
@@ -73,8 +77,9 @@ public class ClubController {
 
     // 5. 상세조회 요청
     @GetMapping("/detail")
-    public String detail(@RequestParam("bno") long bno, Model model) {
-        ClubDetailResponseDto club = clubService.detail(bno);
+    public String detail(@RequestParam("bno") long bno, Model model, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
+        ClubDetailResponseDto club = clubService.detail(bno, account);
         log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
         model.addAttribute("club", club);
         return "club/detail";
@@ -87,23 +92,23 @@ public class ClubController {
         return "redirect:/club/detail?bno=" + clubNo;
     }
 
-    // 클럽 가입 요청
+    // 7. 클럽 가입 요청
     @PostMapping("/join")
-    public ResponseEntity<String> joinClub(@RequestParam("clubNo") long clubNo, HttpSession session) {
+    public ResponseEntity<Map<String, Object>> joinClub(@RequestBody Map<String, Object> payload, HttpSession session) {
+        long clubNo = Long.valueOf(payload.get("clubNo").toString());
         String currentUserAccount = LoginUtil.getLoggedInUserAccount(session);
         if (currentUserAccount == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인이 필요합니다."));
         }
-
         String userRole = clubService.getUserRole(clubNo, currentUserAccount);
         if ("MEMBER".equals(userRole)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 가입되었거나 승인된 회원입니다.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "이미 가입되었거나 승인된 회원입니다."));
         } else {
             try {
                 clubService.requestJoin(clubNo, currentUserAccount);
-                return ResponseEntity.ok("가입 신청이 완료되었습니다.");
+                return ResponseEntity.ok(Map.of("message", "가입 신청이 완료되었습니다."));
             } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("가입 신청에 실패하였습니다.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "가입 신청에 실패하였습니다."));
             }
         }
     }
@@ -112,6 +117,7 @@ public class ClubController {
     @GetMapping("/applicants")
     public String viewApplicants(@RequestParam("clubNo") long clubNo, Model model) {
         List<ApplicantDto> applicants = clubService.getApplicants(clubNo);
+        log.info("Loaded {} applicants for clubNo: {}", applicants.size(), clubNo);
         model.addAttribute("applicants", applicants);
         return "club/applicants";
     }

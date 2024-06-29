@@ -52,7 +52,7 @@
     <div class="card-container">
         <c:forEach var="b" items="${clubList}">
             <div class="card-wrapper">
-                <div class="container" data-bno="${b.clubNo}">
+                <div class="container" data-bno="${b.clubNo}" data-club-auth="${b.userAuthStatus}">
                     <div class="top-section">
                         <i class='bx bxs-moon'></i>
                         <c:if test="${login.auth == 'ADMIN' || clubLogin.account == b.account}">
@@ -76,8 +76,8 @@
                         </div>
                         <div class="btnCenter">
                             <button class="btn">상세보기</button>
-                            <c:if test="${clubLogin.clubAuth == 'PENDING'}">
-                                <button class="btn join-btn" data-bno="${b.clubNo}">가입하기</button>
+                            <c:if test="${b.userAuthStatus == 'PENDING'}">
+                                <button class="btn join-btn" data-bno="${b.clubNo}" >가입하기</button>
                             </c:if>
                         </div>
                     </div>
@@ -161,8 +161,14 @@
         window.location.href = '/club/list';
     });
 
+
     $cardContainer.addEventListener('click', e => {
         e.preventDefault();
+
+        if (e.target.matches('.btn') || e.target.closest('[data-href]') || e.target.closest('.bx') || e.target.closest('.image')) {
+            return;
+        }
+
 
         if (e.target.matches('.top-section .del-btn .fas')) {
             modal.style.display = 'flex';
@@ -178,34 +184,76 @@
         } else if (e.target.matches('.join-btn')) {
             currentClubNo = e.target.dataset.bno;
             loginModal.style.display = 'flex';
-        } else if (e.target.matches('.btn') || e.target.closest('[data-href]') || e.target.closest('.bx') || e.target.closest('.image')) {
-            // "가입하기", "상세보기" 버튼 또는 data-href 속성을 가진 요소 클릭 시 아무 동작도 하지 않음
-        } else if (${clubLogin.clubAuth == 'ADMIN' || lubLogin.clubAut == 'MEMBER'}) {
+        } else {
+            // 상세보기 버튼 클릭 시
+            const clubAuth = e.target.closest('.container').dataset.clubAuth;
             const bno = e.target.closest('.container').dataset.bno;
-            console.log("${clubLogin.clubAuth}");
-            window.location.href = '/club/detail?bno=' + bno;
+            if (clubAuth === 'ADMIN' || clubAuth === 'MEMBER') {
+                console.log(clubAuth);
+                window.location.href = '/club/detail?bno=' + bno;
+            }
         }
     });
 
-    loginConfirmJoin.onclick = () => {
-        $.ajax({
-            type: 'POST',
-            url: '/club/join',
-            data: { clubNo: currentClubNo },
-            success: function(response) {
-                alert('가입 신청이 완료되었습니다.');
-                location.reload(); // 목록을 새로고침하여 업데이트
-            },
-            error: function(xhr, status, error) {
-                alert(xhr.responseText);
-            }
-        });
-        loginModal.style.display = 'none';
-    };
 
     loginCancelJoin.onclick = () => {
         loginModal.style.display = 'none';
     };
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // 모든 '가입하기' 버튼에 대한 이벤트 리스너 추가
+        document.querySelectorAll('.join-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const clubNo = this.getAttribute('data-bno');
+                // 모달을 보여주고, 예 버튼을 클릭했을 때 가입 요청을 보내도록 설정
+                loginModal.style.display = 'flex';
+                loginConfirmJoin.onclick = function() {
+                    sendJoinRequest(clubNo);
+                };
+                loginCancelJoin.onclick = function() {
+                    loginModal.style.display = 'none';
+                };
+            });
+        });
+
+        // 가입 요청 보내기
+        function sendJoinRequest(clubNo) {
+            console.log("Sending join request for clubNo:", clubNo);
+            fetch('/club/join', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ clubNo: clubNo })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                        loginModal.style.display = 'none';
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Response data:", data);
+                    if (data.message) {
+                        if (data.status === 'ok') { // Assuming 'status' field denotes success in the server response
+                            updateApplicantsList(clubNo);
+                        }
+                    } else {
+                        alert('오류 발생: 서버로부터 응답을 받지 못했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error sending join request:', error);
+                    alert('Error: ' + error.message);
+                });
+        }
+
+    });
+
 
     window.addEventListener('click', e => {
         if (e.target === modal || e.target === loginModal) {

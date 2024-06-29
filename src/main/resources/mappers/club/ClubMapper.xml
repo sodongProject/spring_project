@@ -107,7 +107,10 @@
         SELECT user_club_role
         FROM users_clubs
         WHERE club_no = #{clubNo} AND account = #{account}
+        ORDER BY user_club_join_no DESC
+        LIMIT 1
     </select>
+
 
     <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
@@ -136,7 +139,7 @@
         ON U.account = UC.account
         WHERE UC.club_no = #{clubNo}
         AND UC.user_club_role = 'PENDING'
-        AND UC.user_club_application_status != 'DENIED'
+<!--        AND UC.user_club_application_status != 'DENIED'-->
     </select>
 
     <update id="approveApplicant">

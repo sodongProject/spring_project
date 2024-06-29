@@ -136,7 +136,7 @@
 <%--    <p>클럽 정보를 찾을 수 없습니다.</p>--%>
 <%--</c:if>--%>
 
-<c:if test="${clubLogin.clubAuth eq 'ADMIN'}">
+<c:if test="${club.userAuthStatus == 'ADMIN'}">
     <form action="/club/applicants" method="get">
         <input type="hidden" name="clubNo" value="${club.clubNo}">
         <button type="submit">가입 신청자 확인</button>
