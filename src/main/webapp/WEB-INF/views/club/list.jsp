@@ -165,7 +165,7 @@
     $cardContainer.addEventListener('click', e => {
         e.preventDefault();
 
-        if (e.target.matches('.btn') || e.target.closest('[data-href]') || e.target.closest('.bx') || e.target.closest('.image')) {
+        if (e.target.matches('.btn')  || e.target.closest('.bx') || e.target.closest('.image')) {
             return;
         }
 
@@ -211,6 +211,7 @@
                 loginModal.style.display = 'flex';
                 loginConfirmJoin.onclick = function() {
                     sendJoinRequest(clubNo);
+                    loginModal.style.display = 'none';
                 };
                 loginCancelJoin.onclick = function() {
                     loginModal.style.display = 'none';
