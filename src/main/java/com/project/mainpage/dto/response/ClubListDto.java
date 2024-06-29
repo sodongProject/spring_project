@@ -3,6 +3,7 @@ package com.project.mainpage.dto.response;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter @ToString
 @NoArgsConstructor
@@ -21,7 +22,6 @@ public class ClubListDto  {
     public ClubListDto(ClubFindAllDto dto) {
         this.clubNo = dto.getClubNo();
         this.clubName = dto.getClubName();
-        this.clubCreatedAt = dto.getClubCreatedAt();
         this.clubProfile = dto.getClubProfile();
         this.clubCompetition = dto.getClubCompetition();
         this.clubMemberMax = dto.getClubMemberMax();
