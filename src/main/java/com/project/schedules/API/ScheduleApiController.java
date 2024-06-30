@@ -1,12 +1,15 @@
 package com.project.schedules.API;
 
 
+import com.project.entity.Schedules;
 import com.project.schedules.common.Page;
 import com.project.schedules.common.PageMaker;
+import com.project.schedules.dto.ScheduleDeleteDto;
 import com.project.schedules.dto.ScheduleFindAllDto;
 import com.project.schedules.dto.ScheduleListDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.service.ScheduleService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -32,7 +36,6 @@ public class ScheduleApiController {
             , BindingResult result // 입력값 검증 결과 데이터를 갖고 있는 객체
             , HttpSession session
     ) {
-        System.out.println("dto = " + dto);
         scheduleService.addSchedule(dto, session);
 
         return ResponseEntity
@@ -48,13 +51,26 @@ public class ScheduleApiController {
 
 
         ScheduleListDto scheduleListAndPage = new ScheduleListDto(scheduleList, pageMaker);
-        System.out.println("scheduleList = " + scheduleList);
-
-        System.out.println("scheduleListAndPage = " + scheduleListAndPage);
 
         return ResponseEntity
                 .ok()
                 .body(scheduleListAndPage);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteSchedule(@Validated @RequestBody  ScheduleDeleteDto dto, HttpSession session) {
+
+        Long scheduleNo = dto.getScheduleNo();
+
+        Schedules schedule = scheduleService.detailSchedule(scheduleNo);
+
+        if(Objects.equals(schedule.getAccount(), LoginUtil.getLoggedInUser(session).getAccount())) {
+            scheduleService.deleteSchedule(scheduleNo);
+        }
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleService.findAllSchedule(schedule.getClubNo()));
     }
 
 

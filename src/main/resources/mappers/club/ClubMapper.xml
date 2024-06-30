@@ -107,7 +107,10 @@
         SELECT user_club_role
         FROM users_clubs
         WHERE club_no = #{clubNo} AND account = #{account}
+        ORDER BY user_club_join_no DESC
+        LIMIT 1
     </select>
+
 
     <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
@@ -118,21 +121,26 @@
     <!-- 사용자 역할 업데이트 -->
     <update id="updateUserRole">
         UPDATE users_clubs
-        SET user_club_role = #{role}
+        SET user_club_role = #{role},
+        user_club_application_status = 'APPROVED'
         WHERE club_no = #{clubNo} AND account = #{account}
     </update>
 
     <!-- 가입신청자 리스트 조회 -->
     <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
-        SELECT
+        SELECT DISTINCT
+        U.account,
         U.user_name,
-        U.temperature
+        U.temperature,
+        UC.user_club_role AS role,
+        UC.user_club_application_status AS status
         FROM users U
         JOIN users_clubs UC
         ON U.account = UC.account
         WHERE UC.club_no = #{clubNo}
         AND UC.user_club_role = 'PENDING'
     </select>
+<!--        AND UC.user_club_application_status != 'DENIED'-->
 
     <update id="approveApplicant">
         UPDATE users_clubs
@@ -140,4 +148,38 @@
         user_club_application_status = 'APPROVED'
         WHERE club_no = #{clubNo} AND account = #{account}
     </update>
+
+    <update id="denyApplicant">
+        UPDATE users_clubs
+        SET user_club_role = 'PENDING',
+        user_club_application_status = 'DENIED'
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
+    <!-- 클럽에 사용자가 있는지 확인 -->
+    <select id="checkIfUserExistsInClub" resultType="int">
+        SELECT COUNT(*)
+        FROM users_clubs
+        WHERE account = #{account} AND club_no = #{clubNo}
+    </select>
+
+    <!-- 클럽 로그인 사용자 정보 조회 -->
+    <select id="findClubLoginUserInfo" resultType="com.project.club.dto.ClubLoginUserInfoDto">
+        SELECT
+        U.account,
+        UC.user_club_role AS clubAuth,
+        UC.user_club_application_status AS role
+        FROM
+        users U
+        JOIN users_clubs UC ON U.account = UC.account
+        WHERE
+        U.account = #{account}
+        LIMIT 1
+    </select>
+
+    <!-- 사용자 클럽 가입 요청 추가 -->
+    <insert id="insertUserClubAdd">
+        INSERT INTO users_clubs (club_no, account, user_club_role)
+        VALUES (#{clubNo}, #{account}, #{role})
+    </insert>
 </mapper>
