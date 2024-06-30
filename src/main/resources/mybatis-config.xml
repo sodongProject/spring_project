@@ -28,8 +28,8 @@
         <mapper resource="mappers/club/ClubNoticeBoardMapper.xml" />
         <mapper resource="mappers/myPageMappers/myPageMappers.xml" />
         <mapper resource="mappers/login/UsersMapper.xml" />
-        <mapper resource="mappers/MainNoticeMapper.xml"/>
-        <mapper resource="mappers/ClubRankingMapper.xml"/>
+        <mapper resource="mappers/mainPage/MainNoticeMapper.xml"/>
+        <mapper resource="mappers/mainPage/ClubRankingMapper.xml"/>
     </mappers>
 
 </configuration>

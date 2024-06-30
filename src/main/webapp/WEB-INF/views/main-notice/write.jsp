@@ -10,7 +10,7 @@
 
   <div id="wrap" class="form-container">
     <h1>공지사항 글쓰기</h1>
-    <form action="/notice/write" method="post">
+    <form action="/main-notice/write" method="post">
         <label for="title">작성자</label>
         <input type="text" id="account" name="account" value="">
         <label for="title">제목</label>
