@@ -6,8 +6,11 @@ import com.project.mainpage.mapper.ClubRankingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.project.util.LoginUtil.LOGIN;
 
 @RequiredArgsConstructor
 @Service
@@ -49,8 +52,8 @@ public class ClubRankingService {
     }
 
     // 로그인한 유저의 가입한 동호회 목록
-    public List<ClubListDto> loginUsersClub() {
-        List<ClubFindAllDto> usersClub = mapper.loginUsersClub();
+    public List<ClubListDto> loginUsersClub(String account) {
+        List<ClubFindAllDto> usersClub = mapper.loginUsersClub(account);
 //        System.out.println("usersClub = " + usersClub);
 
         List<ClubListDto> clubList = usersClub.stream()

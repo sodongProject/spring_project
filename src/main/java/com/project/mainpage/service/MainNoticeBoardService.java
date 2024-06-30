@@ -58,6 +58,9 @@ public class MainNoticeBoardService {
         return detail(bno);
     }
 
+    public void increaseViewCount(int mainNoticeNo) {
+        mapper.viewCount(mainNoticeNo); // 매퍼에서 조회수 증가 메소드를 호출합니다.
+    }
 
     private boolean shouldIncreaseViewCount(int bno,
                                             HttpServletRequest request,

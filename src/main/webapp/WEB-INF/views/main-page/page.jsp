@@ -34,27 +34,26 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         width: 100px;
         height: 100px;
       }
-
-      .club-ranking-box {
-        justify-content: space-around;
-      }
     </style>
   </head>
   <body>
     <div class="main-title-wrapper">
       <h1 class="main-title">sodong</h1>
+      <button class="notice-btn">Sodong 공지사항</button>
     </div>
 
-    <div class="club-ranking-box">
     <%@ include file="../club-ranking/most-member.jsp" %>
+
     <%@ include file="../club-ranking/recent.jsp" %>
+    
     <%@ include file="../club-ranking/most-scheduled.jsp" %>
-    </div>
+
+    <%@ include file="../club-ranking/login-users-club.jsp" %>
 
     <script>
-      // write button event
-      document.querySelector(".add-btn").onclick = (e) => {
-        window.location.href = "/notice/write";
+      // 공지사항 경로
+      document.querySelector(".notice-btn").onclick = (e) => {
+        window.location.href = "/main-notice/list";
       };
     </script>
   </body>

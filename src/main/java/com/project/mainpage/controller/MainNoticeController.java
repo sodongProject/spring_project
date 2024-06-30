@@ -3,13 +3,13 @@ package com.project.mainpage.controller;
 import com.project.mainpage.common.PageMaker;
 import com.project.mainpage.common.Search;
 import com.project.mainpage.dto.request.NoticeWritePostDto;
-import com.project.mainpage.dto.response.ClubListDto;
 import com.project.mainpage.dto.response.NoticeListDto;
 import com.project.mainpage.dto.response.NoticeDetailDto;
-import com.project.mainpage.service.ClubRankingService;
 import com.project.mainpage.service.MainNoticeBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/main-notice")
@@ -78,5 +79,16 @@ public class MainNoticeController {
         model.addAttribute("ref", ref);
 
         return "main-notice/detail";
+    }
+
+    @PostMapping("/update-view-count")
+    public ResponseEntity<Void> updateViewCount(@RequestBody Map<String, Object> payload) {
+        try {
+            Integer mainNoticeNo = (Integer) payload.get("mainNoticeNo");
+            service.increaseViewCount(mainNoticeNo); // 조회수 증가 메소드 호출
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

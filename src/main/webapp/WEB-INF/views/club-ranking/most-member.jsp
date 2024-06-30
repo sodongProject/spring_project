@@ -6,19 +6,19 @@
     border: 2px solid blue;
     padding: 20px;
     margin-top: 20px;
-    background-color: #f0f8ff; /* 연한 파란색 배경 */
+    background-color: #f0f8ff;
   }
 
   .member-box {
     border: 1px solid blue;
     padding: 10px;
     margin-top: 10px;
-    background-color: #f0fff0; /* 연한 녹색 배경 */
+    background-color: #f0fff0;
   }
 </style>
 
 <div class="most-member">
-  <h3>가입자가 가장 많은 동호회</h3>
+  <h2>가입자가 가장 많은 동호회</h2>
   <c:if test="${not empty memberList}">
     <c:forEach var="c" items="${memberList}" varStatus="rank">
       <div class="member-box">

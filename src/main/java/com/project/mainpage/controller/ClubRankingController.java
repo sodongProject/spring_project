@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -50,8 +51,10 @@ public class ClubRankingController {
     }
 
     @GetMapping("/login-users-club")
-    public String usersClubList(Model model) {
-        List<ClubListDto> clubList = service.loginUsersClub();
+    public String usersClubList(Model model, HttpSession session) {
+        String account = (String) session.getAttribute("account");
+
+        List<ClubListDto> clubList = service.loginUsersClub(account);
         System.out.println("clubList = " + clubList);
 
         model.addAttribute("clubList", clubList);

@@ -6,19 +6,19 @@
     border: 2px solid red;
     padding: 20px;
     margin-top: 20px;
-    background-color: #ffe5e5; /* 연한 빨간색 배경 */
+    background-color: #ffe5e5;
   }
 
   .recent-box {
     border: 1px solid red;
     padding: 10px;
     margin-top: 10px;
-    background-color: #fff0f0; /* 연한 분홍색 배경 */
+    background-color: #fff0f0;
   }
 </style>
 
 <div class="recent">
-  <h3>가장 최근에 만들어진 동호회</h3>
+  <h2>가장 최근에 만들어진 동호회</h2>
   <c:if test="${not empty recentList}">
     <c:forEach var="c" items="${recentList}" varStatus="rank">
       <div class="recent-box">
