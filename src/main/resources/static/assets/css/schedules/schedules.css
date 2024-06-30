@@ -3,6 +3,14 @@
 /* styles.css */
 
 
+#participation_points:invalid {
+    color: red;
+}
+
+#open_modal_btn {
+    padding: 20px;
+    border: 1px solid black;
+}
 
 #add_schedule_button {
     display: block;

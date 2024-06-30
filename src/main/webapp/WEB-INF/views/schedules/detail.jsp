@@ -16,6 +16,7 @@
 <div>스케줄 주최자 ${schedule.account}</div>
 <div>스케줄 일자 ${schedule.scheduleAt}</div>
 <div>스케줄 참여 인원 ${schedule.scheduleCount}</div>
+<div>회비 ${schedule.participationPoints}</div>
 
 </body>
 

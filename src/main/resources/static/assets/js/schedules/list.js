@@ -1,11 +1,13 @@
 import { callApi } from "./api.js";
 
 const BASE_URL = 'http://localhost:8383/schedules/list';
+const BASE_URL2 = 'http://localhost:8383/schedules/delete';
 
 const $addScheduleBtn = document.getElementById('add_schedule_button');
-
+const $deleteScheduleBtn = document.querySelector('.card-container');
 fetchScheduleList();
 addScheduleBtnHandler();
+deleteScheduleBtnHandler();
 pageBtnHandler();
 
 function addScheduleBtnHandler() {
@@ -25,6 +27,42 @@ function addScheduleBtnHandler() {
     });
 }
 
+function deleteScheduleBtnHandler() {
+    $deleteScheduleBtn.addEventListener('click', async e => {
+        console.log('버튼 클릭!!!!!')
+        e.preventDefault();
+
+        const delBtns = document.querySelectorAll('.del-btn .fas');
+
+        let isTargetDelBtn = false;
+
+        delBtns.forEach(delBtn => {
+            if (delBtn === e.target) {
+                isTargetDelBtn = true;
+            }
+        });
+
+        if (!isTargetDelBtn) {
+            console.log("여기서 걸리나?");
+            return;
+        }
+
+        console.log('1단계 통과');
+        const payload = {
+            scheduleNo : Number(e.target.closest('.container').dataset.scheduleno),
+        };
+
+        const pageNo = Number(document.querySelector('.p-active').firstElementChild.dataset.page);
+
+
+
+        console.log(pageNo);
+
+        await callApi(BASE_URL2, 'POST', payload);
+        await fetchScheduleList(pageNo);
+    })
+}
+
 function pageBtnHandler() {
     document.getElementById('page-btn-box').addEventListener('click', e => {
         e.preventDefault();
@@ -32,8 +70,7 @@ function pageBtnHandler() {
         for (const $pageBtnElement of $pageBtn) {
             if(e.target === $pageBtnElement) {
                 const pageNo = e.target.dataset.page;
-                console.log(pageNo);
-                console.log(typeof pageNo);
+
                 fetchScheduleList(pageNo);
             }
         }
@@ -78,7 +115,7 @@ export async function fetchScheduleList(pageNo = 1) {
     if (scheduleList.length > 0) {
         for (let i = 3*pageNo - 3; i < 3*(pageNo) && i < scheduleList.length; i++) {
             schedule += `<div class="card-wrapper">
-                    <div class="container" data-schedule_no="${scheduleList[i].scheduleNo}">
+                    <div class="container" data-scheduleNo="${scheduleList[i].scheduleNo}">
                         <div class="top-section">
                             <button class="del-btn" data-href="#">
                                 <i class="fas fa-times"></i>
@@ -93,6 +130,7 @@ export async function fetchScheduleList(pageNo = 1) {
                             <h2>${scheduleList[i].scheduleTitle}</h2>
                             <p>${scheduleList[i].scheduleContent}</p>
                             <p>참가비 : ${scheduleList[i].participationPoints}</p>
+                            <p class="account">주최자 : ${scheduleList[i].account}</p>
                             <div class="social-media">
                                 <i class='bx bxl-twitter'></i>
                                 <i class='bx bxl-facebook'></i>
@@ -100,7 +138,7 @@ export async function fetchScheduleList(pageNo = 1) {
                             </div>
                             <div class="btnCenter">
                                 <button type="button" class="btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
-                                <button class="btn join-btn" data-href="#">가입하기</button>
+                                <button class="btn join-btn">가입하기</button>
                             </div>
                         </div>
                     </div>
@@ -110,6 +148,8 @@ export async function fetchScheduleList(pageNo = 1) {
     } else {
         schedule = `<h1>스케줄이 존재하지 않습니다.</h1>`;
     }
+
+
 
     const buttonTag = renderPage(scheduleResponse.pageInfo);
     document.getElementById('page-btn').innerHTML = buttonTag;
