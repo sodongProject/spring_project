@@ -68,7 +68,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <td>${b.mainNoticeNo}</td>
               <td>${b.mainNoticeTitle}</td>
               <td>관리자</td>
-              <td>${b.mainNoticeCreatedAt}</td>
+              <td>${b.date}</td>
               <td>${b.mainNoticeViewCount}</td>
             </tr>
           </c:forEach>
