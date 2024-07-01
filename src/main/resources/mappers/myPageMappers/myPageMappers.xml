@@ -14,6 +14,11 @@
         WHERE account = #{account}
     </select>
 
+    <update id="editUserEmail">
+        UPDATE users
+        SET email = #{newEmail}
+        WHERE account = #{account}
+    </update>
     <update id="editUserPhoneNumber">
         UPDATE users
         SET phoneNumber = #{ph}

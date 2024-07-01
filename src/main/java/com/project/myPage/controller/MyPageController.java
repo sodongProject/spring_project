@@ -45,6 +45,8 @@ public class MyPageController {
      */
     private void setLoggedInUserRedirectionAttr(HttpSession session,RedirectAttributes redirectAttributes){
         LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
+        System.out.println("loggedInUserInfoDto = " + loggedInUserInfoDto);
+
         redirectAttributes.addFlashAttribute("dto", loggedInUserInfoDto);
     }
 
@@ -57,7 +59,7 @@ public class MyPageController {
     @GetMapping("/view")
     public String view(HttpSession session, Model model) {
 
-        myPageService.saveLoginUser("mmm", session);
+        myPageService.saveLoginUser("mjsu10", session);
         setLoggedInUserModel(session,model);
         return "myPage/myPage-viewInformations";
     }
@@ -84,7 +86,7 @@ public class MyPageController {
      */
     @GetMapping("/modifyInformations")
     public String modifyInformationsPwConfirm(HttpSession session, boolean isConfirmed, Model model){
-//        myPageService.saveLoginUser("mmm", session);
+//        myPageService.saveLoginUser("mjsu10", session);
         String ref = "modifyInformations";
         return isPwConfirmedBefore(isConfirmed, ref,model);
     }
@@ -97,10 +99,10 @@ public class MyPageController {
      * @return 개인 정보 요청
      */
     @PostMapping("/modifyInformations")
-    public String modifyInformations(HttpSession session,String inputValue,  RedirectAttributes redirectAttributes){
-        myPageService.saveLoginUser("mmm", session);
+    public String modifyInformations(Model model,HttpSession session, String inputValue,  RedirectAttributes redirectAttributes){
+        myPageService.saveLoginUser("mjsu10", session);
         boolean isCorrect = myPageService.confirmPassword(session, inputValue);
-        System.out.println("isCorrect = " + isCorrect);
+//        System.out.println("isCorrect = " + isCorrect);
 //        session.setAttribute("ref", "modifyInformations");
 //        redirectAttributes.addFlashAttribute("ref","modifyInformations" );
 
@@ -114,6 +116,20 @@ public class MyPageController {
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
     }
 
+    /**
+     * 이메일 수정
+     * @param session  세션 정보
+     * @param modifyEmailDto 유저에게 받은 새 이메일
+     * @return jsp
+     */
+    @PostMapping("/modifyEmail")
+    public String modifyEmail(HttpSession session, ModifyEmailDto modifyEmailDto,RedirectAttributes redirectAttributes) {
+
+        myPageService.modifyEmail(session,modifyEmailDto.getNewEmail());
+        setLoggedInUserRedirectionAttr(session,redirectAttributes);
+
+        return "redirect:/myPage/modifyInformations?isConfirmed=true";
+    }
     /**
      * 비밀번호 수정
      * @param session  세션 정보
@@ -170,7 +186,7 @@ public class MyPageController {
      */
     @GetMapping("/viewPoint")
     public String viewPoint(HttpSession session, Model model, boolean isConfirmed){
-//        myPageService.saveLoginUser("mmm", session);
+//        myPageService.saveLoginUser("mjsu10", session);
         String ref = "viewPoint";
 
        return isPwConfirmedBefore(isConfirmed,ref,model);

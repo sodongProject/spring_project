@@ -107,7 +107,10 @@ public class MyPageService {
         return true;
     }
 
+    public void modifyEmail(HttpSession session, String newEmail){
+        myPageMapper.editUserEmail(getSessionAccount(session),newEmail);
 
+    }
 
     /**
      * 비밀번호 수정
@@ -184,7 +187,6 @@ public class MyPageService {
     public void userWithdrawal(HttpSession session){
         myPageMapper.withdrawal(getSessionAccount(session));
     }
-
 
 
 }

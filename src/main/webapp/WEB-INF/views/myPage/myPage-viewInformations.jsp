@@ -40,19 +40,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="main_profile">
             <div>
               <h2>아이디</h2>
-              <p class="text">${dto.account}</p>
+              <input  class="text" type="text" value="${dto.account}" disabled/>
             </div>
             <div>
               <h2>이메일</h2>
-              <p class="text">${dto.email}</p>
+              <input  class="text" type="text" value="${dto.email}" disabled/>
+
             </div>
             <div>
               <h2>연락처</h2>
-              <p class="text">${dto.phoneNumber}</p>
+              <input  class="text" type="text" value="${dto.phoneNumber}" disabled/>
+
             </div>
             <div>
               <h2>주소</h2>
-              <p class="text">${dto.address}</p>
+              <input  class="text" type="text" value="${dto.address}" disabled/>
+                
             </div>
             <!-- <div>
               <h2>비밀번호</h2>
