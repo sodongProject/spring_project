@@ -35,6 +35,7 @@
               <c:if test="${login != null}">
                 <li><a href="#">My Page</a></li>
                 <li><a href="/users/sign-out">Sign Out</a></li>
+                <li><a href="/main-page/page">Home Page</a></li>
               </c:if>
     </ul>
 

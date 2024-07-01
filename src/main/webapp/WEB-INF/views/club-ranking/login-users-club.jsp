@@ -18,7 +18,7 @@
 </style>
 
   <div class="club-list">
-    <h2>${account}님이 가입한 동호회 목록</h2>
+    <h2>${login.account}님이 가입한 동호회 목록</h2>
     <c:if test="${clubList.size() > 0}">
       <c:forEach var="c" items="${clubList}">
           <div class="list-box">
