@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -29,15 +30,15 @@ public class ClubRankingController {
         return "main-page/page";
     }
 
-     // 가장 최근에 만들어진 동호회
-     @GetMapping("/recent")
-     public String recentClub(Model model) {
-         List<ClubListDto> recentList = service.recent();
-         System.out.println("recentList = " + recentList);
+    // 가장 최근에 만들어진 동호회
+    @GetMapping("/recent")
+    public String recentClub(Model model) {
+        List<ClubListDto> recentList = service.recent();
+        System.out.println("recentList = " + recentList);
 
-         model.addAttribute("recentList", recentList);
-         return "main-page/page";
-     }
+        model.addAttribute("recentList", recentList);
+        return "main-page/page";
+    }
 
     // 1년 동안 스케줄이 가장 많은 동호회
     @GetMapping("/most-scheduled")
@@ -50,8 +51,10 @@ public class ClubRankingController {
     }
 
     @GetMapping("/login-users-club")
-    public String usersClubList(Model model) {
-        List<ClubListDto> clubList = service.loginUsersClub();
+    public String usersClubList(Model model, HttpSession session) {
+        String account = (String) session.getAttribute("account");
+
+        List<ClubListDto> clubList = service.loginUsersClub(account);
         System.out.println("clubList = " + clubList);
 
         model.addAttribute("clubList", clubList);

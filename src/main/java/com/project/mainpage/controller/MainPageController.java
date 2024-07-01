@@ -3,7 +3,9 @@ package com.project.mainpage.controller;
 import com.project.mainpage.common.PageMaker;
 import com.project.mainpage.common.Search;
 import com.project.mainpage.dto.response.ClubListDto;
+import com.project.mainpage.dto.response.NoticeFindAllDto;
 import com.project.mainpage.dto.response.NoticeListDto;
+import com.project.mainpage.entity.ClubRanking;
 import com.project.mainpage.service.ClubRankingService;
 import com.project.mainpage.service.MainNoticeBoardService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -26,7 +29,7 @@ public class MainPageController {
 
     // 1. 메인페이지 조회 요청 (/board/list : GET)
     @GetMapping("/page")
-    public String page(Search page, Model model) {
+    public String page(Search page, Model model, HttpSession session, ClubRanking ranking) {
 
         // 메인페이지 - 공지사항 목록 조회
         List<NoticeListDto> list = noticeService.findList(page);
@@ -46,8 +49,8 @@ public class MainPageController {
         List<ClubListDto> scheduledList = rankingService.mostScheduled();
         model.addAttribute("scheduledList", scheduledList);
 
-        // 메인페이지 - 로그인한 유저의 가입한 동호회 목록
-        List<ClubListDto> clubList = rankingService.loginUsersClub();
+        // 메인페이지 - 로그인한 유저의 가입한 동호회 목록 조회
+        List<ClubListDto> clubList = rankingService.loginUsersClub("호날두");
         model.addAttribute("clubList", clubList);
 
         return "main-page/page";
