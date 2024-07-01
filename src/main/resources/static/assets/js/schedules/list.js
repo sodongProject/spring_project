@@ -1,11 +1,13 @@
 import { callApi } from "./api.js";
 
 const BASE_URL = 'http://localhost:8383/schedules/list';
+const BASE_URL2 = 'http://localhost:8383/schedules/delete';
 
 const $addScheduleBtn = document.getElementById('add_schedule_button');
 
 fetchScheduleList();
 addScheduleBtnHandler();
+deleteScheduleBtnHandler();
 pageBtnHandler();
 
 function addScheduleBtnHandler() {
@@ -25,15 +27,55 @@ function addScheduleBtnHandler() {
     });
 }
 
+function deleteScheduleBtnHandler() {
+   const $deleteBtn = document.querySelector(".card-container");
+   $deleteBtn.addEventListener('click', async e => {
+       // 페이지 새로고침 막기
+       e.preventDefault();
+
+       console.log("클릭!!!")
+
+       const $btn = document.querySelectorAll(".del-btn i");
+
+       // 삭제버튼 아닐시 이벤트 활성화 X
+       let isDeleteBtn = false
+
+       for (const $btnElement of $btn) {
+           if(e.target === $btnElement) {
+               isDeleteBtn = true;
+           }
+       }
+
+       if(!isDeleteBtn) return;
+
+        // 삭제 요청을 위한 스케줄번호 받아오기
+       const scheduleNumber = e.target.closest(".container").dataset.schedule_no;
+
+       // 삭제시 페이지 유지를 위한 현재 페이지번호 받아오기
+       let pageNo = document.querySelector('.p-active a').dataset.page;
+
+       if(pageNo !== null) pageNo = parseInt(pageNo);
+
+       // 삭제버튼 클릭시 삭제요청 보내기 위한 payload
+       const payload = {
+            scheduleNo: scheduleNumber,
+       }
+
+       await callApi(BASE_URL2, 'POST', payload);
+       await fetchScheduleList(pageNo);
+   })
+}
+
 function pageBtnHandler() {
     document.getElementById('page-btn-box').addEventListener('click', e => {
         e.preventDefault();
         const $pageBtn = document.querySelectorAll('.page-link');
         for (const $pageBtnElement of $pageBtn) {
             if(e.target === $pageBtnElement) {
-                const pageNo = e.target.dataset.page;
-                console.log(pageNo);
-                console.log(typeof pageNo);
+                let pageNo = e.target.dataset.page;
+
+                if (pageNo !== null) pageNo = parseInt(pageNo)
+
                 fetchScheduleList(pageNo);
             }
         }
@@ -41,15 +83,15 @@ function pageBtnHandler() {
     })
 }
 
-function renderPage({ begin, end, pageInfo, prev, next }) {
+function renderPage({ begin, end, pageInfo }, pageNo=1) {
     let tag = '';
 
     const clubNo = document.getElementById('club_no').firstElementChild.value;
     // prev 만들기
-    if (prev)
-        tag += `<li class='page-item'><a class='page-link page-active' href='${
-            begin - 1
-        }'>이전</a></li>`;
+    if (pageNo !== begin)
+        tag += `<li class='page-item'>
+            <a class='page-link' href='${begin - 1}' data-page="${pageNo - 1}">이전</a>
+            </li>`;
 
     // 페이지 번호 태그 만들기
     for (let i = begin; i <= end; i++) {
@@ -61,6 +103,12 @@ function renderPage({ begin, end, pageInfo, prev, next }) {
         <a class='page-link page-custom' href="${i}" data-page="${i}">${i}</a>
       </li>`;
     }
+
+    // prev 만들기
+    if (pageNo !== end)
+        tag += `<li class='page-item'>
+            <a class='page-link' href='${pageNo + 1}' data-page="${pageNo + 1}">다음</a>
+            </li>`;
 
     return tag;
 }
@@ -111,8 +159,10 @@ export async function fetchScheduleList(pageNo = 1) {
         schedule = `<h1>스케줄이 존재하지 않습니다.</h1>`;
     }
 
-    const buttonTag = renderPage(scheduleResponse.pageInfo);
-    document.getElementById('page-btn').innerHTML = buttonTag;
+    if(scheduleList.length > 3) {
+        let buttonTag = renderPage(scheduleResponse.pageInfo, pageNo);
+        document.getElementById('page-btn').innerHTML = buttonTag;
+    }
 
     document.querySelector('.card-container').innerHTML = schedule;
 

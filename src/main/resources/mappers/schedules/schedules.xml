@@ -34,8 +34,15 @@
         WHERE schedule_no = LAST_INSERT_ID()
     </select>
 
-    <select id="userInClub" resultType="long">
+    <select id="userInClub" resultType="Long">
         SELECT user_club_join_no
+        FROM users_clubs
+        WHERE club_no = #{clubNo}
+        AND account = #{account}
+    </select>
+
+    <select id="userInClubNow" resultType="Boolean">
+        SELECT user_club_is_withdrawn
         FROM users_clubs
         WHERE club_no = #{clubNo}
         AND account = #{account}
@@ -64,10 +71,11 @@
 
 
 
-    <delete id="delete">
-        DELETE FROM schedules
+    <update id="delete">
+        UPDATE schedules
+        SET schedule_is_deleted = true
         WHERE schedule_no = #{scheduleNo}
-    </delete>
+    </update>
 
     <update id="upViewCount">
         UPDATE schedules

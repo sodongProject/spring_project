@@ -25,7 +25,7 @@ public class ScheduleController {
 
     @GetMapping("/list")
     public String Write(Model model, HttpSession session) {
-        scheduleService.findLoginUser("qwdk0406", session);
+//        scheduleService.findLoginUser("qwdk0406", session);
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         String now = LocalDateTime.now().format(pattern);
 
@@ -36,41 +36,20 @@ public class ScheduleController {
         return "/schedules/list";
     }
 
-//    @PostMapping("/write")
-//    public String write(ScheduleWriteDto dto, HttpSession session) {
-//
-//
-//        System.out.println("dto = " + dto);
-//        System.out.println("dto.getScheduleAt() = " + dto.getScheduleAt());
-//        scheduleService.addSchedule(dto, session);
-//
-//
-//        return "/schedules/list";
-//
-//    }
-
-//    @PostMapping
-//    public ResponseEntity<?> posts(
-//            @Validated @RequestBody ScheduleWriteDto dto,
-//            HttpSession session
-//    ) {
-//        scheduleService.addSchedule(dto, session);
-//    }
-
-
-    @GetMapping("/delete")
-    public String Delete(Long scheduleNo) {
-
-        scheduleService.deleteSchedule(scheduleNo);
-
-        return "/index";
-    }
 
     @GetMapping("/detail")
-    public String Detail(long scheduleNo, Model model) {
+    public String Detail(long scheduleNo, Model model, HttpSession session) {
 
         // ScheduleNo를 통하여 Schedule의 정보를 가져온다.
         Schedules schedules = scheduleService.detailSchedule(scheduleNo);
+
+        System.out.println("schedules = " + schedules);
+
+        Boolean isUserInClub = scheduleService.isUserInClub(schedules.getClubNo(), session);
+
+        System.out.println("isUserInClub = " + isUserInClub);
+
+        if(!isUserInClub) return "redirect:/schedules/list";
 
         model.addAttribute("schedule", schedules);
 
@@ -78,11 +57,5 @@ public class ScheduleController {
         return "/schedules/detail";
     }
 
-    @GetMapping("/register")
-    public String Register(long scheduleNo, String account, long clubNo) {
-
-        scheduleService.registerUserIntoSchedule(scheduleNo, account, clubNo);
-        return "/schedules/detail";
-    }
 
 }

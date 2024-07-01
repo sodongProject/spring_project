@@ -20,7 +20,7 @@ public interface ScheduleMapper {
     void save(Schedules schedule);
 
     // 스케줄 삭제
-    boolean delete(long scheduleNo);
+    void delete(long scheduleNo);
 
     // 조회수 상승
     void upViewCount(long scheduleNo);
@@ -29,7 +29,10 @@ public interface ScheduleMapper {
     void upScheduleCount(long scheduleNo);
 
     // 유저 - 클럽 가입 내역 추출
-    long userInClub(long clubNo, String account);
+    Long userInClub(long clubNo, String account);
+
+    // 유저가 아직 클럽에 가입중인지 확인
+    Boolean userInClubNow(long clubNo, String account);
 
     // 스케줄 참여 유저 등록
     void registerUserIntoSchedule(long scheduleNo, long userClubJoinNo);
