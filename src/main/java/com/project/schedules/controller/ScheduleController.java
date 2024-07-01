@@ -1,6 +1,7 @@
 package com.project.schedules.controller;
 
 import com.project.entity.Schedules;
+import com.project.schedules.dto.ScheduleLoginUserInfoDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -38,21 +39,22 @@ public class ScheduleController {
 
 
     @GetMapping("/detail")
-    public String Detail(long scheduleNo, Model model, HttpSession session) {
+    public String Detail(Long scheduleNo, Model model, HttpSession session) {
 
         // ScheduleNo를 통하여 Schedule의 정보를 가져온다.
         Schedules schedules = scheduleService.detailSchedule(scheduleNo);
 
-        System.out.println("schedules = " + schedules);
-
         Boolean isUserInClub = scheduleService.isUserInClub(schedules.getClubNo(), session);
 
-        System.out.println("isUserInClub = " + isUserInClub);
+        ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleService.findLoginUserInfoInSchedule(schedules, session);
+
 
         if(!isUserInClub) return "redirect:/schedules/list";
 
-        model.addAttribute("schedule", schedules);
+        System.out.println("scheduleLoginUserInfoDto = " + scheduleLoginUserInfoDto);
 
+        model.addAttribute("schedule", schedules);
+        model.addAttribute("scheduleLoginUserInfo", scheduleLoginUserInfoDto);
         System.out.println("schedules = " + schedules);
         return "/schedules/detail";
     }

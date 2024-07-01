@@ -2,12 +2,15 @@ import { callApi } from "./api.js";
 
 const BASE_URL = 'http://localhost:8383/schedules/list';
 const BASE_URL2 = 'http://localhost:8383/schedules/delete';
+const BASE_URL3 = 'http://localhost:8383/schedules/register';
 
 const $addScheduleBtn = document.getElementById('add_schedule_button');
 
 fetchScheduleList();
 addScheduleBtnHandler();
 deleteScheduleBtnHandler();
+registerModalHandler();
+registerBtnHandler();
 pageBtnHandler();
 
 function addScheduleBtnHandler() {
@@ -83,6 +86,62 @@ function pageBtnHandler() {
     })
 }
 
+// schedule 가입하기 모달창 여는 이벤트 핸들러
+function registerModalHandler() {
+    const $registerModalBtn = document.querySelector(".card-container");
+
+    $registerModalBtn.addEventListener('click', async e => {
+        // 페이지 새로고침 막기
+        e.preventDefault();
+
+        const $btn = document.querySelectorAll(".join-btn");
+
+        // 모달오픈버튼 아닐시 이벤트 활성화 X
+        let isRegisterModalBtn = false
+
+        for (const $btnElement of $btn) {
+            if(e.target === $btnElement) {
+                isRegisterModalBtn = true;
+            }
+        }
+
+        if(!isRegisterModalBtn) return;
+
+        const $registerModal = document.getElementById("register-modal");
+        const $registerModalH1 = document.querySelector(".register-content");
+
+        $registerModal.dataset.sno = document.querySelector(".btnCenter").dataset.sno;
+        $registerModal.style.display = 'flex';
+        $registerModalH1.innerHTML = e.target.dataset.stitle + "에 가입하시겠습니까?";
+
+    });
+}
+
+function registerBtnHandler() {
+    const $registerBtn = document.querySelector('.accept-btn');
+    $registerBtn.addEventListener('click', async e => {
+
+        const $registerModal = document.getElementById("register-modal");
+
+        const payload = {
+            clubNo:document.getElementById('club_no').firstElementChild.value,
+            scheduleNo:$registerModal.dataset.sno,
+        }
+
+        // 가입신청시 페이지 유지를 위한 현재 페이지번호 받아오기
+        let pageNo = document.querySelector('.p-active a').dataset.page;
+
+        if(pageNo !== null) pageNo = parseInt(pageNo);
+
+        $registerModal.style.display = 'none';
+
+        await callApi(BASE_URL3, 'POST', payload);
+        await fetchScheduleList(pageNo);
+
+    })
+}
+
+
 function renderPage({ begin, end, pageInfo }, pageNo=1) {
     let tag = '';
 
@@ -146,9 +205,9 @@ export async function fetchScheduleList(pageNo = 1) {
                                 <i class='bx bxl-facebook'></i>
                                 <i class='bx bxl-instagram'></i>
                             </div>
-                            <div class="btnCenter">
-                                <button type="button" class="btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
-                                <button class="btn join-btn" data-href="#">가입하기</button>
+                            <div class="btnCenter" data-sno="${scheduleList[i].scheduleNo}">
+                                <button type="button" class="btn detail-btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
+                                <button class="btn join-btn" data-stitle="${scheduleList[i].scheduleTitle}">가입하기</button>
                             </div>
                         </div>
                     </div>
@@ -171,7 +230,7 @@ export async function fetchScheduleList(pageNo = 1) {
 }
 
 function detailEventHandler() {
-    const detailButtons = document.querySelectorAll('.btnCenter .btn');
+    const detailButtons = document.querySelectorAll('.btnCenter .detail-btn');
     detailButtons.forEach(button => {
         console.log('Adding event listener to button:', button); // 이벤트 리스너 추가 확인
         button.addEventListener('click', e => {

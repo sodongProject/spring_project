@@ -19,5 +19,7 @@ export const callApi = async (url, method='GET', payload=null) => {
         return null;
     }
 
-    return await res.json();
+    let resData = res.json();
+    if (resData) return await resData;
+    return null;
 };

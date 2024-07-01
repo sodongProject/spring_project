@@ -4,6 +4,7 @@ import com.project.entity.Schedules;
 import com.project.entity.Users;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.schedules.dto.ScheduleFindAllDto;
+import com.project.schedules.dto.ScheduleLoginUserInfoDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.mapper.ScheduleMapper;
 import com.project.util.LoginUtil;
@@ -45,7 +46,7 @@ public class ScheduleService {
         // 스케줄을 개설한 유저 등록
         Schedules newSchedules = scheduleMapper.findLastSaveSchedule();
         long scheduleNo = newSchedules.getScheduleNo();
-        long loginUserInClubNo = scheduleMapper.userInClub(1, loginUserAccount);
+        long loginUserInClubNo = scheduleMapper.userInClub(dto.getClubNo(), loginUserAccount);
         scheduleMapper.registerUserIntoSchedule(scheduleNo, loginUserInClubNo);
 
         // 스케줄 생성자 권한 업데이트
@@ -66,11 +67,19 @@ public class ScheduleService {
         return scheduleMapper.findOne(scheduleNo);
     }
 
-    public void registerUserIntoSchedule(long scheduleNo, String account, long clubNo) {
+    public void registerUserIntoSchedule(Long scheduleNo, String account, Long clubNo) {
 
-        long a = scheduleMapper.userInClub(clubNo, account);
+        Long userInClubNo = scheduleMapper.userInClub(clubNo, account);
 
-        scheduleMapper.registerUserIntoSchedule(scheduleNo, a);
+        // club에 가입되어있지 않다면 등록 못하게 막도록
+        if(userInClubNo == null) return;
+
+        // 이미 등록되어있다면 등록 못하게 막도록
+        if(scheduleMapper.userInSchedule(userInClubNo, scheduleNo).getUserScheduleJoinNo() != null) return;
+
+        // 추후 일정온도에 미치지 못한다면 신청 못하도록 막기
+
+        scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
     }
 
     public void findLoginUser(String account, HttpSession session) {
@@ -118,5 +127,14 @@ public class ScheduleService {
         // 작성자와 로그인한 유저의 account가 다르면 삭제 불가
         return loginUserAccount.equals(scheduleWriter);
 
+    }
+
+    public ScheduleLoginUserInfoDto findLoginUserInfoInSchedule(Schedules schedules, HttpSession session) {
+        String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
+        Long userClubJoinNo = scheduleMapper.userInClub(schedules.getClubNo(), loginUserAccount);
+
+        ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleMapper.userInSchedule(userClubJoinNo, schedules.getScheduleNo());
+
+        return scheduleLoginUserInfoDto;
     }
 }

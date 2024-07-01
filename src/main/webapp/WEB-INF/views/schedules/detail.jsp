@@ -9,6 +9,12 @@
 </head>
 <body>
 
+<c:if test="${scheduleLoginUserInfo.userScheduleRole == 'ADMIN'}">
+    <div class="registerList">
+        <button>신청관리</button>
+    </div>
+</c:if>
+<h1>${scheduleLoginUserInfo.userScheduleRole}</h1>
 <h1>스케줄 상세보기</h1>
 <div>제목${schedule.scheduleTitle}</div>
 <div>스케줄 생성 시간 ${schedule.scheduleContent}</div>

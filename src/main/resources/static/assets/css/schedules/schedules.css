@@ -12,6 +12,57 @@
     cursor: pointer;
 }
 
+#register-modal {
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.register-modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 800px;
+    height: 300px;
+    border: 4px solid #f2cb05;
+    background: #f2f2f2;
+    flex-direction: column;
+}
+.register-modal-content h1 {
+    font-size: 44px;
+    padding: 10px;
+}
+
+.register-btn {
+    padding: 10px;
+    color: #0d0d0d;
+}
+
+.accept-btn {
+    font-size: 16px;
+    background: #f2cb05;
+    width: 100px;
+    height: 50px;
+}
+
+.refuse-btn {
+    font-size: 16px;
+    background: #0d0d0d;
+    color: #f2cb05;
+    width: 100px;
+    height: 50px;
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

@@ -3,11 +3,9 @@ package com.project.schedules.API;
 
 import com.project.schedules.common.Page;
 import com.project.schedules.common.PageMaker;
-import com.project.schedules.dto.ScheduleFindAllDto;
-import com.project.schedules.dto.ScheduleListDto;
-import com.project.schedules.dto.ScheduleWriteDto;
-import com.project.schedules.dto.scheduleDeleteDto;
+import com.project.schedules.dto.*;
 import com.project.schedules.service.ScheduleService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -66,10 +64,28 @@ public class ScheduleApiController {
         if(!isUserHasAuthToDeleteSchedule) {
             return ResponseEntity
                     .ok()
-                    .body(dto);
+                    .build();
         }
 
         scheduleService.deleteSchedule(dto.getScheduleNo());
+
+        return ResponseEntity
+                .ok()
+                .build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUserInSchedule(@Validated @RequestBody ScheduleRegisterDto dto, HttpSession session) {
+        String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
+
+        if(loginUserAccount == null)
+            return ResponseEntity
+                .ok()
+                .body(dto);
+
+        scheduleService.registerUserIntoSchedule(dto.getScheduleNo(), loginUserAccount, dto.getClubNo());
+
+        System.out.println("등록성공!!!!!!!!!!!!!!!!!!!!!!");
 
         return ResponseEntity
                 .ok()
