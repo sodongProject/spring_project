@@ -15,6 +15,9 @@ public interface MyPageMappers {
     // 비밀번호 확인
     String confirmPassword(String account);
 
+    // 이메일 수정
+    void editUserEmail(String account, String newEmail);
+
     // 핸드폰 번호 수정
     void editUserPhoneNumber(String account, String ph);
 
