@@ -21,7 +21,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <form action="/myPage/${ref}" method="post">
             <input type="password" name="inputValue" id="confirmPwInput"/>
             <button type="submit" id="confirmPwBtn">확인</button>
-            <c:if test="${result == false}">비밀번호를 확인해주세요.</c:if>
+            <c:if test="${result == false}"><p class="falsy_pw">비밀번호를 확인해주세요.</p></c:if>
           </form>
         </div>
        

@@ -98,7 +98,7 @@ public class MyPageController {
      */
     @PostMapping("/modifyInformations")
     public String modifyInformations(HttpSession session,String inputValue,  RedirectAttributes redirectAttributes){
-//        myPageService.saveLoginUser("mmm", session);
+        myPageService.saveLoginUser("mmm", session);
         boolean isCorrect = myPageService.confirmPassword(session, inputValue);
         System.out.println("isCorrect = " + isCorrect);
 //        session.setAttribute("ref", "modifyInformations");

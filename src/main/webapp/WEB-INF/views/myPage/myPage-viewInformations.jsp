@@ -9,9 +9,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
   </head>
   <body>
-    <div class="myPage_wrap">
+    <div class="myPage_wrap view">
       <%@ include file="../include/myPage-nav.jsp" %>
-      <div class="myPage_inner">
+      <div class="myPage_inner ">
         <form action="/myPage/view" name="" class="myPage_form">
           <h1>개인정보 조회 페이지</h1>
       <!--  -->

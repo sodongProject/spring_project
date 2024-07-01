@@ -10,7 +10,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="/assets/js/login/validate.js" defer></script>
   </head>
   <body>
-    <div class="myPage_wrap">
+    <div class="myPage_wrap modify">
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner">
         비밀번호 검증 결과 ${result}

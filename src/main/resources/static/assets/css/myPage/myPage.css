@@ -124,7 +124,12 @@ button#confirmPwBtn{
   margin-left: 10px;
   
 }
-
+.falsy_pw{
+  font-size: 14px;
+  color: #e02323;
+  padding-left: 10px;
+  margin-top: 14px;
+}
 
 /* viewInformations */
 .myPage_wrap .main_profile{
