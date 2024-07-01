@@ -17,11 +17,15 @@ public class ClubLoginUserInfoDto {
     private String account;
     private ClubAuth clubAuth;
     private UsersClubAuth role;
+    private long clubNo;
+    private String userName;
 
     public ClubLoginUserInfoDto(Users user, UsersClubs UC) {
         this.account = user.getAccount();
         this.clubAuth = UC.getUserClubRole();
         this.role = UC.getUserClubStatus();
+        this.clubNo = UC.getClubNo();
+        this.userName = user.getUserName();
     }
 
 
