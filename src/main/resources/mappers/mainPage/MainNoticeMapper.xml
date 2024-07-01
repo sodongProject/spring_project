@@ -5,6 +5,23 @@
 
 <mapper namespace="com.project.mainpage.mapper.MainNoticeMapper">
 
+    <!-- 동적 SQL 조건을 분리 -->
+    <sql id="search">
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'account'">
+            WHERE account LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </sql>
+
     <insert id="save">
         INSERT INTO main_notice_boards
         (main_notice_title, main_notice_content, account)
@@ -38,9 +55,13 @@
     <select id="findAll" resultType="com.project.mainpage.dto.response.NoticeFindAllDto">
         SELECT
             *
-        FROM main_notice_boards M
+        FROM main_notice_boards B
         LEFT OUTER JOIN users U
-        ON M.account = U.account
+        ON B.account = U.account
+        <include refid="search"/>
+        GROUP BY B.main_notice_no
+        ORDER BY main_notice_no DESC
+        LIMIT #{pageStart}, #{amount}
     </select>
 
     <select id="count" resultType="int">
