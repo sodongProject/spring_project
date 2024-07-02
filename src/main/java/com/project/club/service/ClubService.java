@@ -126,7 +126,6 @@ public class ClubService {
 
 
 
-    // 가입 승인 수향 메서드
     public void approveApplicant(Long clubNo, String account) {
         try {
             log.info("approveApplicant - clubNo: {}, account: {}", clubNo, account);
@@ -138,7 +137,6 @@ public class ClubService {
         }
     }
 
-    // 가입 거절 수행 메서드
     public void denyApplicant(Long clubNo, String account) {
         try {
             log.info("denyApplicant - clubNo: {}, account: {}", clubNo, account);

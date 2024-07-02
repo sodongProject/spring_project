@@ -10,8 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/club/main.css">
-    <link rel="stylesheet" href="/assets/css/club/list.css">
+    <link rel="stylesheet" href="/assets/css/club/clubList.css">
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -24,7 +23,7 @@
         <button class="add-btn">새 소동 만들기</button>
     </div>
 
-    <div class="top-section">
+    <div class="top-section1">
         <!-- 검색창 영역 -->
         <div class="search">
             <form action="/club/list" method="get">
@@ -36,7 +35,7 @@
                     <option value="cd">제목+내용</option>
                 </select>
                 <input type="text" class="form-control" name="keyword" value="${s.keyword}">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn-primary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
@@ -64,12 +63,14 @@
                     <div class="middle-section">
                         <img class="image" src="/assets/img/club/image-add.png" alt="profile image"/>
                         <div class="view">
+<%--                            눈 아이콘을 사람 아이콘으로 변경 --%>
                             <i class="fas fa-eye"></i>
                             <span class="view-count">${b.view}</span>
                         </div>
                         <h2>${b.shortTitle}</h2>
                         <p>${b.shortContent}</p>
                         <div class="social-media">
+<%--                            트위터 말고 넣을 거찾아보자 --%>
                             <i class='bx bxl-twitter'></i>
                             <i class='bx bxl-facebook'></i>
                             <i class='bx bxl-instagram'></i>
@@ -302,6 +303,8 @@
             }
         });
     });
+
+    // 가입이 완료되었습니다 추가
 </script>
 </body>
 </html>

@@ -130,7 +130,7 @@ public class ClubController {
         return "club/applicants";
     }
 
-    // 9. 가입 승인 시 권한 변경
+    // 가입 승인 시 권한 변경
     @PostMapping("/approve")
     public ResponseEntity<String> approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
         try {
@@ -143,6 +143,7 @@ public class ClubController {
         }
     }
 
+    // 가입 거절 시 처리
     @PostMapping("/deny")
     public ResponseEntity<String> denyApplicant(@RequestParam Long clubNo, @RequestParam String account) {
         try {
