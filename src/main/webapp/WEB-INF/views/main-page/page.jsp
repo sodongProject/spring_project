@@ -8,7 +8,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <title>Insert title here</title>
 
     <style>
-      /* 공통 스타일 */
       body {
         font-family: Arial, sans-serif;
         background-color: #f2f2f2;
