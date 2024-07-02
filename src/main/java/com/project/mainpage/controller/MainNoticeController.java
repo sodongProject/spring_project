@@ -29,7 +29,7 @@ public class MainNoticeController {
 
     // 1. 목록 조회 요청
     @GetMapping("/list")
-    public String list(Search page, Model model) {
+    public String list(@ModelAttribute("s") Search page, Model model) {
         // 메인페이지 - 공지사항 목록 조회
         List<NoticeListDto> list = service.findList(page);
         PageMaker maker = new PageMaker(page, service.getCount(page));

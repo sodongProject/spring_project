@@ -8,6 +8,7 @@ import com.project.mainpage.dto.response.NoticeListDto;
 import com.project.mainpage.entity.ClubRanking;
 import com.project.mainpage.service.ClubRankingService;
 import com.project.mainpage.service.MainNoticeBoardService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,8 @@ public class MainPageController {
 
     // 1. 메인페이지 조회 요청 (/board/list : GET)
     @GetMapping("/page")
-    public String page(Search page, Model model, HttpSession session, ClubRanking ranking) {
+    public String page(Search page, Model model, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
 
         // 메인페이지 - 공지사항 목록 조회
         List<NoticeListDto> list = noticeService.findList(page);
@@ -50,7 +52,7 @@ public class MainPageController {
         model.addAttribute("scheduledList", scheduledList);
 
         // 메인페이지 - 로그인한 유저의 가입한 동호회 목록 조회
-        List<ClubListDto> clubList = rankingService.loginUsersClub("호날두");
+        List<ClubListDto> clubList = rankingService.loginUsersClub(account);
         model.addAttribute("clubList", clubList);
 
         return "main-page/page";

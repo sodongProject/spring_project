@@ -7,8 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Page {
 
-    private int pageNo; // 클라이언트가 요청한 페이지번호
-    private int amount; // 클라이언트가 요청한 한 페이지당 게시물 목록 수
+    private int pageNo;     // 클라이언트가 요청한 페이지 번호
+    private int amount;     // 클라이언트가 요청한 한 페이지당 게시물 목록 수
 
     public Page() {
         this.pageNo = 1;
@@ -24,7 +24,7 @@ public class Page {
     }
 
     public void setAmount(int amount) {
-        if (amount < 6 || amount > 60) {
+        if (amount < 6 || amount > 60){
             this.amount = 6;
             return;
         }
@@ -32,23 +32,30 @@ public class Page {
     }
 
     /*
-                만약 한 페이지에 게시물을 10개씩 렌더링한다면
-                1페이지 -> LIMIT 0, 10
-                2페이지 -> LIMIT 10, 10
-                3페이지 -> LIMIT 20, 10
+        만약에 한 페이지에 게시물을 10개씩 렌더링 한다면
 
-                만약 한 페이지에 게시물을 6개씩 렌더링한다면
-                1페이지 -> LIMIT 0, 6
-                2페이지 -> LIMIT 6, 6
-                3페이지 -> LIMIT 12, 6
+        1 페이지 -> Limit 0,10
+        2 페이지 -> Limit 10,10
+        3 페이지 -> Limit 20,10
 
-                만약 한 페이지에 게시물을 N개씩 렌더링한다면
-                1페이지 -> LIMIT 0, N
-                2페이지 -> LIMIT 6, N
-                3페이지 -> LIMIT 12, N
-                M페이지 -> LIMIT (M - 1) * N, N
-             */
-    public int getPageStart() {
+        만약에 한 페이지에 게시물을 6개씩 렌더링 한다면
+
+        1 페이지 -> Limit 0,6
+        2 페이지 -> Limit 6,6
+        3 페이지 -> Limit 12,6
+
+        만약에 한 페이지에 게시물을 n개씩 렌더링 한다면
+
+        1 페이지 -> Limit 0,n
+        2 페이지 -> Limit 6,n
+        3 페이지 -> Limit 12,n
+        M 페이지 -> Limit (M - 1) * n, n
+     */
+
+
+    //  마이바티스에선 필드를 설정하지 않고 게터를 만들어도 존재하는걸로 판단하여 가져감 그래서
+    // pageStart 를 만들어서 xml 로 보냄
+    public int getPageStart(){
         return (this.pageNo - 1) * this.amount;
     }
 
