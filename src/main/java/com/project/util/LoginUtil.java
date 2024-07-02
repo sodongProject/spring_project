@@ -52,7 +52,7 @@ public class LoginUtil {
 
 
 
-
+//${clubLogin.clubAuth == 'MEMBER' || clubLogin.clubAuth 'ADMIN'}
 
 
     // 클럽 로그인 회원의 권한이 ADMIN 인지 확인
