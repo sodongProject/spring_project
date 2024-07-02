@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ScheduleLoginUserInfoDto {
-    private Long userScheduleJoinNo;
+    private Long scheduleNo;
     private ScheduleAuth userScheduleRole;
 }

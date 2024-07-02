@@ -11,5 +11,7 @@ import lombok.*;
 public class ApplicationUserResponseDto {
 
     private String account;
-    private double temperature;
+    private Long scheduleNo;
+    private Long clubNo;
+    private Boolean accept;
 }

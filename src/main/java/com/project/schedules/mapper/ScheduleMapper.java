@@ -55,4 +55,6 @@ public interface ScheduleMapper {
     // 스케줄 권한 설정하기
     void setUserRoleInSchedule(Long scheduleNo, Long userClubJoinNo, ScheduleAuth auth);
 
+    // 스케줄에 대한 로그인 유저의 권한 찾기
+    List<ScheduleLoginUserInfoDto> findAllUserInSchedule(String account);
 }

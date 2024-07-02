@@ -55,7 +55,13 @@ function deleteScheduleBtnHandler() {
        const scheduleNumber = e.target.closest(".container").dataset.schedule_no;
 
        // 삭제시 페이지 유지를 위한 현재 페이지번호 받아오기
-       let pageNo = document.querySelector('.p-active a').dataset.page;
+       const $nowPage = document.querySelector('.p-active a');
+       let pageNo = 1;
+       if($nowPage !== null) {
+           pageNo = $nowPage.dataset.page;
+       }
+
+
 
        if(pageNo !== null) pageNo = parseInt(pageNo);
 
@@ -110,7 +116,7 @@ function registerModalHandler() {
         const $registerModal = document.getElementById("register-modal");
         const $registerModalH1 = document.querySelector(".register-content");
 
-        $registerModal.dataset.sno = document.querySelector(".btnCenter").dataset.sno;
+        $registerModal.dataset.sno = e.target.closest(".btnCenter").dataset.sno;
         $registerModal.style.display = 'flex';
         $registerModalH1.innerHTML = e.target.dataset.stitle + "에 가입하시겠습니까?";
 
@@ -163,8 +169,9 @@ function renderPage({ begin, end, pageInfo }, pageNo=1) {
       </li>`;
     }
 
+    console.log("begin" + begin);
     // prev 만들기
-    if (pageNo !== end)
+    if (pageNo !== end && end !== 0)
         tag += `<li class='page-item'>
             <a class='page-link' href='${pageNo + 1}' data-page="${pageNo + 1}">다음</a>
             </li>`;
@@ -176,21 +183,31 @@ export async function fetchScheduleList(pageNo = 1) {
     const clubNo = document.getElementById('club_no').firstElementChild.value;
 
     const scheduleResponse = await callApi(`${BASE_URL}/${clubNo}/page/${pageNo}`);
+    console.log(scheduleResponse);
     const scheduleList = scheduleResponse.scheduleList;
-    console.log(scheduleList);
+    const userInfoList = scheduleResponse.scheduleLoginUserInfoList;
+    console.log(userInfoList);
+    console.log("s" + scheduleList);
     let schedule = '';
+
 
     console.log(scheduleResponse);
 
-    if (scheduleList.length > 0) {
+    if (scheduleList !== null && scheduleList.length > 0) {
         for (let i = 3*pageNo - 3; i < 3*(pageNo) && i < scheduleList.length; i++) {
             schedule += `<div class="card-wrapper">
                     <div class="container" data-schedule_no="${scheduleList[i].scheduleNo}">
-                        <div class="top-section">
-                            <button class="del-btn" data-href="#">
+                        <div class="top-section">`;
+            if(userInfoList.length > 0) {
+                for(const user of userInfoList) {
+                    if(user.scheduleNo === scheduleList[i].scheduleNo && user.userScheduleRole === 'ADMIN') {
+                        schedule += `<button class="del-btn" data-href="#">
                                 <i class="fas fa-times"></i>
-                            </button>
-                            <i class='bx bxs-moon'></i>
+                            </button>`;
+                    }
+                }
+            }
+            schedule +=   `<i class='bx bxs-moon'></i>
                         </div>
                         <div class="middle-section">
                             <div class="view">
@@ -207,21 +224,36 @@ export async function fetchScheduleList(pageNo = 1) {
                             </div>
                             <div class="btnCenter" data-sno="${scheduleList[i].scheduleNo}">
                                 <button type="button" class="btn detail-btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
-                                <button class="btn join-btn" data-stitle="${scheduleList[i].scheduleTitle}">가입하기</button>
-                            </div>
+                                `;
+            let isUserInSchedule = false
+            if(userInfoList.length > 0) {
+                for(const user of userInfoList) {
+                    if(user.scheduleNo === scheduleList[i].scheduleNo) {
+                        isUserInSchedule = true
+                    }
+                }
+            }
+            if(!isUserInSchedule){
+                schedule += `<button class="btn join-btn" data-stitle="${scheduleList[i].scheduleTitle}">가입하기</button>`
+            }
+
+            schedule +=    `</div>
                         </div>
                     </div>
                 </div>
                     `;
         }
     } else {
-        schedule = `<h1>스케줄이 존재하지 않습니다.</h1>`;
+        schedule += `<div id="no-schedule">
+                        <h1 id="no-schedule">스케줄이 존재하지 않습니다.</h1>
+                     </div>
+                        `;
     }
 
-    if(scheduleList.length > 3) {
-        let buttonTag = renderPage(scheduleResponse.pageInfo, pageNo);
-        document.getElementById('page-btn').innerHTML = buttonTag;
-    }
+
+    let buttonTag = renderPage(scheduleResponse.pageInfo, pageNo);
+    document.getElementById('page-btn').innerHTML = buttonTag;
+
 
     document.querySelector('.card-container').innerHTML = schedule;
 

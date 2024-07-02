@@ -42,12 +42,13 @@ public class ScheduleApiController {
 
     @GetMapping("/list/{clubNo}/page/{pageNo}")
     public ResponseEntity<?> ScheduleList(@PathVariable long clubNo, @PathVariable int pageNo, HttpSession session) {
-
+        String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
         List<ScheduleFindAllDto> scheduleList = scheduleService.findAllSchedule(clubNo);
+        List<ScheduleLoginUserInfoDto> scheduleLoginUserInfoDtoList = scheduleService.findAllUserAuthInSchedule(loginUserAccount);
         PageMaker pageMaker = new PageMaker(new Page(pageNo, 3), scheduleList.size());
 
 
-        ScheduleListDto scheduleListAndPage = new ScheduleListDto(scheduleList, pageMaker);
+        ScheduleListDto scheduleListAndPage = new ScheduleListDto(scheduleList, pageMaker, scheduleLoginUserInfoDtoList);
         System.out.println("scheduleList = " + scheduleList);
 
         System.out.println("scheduleListAndPage = " + scheduleListAndPage);
@@ -65,14 +66,14 @@ public class ScheduleApiController {
         if(!isUserHasAuthToDeleteSchedule) {
             return ResponseEntity
                     .ok()
-                    .build();
+                    .body(dto);
         }
 
         scheduleService.deleteSchedule(dto.getScheduleNo());
 
         return ResponseEntity
                 .ok()
-                .build();
+                .body(dto);
     }
 
     @PostMapping("/register")
@@ -104,6 +105,18 @@ public class ScheduleApiController {
         return ResponseEntity
                 .ok()
                 .body(allApplicationUsers);
+    }
+
+    @PostMapping("/detail")
+    public ResponseEntity<?> applicationProcessing(@Validated @RequestBody ApplicationUserResponseDto dto) {
+
+        System.out.println("dto = " + dto);
+
+        scheduleService.applicationProcessing(dto);
+
+        return ResponseEntity
+                .ok()
+                .body(dto);
     }
 
 }

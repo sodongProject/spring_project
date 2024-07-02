@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public enum ScheduleAuth {
-    MEMBER, ADMIN, WAITING
+    MEMBER, ADMIN, WAITING, DENIED
 }

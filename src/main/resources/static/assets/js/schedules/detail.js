@@ -4,6 +4,7 @@ let BASE_URL = 'http://localhost:8383/schedules/detail';
 
 applicationUserList();
 openRegisterModal();
+registerBtnHandler();
 
 async function applicationUserList  () {
 
@@ -43,4 +44,45 @@ function openRegisterModal () {
     $registerModalBtn.addEventListener('click', e=>{
         document.getElementById('register-list-modal').style.display='flex';
     })
+}
+
+function registerBtnHandler() {
+    document.querySelector(`.register-modal-content`).addEventListener('click', async e => {
+        e.preventDefault();
+
+        let isBtn = false;
+        let isAccpet = false;
+
+        const $acceptBtn = document.querySelectorAll('.accept-btn');
+
+        for (const $aBtn of $acceptBtn) {
+            if(e.target === $aBtn) {
+                isBtn = true;
+                isAccpet = true;
+            }
+        }
+
+        const $refuseBtn = document.querySelectorAll('.refuse-btn');
+
+        for (const $rBtn of $refuseBtn) {
+            if(e.target === $rBtn) {
+                isBtn = true;
+            }
+        }
+
+        if(!isBtn) return;
+
+        const payload = {
+            accept: isAccpet,
+            scheduleNo: document.getElementById('schedule_detail').dataset.sno,
+            clubNo: document.getElementById('schedule_detail').dataset.cno,
+            account: e.target.closest('.application-user-info').dataset.account,
+        }
+
+        console.log(payload);
+
+        await callApi(BASE_URL, 'POST', payload);
+        applicationUserList();
+
+    });
 }

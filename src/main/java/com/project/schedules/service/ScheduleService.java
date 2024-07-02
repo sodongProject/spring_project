@@ -74,6 +74,7 @@ public class ScheduleService {
 
         // 이미 등록되어있다면 등록 못하게 막도록
         if(scheduleMapper.userInSchedule(userInClubNo, scheduleNo) == null)
+            System.out.println("등록되나? " + userInClubNo);
             scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
 
         // 추후 일정온도에 미치지 못한다면 신청 못하도록 막기
@@ -140,5 +141,23 @@ public class ScheduleService {
     public List<Users> findAllApplicationUsers(Long scheduleNo) {
 
        return scheduleMapper.findAllApplicationUser(scheduleNo);
+    }
+
+    public void applicationProcessing(ApplicationUserResponseDto dto) {
+
+        Long userInClubNo = scheduleMapper.userInClub(dto.getClubNo(), dto.getAccount());
+
+        if(dto.getAccept()) {
+            scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), userInClubNo, ScheduleAuth.MEMBER);
+        } else {
+            scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), userInClubNo, ScheduleAuth.DENIED);
+        }
+
+    }
+
+    public List<ScheduleLoginUserInfoDto> findAllUserAuthInSchedule(String loginUserAccount) {
+
+        return scheduleMapper.findAllUserInSchedule(loginUserAccount);
+
     }
 }
