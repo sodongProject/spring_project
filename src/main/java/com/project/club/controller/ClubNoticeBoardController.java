@@ -32,8 +32,9 @@ public class ClubNoticeBoardController {
 
     // 전체 목록
     @GetMapping("list")
-    public String list(@RequestParam("clubNo") long clubNo, Model model) {
-        List<ClubNoticeBoardListResponseDto> CNBList = clubNoticeBoardService.findList(clubNo);
+    public String list(@RequestParam("clubNo") long clubNo, Model model, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
+        List<ClubNoticeBoardListResponseDto> CNBList = clubNoticeBoardService.findList(clubNo, account);
         model.addAttribute("clubNo", clubNo);
         model.addAttribute("CNBList", CNBList);
         return "clubNoticeBoard/list";
@@ -53,13 +54,14 @@ public class ClubNoticeBoardController {
     public String write(ClubNoticeBoardWriteResponseDto dto){
         clubNoticeBoardService.insert(dto);
         log.debug("이게 도대채 뭐냐? {}", String.valueOf(dto.getClubNo()));
-        return "redirect:/clubNoticeBoard/list";
+        return "redirect:/clubNoticeBoard/list?clubNo=" + dto.getClubNo();
     }
 
     // 5. 상세조회 요청
     @GetMapping("/detail")
-    public String detail(long clubNoticeNo, Model model) {
-        ClubNoticeBoardDetailResponseDto CNB = clubNoticeBoardService.detail(clubNoticeNo);
+    public String detail(long clubNoticeNo, Model model, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
+        ClubNoticeBoardDetailResponseDto CNB = clubNoticeBoardService.detail(clubNoticeNo, account);
         model.addAttribute("club", CNB);
         return "clubNoticeBoard/detail";
     }

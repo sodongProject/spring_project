@@ -120,14 +120,18 @@
 
 <body>
 <div class="container">
-    <a href="/clubNoticeBoard/write?clubNo=${clubNo}" class="new-notice-button">새 공지사항 작성</a>
+    <c:if test="${CNBList.get(0).userAuthStatus == 'ADMIN'}">
+        <a href="/clubNoticeBoard/write?clubNo=${clubNo}" class="new-notice-button">새 공지사항 작성</a>
+    </c:if>
 
     <c:forEach var="b" items="${CNBList}">
         <div class="notice" data-bno="${b.clubNoticeNo}">
             <div class="top-section">
-                <button class="del-btn" data-href="/clubNoticeBoard/delete?clubNoticeNo=${b.clubNoticeNo}">
-                    <i class="fas fa-times"></i>
-                </button>
+                <c:if test="${b.userAuthStatus == 'ADMIN'}">
+                    <button class="del-btn" data-href="/clubNoticeBoard/delete?clubNoticeNo=${b.clubNoticeNo}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </c:if>
             </div>
             <div class="notice-header">
                 <div class="notice-title">제목: ${b.shortTitle}</div>

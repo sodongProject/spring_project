@@ -2,6 +2,7 @@ package com.project.club.mapper;
 
 import com.project.club.entity.ClubNoticeBoard;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface ClubNoticeBoardMapper {
     // 공지사항 삭제
     boolean delete(long noticeBoardId);
 
+    String findUserRole(@Param("clubNo")long clubNo,
+                        @Param("account")String account);
 
 
 }
