@@ -32,7 +32,7 @@
     <update id="modify">
         UPDATE main_notice_boards
         SET main_notice_title = #{mainNoticeTitle},
-            main_notice_content = #{mainNoticeContent}
+        main_notice_content = #{mainNoticeContent}
         WHERE main_notice_no = #{mainNoticeNo}
     </update>
 
@@ -41,20 +41,20 @@
         WHERE main_notice_no = #{mainNoticeNo}
     </delete>
 
-    <select id="findOne" resultType="com.project.mainpage.dto.response.NoticeFindAllDto">
+    <select id="findOne" resultType="com.project.mainpage.dto.response.NoticeDetailDto">
         SELECT
-            main_notice_no,
-            main_notice_title,
-            main_notice_content,
-            main_notice_created_at,
-            main_notice_image
-            FROM main_notice_boards
+        main_notice_no,
+        main_notice_title,
+        main_notice_content,
+        main_notice_created_at
+        FROM main_notice_boards
+        <include refid="search"/>
         WHERE main_notice_no = #{mainNoticeNo}
     </select>
 
     <select id="findAll" resultType="com.project.mainpage.dto.response.NoticeFindAllDto">
         SELECT
-            *
+        *
         FROM main_notice_boards B
         LEFT OUTER JOIN users U
         ON B.account = U.account

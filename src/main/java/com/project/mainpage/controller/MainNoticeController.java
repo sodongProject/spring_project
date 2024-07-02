@@ -63,8 +63,7 @@ public class MainNoticeController {
 
     // 5. 게시글 상세 조회 요청
     @GetMapping("/detail")
-    public String detail(int mainNoticeNo, Model model,
-                         HttpServletRequest request, HttpServletResponse response) {
+    public String detail(@RequestParam("mainNoticeNo") int mainNoticeNo, Model model, HttpServletRequest request) {
         // 1. 상세조회하고 싶은 글번호를 읽기
         System.out.println("mainNoticeNo = " + mainNoticeNo);
 
