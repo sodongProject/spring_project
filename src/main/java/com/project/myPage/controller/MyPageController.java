@@ -45,7 +45,7 @@ public class MyPageController {
      */
     private void setLoggedInUserRedirectionAttr(HttpSession session,RedirectAttributes redirectAttributes){
         LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
-        System.out.println("loggedInUserInfoDto = " + loggedInUserInfoDto);
+//        System.out.println("loggedInUserInfoDto = " + loggedInUserInfoDto);
 
         redirectAttributes.addFlashAttribute("dto", loggedInUserInfoDto);
     }
