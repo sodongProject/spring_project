@@ -28,7 +28,7 @@ public class ClubService {
     public List<ClubListResponseDto> findList(Search search, String account) {
         List<ClubFindAllDto> clubList = clubMapper.findAll(search);
         return clubList.stream()
-                .map(c -> new ClubListResponseDto(c, clubMapper.findUserRole(c.getClubNo(), account)))
+                .map(c -> new ClubListResponseDto(c, clubMapper.findUserStatus(c.getClubNo(), account)))
                 .collect(Collectors.toList());
     }
 
@@ -115,7 +115,12 @@ public class ClubService {
 
     // 사용자 클럽 정보 추가
     public void insertUserClub(long clubNo, String account, String role) {
-        clubMapper.insertUserClubAdd(clubNo, account, role);
+        // 체크하여 가입된 사람이 있는지 clubNo와 account 로 확인
+        if (!checkIfUserExistsInClub(account, clubNo)) {
+            // 사용자가 해당 클럽에 없으면 새로 추가
+            clubMapper.insertUserClubAdd(clubNo, account, role);
+        }
+        // 이미 사용자가 클럽에 속해 있으면 추가하지 않고 넘어감
     }
 
 
@@ -152,5 +157,9 @@ public class ClubService {
         }
     }
 
+    // 멤버수 조회
+    public int getApprovedMemberCount(long clubNo, String account) {
+        return clubMapper.usersClubsUserCount(clubNo, account);
+    }
 
 }

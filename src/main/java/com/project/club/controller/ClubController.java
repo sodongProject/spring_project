@@ -46,6 +46,11 @@ public class ClubController {
             }
         }
 
+        for (ClubListResponseDto club : clubList) {
+            int approvedMemberCount = clubService.getApprovedMemberCount(club.getClubNo(), account);
+            club.setView(approvedMemberCount);
+        }
+
         ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
         model.addAttribute("clubList", clubList);

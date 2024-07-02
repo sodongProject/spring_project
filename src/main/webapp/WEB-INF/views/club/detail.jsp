@@ -115,7 +115,7 @@
 </head>
 <body>
 <%--<c:if test="${not empty club}">--%>
-<div id="wrap" class="form-container" data-bno="${club.clubNo}">
+<div id="wrap" class="form-container" data-cno="${club.clubNo}">
     <h1>게시물 번호: ${club.clubNo}</h1>
     <h2>작성일자: ${club.regDateTime}</h2>
     <label for="writer">작성자</label>

@@ -76,7 +76,7 @@
                         </div>
                         <div class="btnCenter">
                             <button class="btn">상세보기</button>
-                            <c:if test="${b.userAuthStatus == 'PENDING'}">
+                            <c:if test="${b.userAuthStatus == null}">
                                 <button class="btn join-btn" data-bno="${b.clubNo}" >가입하기</button>
                             </c:if>
                         </div>
@@ -188,7 +188,7 @@
             // 상세보기 버튼 클릭 시
             const clubAuth = e.target.closest('.container').dataset.clubAuth;
             const bno = e.target.closest('.container').dataset.bno;
-            if (clubAuth === 'ADMIN' || clubAuth === 'MEMBER') {
+            if (clubAuth === 'APPROVED') {
                 console.log(clubAuth);
                 window.location.href = '/club/detail?bno=' + bno;
             }

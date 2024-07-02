@@ -111,6 +111,13 @@
         LIMIT 1
     </select>
 
+    <select id="findUserStatus" resultType="string">
+        SELECT user_club_application_status
+        FROM users_clubs
+        WHERE club_no = #{clubNo} AND account = #{account}
+        ORDER BY user_club_join_no DESC
+        LIMIT 1
+    </select>
 
     <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
@@ -182,4 +189,15 @@
         INSERT INTO users_clubs (club_no, account, user_club_role)
         VALUES (#{clubNo}, #{account}, #{role})
     </insert>
+
+    <!--  유저스 클럽스에서 멤버 조회해서 APPROVED 인 사람들 멤버수 조회하기 조회하는 쿼리  -->
+    <select id="usersClubsUserCount" resultType="int">
+        SELECT COUNT(*)
+        FROM users_clubs
+        WHERE club_no = #{clubNo}
+        AND user_club_role IN ('MEMBER', 'ADMIN')
+        AND user_club_application_status = 'APPROVED'
+    </select>
+
+
 </mapper>
