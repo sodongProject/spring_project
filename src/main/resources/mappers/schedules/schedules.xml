@@ -35,8 +35,15 @@
         WHERE schedule_no = LAST_INSERT_ID()
     </select>
 
-    <select id="userInClub" resultType="long">
+    <select id="userInClub" resultType="Long">
         SELECT user_club_join_no
+        FROM users_clubs
+        WHERE club_no = #{clubNo}
+        AND account = #{account}
+    </select>
+
+    <select id="userInClubNow" resultType="Boolean">
+        SELECT user_club_is_withdrawn
         FROM users_clubs
         WHERE club_no = #{clubNo}
         AND account = #{account}
@@ -47,6 +54,14 @@
             *
         FROM Users
         WHERE account = #{account}
+    </select>
+
+    <select id="userInSchedule" resultType="com.project.schedules.dto.ScheduleLoginUserInfoDto">
+        SELECT
+        *
+        FROM users_schedules
+        WHERE schedule_no = #{scheduleNo}
+        AND user_club_join_no = #{userClubJoinNo}
     </select>
 
     <insert id="save">
@@ -85,9 +100,28 @@
 
     <update id="setUserRoleInSchedule">
         UPDATE users_schedules
-        SET user_schedule_role = 'ADMIN'
+        SET user_schedule_role = #{auth}
         WHERE schedule_no = #{scheduleNo}
         AND user_club_join_no = #{userClubJoinNo}
     </update>
+
+    <select id="findAllApplicationUser" resultType="com.project.entity.Users">
+        SELECT
+        *
+        FROM users
+        INNER JOIN users_clubs
+        ON users.account = users_clubs.account
+        WHERE users_clubs.user_club_join_no IN
+        (SELECT user_club_join_no FROM users_schedules
+            WHERE schedule_no = #{scheduleNO}
+            AND user_schedule_role = 'WAITING')
+    </select>
+
+    <select id="findAllUserInSchedule" resultType="com.project.schedules.dto.ScheduleLoginUserInfoDto">
+        SELECT
+        *
+        FROM users_schedules
+        WHERE user_club_join_no IN (SELECT user_club_join_no FROM users_clubs WHERE account = #{account})
+    </select>
 
 </mapper>

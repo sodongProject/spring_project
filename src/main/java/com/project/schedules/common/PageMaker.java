@@ -21,9 +21,6 @@ public class PageMaker {
     // 총 게시물 수
     private int totalCount;
 
-    // 이전, 다음버튼 활성화 여부
-    private boolean prev, next;
-
     // 현재 페이지 정보
     private com.project.schedules.common.Page pageInfo;
 
@@ -82,12 +79,6 @@ public class PageMaker {
         if(finalPage < this.end){
             this.end = finalPage;
         }
-
-        // 4. 이전 버튼 활성화 여부
-        this.prev = this.begin != 1;
-
-        // 5. 다음 버튼 활성화 여부
-        this.next = this.end < finalPage;
 
     }
 }

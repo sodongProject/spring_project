@@ -11,12 +11,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ScheduleFindAllDto {
-    private String account;
-    private long scheduleNo;
+    private Long scheduleNo;
     private String scheduleTitle;
     private int scheduleViewCount;
     private int scheduleCount;
     private LocalDateTime scheduleAt;
     private String scheduleContent;
-    private long participationPoints;
+    private Long participationPoints;
 }

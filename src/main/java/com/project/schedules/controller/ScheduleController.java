@@ -1,6 +1,7 @@
 package com.project.schedules.controller;
 
 import com.project.entity.Schedules;
+import com.project.schedules.dto.ScheduleLoginUserInfoDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.service.ScheduleService;
 import com.project.util.LoginUtil;
@@ -26,7 +27,7 @@ public class ScheduleController {
 
     @GetMapping("/list")
     public String Write(Model model, HttpSession session) {
-        scheduleService.findLoginUser("qwdk0406", session);
+//        scheduleService.findLoginUser("qwdk0406", session);
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         String now = LocalDateTime.now().format(pattern);
 
@@ -37,55 +38,26 @@ public class ScheduleController {
         return "/schedules/list";
     }
 
-//    @PostMapping("/write")
-//    public String write(ScheduleWriteDto dto, HttpSession session) {
-//
-//
-//        System.out.println("dto = " + dto);
-//        System.out.println("dto.getScheduleAt() = " + dto.getScheduleAt());
-//        scheduleService.addSchedule(dto, session);
-//
-//
-//        return "/schedules/list";
-//
-//    }
-
-//    @PostMapping
-//    public ResponseEntity<?> posts(
-//            @Validated @RequestBody ScheduleWriteDto dto,
-//            HttpSession session
-//    ) {
-//        scheduleService.addSchedule(dto, session);
-//    }
-
-
-    @GetMapping("/delete")
-    public String Delete(Long scheduleNo) {
-
-        scheduleService.deleteSchedule(scheduleNo);
-
-        return "/index";
-    }
 
     @GetMapping("/detail")
-    public String Detail(long scheduleNo, Model model) {
+    public String Detail(Long scheduleNo, Model model, HttpSession session) {
 
         // ScheduleNo를 통하여 Schedule의 정보를 가져온다.
         Schedules schedules = scheduleService.detailSchedule(scheduleNo);
 
-        model.addAttribute("schedule", schedules);
+        Boolean isUserInClub = scheduleService.isUserInClub(schedules.getClubNo(), session);
 
+        ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleService.findLoginUserInfoInSchedule(schedules, session);
+
+        if(!isUserInClub) return "redirect:/schedules/list";
+
+        System.out.println("scheduleLoginUserInfoDto = " + scheduleLoginUserInfoDto);
+
+        model.addAttribute("schedule", schedules);
+        model.addAttribute("scheduleLoginUserInfo", scheduleLoginUserInfoDto);
         System.out.println("schedules = " + schedules);
         return "/schedules/detail";
     }
 
-    @GetMapping("/register")
-    public String Register(long scheduleNo, long clubNo, HttpSession session) {
-        String account = LoginUtil.getLoggedInUser(session).getAccount();
-
-        scheduleService.registerUserIntoSchedule(scheduleNo, account, clubNo);
-
-        return "/schedules/list";
-    }
 
 }
