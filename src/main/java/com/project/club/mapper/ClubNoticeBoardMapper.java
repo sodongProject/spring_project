@@ -1,6 +1,7 @@
 package com.project.club.mapper;
 
 import com.project.club.entity.ClubNoticeBoard;
+import com.project.login.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,6 +27,10 @@ public interface ClubNoticeBoardMapper {
 
     String findUserRole(@Param("clubNo")long clubNo,
                         @Param("account")String account);
+
+    // 클럽에 가입한 사용자의 모둔걸 가져와
+    Users findUsersAll(@Param("clubNo")long clubNo,
+                       @Param("account")String account);
 
 
 }

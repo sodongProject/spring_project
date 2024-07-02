@@ -162,4 +162,11 @@ public class ClubService {
         return clubMapper.usersClubsUserCount(clubNo, account);
     }
 
+    // 멤버 맥스에 추가하는 쿼리
+    public void updateClubMemberMax(long clubNo, String account) {
+        int approvedMemberCount = clubMapper.usersClubsUserCount(clubNo, account);  // 이전에 정의된 승인된 멤버 수 조회
+        clubMapper.updateMemberMax(clubNo, approvedMemberCount);
+    }
+
+
 }

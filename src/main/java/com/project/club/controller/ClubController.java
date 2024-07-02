@@ -51,6 +51,9 @@ public class ClubController {
             club.setView(approvedMemberCount);
         }
 
+        // 각 클럽의 승인된 멤버 수 업데이트
+        clubList.forEach(club -> clubService.updateClubMemberMax(club.getClubNo() , account));
+
         ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
         model.addAttribute("clubList", clubList);

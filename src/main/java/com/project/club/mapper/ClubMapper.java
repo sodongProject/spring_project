@@ -79,4 +79,6 @@ public interface ClubMapper {
                                 @Param("account")String account);
 
 
+    // 멤버맥스에 추가하는 쿼리
+    void updateMemberMax(@Param("clubNo") long clubNo, @Param("approvedMemberCount") int approvedMemberCount);
 }

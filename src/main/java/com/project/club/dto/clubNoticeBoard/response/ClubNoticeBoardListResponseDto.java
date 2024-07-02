@@ -23,6 +23,7 @@ public class ClubNoticeBoardListResponseDto {
     private String account;
     private String clubProfile;
     private String userAuthStatus;
+    private String userName;
 
     public ClubNoticeBoardListResponseDto (ClubNoticeBoard C, String userAuthStatus) {
         this.clubNoticeNo = C.getClubNoticeNo();

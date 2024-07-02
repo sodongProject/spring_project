@@ -43,8 +43,8 @@ public class ClubListResponseDto {
     }
 
     private String makeShortContent(String content) {
-        return (content.length() > 30)
-                ? content.substring(0, 30) + "..."
+        return (content.length() > 10)
+                ? content.substring(0, 10) + "..."
                 : content;
     }
 

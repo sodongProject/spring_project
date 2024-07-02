@@ -35,6 +35,16 @@ public class ClubNoticeBoardController {
     public String list(@RequestParam("clubNo") long clubNo, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
         List<ClubNoticeBoardListResponseDto> CNBList = clubNoticeBoardService.findList(clubNo, account);
+        String userRole = clubNoticeBoardService.findUserRole(clubNo, account);
+
+        log.info("userRole: {}", userRole);
+
+        boolean admin = LoginUtil.isAdmin(session);
+        log.info("admin:{}",admin);
+        boolean clubAdmin = LoginUtil.isClubAdmin(session);
+        log.info("clubAdmin:{}", clubAdmin);
+
+        model.addAttribute("userRole", userRole);
         model.addAttribute("clubNo", clubNo);
         model.addAttribute("CNBList", CNBList);
         return "clubNoticeBoard/list";

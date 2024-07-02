@@ -120,7 +120,7 @@
 
 <body>
 <div class="container">
-    <c:if test="${CNBList.get(0).userAuthStatus == 'ADMIN'}">
+    <c:if test="${userRole == 'ADMIN'}">
         <a href="/clubNoticeBoard/write?clubNo=${clubNo}" class="new-notice-button">새 공지사항 작성</a>
     </c:if>
 

@@ -122,9 +122,13 @@
     <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
         INSERT INTO users_clubs (club_no, account, user_club_role)
-        VALUES (#{clubNo}, #{account}, #{role})
+        SELECT #{clubNo}, #{account}, #{role}
+        FROM dual
+        WHERE NOT EXISTS (
+        SELECT 1 FROM users_clubs
+        WHERE club_no = #{clubNo} AND account = #{account}
+        )
     </insert>
-
     <!-- 사용자 역할 업데이트 -->
     <update id="updateUserRole">
         UPDATE users_clubs
@@ -199,5 +203,16 @@
         AND user_club_application_status = 'APPROVED'
     </select>
 
+    <update id="updateMemberMax">
+        UPDATE clubs
+        SET club_member_max = (
+        SELECT COUNT(*)
+        FROM users_clubs
+        WHERE club_no = #{clubNo}
+        AND user_club_role IN ('MEMBER', 'ADMIN')
+        AND user_club_application_status = 'APPROVED'
+        )
+        WHERE club_no = #{clubNo}
+    </update>
 
 </mapper>

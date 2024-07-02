@@ -1,6 +1,5 @@
 package com.project.club.service;
 
-import com.project.club.dto.ClubListResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardDetailResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardListResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardWriteResponseDto;
@@ -26,6 +25,11 @@ public class ClubNoticeBoardService {
         return CNBList.stream()
                 .map(c -> new ClubNoticeBoardListResponseDto(c, clubNoticeBoardMapper.findUserRole(c.getClubNo(), account)))
                 .collect(Collectors.toList());
+    }
+
+    public String findUserRole(long clubNo, String account) {
+        String userRole = clubNoticeBoardMapper.findUserRole(clubNo, account);
+        return userRole;
     }
 
     // 글쓰기
