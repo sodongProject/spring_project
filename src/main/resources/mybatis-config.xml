@@ -30,6 +30,8 @@
         <mapper resource="mappers/login/UsersMapper.xml" />
         <mapper resource="mappers/mainPage/MainNoticeMapper.xml"/>
         <mapper resource="mappers/mainPage/ClubRankingMapper.xml"/>
+        <mapper resource="mappers/freeBoard/FreeBoardMapper.xml"/>
+
     </mappers>
 
 </configuration>
