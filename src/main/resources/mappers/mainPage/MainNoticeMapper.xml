@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mainpage.mapper.MainNoticeMapper">
+
+    <!-- 동적 SQL 조건을 분리 -->
+    <sql id="search">
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'account'">
+            WHERE account LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </sql>
+
+    <insert id="save">
+        INSERT INTO main_notice_boards
+        (main_notice_title, main_notice_content, account)
+        VALUES
+        (#{mainNoticeTitle}, #{mainNoticeContent}, #{account})
+    </insert>
+
+    <update id="modify">
+        UPDATE main_notice_boards
+        SET main_notice_title = #{mainNoticeTitle},
+        main_notice_content = #{mainNoticeContent}
+        WHERE main_notice_no = #{mainNoticeNo}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM main_notice_boards
+        WHERE main_notice_no = #{mainNoticeNo}
+    </delete>
+
+    <select id="findOne" resultType="com.project.mainpage.dto.response.NoticeDetailDto">
+        SELECT
+        main_notice_no,
+        main_notice_title,
+        main_notice_content,
+        main_notice_created_at
+        FROM main_notice_boards
+        <include refid="search"/>
+        WHERE main_notice_no = #{mainNoticeNo}
+    </select>
+
+    <select id="findAll" resultType="com.project.mainpage.dto.response.NoticeFindAllDto">
+        SELECT
+        *
+        FROM main_notice_boards B
+        LEFT OUTER JOIN users U
+        ON B.account = U.account
+        <include refid="search"/>
+        GROUP BY B.main_notice_no
+        ORDER BY main_notice_no DESC
+        LIMIT #{pageStart}, #{amount}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM main_notice_boards
+    </select>
+
+</mapper>

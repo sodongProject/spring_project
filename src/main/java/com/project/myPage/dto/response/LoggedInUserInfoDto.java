@@ -14,7 +14,7 @@ public class LoggedInUserInfoDto {
     private String phoneNumber;
     private String address;
     private String password;
-    private String imgAdress;
+    private String profileImage;
     private String name;
     private Gender gender;
     private double temperature;

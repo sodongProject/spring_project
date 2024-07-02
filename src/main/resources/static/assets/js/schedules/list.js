@@ -5,7 +5,7 @@ const BASE_URL2 = 'http://localhost:8383/schedules/delete';
 const BASE_URL3 = 'http://localhost:8383/schedules/register';
 
 const $addScheduleBtn = document.getElementById('add_schedule_button');
-
+const $deleteScheduleBtn = document.querySelector('.card-container');
 fetchScheduleList();
 addScheduleBtnHandler();
 deleteScheduleBtnHandler();
@@ -217,6 +217,7 @@ export async function fetchScheduleList(pageNo = 1) {
                             <h2>${scheduleList[i].scheduleTitle}</h2>
                             <p>${scheduleList[i].scheduleContent}</p>
                             <p>참가비 : ${scheduleList[i].participationPoints}</p>
+                            <p class="account">주최자 : ${scheduleList[i].account}</p>
                             <div class="social-media">
                                 <i class='bx bxl-twitter'></i>
                                 <i class='bx bxl-facebook'></i>

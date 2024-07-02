@@ -115,7 +115,7 @@
 </head>
 <body>
 <%--<c:if test="${not empty club}">--%>
-<div id="wrap" class="form-container">
+<div id="wrap" class="form-container" data-bno="${club.clubNo}">
     <h1>게시물 번호: ${club.clubNo}</h1>
     <h2>작성일자: ${club.regDateTime}</h2>
     <label for="writer">작성자</label>
@@ -125,7 +125,7 @@
     <label for="content">내용</label>
     <div id="content">${club.content}</div>
     <div class="buttons">
-        <button class="notice-btn" type="button" onclick="window.location.href='/clubNoticeBoard/list'">공지사항</button>
+        <button class="notice-btn" type="button" onclick="window.location.href='/clubNoticeBoard/list?clubNo=${club.clubNo}'">공지사항</button>
         <button class="free_board-btn" type="button" onclick="window.location.href='/club/freeBoard'">자유게시판</button>
         <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
     </div>

@@ -4,6 +4,7 @@ import com.project.entity.Schedules;
 import com.project.schedules.dto.ScheduleLoginUserInfoDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.service.ScheduleService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,6 @@ public class ScheduleController {
         Boolean isUserInClub = scheduleService.isUserInClub(schedules.getClubNo(), session);
 
         ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleService.findLoginUserInfoInSchedule(schedules, session);
-
 
         if(!isUserInClub) return "redirect:/schedules/list";
 

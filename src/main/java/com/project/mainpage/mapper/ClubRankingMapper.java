@@ -18,5 +18,5 @@ public interface ClubRankingMapper {
     List<ClubFindAllDto> mostScheduled();
 
     // 로그인한 유저의 가입한 동호회 목록
-    List<ClubFindAllDto> loginUsersClub();
+    List<ClubFindAllDto> loginUsersClub(String account);
 }

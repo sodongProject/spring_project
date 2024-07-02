@@ -37,7 +37,6 @@ public class ScheduleService {
 
         s.setAccount(loginUserAccount);
         s.setClubNo(1);
-        System.out.println("s = " + s);
         // 스케줄 테이블에 스케줄 등록
         scheduleMapper.save(s);
 

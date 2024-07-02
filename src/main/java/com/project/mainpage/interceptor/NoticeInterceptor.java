@@ -2,7 +2,7 @@ package com.project.mainpage.interceptor;
 
 import com.project.mainpage.entity.MainNoticeBoard;
 import com.project.mainpage.mapper.MainNoticeMapper;
-import com.project.mainpage.util.LoginUtil;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;

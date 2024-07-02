@@ -1,6 +1,5 @@
 package com.project.schedules.API;
 
-
 import com.project.entity.Users;
 import com.project.schedules.common.Page;
 import com.project.schedules.common.PageMaker;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -32,7 +32,6 @@ public class ScheduleApiController {
             , BindingResult result // 입력값 검증 결과 데이터를 갖고 있는 객체
             , HttpSession session
     ) {
-        System.out.println("dto = " + dto);
         scheduleService.addSchedule(dto, session);
 
         return ResponseEntity
@@ -46,7 +45,6 @@ public class ScheduleApiController {
         List<ScheduleFindAllDto> scheduleList = scheduleService.findAllSchedule(clubNo);
         List<ScheduleLoginUserInfoDto> scheduleLoginUserInfoDtoList = scheduleService.findAllUserAuthInSchedule(loginUserAccount);
         PageMaker pageMaker = new PageMaker(new Page(pageNo, 3), scheduleList.size());
-
 
         ScheduleListDto scheduleListAndPage = new ScheduleListDto(scheduleList, pageMaker, scheduleLoginUserInfoDtoList);
         System.out.println("scheduleList = " + scheduleList);

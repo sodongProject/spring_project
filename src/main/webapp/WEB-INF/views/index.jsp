@@ -30,11 +30,14 @@
          <c:if test="${login == null}">
                 <li><a href="/users/sign-up">Sign Up</a></li>
                 <li><a href="/users/sign-in">Sign In</a></li>
+                <li><a href="/club/list">Club Page</a></li>
               </c:if>
 
               <c:if test="${login != null}">
                 <li><a href="#">My Page</a></li>
                 <li><a href="/users/sign-out">Sign Out</a></li>
+                <li><a href="/main-page/page">Home Page</a></li>
+                <li><a href="/club/list">Club Page</a></li>
               </c:if>
     </ul>
 

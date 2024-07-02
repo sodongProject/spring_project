@@ -20,30 +20,31 @@ public class ClubNoticeBoardService {
 
     private final ClubNoticeBoardMapper clubNoticeBoardMapper;
 
-    public List<ClubNoticeBoardListResponseDto> findList() {
-
-        List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAll();
-        List<ClubNoticeBoardListResponseDto> dtoList = CNBList.stream()
+    // 전체 목록
+    public List<ClubNoticeBoardListResponseDto> findList(long clubNo) {
+        List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAll(clubNo);
+        return CNBList.stream()
                 .map(ClubNoticeBoardListResponseDto::new)
                 .collect(Collectors.toList());
-
-        return dtoList;
     }
 
+    // 글쓰기
     public void insert(ClubNoticeBoardWriteResponseDto dto) {
         ClubNoticeBoard CNB = dto.toEntity();
         clubNoticeBoardMapper.save(CNB);
     }
 
-    public boolean remove(long clubNoticeNo) {
-        log.info("삭제시킬 번호 가져와: {}", clubNoticeNo);
-        boolean delete = clubNoticeBoardMapper.delete(clubNoticeNo);
-        log.info("트루 펄스로 변환좀 해줘 {} ", clubNoticeNo);
-        return delete;
+    // 글 삭제
+    public void delete(long clubNoticeNo) {
+        clubNoticeBoardMapper.delete(clubNoticeNo);
     }
 
+    // 상세 조회
     public ClubNoticeBoardDetailResponseDto detail(long clubNoticeNo) {
+        log.info("clubNoticeNo: {}", clubNoticeNo);
         ClubNoticeBoard CNB = clubNoticeBoardMapper.findOne(clubNoticeNo);
+        clubNoticeBoardMapper.upViewCount(clubNoticeNo);
         return new ClubNoticeBoardDetailResponseDto(CNB);
     }
+
 }

@@ -27,4 +27,7 @@ public interface MainNoticeMapper {
 
     // 총 게시물 수 조회
     int count(Search search);
+
+    // 게시물 조회수
+    void viewCount(int boardNo);
 }

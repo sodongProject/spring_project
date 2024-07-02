@@ -2,6 +2,7 @@ package com.project.mainpage.service;
 
 import com.project.mainpage.common.Search;
 import com.project.mainpage.dto.request.NoticeWritePostDto;
+import com.project.mainpage.dto.response.NoticeDetailDto;
 import com.project.mainpage.dto.response.NoticeFindAllDto;
 import com.project.mainpage.dto.response.NoticeListDto;
 import com.project.mainpage.entity.MainNoticeBoard;
@@ -49,18 +50,17 @@ public class MainNoticeBoardService {
     }
 
     // 상세 조회 요청 중간처리
-//    public NoticeDetailDto detail(int bno,
-//                                         HttpServletRequest request,
-//                                         HttpServletResponse response) {
-//
-//        // 게시물 정보 조회
-//        MainNoticeBoard b = mapper.findOne(bno);
-//
-//        HttpSession session = request.getSession();
-//
-//        return
-//    }
+    public NoticeDetailDto detail(int bno) {
 
+        // 게시물 정보 조회
+        MainNoticeBoard detail = mapper.findOne(bno);
+
+        return detail(bno);
+    }
+
+    public void increaseViewCount(int mainNoticeNo) {
+        mapper.viewCount(mainNoticeNo); // 매퍼에서 조회수 증가 메소드를 호출합니다.
+    }
 
     private boolean shouldIncreaseViewCount(int bno,
                                             HttpServletRequest request,
