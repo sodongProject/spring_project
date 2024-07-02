@@ -1,9 +1,12 @@
 package com.project.schedules.mapper;
 
 import com.project.entity.Users;
+import com.project.schedules.dto.ApplicationUserResponseDto;
+import com.project.schedules.dto.ScheduleAuth;
 import com.project.schedules.dto.ScheduleFindAllDto;
 import com.project.entity.Schedules;
 import com.project.schedules.dto.ScheduleLoginUserInfoDto;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -38,9 +41,11 @@ public interface ScheduleMapper {
     // 스케줄 참여 유저 등록
     void registerUserIntoSchedule(Long scheduleNo, Long userClubJoinNo);
 
-    // 스케줄에 참여한 유저 찾기
+    // 스케줄에 참여한 유저의 권한 찾기
     ScheduleLoginUserInfoDto userInSchedule(Long userClubJoinNo, Long scheduleNo);
 
+    // 스케줄에 참여 신청을 한 유저 정보 찾기
+    List<Users> findAllApplicationUser(Long scheduleNo);
 
     Users findUser(String account);
 
@@ -48,5 +53,6 @@ public interface ScheduleMapper {
     Schedules findLastSaveSchedule();
 
     // 스케줄 권한 설정하기
-    void setUserRoleInSchedule(Long scheduleNo, Long userClubJoinNo);
+    void setUserRoleInSchedule(Long scheduleNo, Long userClubJoinNo, ScheduleAuth auth);
+
 }

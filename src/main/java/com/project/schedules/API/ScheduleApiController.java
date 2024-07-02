@@ -1,6 +1,7 @@
 package com.project.schedules.API;
 
 
+import com.project.entity.Users;
 import com.project.schedules.common.Page;
 import com.project.schedules.common.PageMaker;
 import com.project.schedules.dto.*;
@@ -92,5 +93,17 @@ public class ScheduleApiController {
                 .body(dto);
     }
 
+    @GetMapping("/detail/{scheduleNo}")
+    public ResponseEntity<?> ApplicationUsers(@PathVariable Long scheduleNo, HttpSession session) {
+
+
+
+        List<Users> allApplicationUsers = scheduleService.findAllApplicationUsers(scheduleNo);
+
+
+        return ResponseEntity
+                .ok()
+                .body(allApplicationUsers);
+    }
 
 }

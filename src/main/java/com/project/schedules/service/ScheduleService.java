@@ -3,9 +3,7 @@ package com.project.schedules.service;
 import com.project.entity.Schedules;
 import com.project.entity.Users;
 import com.project.login.dto.LoginUserInfoDto;
-import com.project.schedules.dto.ScheduleFindAllDto;
-import com.project.schedules.dto.ScheduleLoginUserInfoDto;
-import com.project.schedules.dto.ScheduleWriteDto;
+import com.project.schedules.dto.*;
 import com.project.schedules.mapper.ScheduleMapper;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +48,7 @@ public class ScheduleService {
         scheduleMapper.registerUserIntoSchedule(scheduleNo, loginUserInClubNo);
 
         // 스케줄 생성자 권한 업데이트
-        scheduleMapper.setUserRoleInSchedule(scheduleNo, loginUserInClubNo);
+        scheduleMapper.setUserRoleInSchedule(scheduleNo, loginUserInClubNo, ScheduleAuth.ADMIN);
 
         // 스케줄 정원 증가
         scheduleMapper.upScheduleCount(scheduleNo);
@@ -75,11 +73,12 @@ public class ScheduleService {
         if(userInClubNo == null) return;
 
         // 이미 등록되어있다면 등록 못하게 막도록
-        if(scheduleMapper.userInSchedule(userInClubNo, scheduleNo).getUserScheduleJoinNo() != null) return;
+        if(scheduleMapper.userInSchedule(userInClubNo, scheduleNo) == null)
+            scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
 
         // 추후 일정온도에 미치지 못한다면 신청 못하도록 막기
 
-        scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
+
     }
 
     public void findLoginUser(String account, HttpSession session) {
@@ -136,5 +135,10 @@ public class ScheduleService {
         ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleMapper.userInSchedule(userClubJoinNo, schedules.getScheduleNo());
 
         return scheduleLoginUserInfoDto;
+    }
+
+    public List<Users> findAllApplicationUsers(Long scheduleNo) {
+
+       return scheduleMapper.findAllApplicationUser(scheduleNo);
     }
 }
