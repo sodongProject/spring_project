@@ -29,6 +29,7 @@ public class ClubNoticeBoardListResponseDto {
         this.shortTitle = makeShortTitle(C.getClubNoticeTitle());
         this.shortContent = makeShortContent(C.getClubNoticeContent());
         this.account = C.getAccount();
+        this.view = C.getClubNoticeViewCount();
 
         LocalDateTime createAt = C.getClubNoticeCreatedAt();
         this.date = dateFormatting(createAt);

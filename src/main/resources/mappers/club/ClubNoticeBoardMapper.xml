@@ -6,11 +6,12 @@
 
 <mapper namespace="com.project.club.mapper.ClubNoticeBoardMapper">
 
-    <select id="findAll" resultType="clubNoticeBoard">
+    <select id="findAll" parameterType="long" resultType="clubNoticeBoard">
         SELECT
             *
         FROM clubs_notice_boards
         WHERE club_notice_is_deleted = FALSE
+        AND club_no = #{clubNo}
     </select>
 
     <select id="findOne" resultType="clubNoticeBoard">
@@ -28,7 +29,7 @@
     </insert>
 
     <update id="upViewCount">
-        UPDATE clubs
+        UPDATE clubs_notice_boards
         SET club_notice_view_count = club_notice_view_count + 1
         WHERE club_notice_no = #{clubNoticeNo}
     </update>

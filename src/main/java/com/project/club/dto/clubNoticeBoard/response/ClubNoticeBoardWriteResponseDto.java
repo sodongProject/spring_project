@@ -18,6 +18,7 @@ public class ClubNoticeBoardWriteResponseDto {
     private String content;
     private Boolean ClubNoticeIsDeleted = false; // 기본값 false
     private long clubNo;
+    private String account;
 
 //    private MultipartFile clubProfile;
 
@@ -28,6 +29,7 @@ public class ClubNoticeBoardWriteResponseDto {
         C.setClubNoticeTitle(this.title);
         C.setClubNoticeIsDeleted(this.ClubNoticeIsDeleted);
         C.setClubNo(this.clubNo);
+        C.setAccount(this.account);
 
         return C;
     }

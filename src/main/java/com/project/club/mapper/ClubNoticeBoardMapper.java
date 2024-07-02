@@ -9,7 +9,7 @@ import java.util.List;
 public interface ClubNoticeBoardMapper {
 
     // 공지사항 전체 조회
-    List<ClubNoticeBoard> findAll();
+    List<ClubNoticeBoard> findAll(long clubNo);
 
     // 공지사항 세부 조회
     ClubNoticeBoard findOne(long clubNoticeNo);
