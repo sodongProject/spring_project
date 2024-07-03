@@ -1,6 +1,7 @@
 package com.project.mainpage.mapper;
 
 import com.project.mainpage.common.Search;
+import com.project.mainpage.dto.response.NoticeDetailDto;
 import com.project.mainpage.dto.response.NoticeFindAllDto;
 import com.project.mainpage.entity.MainNoticeBoard;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,7 +24,7 @@ public interface MainNoticeMapper {
     List<NoticeFindAllDto> findAll(Search page);
 
     // 공지사항 상세 조회
-    MainNoticeBoard findOne(int boardNo);
+    MainNoticeBoard findOne(long mainNoticeNo);
 
     // 총 게시물 수 조회
     int count(Search search);
