@@ -18,8 +18,8 @@ public class ScheduleWriteDto {
     private String scheduleTitle;
     private String scheduleContent;
     private String scheduleAt;
-    private long participationPoints;
-    private long clubNo;
+    private Long participationPoints;
+    private Long clubNo;
 
     public Schedules toEntity() {
 

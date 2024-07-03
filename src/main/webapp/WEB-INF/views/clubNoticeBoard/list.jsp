@@ -119,17 +119,19 @@
 </head>
 
 <body>
-<a href="/clubNoticeBoard/write" class="new-notice-button">새 공지사항 작성</a>
 <div class="container">
+    <c:if test="${userRole == 'ADMIN'}">
+        <a href="/clubNoticeBoard/write?clubNo=${clubNo}" class="new-notice-button">새 공지사항 작성</a>
+    </c:if>
 
     <c:forEach var="b" items="${CNBList}">
         <div class="notice" data-bno="${b.clubNoticeNo}">
             <div class="top-section">
-                <button class="del-btn" data-href="/clubNoticeBoard/delete?clubNoticeNo=${b.clubNoticeNo}">
-                    <i class="fas fa-times"></i>
-                </button>
-                <i class='bx bxs-moon'></i>
-
+                <c:if test="${b.userAuthStatus == 'ADMIN'}">
+                    <button class="del-btn" data-href="/clubNoticeBoard/delete?clubNoticeNo=${b.clubNoticeNo}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </c:if>
             </div>
             <div class="notice-header">
                 <div class="notice-title">제목: ${b.shortTitle}</div>
@@ -145,43 +147,39 @@
             </div>
         </div>
     </c:forEach>
+</div>
 
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <p>정말로 삭제할까요?</p>
-            <div class="modal-buttons">
-                <button class="confirm" id="confirmDelete"><i class="fas fa-check"></i> 예</button>
-                <button class="cancel" id="cancelDelete"><i class="fas fa-times"></i> 아니오</button>
-            </div>
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <p>정말로 삭제할까요?</p>
+        <div class="modal-buttons">
+            <button class="confirm" id="confirmDelete"><i class="fas fa-check"></i> 예</button>
+            <button class="cancel" id="cancelDelete"><i class="fas fa-times"></i> 아니오</button>
         </div>
     </div>
 </div>
 
 <script>
-
     const $cardContainer = document.querySelector('.container');
+    const modal = document.getElementById('modal');
+    const confirmDelete = document.getElementById('confirmDelete');
+    const cancelDelete = document.getElementById('cancelDelete');
 
     $cardContainer.addEventListener('click', e => {
-        e.preventDefault()
-        if (e.target.matches('.top-section .del-btn .fas')) {
+        if (e.target.closest('.del-btn')) {
+            e.preventDefault();
             modal.style.display = 'flex';
-            const $delBtn = e.target.closest('.del-btn');
-            const deleteLocation = $delBtn.dataset.href;
-            confirmDelete.onclick = e => {
+            const deleteLocation = e.target.closest('.del-btn').dataset.href;
+            confirmDelete.onclick = () => {
                 window.location.href = deleteLocation;
                 modal.style.display = 'none';
             };
-            cancelDelete.onclick = e => {
+            cancelDelete.onclick = () => {
                 modal.style.display = 'none';
             };
-        } else { // 삭제 버튼 제외한 부분은 글 상세조회 요청
-            // notice 태그에 붙은 글번호 읽기
-            const $notice = e.target.closest('.notice');
-            if ($notice) {
-                const bno = $notice.dataset.bno;
-                // 요청 보내기
-                window.location.href = '/clubNoticeBoard/detail?clubNoticeNo=' + bno;
-            }
+        } else if (e.target.closest('.notice')) {
+            const bno = e.target.closest('.notice').dataset.bno;
+            window.location.href = '/clubNoticeBoard/detail?clubNoticeNo=' + bno;
         }
     });
 
@@ -189,10 +187,7 @@
         if (e.target === modal) {
             modal.style.display = 'none';
         }
-    })
-
-
-
+    });
 </script>
 </body>
 </html>

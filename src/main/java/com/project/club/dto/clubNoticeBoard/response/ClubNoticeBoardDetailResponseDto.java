@@ -18,12 +18,15 @@ public class ClubNoticeBoardDetailResponseDto {
     private String title;
     private String content;
     private String regDateTime;
+    private String userAuthStatus;
 
-    public ClubNoticeBoardDetailResponseDto (ClubNoticeBoard C) {
+
+    public ClubNoticeBoardDetailResponseDto (ClubNoticeBoard C, String userAuthStatus) {
         this.clubNoticeNo = C.getClubNoticeNo();
         this.writer = C.getAccount();
         this.title = C.getClubNoticeTitle();
         this.content = C.getClubNoticeContent();
+        this.userAuthStatus = userAuthStatus;
 
         DateTimeFormatter pattern
                 = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 a hh시 mm분 ss초");

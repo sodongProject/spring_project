@@ -1,7 +1,9 @@
 package com.project.club.mapper;
 
 import com.project.club.entity.ClubNoticeBoard;
+import com.project.login.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
 public interface ClubNoticeBoardMapper {
 
     // 공지사항 전체 조회
-    List<ClubNoticeBoard> findAll();
+    List<ClubNoticeBoard> findAll(long clubNo);
 
     // 공지사항 세부 조회
     ClubNoticeBoard findOne(long clubNoticeNo);
@@ -23,6 +25,12 @@ public interface ClubNoticeBoardMapper {
     // 공지사항 삭제
     boolean delete(long noticeBoardId);
 
+    String findUserRole(@Param("clubNo")long clubNo,
+                        @Param("account")String account);
+
+    // 클럽에 가입한 사용자의 모둔걸 가져와
+    Users findUsersAll(@Param("clubNo")long clubNo,
+                       @Param("account")String account);
 
 
 }

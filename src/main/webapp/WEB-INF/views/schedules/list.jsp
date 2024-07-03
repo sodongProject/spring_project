@@ -123,15 +123,30 @@
 
     </div>
 </div>
+
+<div id="register-modal">
+    <div class="register-modal-content">
+        <h1 class="register-content">???에 참여하시겠습니까?</h1>
+        <div class="register-btn">
+            <button class="accept-btn">참여</button>
+            <button class="refuse-btn">취소</button>
+        </div>
+    </div>
+</div>
+
 <script>
     // Modal 관련 JavaScript
     const modal = document.getElementById("scheduleModal");
-    const btn = document.getElementById("open_modal_btn");
-    const span = document.getElementsByClassName("close")[0];
-    const registerBtn = document.getElementById('add_schedule_button');
+    const btn = document.getElementById("openModalBtn");
+    const span = document.querySelector('.close');
+    const $writeBtn = document.getElementById("add_schedule_button");
 
     btn.onclick = function() {
         modal.style.display = "block";
+    };
+
+    $writeBtn.onclick = function() {
+        modal.style.display = "none";
     };
 
     span.onclick = function() {

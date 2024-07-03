@@ -1,6 +1,5 @@
 package com.project.club.service;
 
-import com.project.club.dto.ClubListResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardDetailResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardListResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardWriteResponseDto;
@@ -20,30 +19,37 @@ public class ClubNoticeBoardService {
 
     private final ClubNoticeBoardMapper clubNoticeBoardMapper;
 
-    public List<ClubNoticeBoardListResponseDto> findList() {
-
-        List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAll();
-        List<ClubNoticeBoardListResponseDto> dtoList = CNBList.stream()
-                .map(ClubNoticeBoardListResponseDto::new)
+    // 전체 목록
+    public List<ClubNoticeBoardListResponseDto> findList(long clubNo, String account) {
+        List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAll(clubNo);
+        return CNBList.stream()
+                .map(c -> new ClubNoticeBoardListResponseDto(c, clubNoticeBoardMapper.findUserRole(c.getClubNo(), account)))
                 .collect(Collectors.toList());
-
-        return dtoList;
     }
 
+    public String findUserRole(long clubNo, String account) {
+        String userRole = clubNoticeBoardMapper.findUserRole(clubNo, account);
+        return userRole;
+    }
+
+    // 글쓰기
     public void insert(ClubNoticeBoardWriteResponseDto dto) {
         ClubNoticeBoard CNB = dto.toEntity();
         clubNoticeBoardMapper.save(CNB);
     }
 
-    public boolean remove(long clubNoticeNo) {
-        log.info("삭제시킬 번호 가져와: {}", clubNoticeNo);
-        boolean delete = clubNoticeBoardMapper.delete(clubNoticeNo);
-        log.info("트루 펄스로 변환좀 해줘 {} ", clubNoticeNo);
-        return delete;
+    // 글 삭제
+    public void delete(long clubNoticeNo) {
+        clubNoticeBoardMapper.delete(clubNoticeNo);
     }
 
-    public ClubNoticeBoardDetailResponseDto detail(long clubNoticeNo) {
+    // 상세 조회
+    public ClubNoticeBoardDetailResponseDto detail(long clubNoticeNo, String account) {
+        log.info("clubNoticeNo: {}", clubNoticeNo);
         ClubNoticeBoard CNB = clubNoticeBoardMapper.findOne(clubNoticeNo);
-        return new ClubNoticeBoardDetailResponseDto(CNB);
+        String userAuthStatus = clubNoticeBoardMapper.findUserRole(CNB.getClubNo(), account);
+        clubNoticeBoardMapper.upViewCount(clubNoticeNo);
+        return new ClubNoticeBoardDetailResponseDto(CNB, userAuthStatus);
     }
+
 }

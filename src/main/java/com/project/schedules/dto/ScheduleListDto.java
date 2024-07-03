@@ -14,4 +14,5 @@ public class ScheduleListDto {
 
     private List<ScheduleFindAllDto> scheduleList;
     private PageMaker pageInfo;
+    private List<ScheduleLoginUserInfoDto> scheduleLoginUserInfoList;
 }
