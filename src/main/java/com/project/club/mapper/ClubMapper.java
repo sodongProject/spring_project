@@ -45,6 +45,10 @@ public interface ClubMapper {
     String findUserRole(@Param("clubNo")long clubNo,
                         @Param("account")String account);
 
+    String findUserStatus(@Param("clubNo")long clubNo,
+                        @Param("account")String account);
+
+
     void insertUserClub(@Param("clubNo")long clubNo,
                         @Param("account")String account,
                         @Param("role")String role);
@@ -70,6 +74,11 @@ public interface ClubMapper {
                         @Param("account")String account,
                         @Param("role")String role);
 
+    // 멤버수 조회하는 쿼리
+    int usersClubsUserCount(@Param("clubNo")long clubNo,
+                                @Param("account")String account);
 
 
+    // 멤버맥스에 추가하는 쿼리
+    void updateMemberMax(@Param("clubNo") long clubNo, @Param("approvedMemberCount") int approvedMemberCount);
 }

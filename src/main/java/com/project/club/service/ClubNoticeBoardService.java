@@ -1,6 +1,5 @@
 package com.project.club.service;
 
-import com.project.club.dto.ClubListResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardDetailResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardListResponseDto;
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardWriteResponseDto;
@@ -21,11 +20,16 @@ public class ClubNoticeBoardService {
     private final ClubNoticeBoardMapper clubNoticeBoardMapper;
 
     // 전체 목록
-    public List<ClubNoticeBoardListResponseDto> findList(long clubNo) {
+    public List<ClubNoticeBoardListResponseDto> findList(long clubNo, String account) {
         List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAll(clubNo);
         return CNBList.stream()
-                .map(ClubNoticeBoardListResponseDto::new)
+                .map(c -> new ClubNoticeBoardListResponseDto(c, clubNoticeBoardMapper.findUserRole(c.getClubNo(), account)))
                 .collect(Collectors.toList());
+    }
+
+    public String findUserRole(long clubNo, String account) {
+        String userRole = clubNoticeBoardMapper.findUserRole(clubNo, account);
+        return userRole;
     }
 
     // 글쓰기
@@ -40,11 +44,12 @@ public class ClubNoticeBoardService {
     }
 
     // 상세 조회
-    public ClubNoticeBoardDetailResponseDto detail(long clubNoticeNo) {
+    public ClubNoticeBoardDetailResponseDto detail(long clubNoticeNo, String account) {
         log.info("clubNoticeNo: {}", clubNoticeNo);
         ClubNoticeBoard CNB = clubNoticeBoardMapper.findOne(clubNoticeNo);
+        String userAuthStatus = clubNoticeBoardMapper.findUserRole(CNB.getClubNo(), account);
         clubNoticeBoardMapper.upViewCount(clubNoticeNo);
-        return new ClubNoticeBoardDetailResponseDto(CNB);
+        return new ClubNoticeBoardDetailResponseDto(CNB, userAuthStatus);
     }
 
 }

@@ -6,8 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>가입 신청자 목록</title>
-    <link rel="stylesheet" href="/assets/css/club/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/club/applicants.css">
 </head>
 <body>
 <div class="container">
@@ -31,41 +30,55 @@
                 <td>${applicant.role}</td>
                 <td>
                     <c:if test="${applicant.role == 'PENDING'}">
-                        <button onclick="approveApplicant('${applicant.account}', ${param.clubNo})">승인</button>
+                        <button class="approve-btn" onclick="approveApplicant('${applicant.account}', ${param.clubNo})">승인</button>
                     </c:if>
                 </td>
                 <td>
                     <c:if test="${applicant.role == 'PENDING'}">
-                        <button onclick="denyApplicant('${applicant.account}', ${param.clubNo})">거절</button>
+                        <button class="deny-btn" onclick="denyApplicant('${applicant.account}', ${param.clubNo})">거절</button>
                     </c:if>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <button onclick="window.location.href='/club/detail?bno=${param.clubNo}'">돌아가기</button>
+    <button class="back-btn" onclick="window.location.href='/club/detail?bno=${param.clubNo}'">돌아가기</button>
 </div>
 
 <script>
     function approveApplicant(account, clubNo) {
-        $.post("/club/approve", { account: account, clubNo: clubNo })
-            .done(function(response) {
-                $("#messages").html('<div class="alert alert-success">' + response + '</div>');
-                $("#applicant-" + account).remove();
+        fetch(`/club/approve`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ account: account, clubNo: clubNo })
+        })
+            .then(response => response.text())
+            .then(responseText => {
+                document.getElementById("messages").innerHTML = '<div class="alert alert-success">' + responseText + '</div>';
+                document.getElementById("applicant-" + account).remove();
             })
-            .fail(function(xhr, status, error) {
-                $("#messages").html('<div class="alert alert-danger">' + xhr.responseText + '</div>');
+            .catch(error => {
+                document.getElementById("messages").innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
             });
     }
 
     function denyApplicant(account, clubNo) {
-        $.post("/club/deny", { account: account, clubNo: clubNo })
-            .done(function(response) {
-                $("#messages").html('<div class="alert alert-success">' + response + '</div>');
-                $("#applicant-" + account).remove();
+        fetch(`/club/deny`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ account: account, clubNo: clubNo })
+        })
+            .then(response => response.text())
+            .then(responseText => {
+                document.getElementById("messages").innerHTML = '<div class="alert alert-success">' + responseText + '</div>';
+                document.getElementById("applicant-" + account).remove();
             })
-            .fail(function(xhr, status, error) {
-                $("#messages").html('<div class="alert alert-danger">' + xhr.responseText + '</div>');
+            .catch(error => {
+                document.getElementById("messages").innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
             });
     }
 </script>

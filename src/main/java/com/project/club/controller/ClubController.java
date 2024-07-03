@@ -46,6 +46,14 @@ public class ClubController {
             }
         }
 
+        for (ClubListResponseDto club : clubList) {
+            int approvedMemberCount = clubService.getApprovedMemberCount(club.getClubNo(), account);
+            club.setView(approvedMemberCount);
+        }
+
+        // 각 클럽의 승인된 멤버 수 업데이트
+        clubList.forEach(club -> clubService.updateClubMemberMax(club.getClubNo() , account));
+
         ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
         model.addAttribute("clubList", clubList);
@@ -122,7 +130,7 @@ public class ClubController {
         return "club/applicants";
     }
 
-    // 9. 가입 승인 시 권한 변경
+    // 가입 승인 시 권한 변경
     @PostMapping("/approve")
     public ResponseEntity<String> approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
         try {
@@ -135,6 +143,7 @@ public class ClubController {
         }
     }
 
+    // 가입 거절 시 처리
     @PostMapping("/deny")
     public ResponseEntity<String> denyApplicant(@RequestParam Long clubNo, @RequestParam String account) {
         try {

@@ -40,5 +40,23 @@
         WHERE club_notice_no = #{clubNoticeNo}
     </update>
 
+    <!-- 사용자 역할 조회 -->
+    <select id="findUserRole" resultType="string">
+        SELECT user_club_role
+        FROM users_clubs
+        WHERE club_no = #{clubNo} AND account = #{account}
+        LIMIT 1
+    </select>
+
+    <!--  사용자의 모든 정보를 받아오는 쿼리   -->
+    <select id="findUsersAll" resultType="users">
+        SELECT
+        *
+        FROM users
+        WHERE club_no = #{clubNo}
+        AND account = #{account}
+        LIMIT 1
+    </select>
+
 
 </mapper>
