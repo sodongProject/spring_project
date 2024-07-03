@@ -20,7 +20,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   </div>
   <div class="menu-wrap">
     <h2 class="menu-tit menu-list-link withdrawal">
-      <a href="#">회원탈퇴</a>
+      <a href="/myPage/withdrawal">회원탈퇴</a>
     </h2>
   </div>
 </nav>
@@ -46,7 +46,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     } else if (window.location.pathname === "/myPage/viewPoint") {
       className = "point";
       activeLink(className);
-    } else if (window.location.pathname === "/myPage/withdrawal") {
+    } else if (window.location.pathname === "/myPage/withdrawal"||window.location.pathname === "/myPage/withdrawalCompl") {
       className = "withdrawal";
       activeLink(className);
     }

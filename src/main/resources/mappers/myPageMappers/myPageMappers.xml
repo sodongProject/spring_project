@@ -21,7 +21,7 @@
     </update>
     <update id="editUserPhoneNumber">
         UPDATE users
-        SET phoneNumber = #{ph}
+        SET phone_number = #{ph}
         WHERE account = #{account}
     </update>
 

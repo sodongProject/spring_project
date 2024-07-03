@@ -19,7 +19,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
 
-        registry.addInterceptor(myPageInterceptor).addPathPatterns("/myPage/modifyInformations");
+        registry.addInterceptor(myPageInterceptor)
+                .addPathPatterns("/myPage/*");
 
 
     }

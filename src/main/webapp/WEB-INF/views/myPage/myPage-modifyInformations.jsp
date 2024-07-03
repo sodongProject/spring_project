@@ -13,8 +13,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <div class="myPage_wrap modify">
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner">
+        <h1>회원 정보 수정</h1>
         <!-- 비밀번호 검증 결과 ${result} -->
-        <div class="main_profile">
+        <div class="main_profile modify">
           <!-- 아이디 수정 form - disable -->
           <div>
             <h2>아이디:</h2>
@@ -54,6 +55,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <p class="input_box">
                   <select
                     class="text phone_number"
+                    id="phoneNumFrontSelect"
                     name="phoneNumFront"
                     required
                   >
@@ -61,11 +63,34 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <option>011</option>
                     <option>070</option>
                   </select>
-                  <span  class="bar"></span>
+                  <script>
+                    const phNumFront = "<c:out value='${phNum.phoneNumFront}' />";
+
+                    $frontPhNumSelect =
+                      document.getElementById("phoneNumFrontSelect");
+                    $frontPhNumOptions = $frontPhNumSelect.querySelectorAll('option');
+                    
+
+                    console.log(phNumFront);
+                    console.log($frontPhNumOptions);
+                    if (phNumFront === "010") {
+
+                      $frontPhNumOptions[0].selected = true;
+                    } else if (phNumFront === "011") {
+                      $frontPhNumOptions[1].selected = true;
+                    } else if (phNumFront === "070") {
+                      $frontPhNumOptions[2].selected = true;
+                    }
+                  </script>
+
+                  <span class="bar"></span>
+                  
                   <input
                     type="number"
                     class="text phone_number"
                     name="phoneNumMid"
+                    id="phoneNumMid"
+                    value="${phNum.phoneNumMid}"
                     required
                   />
                   <span class="bar"></span>
@@ -74,10 +99,31 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     type="number"
                     class="text phone_number"
                     name="phoneNumLast"
+                    id="phoneNumLast"
+                    value="${phNum.phoneNumLast}"
                     required
                   />
+                  <span class="message-error phNum"></span>
                 </p>
-                <button type="submit">전화번호 수정</button>
+               
+                <button type="submit" id="phNumSubmitBtn">전화번호 수정</button>
+                <script>
+                 const $phNumMid = document.getElementById('phoneNumMid')
+                 const $phNumLast = document.getElementById('phoneNumLast')
+                 const $phNumSubmitBtn = document.getElementById('phNumSubmitBtn')
+                 const $phErrorMessage = document.querySelector('.message-error.phNum')
+                  $phNumSubmitBtn.addEventListener('click',function(e){
+                  
+
+                    if($phNumMid.value.length === 4 && $phNumLast.value.length === 4 ){
+                      $phNumSubmitBtn.submit()
+                    } else{
+                      e.preventDefault();
+                      $phErrorMessage.textContent = "[전화번호 형식을 지켜주세요.]"
+                    }
+
+                  })
+                </script>
               </div>
             </form>
           </div>
@@ -91,12 +137,27 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     type="text"
                     class="text"
                     name="newAddress"
+                    id="addressModifyInput"
                     value="${dto.address}"
                     onchange="validateInput.address(e)"
                   />
+                  <span id="addressChk" class="message-error"></span>
+
                 </p>
 
-                <button type="submit">주소 수정</button>
+                <button type="submit" id="addressModiBtn">주소 수정</button>
+                <script>
+                  const $addressModiBtn = document.getElementById("addressModiBtn");
+                  $addressModiBtn.addEventListener("click",()=>{
+                     const  addressVal = document.getElementById("addressModifyInput").value;
+                     
+                     if(validateInput.address(addressVal)){
+
+                     } else{
+                      e.preventDefault();
+                     }
+ㅌ                  })
+                </script>
               </div>
             </form>
           </div>
@@ -129,7 +190,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     placeholder="비밀번호"
                   />
                 </p>
-                <button type="submit" id="modifySubmitBtn">비밀번호 수정</button>
+                <button type="submit" id="modifySubmitBtn">
+                  비밀번호 수정
+                </button>
               </div>
             </form>
             <script>
@@ -169,10 +232,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <h2>프로필이미지:</h2>
               <div class="input_wrap">
                 <p class="input_box text short file">
-                  <input type="file" id="fileUploader"/>
+                  <input type="file" id="fileUploader" />
                 </p>
-              <button type="submit">프로필 수정</button>
-
+                <button type="submit">프로필 수정</button>
               </div>
             </form>
           </div>
@@ -206,12 +268,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
           <div class="short_box">
             <h2>온도:</h2>
-            <p class="temper_range">
-              <span class="temper" data-temperature="">
-              </span>
-              <span class="temper_num">${dto.temperature}</span>
+            <div class="temper_wrap">
+              <p class="temper_range">
+                <span class="temper"> </span>
+              </p>
+              <p class="temper_num">${dto.temperature}</p>
+            </div>
 
-            </p>
             <!-- <input
               type="range"
               class="range"
@@ -224,7 +287,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
         <script>
           const temper = "<c:out value='${dto.temperature}' />";
-          const $temperRange = document.querySelector('.temper')
+          const $temperRange = document.querySelector(".temper");
           $temperRange.style.width = temper + "%";
           // $temperRange.dataset.temperature = temper;
         </script>

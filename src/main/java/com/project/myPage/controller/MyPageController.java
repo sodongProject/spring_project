@@ -2,8 +2,10 @@ package com.project.myPage.controller;
 
 import com.project.myPage.dto.request.*;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
+import com.project.myPage.dto.response.ResponsePhoneNumberDto;
 import com.project.myPage.service.MyPageService;
 
+import com.project.util.LoginUtil;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,11 +45,11 @@ public class MyPageController {
      * @param session
      * @param redirectAttributes
      */
-    private void setLoggedInUserRedirectionAttr(HttpSession session,RedirectAttributes redirectAttributes){
+    private LoggedInUserInfoDto setLoggedInUserRedirectionAttr(HttpSession session,RedirectAttributes redirectAttributes){
         LoggedInUserInfoDto loggedInUserInfoDto = myPageService.findOneByAccount(session);
-//        System.out.println("loggedInUserInfoDto = " + loggedInUserInfoDto);
 
         redirectAttributes.addFlashAttribute("dto", loggedInUserInfoDto);
+        return loggedInUserInfoDto;
     }
 
     /**
@@ -59,7 +61,7 @@ public class MyPageController {
     @GetMapping("/view")
     public String view(HttpSession session, Model model) {
 
-        myPageService.saveLoginUser("mjsu10", session);
+//        myPageService.saveLoginUser("mjsu10", session);
         setLoggedInUserModel(session,model);
         return "myPage/myPage-viewInformations";
     }
@@ -99,20 +101,21 @@ public class MyPageController {
      * @return 개인 정보 요청
      */
     @PostMapping("/modifyInformations")
-    public String modifyInformations(Model model,HttpSession session, String inputValue,  RedirectAttributes redirectAttributes){
-        myPageService.saveLoginUser("mjsu10", session);
-        boolean isCorrect = myPageService.confirmPassword(session, inputValue);
-//        System.out.println("isCorrect = " + isCorrect);
-//        session.setAttribute("ref", "modifyInformations");
-//        redirectAttributes.addFlashAttribute("ref","modifyInformations" );
+    public String modifyInformations(Model model, HttpSession session, String inputValue,  RedirectAttributes redirectAttributes){
+//        myPageService.saveLoginUser("mjsu10", session);
+
+        boolean isCorrect = myPageService.confirmPassword(session, inputValue,redirectAttributes);
+
 
         if (!isCorrect) {
-            redirectAttributes.addFlashAttribute("result",false);
             return "redirect:/myPage/modifyInformations?isConfirmed=false";
         }
 
-        setLoggedInUserRedirectionAttr(session,redirectAttributes);
-        redirectAttributes.addFlashAttribute("result",true);
+        LoggedInUserInfoDto loggedInUserInfoDto = setLoggedInUserRedirectionAttr(session, redirectAttributes);
+        String PhoneNumber = loggedInUserInfoDto.getPhoneNumber();
+        ResponsePhoneNumberDto responsePhoneNumberDto = new ResponsePhoneNumberDto(PhoneNumber.substring(0, 3), PhoneNumber.substring(3, 7), PhoneNumber.substring(7, 11));
+        redirectAttributes.addFlashAttribute("phNum",responsePhoneNumberDto);
+
         return "redirect:/myPage/modifyInformations?isConfirmed=true";
     }
 
@@ -151,9 +154,12 @@ public class MyPageController {
      * @return jsp
      */
     @PostMapping("/modifyPhNum")
-    public String modifyPassword(HttpSession session, ModifyPhoneNumberDto modifyPhoneNumberDto, RedirectAttributes redirectAttributes) {
+    public String modifyPassword(HttpSession session, ModifyPhoneNumberDto modifyPhoneNumberDto, RedirectAttributes redirectAttributes,ResponsePhoneNumberDto responsePhoneNumberDto) {
 
         String newPhoneNumber = modifyPhoneNumberDto.getPhoneNumFront() + modifyPhoneNumberDto.getPhoneNumMid() + modifyPhoneNumberDto.getPhoneNumLast();
+
+
+        redirectAttributes.addFlashAttribute("phNum",responsePhoneNumberDto);
 
         myPageService.modifyPhoneNumber(session, newPhoneNumber);
         setLoggedInUserRedirectionAttr(session,redirectAttributes);
@@ -198,12 +204,12 @@ public class MyPageController {
      * @param inputValue 사용자가 입력한 검증 비밀번호
      * @param session 세션
      * @param redirectAttributes jsp에 전달
-     * @return
+     * @return jsp
      */
     @PostMapping("/viewPoint")
     public String viewPointPost(String inputValue, HttpSession session, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("points", myPageService.viewPoints(session));
-        boolean isCorrect = myPageService.confirmPassword(session,inputValue);
+        boolean isCorrect = myPageService.confirmPassword(session,inputValue,redirectAttributes);
 
         if(!isCorrect){
             redirectAttributes.addFlashAttribute("result",false);
@@ -241,7 +247,7 @@ public class MyPageController {
         boolean isPossible = myPageService.isPossibleExchange(session,amount);
         if(!isPossible){
             redirectAttributes.addFlashAttribute("isPossible", false);
-            return "redirect:/myPage/viewPoint";
+            return "redirect:/myPage/viewPoint?isConfirmed=true";
         }
         redirectAttributes.addFlashAttribute("isPossible", true);
         redirectAttributes.addFlashAttribute("points", myPageService.pointsExchange(session, amount));
@@ -253,13 +259,37 @@ public class MyPageController {
 
 
     //회원 탈퇴 -- ??
-//    @PostMapping("/withdrawal")
-//    public String withdrawal(HttpSession session,boolean isConfirmed) {
-//        myPageService.userWithdrawal(session);
-//
-//        return "myPage/myPage-requiredPassword";
-//
-//    }
+    @GetMapping("/withdrawal")
+    public String withdrawal(boolean isConfirmed,Model model) {
+
+        String ref = "withdrawal";
+
+        return isPwConfirmedBefore(isConfirmed, ref, model);
+    }
+
+    @PostMapping("/withdrawal")
+    public String postWithdrawal (HttpSession session, String inputValue, RedirectAttributes redirectAttributes){
+//        myPageService.saveLoginUser("mjsu10", session);
+
+        boolean isCorrect = myPageService.confirmPassword(session, inputValue, redirectAttributes);
+
+
+        if (!isCorrect) {
+            return "redirect:/myPage/withdrawal?isConfirmed=false";
+        }
+
+        return "redirect:/myPage/withdrawal?isConfirmed=true";
+
+
+    }
+    @GetMapping("/withdrawalCompl")
+    public String withdrawalCompl(HttpSession session){
+        System.out.println("withdrawalCompl");
+        myPageService.userWithdrawal(session);
+
+        return "myPage/myPage-withdrawalCompl";
+    }
+
 
 
 }
