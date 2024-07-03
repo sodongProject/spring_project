@@ -41,12 +41,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <button class="notice-btn">Sodong 공지사항</button>
     </div>
 
+    <!-- 회원수 가장 많은 동호회 랭킹순 -->
     <%@ include file="../club-ranking/most-member.jsp" %>
 
+    <!-- 가장 최근에 생긴 동호회 랭킹순 -->
     <%@ include file="../club-ranking/recent.jsp" %>
 
+    <!-- 소모임이 가장 많은 동호회 랭킹순 -->
     <%@ include file="../club-ranking/most-scheduled.jsp" %>
 
+    <!-- 페이지에 로그인한 유저가 가입한 동호회 목록 -->
+    <!-- 관리자가 로그인하면 안보이게 처리 -->
     <%@ include file="../club-ranking/login-users-club.jsp" %>
 
     <script>
