@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Objects;
 
 
 @RestController
@@ -57,7 +56,7 @@ public class ScheduleApiController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteSchedules(@Validated @RequestBody scheduleDeleteDto dto, HttpSession session) {
+    public ResponseEntity<?> deleteSchedules(@Validated @RequestBody ScheduleDeleteDto dto, HttpSession session) {
         // 권한 = 동호회의 권한이 admin 인지 or 스케줄 작성자인지
         boolean isUserHasAuthToDeleteSchedule = scheduleService.isUserHasAuth(dto.getScheduleNo(), session);
 
