@@ -112,4 +112,11 @@ public class LoginUtil {
         ClubLoginUserInfoDto clubLoggedInUser = getClubLoggedInUser(session);
         return clubLoggedInUser != null ? clubLoggedInUser.getRole() : null;
     }
+
+    // 자기가 작성한 클럽 게시물이 맞는지 확인
+    public static boolean isMine(String clubAccount, String clubLoggedInUserAccount) {
+        return clubAccount.equals(clubLoggedInUserAccount);
+    }
+
+
 }

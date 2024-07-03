@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -18,9 +19,10 @@ public class ClubFindAllDto {
     private String clubName;
     private String clubDescription;
     private LocalDateTime clubCreatedAt;
-    private String clubProfile;
+    private MultipartFile clubProfile;
     private Boolean clubCompetition;
     private long clubMemberMax;
     private Boolean clubIsDeleted;
     private String account;
+
 }

@@ -1,0 +1,79 @@
+body {
+    background-color: #f4f5f7;
+    font-family: 'Roboto', sans-serif;
+}
+#wrap {
+    width: 60%;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.form-container h1 {
+    font-size: 32px;
+    color: #333; /* 검은색으로 변경 */
+    text-align: center;
+    margin-bottom: 30px;
+}
+label {
+    color: #333; /* 검은색으로 변경 */
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+input[type="text"], textarea, input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus, textarea:focus {
+    border-color: #f2CB05;
+    outline: none;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+button {
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    background-color: #f2CB05;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #dcb204;
+}
+
+/* 프로필 섹션 스타일링 */
+.profile {
+    margin-bottom: 70px;
+    text-align: center;
+}
+.profile label {
+    font-weight: 700;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #333; /* 검은색으로 변경 */
+}
+.profile .thumbnail-box {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 30px auto 10px;
+    cursor: pointer;
+    /*border: 5px solid #f2CB05; !* 시그니처 색상 테두리 추가 *!*/
+    background-color: #fff; /* 흰색 배경 추가 */
+}
+.profile .thumbnail-box img {
+    width: 100%;
+    height: 100%;
+}

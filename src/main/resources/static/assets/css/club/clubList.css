@@ -22,6 +22,7 @@
 
 .homeBtn{
     font-size: 1.5em;
+    background: none;
 }
 
 .main-title {
@@ -42,7 +43,7 @@
 }
 
 body {
-    background-color: #f2f2f2;
+    background-color: #fff;
 }
 
 button {
@@ -62,6 +63,10 @@ button {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 1200px;
+
 }
 
 /*body {*/
@@ -74,7 +79,7 @@ button {
 
 .container{
     height: 450px;
-    width: 350px;
+    width: 380px;
     background: #f2f2f2;
     padding: 20px 30px;
     position: relative;
@@ -110,6 +115,7 @@ button {
     justify-content: space-between;
     flex-direction: row-reverse;
     width: 1200px;
+    margin-bottom: 30px;
 }
 
 .top-section1 .search {
@@ -149,7 +155,7 @@ button {
 .view {
     position: absolute;
     top: 80px;
-    right: 40px;
+    right: 35px;
     color: #222;
 }
 
@@ -368,7 +374,7 @@ button {
 /* 기존 CSS 유지 */
 
 .bottom-section {
-    width: 80%;
+    width: 1200px;
     height: 150px;
     margin: 0 auto;
     padding: 20px;
@@ -412,4 +418,16 @@ button {
     background: #333 !important;
     color: #f2f2f2 !important;
     transform: scale(1.1); /* 활성화된 상태에서 크기 확대 */
+}
+
+
+
+
+.fa-solid{
+    position: relative;
+    top: -1px;
+}
+.view-count {
+    font-size: 18px;
+    font-weight: 500;
 }

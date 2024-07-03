@@ -6,6 +6,7 @@ import com.project.club.common.Search;
 import com.project.club.dto.*;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
+import com.project.login.dto.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,26 +36,34 @@ public class ClubController {
     // 1. 전체조회
     @GetMapping("/list")
     public String clubList(@ModelAttribute("s") Search search, Model model, HttpSession session) {
-        String account = LoginUtil.getLoggedInUser(session).getAccount();
+        String account;
+        if (LoginUtil.isLoggedIn(session)) {
+            account = LoginUtil.getLoggedInUser(session).getAccount();
+        } else {
+            account = null;
+        }
         List<ClubListResponseDto> clubList = clubService.findList(search, account);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
 
-        // 사용자 클럽 정보 추가
-        for (ClubListResponseDto club : clubList) {
-            if (!clubService.checkIfUserExistsInClub(account, club.getClubNo())) {
-                clubService.insertUserClub(club.getClubNo(), account, "PENDING");
+        if (account != null) {
+            // 사용자 클럽 정보 추가
+            for (ClubListResponseDto club : clubList) {
+                if (!clubService.checkIfUserExistsInClub(account, club.getClubNo())) {
+                    clubService.insertUserClub(club.getClubNo(), account, "PENDING");
+                }
             }
+
+            // 멤버수 조회
+            for (ClubListResponseDto club : clubList) {
+                int approvedMemberCount = clubService.getApprovedMemberCount(club.getClubNo(), account);
+                club.setView(approvedMemberCount);
+            }
+
+            // 각 클럽의 승인된 멤버 수 업데이트
+            clubList.forEach(club -> clubService.updateClubMemberMax(club.getClubNo(), account));
+
+            ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
         }
-
-        for (ClubListResponseDto club : clubList) {
-            int approvedMemberCount = clubService.getApprovedMemberCount(club.getClubNo(), account);
-            club.setView(approvedMemberCount);
-        }
-
-        // 각 클럽의 승인된 멤버 수 업데이트
-        clubList.forEach(club -> clubService.updateClubMemberMax(club.getClubNo() , account));
-
-        ClubLoginUserInfoDto clubLoginUserInfo = clubService.getClubLoginUserInfo(account, session);
 
         model.addAttribute("clubList", clubList);
         model.addAttribute("maker", maker);
@@ -93,6 +102,19 @@ public class ClubController {
         return "club/detail";
     }
 
+    // 5.5 상세조회 요청
+    @GetMapping("/description")
+    public String description(@RequestParam("bno") long clubNo, Model model, HttpSession session) {
+        LoginUserInfoDto loggedInUser = LoginUtil.getLoggedInUser(session);
+        ClubDescriptionResponseDto club = clubService.description(clubNo);
+        model.addAttribute("club", club);
+
+//        if (loggedInUser != null) {
+//            return "club/detail";
+//        }
+        return "club/description";
+    }
+
     // 6. 사용자 수 증가 요청
     @PostMapping("/increaseUserCount")
     public String increaseUserCount(@RequestParam("clubNo") long clubNo) {
@@ -125,7 +147,7 @@ public class ClubController {
     @GetMapping("/applicants")
     public String viewApplicants(@RequestParam("clubNo") long clubNo, Model model) {
         List<ApplicantDto> applicants = clubService.getApplicants(clubNo);
-        log.info("Loaded {} applicants for clubNo: {}", applicants.size(), clubNo);
+        log.info("목록 조회할래 {} applicants for clubNo: {}", applicants.size(), clubNo);
         model.addAttribute("applicants", applicants);
         return "club/applicants";
     }
@@ -134,11 +156,11 @@ public class ClubController {
     @PostMapping("/approve")
     public ResponseEntity<String> approveApplicant(@RequestParam Long clubNo, @RequestParam String account) {
         try {
-            log.info("approveApplicant - clubNo: {}, account: {}", clubNo, account);
+            log.info("가입 승인할놈  - clubNo: {}, account: {}", clubNo, account);
             clubService.approveApplicant(clubNo, account);
             return ResponseEntity.ok("User approved successfully");
         } catch (Exception e) {
-            log.error("Error approving applicant - clubNo: {}, account: {}", clubNo, account, e);
+            log.error("에러가 떳어 - clubNo: {}, account: {}", clubNo, account, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to approve user");
         }
     }
@@ -147,11 +169,11 @@ public class ClubController {
     @PostMapping("/deny")
     public ResponseEntity<String> denyApplicant(@RequestParam Long clubNo, @RequestParam String account) {
         try {
-            log.info("denyApplicant - clubNo: {}, account: {}", clubNo, account);
+            log.info("거절시키려는 놈 - clubNo: {}, account: {}", clubNo, account);
             clubService.denyApplicant(clubNo, account);
             return ResponseEntity.ok("User denied successfully");
         } catch (Exception e) {
-            log.error("Error denying applicant - clubNo: {}, account: {}", clubNo, account, e);
+            log.error("에러가 떳어 - clubNo: {}, account: {}", clubNo, account, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to deny user");
         }
     }

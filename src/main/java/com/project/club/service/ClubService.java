@@ -28,9 +28,10 @@ public class ClubService {
     public List<ClubListResponseDto> findList(Search search, String account) {
         List<ClubFindAllDto> clubList = clubMapper.findAll(search);
         return clubList.stream()
-                .map(c -> new ClubListResponseDto(c, clubMapper.findUserStatus(c.getClubNo(), account)))
+                .map(c -> new ClubListResponseDto(c, clubMapper.findUserStatus(c.getClubNo(), account), c.getClubProfile()))
                 .collect(Collectors.toList());
     }
+
 
     public int getCount(Search search) {
         return (int) clubMapper.count(search);
@@ -59,11 +60,18 @@ public class ClubService {
         return isDeleted;
     }
 
-    // 디테일 정보와 권한 가져오는 중간처리
+    // 1-1  디테일 정보와 권한 가져오는 중간처리
     public ClubDetailResponseDto detail(long bno, String account) {
         Club club = clubMapper.findOne(bno);
         String userAuthStatus = clubMapper.findUserRole(club.getClubNo(), account); // 사용자 권한 상태 조회
         return new ClubDetailResponseDto(club, userAuthStatus);
+    }
+
+    // 1-2 디테일 정보와 권한 가져오는 중간처리
+    public ClubDescriptionResponseDto description(long clubNo) {
+        Club club = clubMapper.findOne(clubNo);
+        return new ClubDescriptionResponseDto(club);
+
     }
 
     // 사용자 수 증가시키기 메서드

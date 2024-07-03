@@ -5,6 +5,7 @@ import com.project.entity.ClubAuth;
 import com.project.entity.Users;
 import com.project.entity.UsersClubAuth;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @ToString
@@ -19,6 +20,8 @@ public class ClubLoginUserInfoDto {
     private UsersClubAuth role;
     private long clubNo;
     private String userName;
+    private MultipartFile clubProfile;
+
 
     public ClubLoginUserInfoDto(Users user, UsersClubs UC) {
         this.account = user.getAccount();
