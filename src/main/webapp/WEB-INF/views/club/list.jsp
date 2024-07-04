@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/club/clubList.css">
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -61,24 +63,38 @@
                         </c:if>
                     </div>
                     <div class="middle-section">
-                        <img class="image" src="/assets/img/club/image-add.png" alt="profile image"/>
+                        <div class="profile-box">
+
+                            <c:choose>
+                                <c:when test="${not empty b.clubProfile}">
+                                    <img src="${b.clubProfile}" alt="profile image">
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="image" src="/assets/img/club/image-add.png" alt="profile image"/>
+                                </c:otherwise>
+                            </c:choose>
+
+
+                        </div>
+
                         <div class="view">
-<%--                            눈 아이콘을 사람 아이콘으로 변경 --%>
-                            <i class="fas fa-eye"></i>
+                                <%--                            <i class="fas fa-eye"></i>--%>
+                            <i class="fa-solid fa-user"></i>
                             <span class="view-count">${b.view}</span>
                         </div>
                         <h2>${b.shortTitle}</h2>
                         <p>${b.shortContent}</p>
                         <div class="social-media">
-<%--                            트위터 말고 넣을 거찾아보자 --%>
                             <i class='bx bxl-twitter'></i>
                             <i class='bx bxl-facebook'></i>
                             <i class='bx bxl-instagram'></i>
                         </div>
                         <div class="btnCenter">
-                            <button class="btn">상세보기</button>
-                            <c:if test="${b.userAuthStatus == null}">
-                                <button class="btn join-btn" data-bno="${b.clubNo}" >가입하기</button>
+                            <button class="btn detail-btn" data-bno="${b.clubNo}">상세보기</button>
+                            <c:if test="${sessionScope.login != null}">
+                                <c:if test="${b.userAuthStatus == null}">
+                                    <button class="btn join-btn" data-bno="${b.clubNo}">가입하기</button>
+                                </c:if>
                             </c:if>
                         </div>
                     </div>
@@ -162,11 +178,16 @@
         window.location.href = '/club/list';
     });
 
-
     $cardContainer.addEventListener('click', e => {
+        // console.log(e.target)
         e.preventDefault();
 
-        if (e.target.matches('.btn')  || e.target.closest('.bx') || e.target.closest('.image')) {
+        if (e.target.matches('.detail-btn')) {
+            const bno = e.target.closest('.container').dataset.bno;
+            window.location.href = '/club/description?bno=' + bno;
+        }
+
+        if (e.target.matches('.btn') || e.target.closest('.bx') || e.target.closest('.image')) {
             return;
         }
 
@@ -196,25 +217,22 @@
         }
     });
 
-
     loginCancelJoin.onclick = () => {
         loginModal.style.display = 'none';
     };
 
-
-    document.addEventListener('DOMContentLoaded', function() {
-
+    document.addEventListener('DOMContentLoaded', function () {
         // 모든 '가입하기' 버튼에 대한 이벤트 리스너 추가
         document.querySelectorAll('.join-btn').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const clubNo = this.getAttribute('data-bno');
                 // 모달을 보여주고, 예 버튼을 클릭했을 때 가입 요청을 보내도록 설정
                 loginModal.style.display = 'flex';
-                loginConfirmJoin.onclick = function() {
+                loginConfirmJoin.onclick = function () {
                     sendJoinRequest(clubNo);
                     loginModal.style.display = 'none';
                 };
-                loginCancelJoin.onclick = function() {
+                loginCancelJoin.onclick = function () {
                     loginModal.style.display = 'none';
                 };
             });
@@ -229,7 +247,7 @@
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ clubNo: clubNo })
+                body: JSON.stringify({clubNo: clubNo})
             })
                 .then(response => {
                     if (!response.ok) {
@@ -256,7 +274,6 @@
 
     });
 
-
     window.addEventListener('click', e => {
         if (e.target === modal || e.target === loginModal) {
             modal.style.display = 'none';
@@ -274,7 +291,7 @@
         console.log('현재페이지: ' + currentPage);
 
         // 2. 해당 페이지번호와 일치하는 li 태그를 탐색한다.
-        const $li = document.querySelector(`.pagination li[data-page-num="\${currentPage}"]`);
+        const $li = document.querySelector(`.pagination li[data-page-num="${currentPage}"]`);
 
         // 3. 해당 li 태그에 class = active 를  추가한다.
         $li?.classList.add('active');
@@ -303,8 +320,6 @@
             }
         });
     });
-
-    // 가입이 완료되었습니다 추가
 </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.project.config;
 
+import com.project.club.interceptor.ClubInterceptor;
 import com.project.login.interceptor.AfterLoginInterceptor;
 import com.project.login.interceptor.AutoLoginInterceptor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
     //보드인터셉터
     private final AutoLoginInterceptor autoLoginInterceptor;
 
+    // 클럽 인터셉터
+    private final ClubInterceptor clubInterceptor;
+
+
     //설정 메서드
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -31,6 +36,13 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(autoLoginInterceptor)
                 .addPathPatterns("/**");
+
+
+        registry
+                .addInterceptor(clubInterceptor)
+                .addPathPatterns("/club/*")
+                .excludePathPatterns("/club/list", "/club/description")
+        ;
 
     };
 
