@@ -32,11 +32,11 @@ public class MyPageInterceptor implements HandlerInterceptor {
 
         if (!isLoggedIn(session)) {
             log.info("origin: {}", redirectUri);
-            response.sendRedirect("/users/sign-in?redirect="+redirectUri);
+            response.sendRedirect("/users/sign-in?redirect=" + redirectUri);
             return false;
         }
 
-//        response.sendRedirect(redirectUri);
+        // response.sendRedirect(redirectUri);
 
         return true;
     }

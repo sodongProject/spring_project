@@ -8,8 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface MyPageMappers {
 
 
-
-// 로그인 유저 정보 찾기
+    // 로그인 유저 정보 찾기
     Users findOne(String account);
 
     // 비밀번호 확인
@@ -17,6 +16,9 @@ public interface MyPageMappers {
 
     // 이메일 수정
     void editUserEmail(String account, String newEmail);
+
+    // 프로필 이미지 수정
+    void editUserProfile (String account, String url);
 
     // 핸드폰 번호 수정
     void editUserPhoneNumber(String account, String ph);

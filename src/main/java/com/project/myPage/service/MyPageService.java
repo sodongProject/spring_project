@@ -5,11 +5,13 @@ import com.project.login.entity.Users;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.mapper.MyPageMappers;
+import com.project.util.FileUtil;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -141,6 +143,12 @@ public class MyPageService {
         myPageMapper.editUserAdress(getSessionAccount(session),newAdress);
     }
 
+    public void modifyProfile (HttpSession session, MultipartFile file){
+        String rootPath = "/Users/jieun/desktop/teamProject/springFile";
+        String imgUrlPath = FileUtil.uploadFile(rootPath, file);
+
+        myPageMapper.editUserProfile(getSessionAccount(session), imgUrlPath);
+    }
 
     /**
      * 포인트 조회

@@ -228,11 +228,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <!--  -->
 
           <div>
-            <form action="/myPage/modifyProfile" method="post">
+            <form action="/myPage/modifyProfile" method="post" enctype="multipart/form-data">
               <h2>프로필이미지:</h2>
+              <p class="profile_image">
+                <img src="${dto.profileImage}" alt="프로필 이미지">
+              </p>
               <div class="input_wrap">
                 <p class="input_box text short file">
-                  <input type="file" id="fileUploader" />
+                  <input type="file" id="fileUploader" name="file" />
                 </p>
                 <button type="submit">프로필 수정</button>
               </div>

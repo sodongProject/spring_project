@@ -19,6 +19,11 @@
         SET email = #{newEmail}
         WHERE account = #{account}
     </update>
+    <update id="editUserProfile">
+        UPDATE users
+        SET profile_image = #{url}
+        WHERE account = #{account}
+    </update>
     <update id="editUserPhoneNumber">
         UPDATE users
         SET phone_number = #{ph}
