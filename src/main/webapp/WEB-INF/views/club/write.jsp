@@ -11,100 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/club/main.css">
+    <link rel="stylesheet" href="/assets/css/club/write.css">
     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            background-color: #f4f5f7;
-            font-family: 'Roboto', sans-serif;
-        }
-        #wrap {
-            width: 60%;
-            margin: 50px auto;
-            background-color: #ffffff;
-            padding: 40px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        .form-container h1 {
-            font-size: 32px;
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        label {
-            color: #555;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        input[type="text"], textarea, input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus, textarea:focus {
-            border-color: #0056b3;
-            outline: none;
-        }
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-        button {
-            cursor: pointer;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            border-radius: 5px;
-            border: none;
-            transition: background-color 0.2s;
-        }
-        button[type="submit"] {
-            background-color: #007bff;
-        }
-        button.list-btn {
-            background-color: #6c757d;
-        }
-        button:hover {
-            opacity: 0.9;
-        }
 
-        .profile {
-            margin-bottom: 70px;
-            text-align: center;
-        }
-        .profile label {
-            font-weight: 700;
-            font-size: 1.2em;
-            cursor: pointer;
-            color: rgb(140, 217, 248);
-        }
-        .profile .thumbnail-box {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 30px auto 10px;
-            cursor: pointer;
-        }
-
-        .profile .thumbnail-box img {
-            width: 200px;
-            height: 200px;
-        }
-
-    </style>
 </head>
 <body>
 <div id="wrap" class="form-container">
-    <h1>클럽 만들기</h1>
+    <h1>소동 만들기</h1>
     <form action="/club/write" method="post" enctype="multipart/form-data" name="write">
         <div class="profile">
             <div class="thumbnail-box">
@@ -171,6 +84,8 @@
         };
 
     });
+
+
 
 </script>
 </body>

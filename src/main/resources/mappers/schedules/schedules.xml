@@ -124,4 +124,80 @@
         WHERE user_club_join_no IN (SELECT user_club_join_no FROM users_clubs WHERE account = #{account})
     </select>
 
+    <update id="addScheduleTotalPoint">
+        UPDATE schedules
+        SET total_point = total_point + #{point}
+        WHERE schedule_no = #{scheduleNo}
+    </update>
+
+    <update id="removeScheduleTotalPoint">
+        UPDATE schedules
+        SET total_point = total_point - #{point}
+        WHERE schedule_no = #{scheduleNo}
+    </update>
+
+    <update id="userPaymentPoint">
+        UPDATE users
+        SET remained_point = remained_point -
+        (SELECT participation_points FROM schedules
+        WHERE schedule_no = #{scheduleNo} )
+        WHERE account = #{account}
+    </update>
+
+    <insert id="saveUserPointVariance">
+        INSERT INTO points_histories
+        (point_history_amount, point_history_type, account, schedule_no)
+        VALUES
+        (#{point}, #{type}, #{account}, #{scheduleNo})
+    </insert>
+
+    <update id="refundPoint">
+        UPDATE users
+        SET remained_point = remained_point +
+        (SELECT participation_points FROM schedules
+        WHERE schedule_no = #{scheduleNo} )
+        WHERE account = #{account}
+    </update>
+
+    <update id="refundPointAsDeleteSchedule">
+        UPDATE users
+        SET remained_point = remained_point + #{point}
+        WHERE account IN (SELECT account FROM points_histories ph
+        WHERE schedule_no = #{scheduleNo}
+        AND point_history_type = 'DEBIT'
+        AND NOT EXISTS(
+        SELECT 1 FROM points_histories ph2
+        WHERE schedule_no = #{scheduleNo}
+        AND ph.account = ph2.account
+        AND point_history_type = 'CREDIT'
+        ))
+    </update>
+
+    <select id="refundUserAccount" resultType="String">
+        SELECT account FROM points_histories ph
+        WHERE schedule_no = #{scheduleNo}
+        AND point_history_type = 'DEBIT'
+        AND NOT EXISTS(
+        SELECT 1 FROM points_histories ph2
+        WHERE schedule_no = #{scheduleNo}
+        AND ph.account = ph2.account
+        AND point_history_type = 'CREDIT'
+        )
+    </select>
+
+    <select id="scheduleUsers" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM users_schedules
+        WHERE schedule_no = 110
+        AND user_schedule_is_withdrawn = false
+        AND user_schedule_role != 'WAITING'
+        AND user_schedule_role != 'DENIED'
+    </select>
+
+    <update id="UpdateScheduleUsers">
+        UPDATE schedules
+        SET schedule_count = #{numberOfUsers}
+        WHERE schedule_no = #{scheduleNo}
+    </update>
 </mapper>

@@ -1,6 +1,8 @@
 package com.project.schedules.API;
 
+import com.project.entity.Schedules;
 import com.project.entity.Users;
+import com.project.login.dto.LoginUserInfoDto;
 import com.project.schedules.common.Page;
 import com.project.schedules.common.PageMaker;
 import com.project.schedules.dto.*;
@@ -72,17 +74,17 @@ public class ScheduleApiController {
                 .ok()
                 .body(dto);
     }
-
+//
     @PostMapping("/register")
     public ResponseEntity<?> registerUserInSchedule(@Validated @RequestBody ScheduleRegisterDto dto, HttpSession session) {
-        String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
+        LoginUserInfoDto loginUserInfo = LoginUtil.getLoggedInUser(session);
 
-        if(loginUserAccount == null)
+        if(loginUserInfo.getAccount() == null)
             return ResponseEntity
                 .ok()
                 .body(dto);
 
-        scheduleService.registerUserIntoSchedule(dto.getScheduleNo(), loginUserAccount, dto.getClubNo());
+        scheduleService.registerUserIntoSchedule(dto.getScheduleNo(), loginUserInfo, dto.getClubNo());
 
         System.out.println("등록성공!!!!!!!!!!!!!!!!!!!!!!");
 
@@ -91,7 +93,7 @@ public class ScheduleApiController {
                 .body(dto);
     }
 
-    @GetMapping("/detail/{scheduleNo}")
+    @GetMapping("/detail/{scheduleNo}/participationUsers")
     public ResponseEntity<?> ApplicationUsers(@PathVariable Long scheduleNo, HttpSession session) {
 
 
@@ -103,6 +105,21 @@ public class ScheduleApiController {
                 .ok()
                 .body(allApplicationUsers);
     }
+
+    @GetMapping("/detail/{scheduleNo}")
+    public ResponseEntity<?> detailContent(@PathVariable Long scheduleNo, HttpSession session) {
+
+        Schedules schedule = scheduleService.findOneSchedule(scheduleNo);
+
+        ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleService.findLoginUserInfoInSchedule(schedule, session);
+
+        ScheduleDetailDto scheduleDetailDto = new ScheduleDetailDto(schedule, scheduleLoginUserInfoDto);
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleDetailDto);
+    }
+
 
     @PostMapping("/detail")
     public ResponseEntity<?> applicationProcessing(@Validated @RequestBody ApplicationUserResponseDto dto) {

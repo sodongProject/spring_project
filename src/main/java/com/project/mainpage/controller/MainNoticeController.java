@@ -6,6 +6,7 @@ import com.project.mainpage.dto.request.NoticeWritePostDto;
 import com.project.mainpage.dto.response.NoticeListDto;
 import com.project.mainpage.dto.response.NoticeDetailDto;
 import com.project.mainpage.service.MainNoticeBoardService;
+import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -51,32 +53,23 @@ public class MainNoticeController {
         // 1. 브라우저가 전달한 게시글 내용 읽기
         System.out.println("dto = " + dto);
         service.insert(dto);
+        log.info("뭘 가져어야 {}", dto.getMainNoticeTitle());
         return "redirect:/main-notice/list";
     }
 
     // 4. 게시글 삭제 요청 -> 목록조회 요청 리다이렉션
     @GetMapping("/delete")
-    public String delete(int bno) {
-        service.remove(bno);
+    public String delete(long mainNoticeNo) {
+        service.remove(mainNoticeNo);
         return "redirect:/main-notice/list";
     }
 
     // 5. 게시글 상세 조회 요청
     @GetMapping("/detail")
-    public String detail(@RequestParam("mainNoticeNo") int mainNoticeNo, Model model, HttpServletRequest request) {
-        // 1. 상세조회하고 싶은 글번호를 읽기
-        System.out.println("mainNoticeNo = " + mainNoticeNo);
-
-        // 2. 데이터베이스로부터 해당 글번호 데이터 조회하기
-        NoticeDetailDto dto = service.detail(mainNoticeNo);
-
-        // 3. JSP 파일에 조회한 데이터 보내기
+    public String detail(long mainNoticeNo, Model model, HttpSession session) {
+        String account = LoginUtil.getLoggedInUser(session).getAccount();
+        NoticeDetailDto dto = service.detail(mainNoticeNo, account);
         model.addAttribute("b", dto);
-
-        // 4. 요청 헤더를 파싱하여 이전 페이지의 주소를 얻어냄
-        String ref = request.getHeader("Referer");
-        model.addAttribute("ref", ref);
-
         return "main-notice/detail";
     }
 

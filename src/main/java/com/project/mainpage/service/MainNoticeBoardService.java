@@ -8,6 +8,7 @@ import com.project.mainpage.dto.response.NoticeListDto;
 import com.project.mainpage.entity.MainNoticeBoard;
 import com.project.mainpage.mapper.MainNoticeMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class MainNoticeBoardService {
 
     private final MainNoticeMapper mapper;
@@ -40,26 +42,24 @@ public class MainNoticeBoardService {
     // 등록 요청 중간처리
     public boolean insert(NoticeWritePostDto dto) {
         MainNoticeBoard board = dto.toEntity();
-
+        log.info("잘 가져오고 있찌? {}", board.getMainNoticeTitle());
         return mapper.save(board);
+
     }
 
     // 삭제 요청 중간처리
-    public boolean remove(int boardNo) {
-        return mapper.delete(boardNo);
+    public boolean remove(long mainNoticeNo) {
+        return mapper.delete(mainNoticeNo);
     }
 
     // 상세 조회 요청 중간처리
-    public NoticeDetailDto detail(int bno) {
-
-        // 게시물 정보 조회
-        MainNoticeBoard detail = mapper.findOne(bno);
-
-        return detail(bno);
+    public NoticeDetailDto detail(long mainNoticeNo, String account) {
+        MainNoticeBoard detail = mapper.findOne(mainNoticeNo);
+        return new NoticeDetailDto(detail);
     }
 
     public void increaseViewCount(int mainNoticeNo) {
-        mapper.viewCount(mainNoticeNo); // 매퍼에서 조회수 증가 메소드를 호출합니다.
+        mapper.viewCount(mainNoticeNo);
     }
 
     private boolean shouldIncreaseViewCount(int bno,

@@ -84,7 +84,7 @@
 <h1>${login.account}</h1>
 <button id="open_modal_btn">스케줄 생성하기</button>
 
-<div id="scheduleModal" class="modal" data-clubNo="1">
+<div id="schedule-modal" class="modal" data-clubNo="1">
     <div class="modal-content">
         <span class="close">&times;</span>
         <form>
@@ -127,6 +127,7 @@
 <div id="register-modal">
     <div class="register-modal-content">
         <h1 class="register-content">???에 참여하시겠습니까?</h1>
+        <p class="participation_point">참가비 : ???</p>
         <div class="register-btn">
             <button class="accept-btn">참여</button>
             <button class="refuse-btn">취소</button>
@@ -134,15 +135,42 @@
     </div>
 </div>
 
+<div id="detail-modal">
+    <div class="detail-modal-content">
+
+    </div>
+</div>
+
+<div id="register-list-modal">
+    <div class="register-modal-content">
+        <div class="application-user-info">
+            <div class="user-info">
+                <span class="user-name">신청인 : 유저 이름</span>
+                <span class="user-temperature">유저 온도 : 36.5</span>
+            </div>
+            <div class="register-btn">
+                <button class="accept-btn">수락</button>
+                <button class="refuse-btn">거절</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Modal 관련 JavaScript
-    const modal = document.getElementById("scheduleModal");
-    const btn = document.getElementById("openModalBtn");
+    const modal = document.getElementById("schedule-modal");
+    const btn = document.getElementById("open_modal_btn");
     const span = document.querySelector('.close');
     const $writeBtn = document.getElementById("add_schedule_button");
+    const $refuseBtn = document.querySelector(".refuse-btn");
+    const $registerModal = document.getElementById("register-modal");
 
     btn.onclick = function() {
         modal.style.display = "block";
+    };
+
+    $refuseBtn.onclick = function() {
+        $registerModal.style.display = "none";
     };
 
     $writeBtn.onclick = function() {
@@ -153,9 +181,6 @@
         modal.style.display = "none";
     };
 
-    registerBtn.onclick = function () {
-        modal.style.display = "none";
-    }
 
 
     window.onclick = function(event) {
@@ -168,5 +193,6 @@
 </script>
 
 <script type="module" src="/assets/js/schedules/list.js"></script>
+<script type="module" src="/assets/js/schedules/detail.js"></script>
 </body>
 </html>

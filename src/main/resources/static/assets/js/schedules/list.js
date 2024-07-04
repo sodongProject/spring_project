@@ -115,10 +115,12 @@ function registerModalHandler() {
 
         const $registerModal = document.getElementById("register-modal");
         const $registerModalH1 = document.querySelector(".register-content");
+        const $registerModalP = document.querySelector(".participation_point");
 
         $registerModal.dataset.sno = e.target.closest(".btnCenter").dataset.sno;
         $registerModal.style.display = 'flex';
         $registerModalH1.innerHTML = e.target.dataset.stitle + "에 가입하시겠습니까?";
+        $registerModalP.innerHTML = "참가비 : "+ e.target.dataset.point;
 
     });
 }
@@ -198,6 +200,7 @@ export async function fetchScheduleList(pageNo = 1) {
             schedule += `<div class="card-wrapper">
                     <div class="container" data-schedule_no="${scheduleList[i].scheduleNo}">
                         <div class="top-section">`;
+            // 관리자가 아니면 삭제 버튼이 안보이도록 설정
             if(userInfoList.length > 0) {
                 for(const user of userInfoList) {
                     if(user.scheduleNo === scheduleList[i].scheduleNo && user.userScheduleRole === 'ADMIN') {
@@ -212,7 +215,7 @@ export async function fetchScheduleList(pageNo = 1) {
                         <div class="middle-section">
                             <div class="view">
                                 <i class="fas fa-eye"></i>
-                                <span class="view-count">${scheduleList[i].scheduleViewCount}</span>
+                                <span class="view-count">${scheduleList[i].scheduleCount}</span>
                             </div>
                             <h2>${scheduleList[i].scheduleTitle}</h2>
                             <p>${scheduleList[i].scheduleContent}</p>
@@ -226,6 +229,8 @@ export async function fetchScheduleList(pageNo = 1) {
                             <div class="btnCenter" data-sno="${scheduleList[i].scheduleNo}">
                                 <button type="button" class="btn detail-btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
                                 `;
+
+            // 이 스케줄에 가입중이거나 신청 이력이 있으면 신청하기 버튼이 안보이도록
             let isUserInSchedule = false
             if(userInfoList.length > 0) {
                 for(const user of userInfoList) {
@@ -235,7 +240,8 @@ export async function fetchScheduleList(pageNo = 1) {
                 }
             }
             if(!isUserInSchedule){
-                schedule += `<button class="btn join-btn" data-stitle="${scheduleList[i].scheduleTitle}">가입하기</button>`
+                schedule += `<button class="btn join-btn" data-stitle="${scheduleList[i].scheduleTitle}"
+                                data-point="${scheduleList[i].participationPoints}">가입하기</button>`
             }
 
             schedule +=    `</div>
@@ -269,7 +275,7 @@ function detailEventHandler() {
         button.addEventListener('click', e => {
             e.preventDefault();
             console.log('Button clicked:', e.target.dataset.sno); // 버튼 클릭 확인
-            window.location.href = `detail?scheduleNo=${e.target.dataset.sno}`;
+            document.getElementById('detail-modal').style.display='flex';
         });
     });
 }
