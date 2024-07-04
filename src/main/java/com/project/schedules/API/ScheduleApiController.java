@@ -1,6 +1,7 @@
 package com.project.schedules.API;
 
 import com.project.entity.Users;
+import com.project.login.dto.LoginUserInfoDto;
 import com.project.schedules.common.Page;
 import com.project.schedules.common.PageMaker;
 import com.project.schedules.dto.*;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Objects;
 
 
 @RestController
@@ -76,14 +76,14 @@ public class ScheduleApiController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUserInSchedule(@Validated @RequestBody ScheduleRegisterDto dto, HttpSession session) {
-        String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
+        LoginUserInfoDto loginUserInfo = LoginUtil.getLoggedInUser(session);
 
-        if(loginUserAccount == null)
+        if(loginUserInfo.getAccount() == null)
             return ResponseEntity
                 .ok()
                 .body(dto);
 
-        scheduleService.registerUserIntoSchedule(dto.getScheduleNo(), loginUserAccount, dto.getClubNo());
+        scheduleService.registerUserIntoSchedule(dto.getScheduleNo(), loginUserInfo, dto.getClubNo());
 
         System.out.println("등록성공!!!!!!!!!!!!!!!!!!!!!!");
 

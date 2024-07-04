@@ -16,7 +16,7 @@
         <thead>
         <tr>
             <th>이름</th>
-            <th>체온</th>
+            <th>온도</th>
             <th>상태</th>
             <th>승인</th>
             <th>거절</th>

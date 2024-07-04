@@ -33,12 +33,6 @@ public class MainPageController {
     public String page(Search page, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
 
-        // 메인페이지 - 공지사항 목록 조회
-        List<NoticeListDto> list = noticeService.findList(page);
-        PageMaker maker = new PageMaker(page, noticeService.getCount(page));
-        model.addAttribute("list", list);
-        model.addAttribute("maker", maker);
-
         // 메인페이지 - 가장 가입자가 많은 동호회 조회
         List<ClubListDto> memberList = rankingService.member();
         model.addAttribute("memberList", memberList);

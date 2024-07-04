@@ -55,8 +55,25 @@ public class ScheduleService {
     }
 
     public void deleteSchedule(Long scheduleNo) {
+
+        Schedules targetSchedule = scheduleMapper.findOne(scheduleNo);
+
+        Double totalPointInSchedule = targetSchedule.getTotalPoint();
+
+        List<String> refundUsers = scheduleMapper.refundUserAccount(scheduleNo);
+
+        scheduleMapper.removeScheduleTotalPoint(scheduleNo, totalPointInSchedule);
+
+        Double participationPoint = targetSchedule.getParticipationPoints();
         // 삭제가 아니라 false를 true로 바꾸기
         scheduleMapper.delete(scheduleNo);
+
+        scheduleMapper.refundPointAsDeleteSchedule(scheduleNo, participationPoint);
+
+        for (String refundUser : refundUsers) {
+            scheduleMapper.saveUserPointVariance(refundUser, scheduleNo, participationPoint, PointHistoryType.CREDIT);
+        }
+
     }
 
     public Schedules detailSchedule(Long scheduleNo) {
@@ -64,7 +81,13 @@ public class ScheduleService {
         return scheduleMapper.findOne(scheduleNo);
     }
 
-    public void registerUserIntoSchedule(Long scheduleNo, String account, Long clubNo) {
+    public void registerUserIntoSchedule(Long scheduleNo, LoginUserInfoDto loginUserInfo, Long clubNo) {
+
+        String account = loginUserInfo.getAccount();
+
+        Users loginUser = scheduleMapper.findUser(account);
+
+        Schedules schedule = scheduleMapper.findOne(scheduleNo);
 
         Long userInClubNo = scheduleMapper.userInClub(clubNo, account);
 
@@ -72,9 +95,27 @@ public class ScheduleService {
         if(userInClubNo == null) return;
 
         // 이미 등록되어있다면 등록 못하게 막도록
-        if(scheduleMapper.userInSchedule(userInClubNo, scheduleNo) == null)
-            System.out.println("등록되나? " + userInClubNo);
-            scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
+        if(scheduleMapper.userInSchedule(userInClubNo, scheduleNo) != null) return;
+
+
+
+        // 참가비가 0원인 경우 등록절차 바로 진행
+        // 참가비가 0원이 아닐 경우 유저의 잔여포인트의 여부에 따른 등록 절차 시행
+        if(schedule.getParticipationPoints() != null && schedule.getParticipationPoints() != 0) {
+            if(schedule.getParticipationPoints() > loginUser.getRemainedPoint()) {
+                return;
+            } else {
+                // 스케줄에 참가비만큼 포인트 추가
+                scheduleMapper.addScheduleTotalPoint(scheduleNo, schedule.getParticipationPoints());
+                // 유저의 남은 포인트를 참가비만큼 감소
+                scheduleMapper.userPaymentPoint(scheduleNo, account);
+                // 유저의 포인트 입금 내역 저장
+                scheduleMapper.saveUserPointVariance(account, scheduleNo, schedule.getParticipationPoints(), PointHistoryType.DEBIT);
+            }
+        }
+
+        // 모든 검증을 마친 후 등록되도록
+        scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
 
         // 추후 일정온도에 미치지 못한다면 신청 못하도록 막기
 
@@ -150,6 +191,15 @@ public class ScheduleService {
             scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), userInClubNo, ScheduleAuth.MEMBER);
         } else {
             scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), userInClubNo, ScheduleAuth.DENIED);
+            // 유저에게 포인트 반환
+            scheduleMapper.refundPoint(dto.getScheduleNo(), dto.getAccount());
+
+            Double participationPoint = scheduleMapper.findOne(dto.getScheduleNo()).getParticipationPoints();
+            // 스케줄의 잔여포인트를 감소시킴
+            scheduleMapper.removeScheduleTotalPoint(dto.getScheduleNo(), participationPoint);
+
+            // 유저에게 반환한 포인트 기록 저장
+            scheduleMapper.saveUserPointVariance(dto.getAccount(), dto.getScheduleNo(), participationPoint, PointHistoryType.CREDIT);
         }
 
     }
