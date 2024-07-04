@@ -3,6 +3,7 @@ package com.project.config;
 import com.project.club.interceptor.ClubInterceptor;
 import com.project.login.interceptor.AfterLoginInterceptor;
 import com.project.login.interceptor.AutoLoginInterceptor;
+import com.project.myPage.interceptor.MyPageInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,6 +20,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     // 클럽 인터셉터
     private final ClubInterceptor clubInterceptor;
+    // 마이페이지 인터셉터
+    private final MyPageInterceptor myPageInterceptor;
 
 
     //설정 메서드
@@ -42,6 +45,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addInterceptor(clubInterceptor)
                 .addPathPatterns("/club/*")
                 .excludePathPatterns("/club/list", "/club/description")
+        ;
+
+        registry
+                .addInterceptor(myPageInterceptor)
+                .addPathPatterns("/myPage/*")
         ;
 
     };
