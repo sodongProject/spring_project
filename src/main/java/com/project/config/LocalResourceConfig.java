@@ -15,6 +15,7 @@ public class LocalResourceConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("rootPath :" + rootPath);
 
         /*
             ResourceLocations : 로컬에 있는 경로

@@ -67,7 +67,7 @@
 
                             <c:choose>
                                 <c:when test="${not empty b.clubProfile}">
-                                    <img src="${b.clubProfile}" alt="profile image">
+                                    <img src="${b.clubProfile}" alt="profile image" title="${b.clubProfile}">
                                 </c:when>
                                 <c:otherwise>
                                     <img class="image" src="/assets/img/club/image-add.png" alt="profile image"/>
@@ -187,7 +187,7 @@
             window.location.href = '/club/description?bno=' + bno;
         }
 
-        if (e.target.matches('.btn') || e.target.closest('.bx') || e.target.closest('.image')) {
+        if (e.target.matches('.btn') || e.target.closest('.bx') || e.target.closest('.image') || e.target.closest('img')) {
             return;
         }
 
@@ -320,6 +320,31 @@
             }
         });
     });
+
+
+    $(document).ready(function() {
+        // 검색 버튼을 가져옵니다.
+        var searchButton = $('.btn-primary[type="submit"]');
+
+        // 입력 필드의 값이 변경될 때 마다 검사합니다.
+        $('.form-control[name="keyword"]').on('input', function() {
+            // 입력 필드가 비어 있는지 확인합니다.
+            if ($(this).val().trim() === '') {
+                // 입력 필드가 비어 있으면 검색 버튼을 비활성화합니다.
+                searchButton.prop('disabled', true);
+            } else {
+                // 입력 필드에 무언가 있으면 검색 버튼을 활성화합니다.
+                searchButton.prop('disabled', false);
+            }
+        });
+
+        // 페이지 로드 시 검색 버튼 초기 상태를 설정합니다.
+        if ($('.form-control[name="keyword"]').val().trim() === '') {
+            searchButton.prop('disabled', true);
+        }
+    });
+
+
 </script>
 </body>
 </html>
