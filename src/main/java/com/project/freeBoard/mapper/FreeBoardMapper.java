@@ -9,16 +9,20 @@ import java.util.List;
 @Mapper
 public interface FreeBoardMapper {
 
-    // 등록
-    boolean save(FreeBoard freeBoard);
-
-    // 삭제
-    boolean delete(long freeBoardNo);
-
     // 목록 조회
     List<FreeBoard> findAll();
 
     // 상세 조회
-    FreeBoard findOne(long freeBoardNo);
+    FreeBoard findOne(long boardNo);
+
+    // 등록
+    boolean save(FreeBoard freeBoard);
+
+    // 삭제
+    boolean delete(long boardNo);
+
+    // 조회수
+    void updateViewCount(long boardNo);
+
 
 }

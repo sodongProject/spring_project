@@ -102,6 +102,7 @@ public class LoginController {
         log.debug("parameter: {}", dto);
 
         // 세션 얻기
+
         HttpSession session = request.getSession();
 
         LoginResult result = usersService.authenticate(dto, session, response);
