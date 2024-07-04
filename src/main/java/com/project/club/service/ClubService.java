@@ -27,8 +27,9 @@ public class ClubService {
     //  회원 전체조회 및 권한가져오는 중간처리
     public List<ClubListResponseDto> findList(Search search, String account) {
         List<ClubFindAllDto> clubList = clubMapper.findAll(search);
+        clubList.forEach(System.out::println);
         return clubList.stream()
-                .map(c -> new ClubListResponseDto(c, clubMapper.findUserStatus(c.getClubNo(), account), c.getClubProfile()))
+                .map(c -> new ClubListResponseDto(c, clubMapper.findUserStatus(c.getClubNo(), account)))
                 .collect(Collectors.toList());
     }
 
@@ -64,7 +65,8 @@ public class ClubService {
     public ClubDetailResponseDto detail(long bno, String account) {
         Club club = clubMapper.findOne(bno);
         String userAuthStatus = clubMapper.findUserRole(club.getClubNo(), account); // 사용자 권한 상태 조회
-        return new ClubDetailResponseDto(club, userAuthStatus);
+        String userName = clubMapper.findUserName(club.getClubNo()); // 사용자 이름 조회
+        return new ClubDetailResponseDto(club, userAuthStatus, userName);
     }
 
     // 1-2 디테일 정보와 권한 가져오는 중간처리

@@ -21,14 +21,14 @@ public class ClubListResponseDto {
     private int view; // 조회 수
     private String account;
     private String userAuthStatus; // 사용자 권한 상태 추가
-    private MultipartFile clubProfile; // 이미지 경로를 문자열로 저장
+    private String clubProfile; // 이미지 경로를 문자열로 저장
 
-    public ClubListResponseDto(ClubFindAllDto C, String userAuthStatus, MultipartFile clubProfile){
+    public ClubListResponseDto(ClubFindAllDto C, String userAuthStatus){
         this.clubNo = C.getClubNo();
         this.shortTitle = makeShortTitle(C.getClubName());
         this.shortContent = makeShortContent(C.getClubDescription());
         this.account = C.getAccount();
-        this.clubProfile = clubProfile;
+        this.clubProfile = C.getClubProfile();
 
         // 게시물 등록시간
         LocalDateTime regTime = C.getClubCreatedAt();

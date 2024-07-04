@@ -81,4 +81,6 @@ public interface ClubMapper {
 
     // 멤버맥스에 추가하는 쿼리
     void updateMemberMax(@Param("clubNo") long clubNo, @Param("approvedMemberCount") int approvedMemberCount);
+
+    String findUserName(long clubNo);
 }
