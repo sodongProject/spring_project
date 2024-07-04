@@ -8,6 +8,7 @@ import com.project.freeBoard.mapper.FreeBoardMapper;
 
 import com.project.freeBoard.service.FreeBoardService;
 import com.project.util.LoginUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/freeBoard")
+@Slf4j
 public class FreeBoardController {
 
     @Autowired
@@ -41,8 +43,6 @@ public class FreeBoardController {
             return "freeBoard/list"; // 클럽 멤버가 아닌 경우 처리
         }
 
-        // 임시 더미 account 설정
-        session.setAttribute("account", "dummy123");
 
         // 로그인된 사용자 정보 가져오기
         String account = LoginUtil.getLoggedInUserAccount(session);
@@ -72,7 +72,8 @@ public class FreeBoardController {
 
         //1) 게시글 내용
         System.out.println("dto : "+ dto);
-
+        String account = dto.getAccount();
+        log.info("account 있냐? {} ", account);
         service.insert(dto);
 
         return "redirect:/freeBoard/list";

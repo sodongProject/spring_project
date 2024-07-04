@@ -19,28 +19,23 @@ public class FreeBoardListResponseDto {
     private String account;
     private String content;
     private String boardImg;
-    //private String boardTitle;
     private int viewCount;
     private int clubNo;
 
     // 엔터티 -> DTO 변환하는 생성자
     public FreeBoardListResponseDto(FreeBoard b){
-        //this.boardNo = b.getBoardNo();
+        this.boardNo = b.getBoardNo();
         LocalDateTime regTime = b.getRegDateTime();
         this.date = dateFormatting(b.getRegDateTime());
         this.view = b.getViewCount();
         this.account = b.getAccount();
         this.content = b.getContent();
         this.boardImg = b.getBoardImg();
-        //this.boardTitle = b.getBoardTitle();
         this.viewCount = b.getViewCount();
         this.clubNo = b.getClubNo();
     }
 
     private String dateFormatting(LocalDateTime regDateTime){
-        if (regDateTime == null) {
-            return "N/A"; // 기본값 설정 또는 적절한 값을 반환
-        }
         DateTimeFormatter pattern
                 = DateTimeFormatter.ofPattern("yyyy. MM. dd");
         return pattern.format(regDateTime);
