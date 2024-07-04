@@ -40,9 +40,9 @@ public class Schedules {
 
     // 스케줄 총 포인트
 
-    private long totalPoint;
+    private Double totalPoint;
 
     // 스케줄 참가 포인트
     @Setter
-    private long participationPoints;
+    private Double participationPoints;
 }
