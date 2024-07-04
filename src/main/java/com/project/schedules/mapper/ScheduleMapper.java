@@ -73,5 +73,12 @@ public interface ScheduleMapper {
     // 스케줄 삭제시 유저에게 포인트 반환
     void refundPointAsDeleteSchedule(Long scheduleNo, Double point);
 
+    // 스케줄 삭제시 포인트를 반환해야하는 유저목록
     List<String> refundUserAccount(Long scheduleNo);
+
+    // 해당 스케줄에 가입한 유저 수
+    Integer scheduleUsers(Long scheduleNo);
+
+    // 스케줄 유저 수 업데이트
+    void UpdateScheduleUsers(int numberOfUsers, Long scheduleNo);
 }
