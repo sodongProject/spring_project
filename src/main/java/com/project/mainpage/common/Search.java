@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-@EqualsAndHashCode
+//@EqualsAndHashCode
 public class Search extends Page {
 
     // 검색어, 검색조건

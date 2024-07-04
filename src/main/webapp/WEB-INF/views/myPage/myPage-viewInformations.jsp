@@ -13,7 +13,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner ">
         <form action="/myPage/view" name="" class="myPage_form">
-          <h1>개인정보 조회 페이지</h1>
+          <h1>회원 정보 조회</h1>
       <!--  -->
       <div class="sub_profile">
         <div>

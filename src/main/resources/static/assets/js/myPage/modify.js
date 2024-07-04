@@ -20,7 +20,7 @@ const fields = [
   // { id: 'user_profile', validator: null, errorElement: null, valid: true }, // 프로필 사진
   // { id: 'user_gender', validator: null, errorElement: 'genderChk', valid: false }, // 성별
   // { id: 'user_phone', validator: validateInput.phoneNumber, errorElement: 'phoneNumberChk', valid: false }, // 연락처
-  // { id: 'user_address', validator: validateInput.address, errorElement: 'addressChk', valid: false } // 주소
+  { id: 'addressModifyInput', validator: validateInput.address, errorElement: 'addressChk', valid: false } // 주소
 ];
 
 

@@ -99,6 +99,21 @@
   background-color: var(--color-point);
   margin-right: 10px;
 }
+.myPage_inner h2.point{
+  font-size: 18px;
+  font-weight: 600;
+}
+.myPage_inner h2.point::before{
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.myPage_inner h2.point b{
+  color: var(--color-exception);
+  padding-left: 14px;
+  padding-right: 4px;
+  font-size: 24px;
+}
 .myPage_dep{
   padding-top: 80px;
 }
@@ -113,7 +128,7 @@ input#confirmPwInput{
   font-size: 16px;
 
 }
-button#confirmPwBtn{
+button#confirmPwBtn,button#goHomeBtn{
   width: 100px;
   height: 40px;
   border-radius: 500px;
@@ -123,6 +138,16 @@ button#confirmPwBtn{
   font-weight: 500;
   margin-left: 10px;
   
+}
+button#withdrawalBtn{
+  margin-top: 40px;
+}
+button#goHomeBtn{
+  background-color: var(--color-point);
+  width: 140px;
+  margin-top: 40px;
+  color: var(--color-bk);
+  font-weight: 600;
 }
 .falsy_pw{
   font-size: 14px;
@@ -138,10 +163,33 @@ button#confirmPwBtn{
 .myPage_wrap .main_profile>div{
   margin-bottom: 28px;
 }
+.myPage_wrap .main_profile.modify>div{
+  margin-bottom: 60px;
+}
+.myPage_wrap .main_profile>div.short_box{
+  display: flex;
+  align-items: center;
+}
+.myPage_wrap .main_profile>div.short_box h2{
+  width: 80px;
+  margin-bottom: 0;
+
+}
 .myPage_wrap .main_profile .input_wrap{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+.myPage_wrap .main_profile .input_wrap.password{
+  width: fit-content;
+  margin-bottom: 10px;
+}
+.myPage_wrap .main_profile .input_wrap.password input{
+  margin-right: 10px;
+}
+
+.myPage_wrap .main_profile .input_wrap.password:last-child{
+  margin-bottom: 0;
 }
 .myPage_wrap .main_profile button[type=submit]{
   width: 100px;
@@ -161,9 +209,8 @@ button#confirmPwBtn{
 }
 .myPage_wrap .main_profile .message-error{
   position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 20px;
+  bottom: -22px;
 }
 .myPage_wrap .main_profile .text{
   font-size: 16px;
@@ -176,22 +223,46 @@ button#confirmPwBtn{
   margin-left: 8px;
   width: calc(100% - 8px);
 }
-.myPage_wrap .main_profile .text[type=password]{
-  width: 140px;
+.myPage_wrap .main_profile .text::placeholder{
+  color: #9c9c9c;
+  font-weight: 400;
+}
+.myPage_wrap .main_profile .text.short{
+  width: 280px;
+  padding-right: 23px;
+}
+.myPage_wrap .main_profile .text.short.file{
+  position: relative;
+}
+.myPage_wrap .main_profile .input_box.file input{
+  width: 100%;
+  font-size: 14px;
+  padding: 0;
 }
 .myPage_wrap .main_profile select.text.phone_number{
   width: 140px;
   border: none;
+  margin-left: 8px;
 
 }
 .myPage_wrap .main_profile select.text.phone_number:focus{
   outline: 1px solid var(--color-exception);
 }
 .myPage_wrap .main_profile .text.phone_number{
-  width: calc((100% - 140px - 25px)/2);
+  width: calc((100% - 148px - 49px)/2);
+  /* width: 140px; */
   margin-left: 0;
-  margin-right: 10px;
-  padding-right: 23px;
+  /* margin-right: 10px; */
+  padding-right: 8px;
+}
+.myPage_wrap .main_profile .bar{
+  /* font-size: 18px; */
+  display: inline-block;
+  width: 8px;
+  height: 1px;
+  background-color: var(--color-bk);
+  margin: 0 6px;
+  transform: translateY(-4px);
 }
 .myPage_wrap .main_profile .text.phone_number:last-child{
   margin-right: 0;
@@ -263,4 +334,72 @@ button#confirmPwBtn{
 .message-error b.success{
 color: var(--color-exception);
 
+}
+
+input::file-selector-button{
+  width: 100px;
+  height: 43px;
+  border-radius: 500px;
+  background-color: var(--color-bk);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  position: absolute;
+  right: -110px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+}
+
+
+.temper_wrap{
+
+  display: flex;
+  align-items: center;
+
+}
+
+.temper_range{
+  width: 280px;
+  height: 4px;
+  border-radius: 500px;
+  background-color: var(--color-wh);
+  position: relative;
+  /* display: flex;
+  align-items: center; */
+}
+
+.temper_range .temper{
+  height: 100%;
+  border-radius: 500px;
+  background-color: var(--color-point);
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  
+}
+.temper_wrap .temper_num{
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 16px;
+font-weight: 500;
+  color: var(--color-point);
+  
+}
+
+.profile_image{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--color-wh);
+  margin: 0 auto;
+  overflow: hidden;
+  margin: 40px 0 24px;
+}
+.profile_image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
