@@ -1,6 +1,7 @@
 package com.project.club.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,15 +20,15 @@ public class ClubListResponseDto {
     private String date; // 포맷팅된 날짜문자열
     private int view; // 조회 수
     private String account;
-    private String clubProfile;
     private String userAuthStatus; // 사용자 권한 상태 추가
+    private MultipartFile clubProfile; // 이미지 경로를 문자열로 저장
 
-    public ClubListResponseDto (ClubFindAllDto C, String userAuthStatus){
+    public ClubListResponseDto(ClubFindAllDto C, String userAuthStatus, MultipartFile clubProfile){
         this.clubNo = C.getClubNo();
         this.shortTitle = makeShortTitle(C.getClubName());
         this.shortContent = makeShortContent(C.getClubDescription());
         this.account = C.getAccount();
-        this.clubProfile = C.getClubProfile();
+        this.clubProfile = clubProfile;
 
         // 게시물 등록시간
         LocalDateTime regTime = C.getClubCreatedAt();
@@ -37,21 +38,16 @@ public class ClubListResponseDto {
     }
 
     private String dateFormatting(LocalDateTime regDateTime) {
-        DateTimeFormatter pattern
-                = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return pattern.format(regDateTime);
     }
 
     private String makeShortContent(String content) {
-        return (content.length() > 10)
-                ? content.substring(0, 10) + "..."
-                : content;
+        return (content.length() > 30) ? content.substring(0, 30) + "..." : content;
     }
 
     private String makeShortTitle(String title) {
-        return (title.length() > 5)
-                ? title.substring(0, 5) + "..."
-                : title;
+        return (title.length() > 5) ? title.substring(0, 5) + "..." : title;
     }
 
 }

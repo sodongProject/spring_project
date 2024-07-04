@@ -21,6 +21,8 @@ public class LoginUserInfoDto {
     private Auth auth;
     private double temperature;
     private String profile;
+    private Double remainedPoint;
+
 
     public LoginUserInfoDto(Users user) {
         this.account = user.getAccount();
@@ -30,6 +32,7 @@ public class LoginUserInfoDto {
         this.address = user.getAddress();
         this.auth = user.getAuth();
         this.profile = user.getProfileImage();
+        this.remainedPoint = user.getRemainedPoint();
         //this.temperature = user.getTemperature();
     }
 }

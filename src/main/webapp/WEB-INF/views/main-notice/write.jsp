@@ -52,9 +52,9 @@
         <label for="account">작성자:</label>
         <input type="text" id="account" name="account" value="${login.account}" placeholder="관리자" readonly>
         <label for="title">제목:</label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="mainNoticeTitle" required>
         <label for="content">내용:</label>
-        <textarea id="content" name="content" rows="10" required></textarea>
+        <textarea id="content" name="mainNoticeContent" rows="10" required></textarea>
 
         <input type="submit" value="작성하기">
         <input type="submit" value="공지사항 목록" onclick="window.location.href='/main-notice/list'">
