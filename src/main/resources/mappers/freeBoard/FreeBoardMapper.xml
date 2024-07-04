@@ -9,9 +9,9 @@
     <!-- 등록 -->
     <insert id="save">
     INSERT INTO clubs_community_boards
-    (club_no, club_community_title, club_community_content, account, club_community_image)
+    (club_no, club_community_content, account, club_community_image)
     VALUES
-    (#{clubNo}, #{boardTitle}, #{content}, #{account}, #{boardImg} )
+    (#{clubNo}, #{content}, #{account}, #{boardImg} )
     </insert>
 
     <!-- 목록 조회 -->

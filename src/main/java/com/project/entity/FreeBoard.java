@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 public class FreeBoard {
 
-    private int boardNo; // 게시판 ID
-    private String boardTitle; // 제목
+    private long boardNo; // 게시판 ID
     private String content; // 내용
     private LocalDateTime regDateTime; // 작성시간
     private String boardImg; // 이미지
@@ -31,7 +30,6 @@ public class FreeBoard {
 
     public FreeBoard(ResultSet rs) throws SQLException {
         this.boardNo = rs.getInt("club_community_no");
-        this.boardTitle = rs.getString("club_community_title");
         this.content = rs.getString("club_community_content");
         this.regDateTime = rs.getTimestamp("club_community_created_at").toLocalDateTime();
         this.boardImg = rs.getString("club_community_image");

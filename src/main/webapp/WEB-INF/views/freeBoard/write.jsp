@@ -30,6 +30,14 @@
                 <input type="file" id="photo" name="photo" accept="image/*">
             </div>
             <div class="form-group">
+                            <label for="account">Account</label>
+                            <input type="content" id="account" name="account">
+            </div>
+
+             <label for="clubNo">ClubNo</label>
+             <input type="content" id="clubNo" name="clubNo">
+
+             <div class="form-group">
                 <label for="content">Content (max 200 characters)</label>
                 <textarea id="content" name="content" rows="4" placeholder="Enter your content here..." maxlength="200"></textarea>
                 <div class="char-count" id="charCount">0 / 200</div>
