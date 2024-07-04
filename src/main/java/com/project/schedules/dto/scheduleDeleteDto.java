@@ -9,6 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class scheduleDeleteDto {
-
     private Long scheduleNo;
 }
