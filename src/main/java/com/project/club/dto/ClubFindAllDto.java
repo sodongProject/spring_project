@@ -19,7 +19,7 @@ public class ClubFindAllDto {
     private String clubName;
     private String clubDescription;
     private LocalDateTime clubCreatedAt;
-    private MultipartFile clubProfile;
+    private String clubProfile;
     private Boolean clubCompetition;
     private long clubMemberMax;
     private Boolean clubIsDeleted;

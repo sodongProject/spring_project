@@ -45,6 +45,8 @@ public class ClubController {
         List<ClubListResponseDto> clubList = clubService.findList(search, account);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
 
+        clubList.forEach(c -> System.out.println(c.getClubProfile()));
+
         if (account != null) {
             // 사용자 클럽 정보 추가
             for (ClubListResponseDto club : clubList) {

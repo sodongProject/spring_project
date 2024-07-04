@@ -1,6 +1,7 @@
 package com.project.schedules.controller;
 
 import com.project.entity.Schedules;
+import com.project.schedules.dto.ScheduleFindAllDto;
 import com.project.schedules.dto.ScheduleLoginUserInfoDto;
 import com.project.schedules.dto.ScheduleWriteDto;
 import com.project.schedules.service.ScheduleService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/schedules")
@@ -26,13 +28,16 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping("/list")
-    public String Write(Model model, HttpSession session) {
+    public String Write(Long clubNo, Model model, HttpSession session) {
 //        scheduleService.findLoginUser("qwdk0406", session);
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         String now = LocalDateTime.now().format(pattern);
 
+        List<ScheduleFindAllDto> allSchedule = scheduleService.findAllSchedule(clubNo);
+
         System.out.println("now = " + now);
 
+        model.addAttribute("scheduleList", allSchedule);
         model.addAttribute("now", now);
 
         return "/schedules/list";

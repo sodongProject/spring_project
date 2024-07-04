@@ -59,8 +59,8 @@ public class MainNoticeController {
 
     // 4. 게시글 삭제 요청 -> 목록조회 요청 리다이렉션
     @GetMapping("/delete")
-    public String delete(long noticeNo) {
-        service.remove(noticeNo);
+    public String delete(long mainNoticeNo) {
+        service.remove(mainNoticeNo);
         return "redirect:/main-notice/list";
     }
 

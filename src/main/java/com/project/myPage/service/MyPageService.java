@@ -5,11 +5,14 @@ import com.project.login.entity.Users;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.myPage.dto.response.LoggedInUserInfoDto;
 import com.project.myPage.mapper.MyPageMappers;
+import com.project.util.FileUtil;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,6 +36,7 @@ public class MyPageService {
 
         session.setAttribute(LOGIN, loginUserInfoDto);
     }
+
 
 //    public Users findOneByAccount(String account){
 //        Users one = myPageMapper.findOne(account);
@@ -92,20 +96,19 @@ public class MyPageService {
      * @param inputPw 유저가 입력한 비밀번호
      * @return 기존 비밀번호와 일치 여부 true/false
      */
-    public boolean confirmPassword(HttpSession session, String inputPw){
+    public boolean confirmPassword(HttpSession session, String inputPw, RedirectAttributes redirectAttributes){
         Users findedUser = findUserBySession(session);
         String correctPw = findedUser.getPassword();
-        System.out.println("correctPw = " + correctPw);
 
-
-//        String encoded = passwordEncoder.encode(inputPw);
-
-//        System.out.println("encoded = " + encoded);
-        if (!passwordEncoder.matches(inputPw,correctPw)){
+        if (!passwordEncoder.matches(inputPw, correctPw)){
+            redirectAttributes.addFlashAttribute("result", false);
             return false;
         }
+
+        redirectAttributes.addFlashAttribute("result",true);
         return true;
     }
+
 
     public void modifyEmail(HttpSession session, String newEmail){
         myPageMapper.editUserEmail(getSessionAccount(session),newEmail);
@@ -140,6 +143,12 @@ public class MyPageService {
         myPageMapper.editUserAdress(getSessionAccount(session),newAdress);
     }
 
+    public void modifyProfile (HttpSession session, MultipartFile file){
+        String rootPath = "/Users/jieun/desktop/teamProject/springFile";
+        String imgUrlPath = FileUtil.uploadFile(rootPath, file);
+
+        myPageMapper.editUserProfile(getSessionAccount(session), imgUrlPath);
+    }
 
     /**
      * 포인트 조회

@@ -107,15 +107,17 @@ public class LoginController {
         LoginResult result = usersService.authenticate(dto, session, response);
         log.info("Authentication result: {}", result);
 
-        ra.addFlashAttribute("result", result);
+        ra.addFlashAttribute("result", result.name());
 
         if (result == LoginResult.SUCCESS) {
 
             //리다이렉트 URL이 있다면
             String redirect = (String) session.getAttribute("redirect");
+            System.out.println("redirect = " + redirect);
+            
             if (redirect != null) {
                 session.removeAttribute("redirect");
-                return "redirect: " + redirect;
+                return "redirect:" + redirect;
             }
 
             return "redirect:/index"; // 로그인 성공시

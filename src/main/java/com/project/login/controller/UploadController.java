@@ -15,7 +15,6 @@ import java.io.File;
 public class UploadController {
 
     //업로드 루트 경로
-
     private String rootPath="C:\\spring_project\\upload"; //서버저장위치 공개하면 안됨
 
     @GetMapping("/upload/form")

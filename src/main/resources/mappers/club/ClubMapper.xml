@@ -62,14 +62,19 @@
     <select id="findOne" resultType="club">
         SELECT
         C.*,
-        (SELECT COUNT(*)
+        U.user_name,
+        (
+        SELECT COUNT(*)
         FROM users_clubs UC
-        WHERE UC.club_no = C.club_no AND UC.user_club_is_withdrawn = FALSE) AS member_count
+        WHERE UC.club_no = C.club_no
+        AND UC.user_club_is_withdrawn = FALSE
+        ) AS member_count
         FROM clubs C
-        LEFT JOIN users U ON C.account = U.account
+        LEFT JOIN users U ON U.account = C.account
         WHERE C.club_no = #{clubNo}
         AND C.club_is_deleted = FALSE
     </select>
+
 
     <select id="count" resultType="long">
         SELECT
@@ -214,5 +219,13 @@
         )
         WHERE club_no = #{clubNo}
     </update>
+
+    <!-- 사용자 이름을 조회하는 쿼리 -->
+    <select id="findUserName" resultType="string">
+        SELECT U.user_name
+        FROM users U
+        JOIN clubs C ON U.account = C.account
+        WHERE C.club_no = #{clubNo}
+    </select>
 
 </mapper>

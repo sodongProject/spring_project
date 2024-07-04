@@ -56,22 +56,25 @@ public class ScheduleService {
 
     public void deleteSchedule(Long scheduleNo) {
 
+        // 삭제가 아니라 false를 true로 바꾸기
+        scheduleMapper.delete(scheduleNo);
+
         Schedules targetSchedule = scheduleMapper.findOne(scheduleNo);
+
+        Double participationPoint = targetSchedule.getParticipationPoints();
 
         Double totalPointInSchedule = targetSchedule.getTotalPoint();
 
         List<String> refundUsers = scheduleMapper.refundUserAccount(scheduleNo);
 
-        scheduleMapper.removeScheduleTotalPoint(scheduleNo, totalPointInSchedule);
+        if(totalPointInSchedule == (participationPoint * refundUsers.size())) {
+            scheduleMapper.removeScheduleTotalPoint(scheduleNo, totalPointInSchedule);
 
-        Double participationPoint = targetSchedule.getParticipationPoints();
-        // 삭제가 아니라 false를 true로 바꾸기
-        scheduleMapper.delete(scheduleNo);
+            scheduleMapper.refundPointAsDeleteSchedule(scheduleNo, participationPoint);
 
-        scheduleMapper.refundPointAsDeleteSchedule(scheduleNo, participationPoint);
-
-        for (String refundUser : refundUsers) {
-            scheduleMapper.saveUserPointVariance(refundUser, scheduleNo, participationPoint, PointHistoryType.CREDIT);
+            for (String refundUser : refundUsers) {
+                scheduleMapper.saveUserPointVariance(refundUser, scheduleNo, participationPoint, PointHistoryType.CREDIT);
+            }
         }
 
     }
@@ -117,6 +120,7 @@ public class ScheduleService {
         // 모든 검증을 마친 후 등록되도록
         scheduleMapper.registerUserIntoSchedule(scheduleNo, userInClubNo);
 
+
         // 추후 일정온도에 미치지 못한다면 신청 못하도록 막기
 
 
@@ -134,9 +138,9 @@ public class ScheduleService {
         return scheduleMapper.findAll(clubNo);
     }
 
-    public void findOneSchedule(long scheduleNo) {
+    public Schedules findOneSchedule(long scheduleNo) {
 
-        scheduleMapper.findOne(scheduleNo);
+        return scheduleMapper.findOne(scheduleNo);
     }
 
     public Boolean isUserInClub(long clubNo, HttpSession session) {
@@ -189,6 +193,13 @@ public class ScheduleService {
 
         if(dto.getAccept()) {
             scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), userInClubNo, ScheduleAuth.MEMBER);
+
+            Long scheduleNo = dto.getScheduleNo();
+            // 등록 된 후 스케줄 참여 인원 수 조회 후 업데이트
+            Integer users = scheduleMapper.scheduleUsers(scheduleNo);
+
+            scheduleMapper.UpdateScheduleUsers(users, scheduleNo);
+
         } else {
             scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), userInClubNo, ScheduleAuth.DENIED);
             // 유저에게 포인트 반환
