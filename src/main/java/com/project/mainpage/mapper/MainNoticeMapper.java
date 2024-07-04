@@ -18,7 +18,7 @@ public interface MainNoticeMapper {
     boolean modify(MainNoticeBoard noticeBoard);
 
     // 공지사항 삭제
-    boolean delete(long noticeNo);
+    boolean delete(long mainNoticeNo);
 
     // 공지사항 목록 조회
     List<NoticeFindAllDto> findAll(Search page);

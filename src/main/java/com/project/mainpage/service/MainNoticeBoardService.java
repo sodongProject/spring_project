@@ -48,8 +48,8 @@ public class MainNoticeBoardService {
     }
 
     // 삭제 요청 중간처리
-    public boolean remove(long noticeNo) {
-        return mapper.delete(noticeNo);
+    public boolean remove(long mainNoticeNo) {
+        return mapper.delete(mainNoticeNo);
     }
 
     // 상세 조회 요청 중간처리

@@ -45,7 +45,6 @@
         SELECT
         *
         FROM main_notice_boards
-<!--        <include refid="search"/>-->
         WHERE main_notice_no = #{mainNoticeNo}
     </select>
 
