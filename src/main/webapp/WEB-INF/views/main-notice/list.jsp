@@ -161,7 +161,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         cursor: pointer;
       }
 
-      button.write-btn, button.modify-btn, button.del-btn {
+      button.write-btn,
+      button.modify-btn,
+      button.del-btn {
         border: 1px solid #000;
       }
     </style>
@@ -188,7 +190,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 class="notice-list-box"
                 data-main-notice-no="${b.mainNoticeNo}"
               >
-                ${b.mainNoticeTitle}
+                <span class="mainNoticeTitle">${b.mainNoticeTitle}</span>
                 <span class="date">
                   ${b.date}
                   <c:if test="${login.auth == 'ADMIN'}">
@@ -321,18 +323,46 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         window.location.href = "/main-notice/write";
       };
 
+
+      //================= 공지사항 검색버튼 스크립트 =================//
+      const $searchInput = document.querySelector(".search-bar input");
+      const $searchBtn = document.querySelector(".search-bar button");
+
+      // 검색 버튼 클릭 시
+      $searchBtn.addEventListener("click", () => {
+        const searchText = $searchInput.value.trim().toLowerCase();
+
+        // 모든 공지사항 리스트 가져오기
+        const $noticeList = document.querySelectorAll(".notice-list-box");
+
+        $noticeList.forEach(($li) => {
+          const title = $li
+            .querySelector(".mainNoticeTitle")
+            .innerText.trim()
+            .toLowerCase();
+          const content = $li
+            .querySelector(".mainNoticeContent")
+            .innerText.trim()
+            .toLowerCase();
+
+          // 검색어가 제목 또는 내용에 포함되어 있으면 보이기
+          if (title.includes(searchText) || content.includes(searchText)) {
+            $li.style.display = "block";
+          } else {
+            $li.style.display = "none";
+          }
+        });
+      });
+
+
       //================= 공지사항 삭제버튼 스크립트 (관리자 권한만) =================//
       const modal = document.getElementById("modal"); // 모달창 얻기
       const confirmDelete = document.getElementById("confirmDelete"); // 모달 삭제 확인버튼
       const cancelDelete = document.getElementById("cancelDelete"); // 모달 삭제 취소 버튼
 
       $board.addEventListener("click", (e) => {
-        const $li = e.target.closest("li.notice-list-box");
-
-        if (!$li) return;
-
-        // 수정 및 삭제 버튼을 눌렀다면
         if (e.target.matches(".del-btn")) {
+          e.stopPropagation(); // 이벤트 전파 중단
           console.log("삭제버튼 클릭");
           modal.style.display = "flex"; // 모달 창 띄움
 
@@ -353,13 +383,34 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           cancelDelete.onclick = (e) => {
             modal.style.display = "none"; // 모달 창 닫기
           };
-        } else {
-          // 삭제 버튼 제외한 부분은 글 상세조회 요청
-          // li 태그에 붙은 글 번호 읽기
+        } else if (e.target.matches(".modify-btn")) {
+          e.stopPropagation(); // 이벤트 전파 중단
+          console.log("수정버튼 클릭");
+
+          const $li = e.target.closest("li.notice-list-box");
+          // 수정할 공지사항 정보 가져오기
           const mainNoticeNo = $li.dataset.mainNoticeNo;
-          // 요청 보내기
-          window.location.href =
-            "/main-notice/detail?mainNoticeNo=" + mainNoticeNo;
+          const title = $li.querySelector(".mainNoticeTitle").innerText.trim();
+          const content = $li
+            .querySelector(".mainNoticeContent")
+            .innerText.trim();
+
+          // 폼에 데이터 채우기
+          document.getElementById("editNoticeNo").value = mainNoticeNo;
+          document.getElementById("editTitle").value = title;
+          document.getElementById("editContent").value = content;
+
+          // 모달 열기
+          editModal.style.display = "flex";
+        } else {
+          // 삭제 및 수정 버튼 제외한 부분은 글 상세조회 요청
+          const $li = e.target.closest("li.notice-list-box");
+          if ($li) {
+            const mainNoticeNo = $li.dataset.mainNoticeNo;
+            // 요청 보내기
+            window.location.href =
+              "/main-notice/detail?mainNoticeNo=" + mainNoticeNo;
+          }
         }
       });
 
@@ -367,24 +418,24 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       window.addEventListener("click", (e) => {
         if (e.target === modal) {
           modal.style.display = "none";
+        } else if (e.target === editModal) {
+          editModal.style.display = "none";
         }
       });
 
+      
       //================= 공지사항 수정버튼 스크립트 (관리자 권한만) =================//
       const editModal = document.getElementById("editModal");
       const editForm = document.getElementById("editForm");
       const cancelEdit = document.getElementById("cancelEdit");
 
-      // 수정 버튼 클릭 시 이벤트
       $board.addEventListener("click", (e) => {
         const $li = e.target.closest("li.notice-list-box");
 
         if (!$li) return;
 
-        // 수정 버튼 클릭 시
         if (e.target.matches(".modify-btn")) {
-          // 모달 열기
-          editModal.style.display = "flex";
+          console.log("수정버튼 클릭");
 
           // 수정할 공지사항 정보 가져오기
           const mainNoticeNo = $li.dataset.mainNoticeNo;
@@ -397,6 +448,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           document.getElementById("editNoticeNo").value = mainNoticeNo;
           document.getElementById("editTitle").value = title;
           document.getElementById("editContent").value = content;
+
+          // 모달 열기
+          editModal.style.display = "flex";
         }
       });
 
@@ -406,19 +460,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       };
 
       // 모달 영역 외부 클릭 시 모달 닫기
-      window.addEventListener("click", (e) => {
-        if (e.target === editModal) {
-          editModal.style.display = "none";
-        }
-      });
+      // window.addEventListener("click", (e) => {
+      //   if (e.target === editModal) {
+      //     editModal.style.display = "none";
+      //   }
+      // });
 
       // 폼 submit 시 처리
       editForm.addEventListener("submit", (e) => {
-        // 폼의 기본 동작을 막음 (새로고침 방지)
         e.preventDefault();
-
-        // 여기서 폼 데이터를 서버로 전송하거나 처리하는 로직을 추가할 수 있음
-        // 예: fetch API를 사용하여 AJAX 요청을 보내거나, form.submit()을 호출하여 전송
         editForm.submit();
       });
     </script>
