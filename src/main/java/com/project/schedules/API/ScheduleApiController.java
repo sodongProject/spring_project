@@ -73,7 +73,7 @@ public class ScheduleApiController {
                 .ok()
                 .body(dto);
     }
-
+//
     @PostMapping("/register")
     public ResponseEntity<?> registerUserInSchedule(@Validated @RequestBody ScheduleRegisterDto dto, HttpSession session) {
         LoginUserInfoDto loginUserInfo = LoginUtil.getLoggedInUser(session);
