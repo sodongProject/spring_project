@@ -1,28 +1,46 @@
 package com.project.freeBoard.dto;
 
 import com.project.entity.FreeBoard;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class FreeBoardListResponseDto {
 
-    private int bno; // 원본 게시물 번호
+    private Long boardNo; // 원본 게시물 번호
     private String date; // 포맷팅된 날짜문자열
-    private int view; // 조회 수
-    //private boolean hit; // HIT 게시물인가?
-    //private boolean newArticle; // 새 게시물(1시간 이내)인가?
-    //private int replyCount; // 댓글 수
+    private int view;
     private String account;
+    private String content;
+    private String boardImg;
+    //private String boardTitle;
+    private int viewCount;
+    private int clubNo;
 
     // 엔터티 -> DTO 변환하는 생성자
     public FreeBoardListResponseDto(FreeBoard b){
-        this.bno = b.getBoardNo();
+        //this.boardNo = b.getBoardNo();
+        LocalDateTime regTime = b.getRegDateTime();
         this.date = dateFormatting(b.getRegDateTime());
         this.view = b.getViewCount();
+        this.account = b.getAccount();
+        this.content = b.getContent();
+        this.boardImg = b.getBoardImg();
+        //this.boardTitle = b.getBoardTitle();
+        this.viewCount = b.getViewCount();
+        this.clubNo = b.getClubNo();
     }
 
     private String dateFormatting(LocalDateTime regDateTime){
+        if (regDateTime == null) {
+            return "N/A"; // 기본값 설정 또는 적절한 값을 반환
+        }
         DateTimeFormatter pattern
                 = DateTimeFormatter.ofPattern("yyyy. MM. dd");
         return pattern.format(regDateTime);
