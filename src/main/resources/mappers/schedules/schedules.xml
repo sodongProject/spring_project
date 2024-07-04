@@ -184,4 +184,20 @@
         AND point_history_type = 'CREDIT'
         )
     </select>
+
+    <select id="scheduleUsers" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM users_schedules
+        WHERE schedule_no = 110
+        AND user_schedule_is_withdrawn = false
+        AND user_schedule_role != 'WAITING'
+        AND user_schedule_role != 'DENIED'
+    </select>
+
+    <update id="UpdateScheduleUsers">
+        UPDATE schedules
+        SET schedule_count = #{numberOfUsers}
+        WHERE schedule_no = #{scheduleNo}
+    </update>
 </mapper>

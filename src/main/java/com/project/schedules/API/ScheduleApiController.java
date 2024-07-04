@@ -1,5 +1,6 @@
 package com.project.schedules.API;
 
+import com.project.entity.Schedules;
 import com.project.entity.Users;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.schedules.common.Page;
@@ -92,7 +93,7 @@ public class ScheduleApiController {
                 .body(dto);
     }
 
-    @GetMapping("/detail/{scheduleNo}")
+    @GetMapping("/detail/{scheduleNo}/participationUsers")
     public ResponseEntity<?> ApplicationUsers(@PathVariable Long scheduleNo, HttpSession session) {
 
 
@@ -104,6 +105,21 @@ public class ScheduleApiController {
                 .ok()
                 .body(allApplicationUsers);
     }
+
+    @GetMapping("/detail/{scheduleNo}")
+    public ResponseEntity<?> detailContent(@PathVariable Long scheduleNo, HttpSession session) {
+
+        Schedules schedule = scheduleService.findOneSchedule(scheduleNo);
+
+        ScheduleLoginUserInfoDto scheduleLoginUserInfoDto = scheduleService.findLoginUserInfoInSchedule(schedule, session);
+
+        ScheduleDetailDto scheduleDetailDto = new ScheduleDetailDto(schedule, scheduleLoginUserInfoDto);
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleDetailDto);
+    }
+
 
     @PostMapping("/detail")
     public ResponseEntity<?> applicationProcessing(@Validated @RequestBody ApplicationUserResponseDto dto) {

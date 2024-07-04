@@ -135,6 +135,27 @@
     </div>
 </div>
 
+<div id="detail-modal">
+    <div class="detail-modal-content">
+
+    </div>
+</div>
+
+<div id="register-list-modal">
+    <div class="register-modal-content">
+        <div class="application-user-info">
+            <div class="user-info">
+                <span class="user-name">신청인 : 유저 이름</span>
+                <span class="user-temperature">유저 온도 : 36.5</span>
+            </div>
+            <div class="register-btn">
+                <button class="accept-btn">수락</button>
+                <button class="refuse-btn">거절</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Modal 관련 JavaScript
     const modal = document.getElementById("schedule-modal");
@@ -172,5 +193,6 @@
 </script>
 
 <script type="module" src="/assets/js/schedules/list.js"></script>
+<script type="module" src="/assets/js/schedules/detail.js"></script>
 </body>
 </html>

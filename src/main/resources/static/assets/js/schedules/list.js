@@ -215,7 +215,7 @@ export async function fetchScheduleList(pageNo = 1) {
                         <div class="middle-section">
                             <div class="view">
                                 <i class="fas fa-eye"></i>
-                                <span class="view-count">${scheduleList[i].scheduleViewCount}</span>
+                                <span class="view-count">${scheduleList[i].scheduleCount}</span>
                             </div>
                             <h2>${scheduleList[i].scheduleTitle}</h2>
                             <p>${scheduleList[i].scheduleContent}</p>
@@ -275,7 +275,7 @@ function detailEventHandler() {
         button.addEventListener('click', e => {
             e.preventDefault();
             console.log('Button clicked:', e.target.dataset.sno); // 버튼 클릭 확인
-            window.location.href = `detail?scheduleNo=${e.target.dataset.sno}`;
+            document.getElementById('detail-modal').style.display='flex';
         });
     });
 }
