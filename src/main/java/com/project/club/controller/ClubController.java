@@ -16,8 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,17 +83,29 @@ public class ClubController {
 
     // 3. 게시글 등록 요청 (/club/write : POST)
     @PostMapping("/write")
-    public String write(ClubWriteRequestDto C) {
-        String profilePath = FileUtil.uploadFile(rootPath, C.getClubProfile());
+    public String write(ClubWriteRequestDto C, @RequestParam(value = "clubProfile", required = false) MultipartFile file) {
+        String profilePath = null; // 기본값을 null로 설정
+        if (file != null && !file.isEmpty()) {
+            profilePath = FileUtil.uploadFile(rootPath, file);
+        }
         clubService.insert(C, profilePath);
         return "redirect:/club/list";
     }
 
     // 4. 삭제요청
     @GetMapping("/delete")
-    public String delete(@RequestParam("clubNo") long clubNo) {
-        clubService.remove(clubNo);
-        return "redirect:/club/list";
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> delete(@RequestParam("clubNo") long clubNo) {
+        boolean isDeleted = clubService.remove(clubNo);
+        Map<String, String> response = new HashMap<>();
+        if (isDeleted) {
+            response.put("status", "success");
+            response.put("message", "삭제 완료");
+        } else {
+            response.put("status", "error");
+            response.put("message", "삭제 실패");
+        }
+        return ResponseEntity.ok(response);
     }
 
     // 5. 상세조회 요청
