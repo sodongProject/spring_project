@@ -22,22 +22,23 @@ public class MyPageInterceptor implements HandlerInterceptor {
 
 
     // 로그인 전에
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//
-//        HttpSession session = request.getSession();
-//
-//        // 요청 URL
-//        String redirectUri = request.getRequestURI();
-//
-//        if (!isLoggedIn(session)) {
-//            log.info("origin: {}", redirectUri);
-//            response.sendRedirect("/users/sign-in?redirect="+redirectUri);
-//            return false;
-//        }
-//
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        HttpSession session = request.getSession();
+
+        // 요청 URL
+        String redirectUri = request.getRequestURI();
+
+        if (!isLoggedIn(session)) {
+            log.info("origin: {}", redirectUri);
+            response.sendRedirect("/users/sign-in?redirect="+redirectUri);
+            return false;
+        }
+
 //        response.sendRedirect(redirectUri);
-//
-//        return true;
-//    }
+
+        return true;
+    }
+
 }
