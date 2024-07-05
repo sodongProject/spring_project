@@ -42,15 +42,22 @@ public class ScheduleApiController {
 
     @GetMapping("/list/{clubNo}/page/{pageNo}")
     public ResponseEntity<?> ScheduleList(@PathVariable long clubNo, @PathVariable int pageNo, HttpSession session) {
+
         String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
+
         List<ScheduleFindAllDto> scheduleList = scheduleService.findAllSchedule(clubNo);
+
         List<ScheduleLoginUserInfoDto> scheduleLoginUserInfoDtoList = scheduleService.findAllUserAuthInSchedule(loginUserAccount);
+
         PageMaker pageMaker = new PageMaker(new Page(pageNo, 3), scheduleList.size());
 
         ScheduleListDto scheduleListAndPage = new ScheduleListDto(scheduleList, pageMaker, scheduleLoginUserInfoDtoList);
-        System.out.println("scheduleList = " + scheduleList);
 
-        System.out.println("scheduleListAndPage = " + scheduleListAndPage);
+        for (ScheduleFindAllDto schedule : scheduleList) {
+            if(schedule.getParticipationPoints() == null) {
+                schedule.setParticipationPoints((double) 0);
+            }
+        }
 
         return ResponseEntity
                 .ok()

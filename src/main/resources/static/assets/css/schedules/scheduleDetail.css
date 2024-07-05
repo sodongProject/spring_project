@@ -22,7 +22,7 @@
     background-color: rgba(0,0,0,0.4);
 }
 
-.register-modal-content {
+.register-list-modal-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@
     margin: 15px;
 }
 
-.register-btn button {
+.register-list-btn button {
     width: 60px;
     height: 30px;
     margin: 10px;
