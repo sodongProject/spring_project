@@ -1,23 +1,18 @@
 package com.project.freeBoard.controller;
 
-import com.project.entity.FreeBoard;
 import com.project.freeBoard.dto.FreeBoardListResponseDto;
 import com.project.freeBoard.dto.FreeBoardWriteRequestDto;
-import com.project.freeBoard.mapper.FreeBoardDto;
-import com.project.freeBoard.mapper.FreeBoardMapper;
 
 import com.project.freeBoard.service.FreeBoardService;
 import com.project.util.LoginUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/freeBoard")
@@ -50,6 +45,8 @@ public class FreeBoardController {
         // 필요한 데이터만 추출(서비스의 findList에게 조회 넘김)
         List<FreeBoardListResponseDto> bList = service.findList();
 
+        log.info("정보 다 줘바 {}",bList.toString());
+
         // JSP 파일에 해당 목록 데이터 보냄
         model.addAttribute("bList", bList);
 
@@ -75,6 +72,8 @@ public class FreeBoardController {
         String account = dto.getAccount();
         log.info("account 있냐? {} ", account);
         service.insert(dto);
+
+
 
         return "redirect:/freeBoard/list";
     }
