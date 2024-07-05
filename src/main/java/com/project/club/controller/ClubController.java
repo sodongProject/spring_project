@@ -6,6 +6,7 @@ import com.project.club.common.Search;
 import com.project.club.dto.*;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
+import com.project.entity.ClubAuth;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,17 +84,29 @@ public class ClubController {
 
     // 3. 게시글 등록 요청 (/club/write : POST)
     @PostMapping("/write")
-    public String write(ClubWriteRequestDto C) {
-        String profilePath = FileUtil.uploadFile(rootPath, C.getClubProfile());
+    public String write(ClubWriteRequestDto C, @RequestParam(value = "clubProfile", required = false) MultipartFile file) {
+        String profilePath = null; // 기본값을 null로 설정
+        if (file != null && !file.isEmpty()) {
+            profilePath = FileUtil.uploadFile(rootPath, file);
+        }
         clubService.insert(C, profilePath);
         return "redirect:/club/list";
     }
 
     // 4. 삭제요청
     @GetMapping("/delete")
-    public String delete(@RequestParam("clubNo") long clubNo) {
-        clubService.remove(clubNo);
-        return "redirect:/club/list";
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> delete(@RequestParam("clubNo") long clubNo) {
+        boolean isDeleted = clubService.remove(clubNo);
+        Map<String, String> response = new HashMap<>();
+        if (isDeleted) {
+            response.put("status", "success");
+            response.put("message", "삭제 완료");
+        } else {
+            response.put("status", "error");
+            response.put("message", "삭제 실패");
+        }
+        return ResponseEntity.ok(response);
     }
 
     // 5. 상세조회 요청
@@ -101,7 +116,15 @@ public class ClubController {
         ClubDetailResponseDto club = clubService.detail(bno, account);
         log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
         model.addAttribute("club", club);
-        return "club/detail";
+
+        ClubAuth clubLoggedInUserAuth = LoginUtil.getClubLoggedInUserAuth(session);
+        log.info("너의 권한이 뭐야? {} ", clubLoggedInUserAuth);
+
+        if (clubLoggedInUserAuth == ClubAuth.MEMBER || clubLoggedInUserAuth == ClubAuth.ADMIN) {
+            return "club/detail";
+        }
+
+        return "club/description";
     }
 
     // 5.5 상세조회 요청
@@ -111,9 +134,13 @@ public class ClubController {
         ClubDescriptionResponseDto club = clubService.description(clubNo);
         model.addAttribute("club", club);
 
-//        if (loggedInUser != null) {
-//            return "club/detail";
-//        }
+        ClubAuth clubLoggedInUserAuth = LoginUtil.getClubLoggedInUserAuth(session);
+        log.info("너의 권한이 뭐야? {} ", clubLoggedInUserAuth);
+
+        if (clubLoggedInUserAuth == ClubAuth.MEMBER || clubLoggedInUserAuth == ClubAuth.ADMIN) {
+            return "club/detail";
+        }
+
         return "club/description";
     }
 

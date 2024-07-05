@@ -21,7 +21,14 @@
         <span class="writer">작성자: ${club.userName}</span>
     </div>
     <div class="image-section">
-        <img src="${club.multipartFile}" alt="Club Image">
+        <c:choose>
+            <c:when test="${not empty club.multipartFile}">
+                <img src="${club.multipartFile}" alt="profile image" title="${club.multipartFile}">
+            </c:when>
+            <c:otherwise>
+                <img class="image" src="/assets/img/club/image-add.png" alt="profile image"/>
+            </c:otherwise>
+        </c:choose>
     </div>
     <div class="content-section">
         <p>${club.content}</p>

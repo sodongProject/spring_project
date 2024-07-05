@@ -1,5 +1,5 @@
 #wrap {
-    width: 1200px;
+    width: 1240px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -437,4 +437,25 @@ button {
 .view-count {
     font-size: 18px;
     font-weight: 500;
+}
+
+.competition{
+    position: relative;
+    left: -275px;
+    top: 60px;
+    color: red;
+    font-size: 18px;
+}
+
+.notCompetition {
+    position: relative;
+    left: -295px;
+    top: 60px;
+    color: gray;
+}
+
+.fa-times {
+    position: absolute;
+    right: 30px;
+    top: 20px;
 }

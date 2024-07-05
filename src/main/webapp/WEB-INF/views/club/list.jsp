@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/club/clubList.css">
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -28,7 +29,7 @@
     <div class="top-section1">
         <!-- 검색창 영역 -->
         <div class="search">
-            <form action="/club/list" method="get">
+            <form action="/club/list" method="get" id="search-form">
                 <select class="form-select" name="type" id="search-type">
                     <option value="total" selected>전체</option>
                     <option value="club_name">제목</option>
@@ -36,7 +37,7 @@
                     <option value="account">작성자</option>
                     <option value="cd">제목+내용</option>
                 </select>
-                <input type="text" class="form-control" name="keyword" value="${s.keyword}">
+                <input type="text" class="form-control" name="keyword">
                 <button class="btn-primary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
@@ -61,6 +62,16 @@
                                 <i class="fas fa-times"></i>
                             </button>
                         </c:if>
+
+                        <c:if test="${b.clubCompetition == true}">
+                            <i class="fa-solid fa-fire competition"><p style="display: inline-block">대회</p></i>
+                        </c:if>
+                        <c:if test="${b.clubCompetition == false}">
+                            <i class="fa-solid fa-fire notCompetition"></i>
+                        </c:if>
+
+
+
                     </div>
                     <div class="middle-section">
                         <div class="profile-box">
@@ -179,7 +190,6 @@
     });
 
     $cardContainer.addEventListener('click', e => {
-        // console.log(e.target)
         e.preventDefault();
 
         if (e.target.matches('.detail-btn')) {
@@ -191,13 +201,12 @@
             return;
         }
 
-
         if (e.target.matches('.top-section .del-btn .fas')) {
             modal.style.display = 'flex';
             const $delBtn = e.target.closest('.del-btn');
-            const deleteLocation = $delBtn.dataset.href;
+            const clubNo = $delBtn.dataset.href.split('=')[1];
             confirmDelete.onclick = e => {
-                window.location.href = deleteLocation;
+                deleteClub(clubNo);
                 modal.style.display = 'none';
             };
             cancelDelete.onclick = e => {
@@ -207,11 +216,9 @@
             currentClubNo = e.target.dataset.bno;
             loginModal.style.display = 'flex';
         } else {
-            // 상세보기 버튼 클릭 시
             const clubAuth = e.target.closest('.container').dataset.clubAuth;
             const bno = e.target.closest('.container').dataset.bno;
             if (clubAuth === 'APPROVED') {
-                console.log(clubAuth);
                 window.location.href = '/club/detail?bno=' + bno;
             }
         }
@@ -221,12 +228,32 @@
         loginModal.style.display = 'none';
     };
 
+    function deleteClub(clubNo) {
+        fetch('/club/delete?clubNo=' + clubNo, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting club:', error);
+                alert('삭제 중 오류가 발생했습니다.');
+            });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
-        // 모든 '가입하기' 버튼에 대한 이벤트 리스너 추가
         document.querySelectorAll('.join-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const clubNo = this.getAttribute('data-bno');
-                // 모달을 보여주고, 예 버튼을 클릭했을 때 가입 요청을 보내도록 설정
                 loginModal.style.display = 'flex';
                 loginConfirmJoin.onclick = function () {
                     sendJoinRequest(clubNo);
@@ -238,9 +265,7 @@
             });
         });
 
-        // 가입 요청 보내기
         function sendJoinRequest(clubNo) {
-            console.log("Sending join request for clubNo:", clubNo);
             fetch('/club/join', {
                 method: 'POST',
                 headers: {
@@ -252,16 +277,12 @@
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
-                        loginModal.style.display = 'none';
                     }
                     return response.json();
                 })
                 .then(data => {
-                    console.log("Response data:", data);
-                    if (data.message) {
-                        if (data.status === 'ok') { // Assuming 'status' field denotes success in the server response
-                            updateApplicantsList(clubNo);
-                        }
+                    if (data.status === 'ok') {
+                        updateApplicantsList(clubNo);
                     } else {
                         alert('오류 발생: 서버로부터 응답을 받지 못했습니다.');
                     }
@@ -271,7 +292,6 @@
                     alert('Error: ' + error.message);
                 });
         }
-
     });
 
     window.addEventListener('click', e => {
@@ -286,20 +306,13 @@
     };
 
     function appendActivePage() {
-        // 1. 현재 위치한 페이지 번호를 알아낸다.
         const currentPage = '${maker.pageInfo.pageNo}';
-        console.log('현재페이지: ' + currentPage);
-
-        // 2. 해당 페이지번호와 일치하는 li 태그를 탐색한다.
         const $li = document.querySelector(`.pagination li[data-page-num="${currentPage}"]`);
-
-        // 3. 해당 li 태그에 class = active 를  추가한다.
         $li?.classList.add('active');
     }
 
-    // 기존 검색 조건 option 태그 고정하기
     function fixSearchOption() {
-        const type = '${s.type}' || 'total';  // 기본값을 'total'로 설정
+        const type = '${s.type}' || 'total';
         const $option = document.querySelector(`#search-type option[value="${type}"]`);
         if ($option) {
             $option.setAttribute('selected', 'selected');
@@ -321,27 +334,29 @@
         });
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        let searchButton = document.querySelector('.btn-primary[type="submit"]');
+        let keywordBtn = document.querySelector('.form-control[name="keyword"]');
+        let searchForm = document.getElementById('search-form');
 
-    $(document).ready(function() {
-        // 검색 버튼을 가져옵니다.
-        var searchButton = $('.btn-primary[type="submit"]');
-
-        // 입력 필드의 값이 변경될 때 마다 검사합니다.
-        $('.form-control[name="keyword"]').on('input', function() {
-            // 입력 필드가 비어 있는지 확인합니다.
-            if ($(this).val().trim() === '') {
-                // 입력 필드가 비어 있으면 검색 버튼을 비활성화합니다.
-                searchButton.prop('disabled', true);
+        keywordBtn.addEventListener('input', () => {
+            if (keywordBtn.value.trim() === '') {
+                searchButton.disabled = true;
             } else {
-                // 입력 필드에 무언가 있으면 검색 버튼을 활성화합니다.
-                searchButton.prop('disabled', false);
+                searchButton.disabled = false;
             }
         });
 
-        // 페이지 로드 시 검색 버튼 초기 상태를 설정합니다.
-        if ($('.form-control[name="keyword"]').val().trim() === '') {
-            searchButton.prop('disabled', true);
+        if (keywordBtn.value.trim() === '') {
+            searchButton.disabled = true;
         }
+
+        // 폼 제출 시 입력 필드 비우기
+        searchForm.addEventListener('submit', (e) => {
+            setTimeout(() => {
+                keywordBtn.value = '';
+            }, 0);
+        });
     });
 
 
