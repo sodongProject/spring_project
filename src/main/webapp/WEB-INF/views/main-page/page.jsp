@@ -5,7 +5,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>
     <%@ include file="../include/static-head.jsp" %>
-    <link href="/assets/css/" rel="stylesheet" />
+    <link href="/assets/css/common.css" rel="stylesheet" />
+    <link href="/assets/css/reset.css" rel="stylesheet" />
     <style>
       #page {
         width: 1200px;
@@ -17,10 +18,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         height: 100vh;
       }
 
-      section.third-page {
-        height: 100vh;
-      }
-
       /* 타이틀 */
       h1.main-title {
         font-family: Montserrat;
@@ -28,6 +25,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         font-weight: 700;
         letter-spacing: -0.015em;
         text-align: center;
+        margin-top: 50px;
       }
 
       h1.main-title img {
@@ -89,15 +87,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         margin-top: 30px;
       }
 
-      button {
-        border: 1px solid #000;
-      }
-
       /* 통계 카드 스타일 */
       .stats-box {
         display: flex;
         justify-content: space-between;
-        margin-top: 150px;
+        margin-top: 80px;
       }
 
       .stats-item {
@@ -142,7 +136,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-top: 150px;
+        margin-top: 100px;
       }
 
       .info-item {
@@ -178,6 +172,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </style>
   </head>
   <body>
+    <%@ include file="../include/header.jsp" %>
+
     <section id="page">
     <!-- 2번째 페이지 시작 -->
     <section class="second-page">
@@ -285,8 +281,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <a href="#">Read more →</a>
           </div>
         </div>
+
+
       </section>
       <!-- 3번째 페이지 끝 -->
+      <%@ include file="../include/footer.jsp" %>
     </section>
 
     <script>
@@ -295,5 +294,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         window.location.href = "/main-notice/list";
       };
     </script>
+
   </body>
 </html>
