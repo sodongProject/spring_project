@@ -3,13 +3,42 @@
 /* styles.css */
 
 
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#schedule-section {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+}
+
 #participation_points:invalid {
     color: red;
 }
 
 #open_modal_btn {
-    padding: 20px;
-    border: 1px solid black;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    background: #f2cb05;
+    color: #0d0d0d;
+    position: relative;
+    left: 900px;
+    font-weight: 700;
+    font-size: 20px;
+    -webkit-transition: .1s ease-in-out;
+    transition: .1s ease-in-out;
+}
+
+#open_modal_btn:active {
+    transform: scale(0.9);
+    -webkit-transition: .1s ease-in-out;
+    transition: .1s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
 #add_schedule_button {
@@ -242,6 +271,7 @@
     width: 80%;
     margin: 0 auto;
     padding: 20px;
+
 }
 
 .card-wrapper {
@@ -250,6 +280,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     overflow: hidden;
+    width: 320px;
 }
 
 .main-title-wrapper {
@@ -283,7 +314,8 @@
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    justify-content: space-between;
+    width: 1000px;
 }
 
 /*body {*/
@@ -495,40 +527,65 @@
     color: #fff !important;
     transform: scale(1.1); /* 활성화된 상태에서 크기 확대 */
 }
-#page-btn-box {
-    position: absolute;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-#page-btn {
 
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    position: relative;
-    display: flex;
-    width: 50%;
-    padding: 20px;
-}
-
-#page-btn .page-item {
-    width: 50%;
-}
-
-#page-btn .page-item .page-link {
-    color: black;
-    font-size: 20px;
-    font-weight: bolder;
-}
 
 
 
 
 #wrap {
-    width: 60%;
-    margin: 100px auto;
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.page-item {
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f2cb05;
+    color: #0d0d0d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+
+.page-item:hover {
+    transform: scale(1.1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+}
+
+.page-item:hover:active {
+    transform: scale(0.9);
+    -webkit-transition: .1s ease-in-out;
+    transition: .1s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+
+
+
+.prev {
+    transform: scaleX(-1);
+    padding: 15px;
+}
+
+.next {
+    padding: 15px;
+}
+
+.prev-btn {
+
+}
+
 
 

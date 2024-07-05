@@ -17,83 +17,86 @@
 
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link rel="stylesheet" href="/assets/css/schedules/schedules.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css'>
 </head>
 <body>
-<h1>스케줄 생성하기!</h1>
-<h1>${login.account}</h1>
-<button id="open_modal_btn">스케줄 생성하기</button>
+<div id="schedule-section">
+    <button id="open_modal_btn">스케줄 생성하기</button>
 
-<div id="schedule-modal" class="modal" data-clubNo="1">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <form>
-            <div id="club_no"  >
-                <input type="number" name="clubNo" value="1" disabled>
-            </div>
-            <div class="schedule_title">
-                <label>제목</label>
-                <input id="schedule_title" type="text" class="title" name="scheduleTitle" required>
-            </div>
-            <div class="schedule_content">
-                <label>내용</label>
-                <textarea id="schedule_content" class="content" name="scheduleContent" required></textarea>
-            </div>
-            <div class="schedule_at">
-                <label>모임 시간</label>
-                <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}" required>
-            </div>
-            <div class="participation_points">
-                <label>회비</label>
-                <input type="number" id="participation_points" name="participationPoints" min="0" required>
-            </div>
-            <button id="add_schedule_button" type="submit">등록</button>
-        </form>
+    <div id="schedule-modal" class="modal" data-clubNo="1">
+        <div class="modal-content">
+            <span class="close"><i class="fi fi-br-cross"></i></span>
+            <form>
+                <div id="club_no"  >
+                    <input type="number" name="clubNo" value="1" disabled>
+                </div>
+                <div class="schedule_title">
+                    <label>제목</label>
+                    <input id="schedule_title" type="text" class="title" name="scheduleTitle" required>
+                </div>
+                <div class="schedule_content">
+                    <label>내용</label>
+                    <textarea id="schedule_content" class="content" name="scheduleContent" required></textarea>
+                </div>
+                <div class="schedule_at">
+                    <label>모임 시간</label>
+                    <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}" required>
+                </div>
+                <div class="participation_points">
+                    <label>회비</label>
+                    <input type="number" id="participation_points" name="participationPoints" required>
+                </div>
+                <button id="add_schedule_button" type="submit">등록</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<div id="wrap">
-    <div class="card-container">
+    <div id="wrap">
+        <div class='page-item prev-btn'>
+            <i class="fi fi-sr-play page-link prev" data-pno="1"></i>
+        </div>
+        <div class="card-container">
 
+        </div>
+        <div class='page-item'>
+            <i class="fi fi-sr-play page-link next" data-end="1"></i>
+        </div>
     </div>
-</div>
 
-<div id="page-btn-box">
-    <ul id="page-btn" class="paginations">
+    <div id="register-modal">
+        <div class="register-modal-content">
+            <h1 class="register-content">???에 참여하시겠습니까?</h1>
+            <p class="participation_point">참가비 : ???</p>
+            <div class="register-btn">
+                <button class="accept-btn">참여</button>
+                <button class="refuse-btn">취소</button>
+            </div>
+        </div>
+    </div>
 
-    </ul>
-</div>
+    <div id="detail-modal">
+        <div class="detail-modal-content">
 
-<div id="register-modal">
-    <div class="register-modal-content">
-        <h1 class="register-content">???에 참여하시겠습니까?</h1>
-        <p class="participation_point">참가비 : ???</p>
-        <div class="register-btn">
-            <button class="accept-btn">참여</button>
-            <button class="refuse-btn">취소</button>
+        </div>
+    </div>
+
+    <div id="register-list-modal">
+        <div class="register-list-modal-content">
+            <div class="application-user-info">
+                <div class="user-info">
+                    <span class="user-name">신청인 : 유저 이름</span>
+                    <span class="user-temperature">유저 온도 : 36.5</span>
+                </div>
+                <div class="register-list-btn">
+                    <button class="accept-btn">수락</button>
+                    <button class="refuse-btn">거절</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div id="detail-modal">
-    <div class="detail-modal-content">
-
-    </div>
-</div>
-
-<div id="register-list-modal">
-    <div class="register-list-modal-content">
-        <div class="application-user-info">
-            <div class="user-info">
-                <span class="user-name">신청인 : 유저 이름</span>
-                <span class="user-temperature">유저 온도 : 36.5</span>
-            </div>
-            <div class="register-list-btn">
-                <button class="accept-btn">수락</button>
-                <button class="refuse-btn">거절</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     // Modal 관련 JavaScript
