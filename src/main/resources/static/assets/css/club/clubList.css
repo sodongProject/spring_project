@@ -454,7 +454,7 @@ button {
     color: gray;
 }
 
-.fa-times {
+.del-fa {
     position: absolute;
     right: 30px;
     top: 20px;

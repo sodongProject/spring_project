@@ -48,7 +48,7 @@ public class ClubController {
         List<ClubListResponseDto> clubList = clubService.findList(search, account);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
 
-        clubList.forEach(c -> System.out.println(c.getClubProfile()));
+//        clubList.forEach(c -> System.out.println(c.getClubProfile()));
 
         if (account != null) {
             // 사용자 클럽 정보 추가
@@ -114,17 +114,11 @@ public class ClubController {
     public String detail(@RequestParam("bno") long bno, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
         ClubDetailResponseDto club = clubService.detail(bno, account);
-        log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
+//        log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
         model.addAttribute("club", club);
 
-        ClubAuth clubLoggedInUserAuth = LoginUtil.getClubLoggedInUserAuth(session);
-        log.info("너의 권한이 뭐야? {} ", clubLoggedInUserAuth);
 
-        if (clubLoggedInUserAuth == ClubAuth.MEMBER || clubLoggedInUserAuth == ClubAuth.ADMIN) {
-            return "club/detail";
-        }
-
-        return "club/description";
+        return "club/detail";
     }
 
     // 5.5 상세조회 요청
@@ -133,13 +127,6 @@ public class ClubController {
         LoginUserInfoDto loggedInUser = LoginUtil.getLoggedInUser(session);
         ClubDescriptionResponseDto club = clubService.description(clubNo);
         model.addAttribute("club", club);
-
-        ClubAuth clubLoggedInUserAuth = LoginUtil.getClubLoggedInUserAuth(session);
-        log.info("너의 권한이 뭐야? {} ", clubLoggedInUserAuth);
-
-        if (clubLoggedInUserAuth == ClubAuth.MEMBER || clubLoggedInUserAuth == ClubAuth.ADMIN) {
-            return "club/detail";
-        }
 
         return "club/description";
     }
@@ -206,4 +193,5 @@ public class ClubController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to deny user");
         }
     }
+
 }

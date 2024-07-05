@@ -59,7 +59,7 @@
                         <i class='bx bxs-moon'></i>
                         <c:if test="${login.auth == 'ADMIN' || clubLogin.account == b.account}">
                             <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
-                                <i class="fas fa-times"></i>
+                                <i class="fas fa-times del-fa"></i>
                             </button>
                         </c:if>
 
@@ -194,7 +194,12 @@
 
         if (e.target.matches('.detail-btn')) {
             const bno = e.target.closest('.container').dataset.bno;
-            window.location.href = '/club/description?bno=' + bno;
+            const clubAuth = e.target.closest('.container').dataset.clubAuth;
+            if (clubAuth !== 'APPROVED'){
+                window.location.href = '/club/description?bno=' + bno;
+            } else {
+                window.location.href = '/club/detail?bno=' + bno;
+            }
         }
 
         if (e.target.matches('.btn') || e.target.closest('.bx') || e.target.closest('.image') || e.target.closest('img')) {
