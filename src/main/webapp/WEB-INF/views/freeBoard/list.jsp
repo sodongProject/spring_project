@@ -6,7 +6,6 @@
     <head>
       <%@ include file="../include/static-head.jsp" %>
 
-      <link rel="stylesheet" href="/assets/css/main.css">
       <link rel="stylesheet" href="/assets/css/freeBoard/list.css">
     </head>
 
@@ -15,7 +14,7 @@
         <%@ include file="../include/header.jsp" %>
 
         <div class="main-title-wrapper">
-          <h1 class="main-title">소동 게시판</h1>
+          <!-- <h1 class="main-title">소동 게시판</h1> -->
           <button class="add-btn">New Post!</button>
         </div>
 
@@ -24,15 +23,13 @@
           <c:forEach var="b" items="${bList}">
             <div class="card-wrapper">
               <section class="card">
-                <div class="card-title-wrapper">
 
-                <h2 class="card-bo">${b.clubNo}</h2>
+                <!-- sns 상단부분(계정, 시간) -->
+                <div class="card-info">
 
+                 <div class="card-account">
                   <h3 class="card-account">${b.account}</h3>
-
-                  <h3 class="card-boardNo">${b.boardNo}</h3>
-
-                  <img src="${b.boardImg}" class="card-boardImg">
+                </div>
 
                   <div class="time-view-wrapper">
                     <div class="time">
@@ -40,18 +37,28 @@
                       ${b.date}
                    </div>
                   </div>
-
                 </div>
 
+
+
+                <!-- 카드 콘텐츠(이미지, 내용) -->
                 <div class="card-content">
-                  ${b.content}
+                  <img src="${b.boardImg}" class="card-boardImg">
+                  <div class="snsContent">
+                    ${b.content}
+                  </div>
                 </div>
+
               </section>
-              <div class="card-btn-group">
+
+
+              <!-- 삭제버튼 -->
+              <div class="card-btn">
                 <button class="del-btn">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
+
             </div>
           </c:forEach>
 

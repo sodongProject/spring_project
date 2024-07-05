@@ -16,6 +16,15 @@
             width: 100%;
             max-width: 400px;
         }
+
+        /* 사진 업로드 */
+        .container .form-group .sns-box{
+            width:700px;
+            height: 700px;
+            overflow: hidden;
+        }
+
+
         .form-group {
             margin-bottom: 20px;
         }

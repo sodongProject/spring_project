@@ -16,13 +16,12 @@
     <div class="container">
         <%@ include file="../include/header.jsp" %>
         <form action="/freeBoard/write" method="post" enctype="multipart/form-data">
-
+            <label for="photo">Upload Photo</label>
             <div class="form-group SnsProfile">
             <div class="sns-box">
              <img src="/assets/img/image-add.png" alt="프로필 썸네일">
             </div>
-                <label for="photo">Upload Photo</label>
-                <input type="file" id="photo" name="snsPhoto" accept="image/*" multiple>
+                <input type="file" id="photo" name="boardImg" accept="image/*" style="display: none;">
             </div>
 
 

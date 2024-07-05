@@ -1,12 +1,25 @@
+
+.wrap{
+        background-color: var(--color-wh);
+        padding: 0 calc((100% - 1200px)/2);
+        align-items: flex-end;
+        padding-top: 180px;
+
+}
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
-
+    margin: 0 auto;
+    max-width: 1200px;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 
 .main-title-wrapper {
     position: relative;
+    margin: 100px;
 }
 
 .main-title-wrapper h1 {
@@ -14,13 +27,13 @@
     font-weight: 700;
     letter-spacing: 10px;
     text-align: center;
-    margin-bottom: 70px;
+
 }
 
 .main-title-wrapper .add-btn {
     width: fit-content;
     padding: 10px 25px;
-    background: rgb(216, 112, 147);
+    background: #f2CB05;
     border-radius: 15px;
     color: #fff;
     font-size: 18px;
@@ -28,41 +41,39 @@
     right: 120px;
     top: 0;
     cursor: pointer;
-}
-.main-title-wrapper .add-btn:hover {
-    background: rgba(216, 112, 147, 0.7);
+    z-index: 100;
 }
 
+/* 버튼 등록하기 */
+.main-title-wrapper .add-btn:hover {
+    background: #F2E205;
+
+
+/* 게시물 */
 .card-container .card-wrapper {
     position: relative;
-    width: 30.3%;
-    margin-right: 3%;
-    height: 400px;
-    margin-bottom: 100px;
+    width: 100%;
+    /* margin-bottom: 0px; */
     cursor: pointer;
     transition: 0.5s;
 }
 
 .card-container .card {
-    height: 370px;
+    height: 700px;
     border-radius: 20px;
-    box-shadow: 0 15px 0 #999;
     overflow: hidden;
     transition: 0.5s;
     border: 2px solid transparent;
+    flex-direction: column;
 }
 
-.card-container .card:last-child {
-    margin-right: 0;
-}
-
-.card-container .card .card-title-wrapper {
+.card-container .card .card-info {
     color: #333;
 }
 
-.card-container .card-wrapper .card-title-wrapper .card-title {
-    font-size: 28px;
-    font-weight: 700;
+/* sns Account */
+
+.card-container .card-wrapper .card-info .card-title {
     padding: 15px;
     text-align: center;
     margin: 0 auto;
@@ -72,14 +83,14 @@
 
 }
 
-.card-container .card .card-title-wrapper .time-view-wrapper {
+.card-container .card .card-info .time-view-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
 }
 
-.card-container .card .card-title-wrapper .time-view-wrapper>div {
+.card-container .card .card-info .time-view-wrapper>div {
     width: fit-content;
     border-radius: 10px;
     background: #fff;
@@ -87,19 +98,30 @@
     margin-bottom: 10px;
 }
 
+/* 이미지(정사각형 모양으로) -- 🥲*/
+.card .card-content .card-boardImg{
+    width:300px;
+    overflow: hidden;
+    z-index: 199;
+    background-color:aqua;
+}
 
-.card-container .card .card-title-wrapper .time-view-wrapper i {
+/* 작성시간 */
+.card-container .card .card-info .time-view-wrapper i {
     margin-right: 4px;
 }
 
+/* 콘텐츠 내용 */
 .card-container .card .card-content {
     background-color: #fff;
-    height: 100%;
+    width: 100%;
     text-align: justify;
     font-size: 18px;
     line-height: 1.4;
-    padding: 40px 25px;
+    padding: 30px;
 }
+
+
 
 
 #card-down.card-wrapper {
@@ -113,8 +135,11 @@
     border: 2px solid;
 }
 
+
+
+
 /* 버튼 */
-.card-container .card-btn-group {
+/* .card-container .card-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,18 +149,18 @@
     z-index: 100;
 }
 
-.card-container .card-btn-group .del-btn {
+.card-container .card-btn .del-btn {
     outline: none;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #f00;
+    background: #f2cb05;
     opacity: 0;
     color: #fff;
     font-weight: 700;
     font-size: 25px;
     cursor: pointer;
-}
+} */
 
 
 /* 모달 스타일 */
@@ -209,4 +234,4 @@
 .pagination-custom li:hover a {
     background: #333 !important;
     color: #fff !important;
-}
+}}

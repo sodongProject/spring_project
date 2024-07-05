@@ -31,16 +31,18 @@ public class FreeBoardService {
                         .map(FreeBoardListResponseDto::new)
                         .collect(Collectors.toList());
 
-        System.out.println("\n\n\n\n");
-        dtoList.forEach(System.out::println);
-        System.out.println("\n\n\n\n");
+//        System.out.println("\n\n\n\n");
+//        dtoList.forEach(System.out::println);
+//        System.out.println("\n\n\n\n");
+        //dtoList.forEach(dto -> log.info("DTO: {}", dto));
 
         return dtoList;
     }
 
     // 등록 중간 처리
-    public boolean insert(FreeBoardWriteRequestDto dto) {
+    public boolean insert(FreeBoardWriteRequestDto dto, String snsContentsPath) {
         FreeBoard b = dto.toEntity();
+        b.setBoardImg(snsContentsPath); //프로필 사진경로 엔터티 설정
 
         System.out.println("\n\n");
         System.out.println(b);

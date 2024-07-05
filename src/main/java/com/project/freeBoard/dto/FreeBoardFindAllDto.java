@@ -17,10 +17,10 @@ public class FreeBoardFindAllDto {
     private long clubCommunityNo; // 게시판 ID
     private String clubCommunityContent; // 내용
     private LocalDateTime clubCommunityCreatedAt; // 작성시간
-    private String clubCommunityImg; // 이미지
     private Boolean clubCommunityIsDelete; // 삭제여부
     private String account; // 유저ID
     private int clubNo; // 동호회ID
+    private String clubCommunityImage; //이미지
 
 
 }
