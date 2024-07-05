@@ -6,6 +6,7 @@ import com.project.club.common.Search;
 import com.project.club.dto.*;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
+import com.project.entity.ClubAuth;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
@@ -115,7 +116,15 @@ public class ClubController {
         ClubDetailResponseDto club = clubService.detail(bno, account);
         log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
         model.addAttribute("club", club);
-        return "club/detail";
+
+        ClubAuth clubLoggedInUserAuth = LoginUtil.getClubLoggedInUserAuth(session);
+        log.info("너의 권한이 뭐야? {} ", clubLoggedInUserAuth);
+
+        if (clubLoggedInUserAuth == ClubAuth.MEMBER || clubLoggedInUserAuth == ClubAuth.ADMIN) {
+            return "club/detail";
+        }
+
+        return "club/description";
     }
 
     // 5.5 상세조회 요청
@@ -125,9 +134,13 @@ public class ClubController {
         ClubDescriptionResponseDto club = clubService.description(clubNo);
         model.addAttribute("club", club);
 
-//        if (loggedInUser != null) {
-//            return "club/detail";
-//        }
+        ClubAuth clubLoggedInUserAuth = LoginUtil.getClubLoggedInUserAuth(session);
+        log.info("너의 권한이 뭐야? {} ", clubLoggedInUserAuth);
+
+        if (clubLoggedInUserAuth == ClubAuth.MEMBER || clubLoggedInUserAuth == ClubAuth.ADMIN) {
+            return "club/detail";
+        }
+
         return "club/description";
     }
 

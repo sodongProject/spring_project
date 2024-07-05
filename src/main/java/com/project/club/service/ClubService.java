@@ -72,7 +72,8 @@ public class ClubService {
     // 1-2 디테일 정보와 권한 가져오는 중간처리
     public ClubDescriptionResponseDto description(long clubNo) {
         Club club = clubMapper.findOne(clubNo);
-        return new ClubDescriptionResponseDto(club);
+        String userName = clubMapper.findUserName(club.getClubNo()); // 사용자 이름 조회
+        return new ClubDescriptionResponseDto(club, userName);
 
     }
 
