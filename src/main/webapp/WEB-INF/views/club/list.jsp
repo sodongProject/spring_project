@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/club/clubList.css">
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -28,7 +29,7 @@
     <div class="top-section1">
         <!-- 검색창 영역 -->
         <div class="search">
-            <form action="/club/list" method="get">
+            <form action="/club/list" method="get" id="search-form">
                 <select class="form-select" name="type" id="search-type">
                     <option value="total" selected>전체</option>
                     <option value="club_name">제목</option>
@@ -36,7 +37,7 @@
                     <option value="account">작성자</option>
                     <option value="cd">제목+내용</option>
                 </select>
-                <input type="text" class="form-control" name="keyword" value="${s.keyword}">
+                <input type="text" class="form-control" name="keyword">
                 <button class="btn-primary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
@@ -61,6 +62,16 @@
                                 <i class="fas fa-times"></i>
                             </button>
                         </c:if>
+
+                        <c:if test="${b.clubCompetition == true}">
+                            <i class="fa-solid fa-fire competition"><p style="display: inline-block">대회</p></i>
+                        </c:if>
+                        <c:if test="${b.clubCompetition == false}">
+                            <i class="fa-solid fa-fire notCompetition"></i>
+                        </c:if>
+
+
+
                     </div>
                     <div class="middle-section">
                         <div class="profile-box">
@@ -323,22 +334,30 @@
         });
     });
 
-    $(document).ready(function() {
-        var searchButton = $('.btn-primary[type="submit"]');
+    document.addEventListener('DOMContentLoaded', function () {
+        let searchButton = document.querySelector('.btn-primary[type="submit"]');
+        let keywordBtn = document.querySelector('.form-control[name="keyword"]');
+        let searchForm = document.getElementById('search-form');
 
-        $('.form-control[name="keyword"]').on('input', function() {
-            if ($(this).val().trim() === '') {
-                searchButton.prop('disabled', true);
+        keywordBtn.addEventListener('input', () => {
+            if (keywordBtn.value.trim() === '') {
+                searchButton.disabled = true;
             } else {
-                searchButton.prop('disabled', false);
+                searchButton.disabled = false;
             }
         });
 
-        if ($('.form-control[name="keyword"]').val().trim() === '') {
-            searchButton.prop('disabled', true);
+        if (keywordBtn.value.trim() === '') {
+            searchButton.disabled = true;
         }
-    });
 
+        // 폼 제출 시 입력 필드 비우기
+        searchForm.addEventListener('submit', (e) => {
+            setTimeout(() => {
+                keywordBtn.value = '';
+            }, 0);
+        });
+    });
 
 
 </script>

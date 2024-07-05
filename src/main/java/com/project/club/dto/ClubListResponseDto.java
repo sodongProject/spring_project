@@ -22,6 +22,7 @@ public class ClubListResponseDto {
     private String account;
     private String userAuthStatus; // 사용자 권한 상태 추가
     private String clubProfile; // 이미지 경로를 문자열로 저장
+    private String clubCompetition;
 
     public ClubListResponseDto(ClubFindAllDto C, String userAuthStatus){
         this.clubNo = C.getClubNo();
@@ -29,6 +30,7 @@ public class ClubListResponseDto {
         this.shortContent = makeShortContent(C.getClubDescription());
         this.account = C.getAccount();
         this.clubProfile = C.getClubProfile();
+        this.clubCompetition = String.valueOf(C.getClubCompetition());
 
         // 게시물 등록시간
         LocalDateTime regTime = C.getClubCreatedAt();
