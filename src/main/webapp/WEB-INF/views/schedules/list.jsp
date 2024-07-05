@@ -1,66 +1,4 @@
-<%--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 
-<%--<!DOCTYPE html>--%>
-<%--<html lang="ko">--%>
-<%--<head>--%>
-<%--    <meta charset="UTF-8">--%>
-<%--    <title>Title</title>--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/schedules/schedules.css">--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<h1>스케줄 생성하기!</h1>--%>
-<%--<div class="schedule_modal">--%>
-<%--    <form action="/schedules/write" method="POST">--%>
-<%--        <div class="schedule_title">--%>
-<%--            <label>제목</label>--%>
-<%--            <input type="text" class="title" name="scheduleTitle">--%>
-<%--        </div>--%>
-<%--        <div class="schedule_content">--%>
-<%--            <label>내용</label>--%>
-<%--            <textarea type="text" class="title" name="scheduleContent">--%>
-<%--            </textarea>--%>
-<%--        </div>--%>
-<%--        <div class="schedule_image">--%>
-<%--            <div class="schedule_image_box">--%>
-<%--                <img src="#" alt="/">--%>
-<%--            </div>--%>
-<%--            <label>이미지 추가</label>--%>
-<%--            <input type="file" id="schedule_image" name="schedule_image" style="display: none">--%>
-<%--        </div>--%>
-<%--        <div class="schedule_at">--%>
-<%--            <label>모임 시간</label>--%>
-<%--            <input type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}">--%>
-<%--        </div>--%>
-
-<%--        <button type="submit">등록</button>--%>
-<%--    </form>--%>
-<%--</div>--%>
-
-<%--<script>--%>
-<%--    const $profile = document.querySelector('.schedule_image');--%>
-
-<%--    const $fileInput = document.getElementById('schedule_image');--%>
-
-<%--    $profile.addEventListener('click', e => {--%>
-<%--        $fileInput.click();--%>
-<%--    });--%>
-
-<%--    $fileInput.addEventListener('change', e => {--%>
-<%--        const fileData = $fileInput.files[0];--%>
-<%--        const reader = new FileReader();--%>
-
-<%--        reader.readAsDataURL(fileData);--%>
-
-<%--        reader.onloadend = e=> {--%>
-<%--            const $img = document.querySelector('.schedule_image_box img');--%>
-<%--            $img.src = reader.result;--%>
-<%--        }--%>
-<%--    })--%>
-<%--</script>--%>
-
-<%--</body>--%>
-<%--</html>--%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -70,14 +8,15 @@
 <head>
     <meta charset="UTF-8">
     <title>스케줄 생성하기</title>
-    <link rel="stylesheet" href="/assets/css/schedules/schedules.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <%@ include file="../include/static-head.jsp" %>
+<%--    <link rel="preconnect" href="https://fonts.googleapis.com">--%>
+    <%--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--%>
+    <%--    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">--%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">--%>
 
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" href="/assets/css/schedules/schedules.css">
 </head>
 <body>
 <h1>스케줄 생성하기!</h1>
@@ -105,7 +44,7 @@
             </div>
             <div class="participation_points">
                 <label>회비</label>
-                <input type="text" id="participation_points" name="participationPoints" pattern="[0-9]+" required>
+                <input type="number" id="participation_points" name="participationPoints" min="0" required>
             </div>
             <button id="add_schedule_button" type="submit">등록</button>
         </form>
@@ -119,9 +58,9 @@
 </div>
 
 <div id="page-btn-box">
-    <div id="page-btn" class="paginations">
+    <ul id="page-btn" class="paginations">
 
-    </div>
+    </ul>
 </div>
 
 <div id="register-modal">
@@ -142,13 +81,13 @@
 </div>
 
 <div id="register-list-modal">
-    <div class="register-modal-content">
+    <div class="register-list-modal-content">
         <div class="application-user-info">
             <div class="user-info">
                 <span class="user-name">신청인 : 유저 이름</span>
                 <span class="user-temperature">유저 온도 : 36.5</span>
             </div>
-            <div class="register-btn">
+            <div class="register-list-btn">
                 <button class="accept-btn">수락</button>
                 <button class="refuse-btn">거절</button>
             </div>

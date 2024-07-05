@@ -36,7 +36,7 @@ function deleteScheduleBtnHandler() {
        // 페이지 새로고침 막기
        e.preventDefault();
 
-       console.log("클릭!!!")
+
 
        const $btn = document.querySelectorAll(".del-btn i");
 
@@ -185,15 +185,12 @@ export async function fetchScheduleList(pageNo = 1) {
     const clubNo = document.getElementById('club_no').firstElementChild.value;
 
     const scheduleResponse = await callApi(`${BASE_URL}/${clubNo}/page/${pageNo}`);
-    console.log(scheduleResponse);
+
     const scheduleList = scheduleResponse.scheduleList;
     const userInfoList = scheduleResponse.scheduleLoginUserInfoList;
-    console.log(userInfoList);
-    console.log("s" + scheduleList);
+
     let schedule = '';
 
-
-    console.log(scheduleResponse);
 
     if (scheduleList !== null && scheduleList.length > 0) {
         for (let i = 3*pageNo - 3; i < 3*(pageNo) && i < scheduleList.length; i++) {
@@ -205,7 +202,7 @@ export async function fetchScheduleList(pageNo = 1) {
                 for(const user of userInfoList) {
                     if(user.scheduleNo === scheduleList[i].scheduleNo && user.userScheduleRole === 'ADMIN') {
                         schedule += `<button class="del-btn" data-href="#">
-                                <i class="fas fa-times"></i>
+                                <i class="fas fa-times">X</i>
                             </button>`;
                     }
                 }
@@ -271,10 +268,10 @@ export async function fetchScheduleList(pageNo = 1) {
 function detailEventHandler() {
     const detailButtons = document.querySelectorAll('.btnCenter .detail-btn');
     detailButtons.forEach(button => {
-        console.log('Adding event listener to button:', button); // 이벤트 리스너 추가 확인
+
         button.addEventListener('click', e => {
             e.preventDefault();
-            console.log('Button clicked:', e.target.dataset.sno); // 버튼 클릭 확인
+
             document.getElementById('detail-modal').style.display='flex';
         });
     });
