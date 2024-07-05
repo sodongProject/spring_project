@@ -4,13 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+   <%@ include file="../include/static-head.jsp" %>
     <link rel="stylesheet" href="/assets/css/login/signIn.css">
 </head>
 <body>
-    
+    <%@ include file="../include/header.jsp" %>
     <div class="container">
         <!-- Heading -->
         <h1>SIGN IN</h1>

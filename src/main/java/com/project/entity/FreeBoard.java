@@ -24,7 +24,6 @@ public class FreeBoard {
     private int viewCount; // 조회수
     private Boolean boardDelete; // 삭제여부
     @ManyToOne
-    //@JoinColumn(name = "account", referencedColumnName = "account")
     private String account; // 유저ID
     private int clubNo; // 동호회ID
 
@@ -38,6 +37,4 @@ public class FreeBoard {
         this.account = rs.getString("account");
         this.clubNo = rs.getInt("club_no");
     }
-
-
 }

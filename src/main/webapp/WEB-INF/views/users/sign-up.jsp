@@ -3,13 +3,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <%@ include file="../include/static-head.jsp" %>
     <link rel="stylesheet" href="/assets/css/login/signUp.css">
 </head>
 <body>
-
+    <%@ include file="../include/header.jsp" %>
     <div class="container">
         <!-- Heading -->
         <h1>SIGN UP</h1>

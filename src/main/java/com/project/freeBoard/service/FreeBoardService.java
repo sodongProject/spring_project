@@ -1,6 +1,7 @@
 package com.project.freeBoard.service;
 
 import com.project.entity.FreeBoard;
+import com.project.freeBoard.dto.FreeBoardFindAllDto;
 import com.project.freeBoard.dto.FreeBoardListResponseDto;
 import com.project.freeBoard.dto.FreeBoardWriteRequestDto;
 import com.project.freeBoard.mapper.FreeBoardMapper;
@@ -22,19 +23,28 @@ public class FreeBoardService {
 
     // 목록 조회 요청 중간 처리
     public List<FreeBoardListResponseDto> findList() {
-        List<FreeBoard> boardList = freeBoardMapper.findAll();
+        List<FreeBoardFindAllDto> boardList = freeBoardMapper.findAll();
 
-        List<FreeBoardListResponseDto> dtoList = boardList.stream()
-                .map(b -> new FreeBoardListResponseDto(b))
+        List<FreeBoardListResponseDto> dtoList =
+                boardList
+                        .stream()
+                        .map(FreeBoardListResponseDto::new)
                         .collect(Collectors.toList());
+
+        System.out.println("\n\n\n\n");
+        dtoList.forEach(System.out::println);
+        System.out.println("\n\n\n\n");
+
         return dtoList;
     }
 
     // 등록 중간 처리
     public boolean insert(FreeBoardWriteRequestDto dto) {
         FreeBoard b = dto.toEntity();
-        String account = b.getAccount();
-        log.info("어카운트읽어오냐? {}" , account);
+
+        System.out.println("\n\n");
+        System.out.println(b);
+
         return freeBoardMapper.save(b);
     }
 
