@@ -28,6 +28,10 @@ public class MainPageController {
     private final MainNoticeBoardService noticeService;
     private final ClubRankingService rankingService;
 
+
+//    @GetMapping("/")
+//    public String index
+
     // 1. 메인페이지 조회 요청 (/board/list : GET)
     @GetMapping("/page")
     public String page(Search page, Model model, HttpSession session) {
