@@ -56,16 +56,19 @@ public class ScheduleService {
 
     public void deleteSchedule(Long scheduleNo) {
 
+        Schedules targetSchedule = scheduleMapper.findOne(scheduleNo);
         // 삭제가 아니라 false를 true로 바꾸기
         scheduleMapper.delete(scheduleNo);
 
-        Schedules targetSchedule = scheduleMapper.findOne(scheduleNo);
+        System.out.println("targetSchedule = " + targetSchedule);
 
         Double participationPoint = targetSchedule.getParticipationPoints();
 
         Double totalPointInSchedule = targetSchedule.getTotalPoint();
 
         List<String> refundUsers = scheduleMapper.refundUserAccount(scheduleNo);
+
+        if(refundUsers == null) return;
 
         if(totalPointInSchedule == (participationPoint * refundUsers.size())) {
             scheduleMapper.removeScheduleTotalPoint(scheduleNo, totalPointInSchedule);

@@ -9,14 +9,19 @@
     <!-- 등록 -->
     <insert id="save">
     INSERT INTO clubs_community_boards
-    (club_no, club_community_title, club_community_content, account, club_community_image)
+    (club_no, club_community_content, account, club_community_image)
     VALUES
-    (#{clubNo}, #{boardTitle}, #{content}, #{account}, #{boardImg} )
+    (#{clubNo}, #{content}, #{account}, #{boardImg} )
     </insert>
 
     <!-- 목록 조회 -->
-    <select id="findAll" resultType="com.project.entity.FreeBoard">
-        SELECT * FROM clubs_community_boards
+    <select id="findAll" resultType="com.project.freeBoard.dto.FreeBoardFindAllDto">
+        SELECT
+           CC.*
+        FROM clubs_community_boards CC
+        JOIN users_clubs C
+        ON C.account = CC.account
+<!--        WHERE CC.club_community_is_deleted = 0-->
     </select>
 
     <!-- 상세 조회 -->

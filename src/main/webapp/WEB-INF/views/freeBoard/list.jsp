@@ -4,27 +4,15 @@
     <html>
 
     <head>
-      <meta charset="UTF-8">
-      <title>Insert title here</title>
-
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
-
-      <!-- reset -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
-      <!-- fontawesome css: https://fontawesome.com -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+      <%@ include file="../include/static-head.jsp" %>
 
       <link rel="stylesheet" href="/assets/css/main.css">
       <link rel="stylesheet" href="/assets/css/freeBoard/list.css">
-
     </head>
 
     <body>
-
       <div id="wrap">
+        <%@ include file="../include/header.jsp" %>
 
         <div class="main-title-wrapper">
           <h1 class="main-title">소동 게시판</h1>
@@ -35,26 +23,32 @@
 
           <c:forEach var="b" items="${bList}">
             <div class="card-wrapper">
-              <section class="card" data-bno="${b.bno}">
+              <section class="card">
                 <div class="card-title-wrapper">
-                  <h2 class="card-title">${b.shortTitle}</h2>
+
+                <h2 class="card-bo">${b.clubNo}</h2>
+
+                  <h3 class="card-account">${b.account}</h3>
+
+                  <h3 class="card-boardNo">${b.boardNo}</h3>
+
+                  <img src="${b.boardImg}" class="card-boardImg">
+
                   <div class="time-view-wrapper">
                     <div class="time">
                       <i class="far fa-clock"></i>
                       ${b.date}
-                    </div>
-                    <div class="view">
-                      <i class="fas fa-eye"></i>
-                      <span class="view-count">${b.view}</span>
-                    </div>
+                   </div>
                   </div>
+
                 </div>
+
                 <div class="card-content">
-                  ${b.shortContent}
+                  ${b.content}
                 </div>
               </section>
               <div class="card-btn-group">
-                <button class="del-btn" data-href="/freeBoard/delete?bno=${b.bno}">
+                <button class="del-btn">
                   <i class="fas fa-times"></i>
                 </button>
               </div>

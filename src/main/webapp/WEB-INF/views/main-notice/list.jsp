@@ -5,6 +5,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ko">
   <head>
     <%@ include file="../include/static-head.jsp" %>
+    
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -25,6 +26,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       }
 
       .notice-board {
+        width: 1200px;
+        margin: 0 auto;
         background-color: white;
         padding: 20px;
         border-radius: 8px;

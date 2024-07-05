@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class FreeBoardDto {
 
         private int boardNo; // 게시판 ID
-        private String boardTitle; // 제목
         private String content; // 내용
         private String boardImg; // 이미지
         private String account; // 작성자 (유저ID)

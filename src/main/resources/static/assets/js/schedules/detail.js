@@ -3,21 +3,19 @@ import { callApi } from "./api.js";
 let BASE_URL = 'http://localhost:8383/schedules/detail';
 
 detailModalContent();
-
+registerBtnHandler();
 // openRegisterModal();
 // registerBtnHandler();
 //
 async function applicationUserList  () {
-    const $registerModalBtn = document.querySelector('.register-list');
-    $registerModalBtn.addEventListener('click', async e=>{
-        document.getElementById('register-list-modal').style.display='flex';
+
+    openRegisterModalHandler();
 
         const scheduleNo = document.getElementById("schedule_detail").dataset.sno;
         const cno = document.getElementById("schedule_detail").dataset.cno;
 
         const applicationUserListResponse = await callApi(`${BASE_URL}/${scheduleNo}/participationUsers`);
 
-        console.log("ㅂㅈㄷㅂㅈㄷㅂㅈㄷ", applicationUserListResponse);
         let tag = '';
         if(applicationUserListResponse.length > 0) {
             for (const user of applicationUserListResponse) {
@@ -27,7 +25,7 @@ async function applicationUserList  () {
                     <span class="user-name">신청인 : ${user.userName}</span>
                     <span class="user-temperature">유저 온도 : ${user.temperature}</span>
                 </div>
-                <div class="register-btn">
+                <div class="register-list-btn">
                     <button class="accept-btn">수락</button>
                     <button class="refuse-btn">거절</button>
                 </div>
@@ -37,16 +35,22 @@ async function applicationUserList  () {
             tag += `<h1>신청자가 없습니다.</h1>`
         }
 
-        const $userListContainer = document.querySelector('.register-modal-content');
+        const $userListContainer = document.querySelector('.register-list-modal-content');
 
         $userListContainer.innerHTML=tag;
-        console.log('tag추가는 되는듯?')
-    });
+
 }
+
+function openRegisterModalHandler() {
+    const $registerModalBtn = document.querySelector('.register-list');
+    $registerModalBtn.addEventListener('click', async e=>{
+        document.getElementById('register-list-modal').style.display='flex';
+});
+};
 
 
 function registerBtnHandler() {
-    document.querySelector(`.register-modal-content`).addEventListener('click', async e => {
+    document.querySelector(`.register-list-modal-content`).addEventListener('click', async e => {
         e.preventDefault();
 
         let isBtn = false;
@@ -78,10 +82,9 @@ function registerBtnHandler() {
             account: e.target.closest('.application-user-info').dataset.account,
         }
 
-        console.log(payload);
 
         await callApi(BASE_URL, 'POST', payload);
-        applicationUserList();
+        await applicationUserList();
 
     });
 }
@@ -103,11 +106,7 @@ function registerBtnHandler() {
 
             const scheduleDetailResponse = await callApi(`${BASE_URL}/${scheduleNo}`);
 
-            console.log("1111111111111111111", scheduleDetailResponse);
-
             const {loginUserInfoDto, schedule} = scheduleDetailResponse;
-
-            console.log(scheduleDetailResponse.loginUserInfoDto)
 
             let tag = '';
 

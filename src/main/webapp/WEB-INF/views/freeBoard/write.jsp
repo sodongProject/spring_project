@@ -4,17 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 글쓰기</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
-
-    <!-- reset -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <%@ include file="../include/static-head.jsp" %>
 
     <link rel="stylesheet" href="/assets/css/freeBoard/write.css">
 
@@ -24,12 +14,27 @@
 </head>
 <body>
     <div class="container">
-        <form action="/freeBoard/write" method="post">
-            <div class="form-group">
-                <label for="photo">Upload Photo</label>
-                <input type="file" id="photo" name="photo" accept="image/*">
+        <%@ include file="../include/header.jsp" %>
+        <form action="/freeBoard/write" method="post" enctype="multipart/form-data">
+
+            <div class="form-group SnsProfile">
+            <div class="sns-box">
+             <img src="/assets/img/image-add.png" alt="프로필 썸네일">
             </div>
+                <label for="photo">Upload Photo</label>
+                <input type="file" id="photo" name="snsPhoto" accept="image/*" multiple>
+            </div>
+
+
             <div class="form-group">
+                            <label for="account">Account</label>
+                            <input type="content" id="account" name="account">
+            </div>
+
+             <label for="clubNo">ClubNo</label>
+             <input type="content" id="clubNo" name="clubNo">
+
+             <div class="form-group">
                 <label for="content">Content (max 200 characters)</label>
                 <textarea id="content" name="content" rows="4" placeholder="Enter your content here..." maxlength="200"></textarea>
                 <div class="char-count" id="charCount">0 / 200</div>

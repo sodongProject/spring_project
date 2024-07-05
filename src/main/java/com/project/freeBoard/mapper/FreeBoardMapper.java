@@ -1,8 +1,8 @@
 package com.project.freeBoard.mapper;
 
 import com.project.entity.FreeBoard;
+import com.project.freeBoard.dto.FreeBoardFindAllDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public interface FreeBoardMapper {
 
     // 목록 조회
-    List<FreeBoard> findAll();
+    List<FreeBoardFindAllDto> findAll();
 
     // 상세 조회
     FreeBoard findOne(long boardNo);
