@@ -16,31 +16,34 @@
     <div class="container">
         <%@ include file="../include/header.jsp" %>
         <form action="/freeBoard/write" method="post" enctype="multipart/form-data">
-            <label for="photo">Upload Photo</label>
-            <div class="form-group SnsProfile">
-            <div class="sns-box">
-             <img src="/assets/img/image-add.png" alt="프로필 썸네일">
+            <div class="form-group">
+                <label for="photo">Upload Photo</label>
+                    <div class="form-group SnsProfile">
+                        <div class="sns-box">
+                            <img src="/assets/img/image-add.png" alt="프로필 썸네일">
+                        </div>
+                    <input type="file" id="photo" name="boardImg" accept="image/*" style="display: none;">
+                </div>
             </div>
-                <input type="file" id="photo" name="boardImg" accept="image/*" style="display: none;">
-            </div>
-
 
             <div class="form-group">
-                            <label for="account">Account</label>
-                            <input type="content" id="account" name="account">
+                <label for="account">Account</label>
+                <input type="content" id="account" name="account" value="${account}" readonly>
             </div>
 
+            <div class="form-group">
              <label for="clubNo">ClubNo</label>
-             <input type="content" id="clubNo" name="clubNo">
+             <input type="content" id="clubNo" name="clubNo" value="${b.clubNo}" readonly>
+            </div>
 
              <div class="form-group">
-                <label for="content">Content (max 200 characters)</label>
+                <label for="content">Content (max 100 characters)</label>
                 <textarea id="content" name="content" rows="4" placeholder="Enter your content here..." maxlength="200"></textarea>
                 <div class="char-count" id="charCount">0 / 200</div>
             </div>
             <div class="form-group">
             <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
-                <button type="submit">Post</button>
+            <button type="submit">Post</button>
             </div>
         </form>
     </div>

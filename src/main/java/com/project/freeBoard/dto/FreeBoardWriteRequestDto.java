@@ -18,7 +18,7 @@ public class FreeBoardWriteRequestDto {
 
     //html 폼태그 name 속성과 일치해야 함
     private String account;
-    @NotBlank(message = "오늘은 어떤 소동이 있었나요? (최대100자 이내)")
+    @NotBlank
     @Size(max=100)
     private String content;
     private String photo;
