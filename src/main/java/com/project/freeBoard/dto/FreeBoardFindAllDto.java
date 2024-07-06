@@ -2,7 +2,6 @@ package com.project.freeBoard.dto;
 
 import lombok.*;
 
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Setter
