@@ -6,7 +6,6 @@
     <head>
       <%@ include file="../include/static-head.jsp" %>
 
-      <link rel="stylesheet" href="/assets/css/main.css">
       <link rel="stylesheet" href="/assets/css/freeBoard/list.css">
     </head>
 
@@ -14,25 +13,23 @@
       <div id="wrap">
         <%@ include file="../include/header.jsp" %>
 
-        <div class="main-title-wrapper">
-          <h1 class="main-title">소동 게시판</h1>
-          <button class="add-btn">New Post!</button>
+        <div class="mainTop">
+          <img src="/assets/img/freeBoard/listTitle.png" alt="소동을 공유해요" class="mainTitle">
+          <button class="postBtn">New Post!</button>
         </div>
 
-        <div class="card-container">
+        <div class="snsContainer">
 
           <c:forEach var="b" items="${bList}">
             <div class="card-wrapper">
               <section class="card">
-                <div class="card-title-wrapper">
 
-                <h2 class="card-bo">${b.clubNo}</h2>
+                <!-- sns 상단부분(계정, 시간) -->
+                <div class="cardTop">
 
-                  <h3 class="card-account">${b.account}</h3>
-
-                  <h3 class="card-boardNo">${b.boardNo}</h3>
-
-                  <img src="${b.boardImg}" class="card-boardImg">
+                 <div class="account-wrapper">
+                  <h3 class="account">@${b.account}</h3>
+                </div>
 
                   <div class="time-view-wrapper">
                     <div class="time">
@@ -40,18 +37,41 @@
                       ${b.date}
                    </div>
                   </div>
-
                 </div>
 
-                <div class="card-content">
-                  ${b.content}
+
+
+                <!-- 카드 콘텐츠(이미지, 내용) -->
+                <div class="cardContent">
+                  <div class="cardImg-wrapper">
+                    <img src="${b.boardImg}" class="card-boardImg">
+                  </div>
+
+                  <div class="likeBtn-wrapper">
+                  <button id="like-btn">
+                    <!-- <i class="fa-solid fa-heart"></i> -->
+                    <!-- <span id="like-count">${bbb.likeCount}</span> -->
+                    <img src="/assets/img/freeBoard/heart1.png" alt="좋아요" class="fa-heart">
+                  </button>
                 </div>
+
+                  <div class="content">
+                    ${b.content}
+                  </div>
+                </div>
+
               </section>
-              <div class="card-btn-group">
-                <button class="del-btn">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
+
+
+              <!-- 삭제버튼 -->
+               <c:if test="${login.auth == 'ADMIN' || login.account == b.account }">
+                <div class="card-btn">
+                  <button class="del-btn" data-href="/freeBoard/delete?bno=${b.boardNo}">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </c:if>
+
             </div>
           </c:forEach>
 

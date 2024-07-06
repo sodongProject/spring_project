@@ -1,13 +1,12 @@
 package com.project.freeBoard.mapper;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.project.entity.FreeBoard;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +21,14 @@ public class FreeBoardDto {
         private int viewCount; // 조회수
         private Boolean boardDelete; // 삭제여부
 
+        public FreeBoardDto(FreeBoard freeBoard) {
+                this.boardNo = freeBoard.getClubNo();
+                this.content = freeBoard.getContent();
+                this.boardImg = freeBoard.getBoardImg();
+                this.account = freeBoard.getAccount();
+                this.clubNo = freeBoard.getClubNo();
+                this.regDateTime = freeBoard.getRegDateTime();
+                this.viewCount = freeBoard.getViewCount();
+                this.boardDelete = freeBoard.getBoardDelete();
+        }
 }
-
-
