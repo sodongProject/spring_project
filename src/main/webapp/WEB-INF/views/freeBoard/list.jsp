@@ -64,11 +64,13 @@
 
 
               <!-- 삭제버튼 -->
-              <div class="card-btn">
-                <button class="del-btn">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
+               <c:if test="${login.auth == 'ADMIN' || login.account == b.account }">
+                <div class="card-btn">
+                  <button class="del-btn" data-href="/freeBoard/delete?bno=${b.boardNo}">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </c:if>
 
             </div>
           </c:forEach>

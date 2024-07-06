@@ -1,8 +1,11 @@
 package com.project.freeBoard.controller;
 
+import com.project.club.dto.ClubLoginUserInfoDto;
+import com.project.entity.Auth;
 import com.project.freeBoard.dto.FreeBoardListResponseDto;
 import com.project.freeBoard.dto.FreeBoardWriteRequestDto;
 
+import com.project.freeBoard.mapper.FreeBoardDto;
 import com.project.freeBoard.service.FreeBoardService;
 import com.project.util.FileUtil;
 import com.project.util.LoginUtil;
@@ -28,7 +31,7 @@ public class FreeBoardController {
     private String rootPath;
 
     @GetMapping("/list")
-    public String list(Model model, HttpSession session){
+    public String list(Model model, HttpSession session) {
         System.out.println("/freeBoard/list GET");
 
         // 세션 체크 추가
@@ -53,20 +56,21 @@ public class FreeBoardController {
 
         return "freeBoard/list";
     }
+
     // 게시글 쓰기 화면 요청(/board/write : GET)
     @GetMapping("/write")
-    public String write(){
+    public String write() {
         System.out.println("/freeBoard/write GET");
         return "freeBoard/write";
     }
 
     // 게시글 등록 요청(/board/write : POST)
     @PostMapping("/write")
-    public String write(FreeBoardWriteRequestDto dto){
+    public String write(FreeBoardWriteRequestDto dto) {
         System.out.println("/freeBoard/write POST");
 
         // 게시글 내용
-        System.out.println("dto : "+ dto);
+        System.out.println("dto : " + dto);
         String account = dto.getAccount();
         log.info("account 있냐? {} ", account);
 
@@ -81,10 +85,40 @@ public class FreeBoardController {
     }
 
     // 게시글 삭제 (/freeBoard/delete : GET)
+    // 게시글 삭제 (/freeBoard/delete : GET)
     @GetMapping("/delete")
-    public String delete(int bno){
+    public String delete(@RequestParam("bno") int bno, HttpSession session) {
         System.out.println("/freeBoard/delete GET");
-        service.remove(bno);
+
+        // 세션 체크 추가
+        if (session == null || !LoginUtil.isLoggedIn(session)) {
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
+
+        // 클럽 멤버 여부 확인
+        if (!LoginUtil.isClubMember(session)) {
+            return "redirect:/freeBoard/list"; // 클럽 멤버가 아닌 경우 처리
+        }
+
+        // 현재 로그인된 사용자 정보 가져오기
+        String loggedInUserId = LoginUtil.getLoggedInUserAccount(session);
+
+        // 삭제할 게시글의 작성자 ID 가져오기
+        FreeBoardDto post = service.getPostByBno(bno);
+        String postWriterId = post.getAccount();
+
+        // 현재 로그인한 사용자가 게시글 작성자인지 확인
+        if (!loggedInUserId.equals(postWriterId)) {
+            return "redirect:/freeBoard/list"; // 작성자가 아닌 경우 목록 페이지로 리다이렉트
+        }
+
+        // 삭제 처리
+        boolean success = service.remove(bno);
+        if (!success) {
+            // 삭제 실패 시 처리할 내용 (예: 에러 페이지로 리다이렉트)
+            return "redirect:/error";
+        }
+
         return "redirect:/freeBoard/list";
     }
 }

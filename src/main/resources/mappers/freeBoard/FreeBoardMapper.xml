@@ -24,17 +24,17 @@
         ORDER BY CC.club_community_no DESC
     </select>
 
-    <!-- 상세 조회 -->
-<!--    <select id="findOne" parameterType="int" resultType="com.project.entity.FreeBoard">-->
-<!--        SELECT * FROM clubs_community_boards-->
-<!--        WHERE club_community_no = #{boardNo}-->
-<!--    </select>-->
+<!--    상세 조회 -->
+    <select id="findOne" parameterType="long" resultType="com.project.entity.FreeBoard">
+        SELECT * FROM clubs_community_boards
+        WHERE club_community_no = #{boardNo}
+    </select>
 
 
     <!-- 삭제 -->
     <delete id="delete">
         DELETE FROM clubs_community_boards
-        WHERE club_community_no = #{freeBoardNo}
+        WHERE club_community_no = #{boardNo}
     </delete>
 
     <!--  조회수  -->

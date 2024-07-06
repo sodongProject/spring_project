@@ -4,6 +4,7 @@ import com.project.entity.FreeBoard;
 import com.project.freeBoard.dto.FreeBoardFindAllDto;
 import com.project.freeBoard.dto.FreeBoardListResponseDto;
 import com.project.freeBoard.dto.FreeBoardWriteRequestDto;
+import com.project.freeBoard.mapper.FreeBoardDto;
 import com.project.freeBoard.mapper.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,14 @@ public class FreeBoardService {
         System.out.println(b);
 
         return freeBoardMapper.save(b);
+    }
+
+    public FreeBoardDto getPostByBno(int bno) {
+        FreeBoard freeBoard = freeBoardMapper.findOne(bno);
+        if (freeBoard == null) {
+            throw new IllegalArgumentException("Invalid post ID: " + bno);
+        }
+        return new FreeBoardDto(freeBoard);
     }
 
     // 삭제 중간 처리
