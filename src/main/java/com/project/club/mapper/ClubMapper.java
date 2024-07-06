@@ -4,6 +4,7 @@ import com.project.club.common.Search;
 import com.project.club.dto.ApplicantDto;
 import com.project.club.dto.ClubFindAllDto;
 import com.project.club.dto.ClubLoginUserInfoDto;
+import com.project.club.dto.ClubMemberInfoDto;
 import com.project.club.entity.Club;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -94,4 +95,8 @@ public interface ClubMapper {
                         @Param("account")String account,
                         @Param("role")String role,
                           @Param("status") String status) ;
+
+
+    // 동호회에 가입한 사람들 전체 조회
+    List<ClubMemberInfoDto> findClubMembers(@Param("clubNo") long clubNo);
 }

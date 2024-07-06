@@ -114,9 +114,9 @@ public class ClubController {
     public String detail(@RequestParam("bno") long bno, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
         ClubDetailResponseDto club = clubService.detail(bno, account);
-//        log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
+        log.info("club : {}", club.getUserAuthStatus());
+        log.info("들어온 사람의 account 뭐야 {},", club.getAccount());
         model.addAttribute("club", club);
-
 
         return "club/detail";
     }
@@ -200,16 +200,28 @@ public class ClubController {
     public ResponseEntity<Map<String, Object>> cancelled(@RequestParam("clubNo") Long clubNo, HttpSession session) {
         String account = LoginUtil.getLoggedInUserAccount(session);
         if (account == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인이 필요합니다."));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인이 필요합니다.", "success", false));
         }
         try {
             clubService.withdrawMember(clubNo, account);
-            return ResponseEntity.ok(Map.of("message", "탈퇴 처리가 완료되었습니다."));
+            return ResponseEntity.ok(Map.of("message", "탈퇴 처리가 완료되었습니다.", "success", true));
         } catch (Exception e) {
             log.error("탈퇴 처리 실패 - clubNo: {}, account: {}", clubNo, account, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "탈퇴 처리에 실패하였습니다."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "탈퇴 처리에 실패하였습니다.", "success", false));
         }
     }
 
 
+
+    // 동호회 추방 처리
+    @PostMapping("/denyMember")
+    public ResponseEntity<Map<String, Object>> denyMember(@RequestParam Long clubNo, @RequestParam String account) {
+        try {
+            clubService.denyMemberApplicant(clubNo, account);
+            return ResponseEntity.ok(Map.of("message", "추방에 성공했습니다", "success", true));
+        } catch (Exception e) {
+            log.error("추방 처리 실패 - clubNo: {}, account: {}", clubNo, account, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed to deny user", "success", false));
+        }
+    }
 }

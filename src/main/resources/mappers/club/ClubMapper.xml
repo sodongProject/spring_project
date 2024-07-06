@@ -238,4 +238,21 @@
         WHERE C.club_no = #{clubNo}
     </select>
 
+<!-- 동호회 전체 가입자 목록을 확인하는 쿼리 -->
+    <select id="findClubMembers" resultType="com.project.club.dto.ClubMemberInfoDto">
+        SELECT
+        UC.account,
+        U.user_name AS userName,
+        U.temperature,
+        UC.user_club_application_status AS status,
+        UC.user_club_role AS role,
+        UC.user_club_updated_at AS joinDate
+        FROM users_clubs UC
+        JOIN users U
+        ON UC.account = U.account
+        WHERE UC.club_no = #{clubNo}
+        AND UC.user_club_role IN ('ADMIN', 'MEMBER')
+        GROUP BY UC.user_club_role, U.user_name, U.temperature, UC.user_club_application_status, UC.user_club_updated_at
+        ORDER BY FIELD(UC.user_club_role, 'ADMIN', 'MEMBER')
+    </select>
 </mapper>

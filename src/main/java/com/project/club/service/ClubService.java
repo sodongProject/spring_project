@@ -66,7 +66,10 @@ public class ClubService {
         Club club = clubMapper.findOne(bno);
         String userAuthStatus = clubMapper.findUserRole(club.getClubNo(), account); // 사용자 권한 상태 조회
         String userName = clubMapper.findUserName(club.getClubNo()); // 사용자 이름 조회
-        return new ClubDetailResponseDto(club, userAuthStatus, userName);
+
+        List<ClubMemberInfoDto> clubMembers = clubMapper.findClubMembers(bno);  // 동호회에 가입한 사람들 전체 조회
+
+        return new ClubDetailResponseDto(club, userAuthStatus, userName, clubMembers);
     }
 
     // 1-2 디테일 정보와 권한 가져오는 중간처리
@@ -185,8 +188,23 @@ public class ClubService {
 
     // 클럽 탈퇴하는 중간처리
     public void withdrawMember(Long clubNo, String account) {
-        clubMapper.updateUserStatus(clubNo, account, "PENDING", "CANCELLED");
+        clubMapper.updateUserStatus(clubNo, account, "PENDING", null);
     }
 
 
+    // 멤버 추방 중간처리
+    public void denyMemberApplicant(Long clubNo, String account) {
+        try{
+            String currentRole = clubMapper.findUserRole(clubNo, account);
+            String userStatus = clubMapper.findUserStatus(clubNo, account);
+            if (currentRole.equals("MEMBER")|| userStatus.equals("APPROVED")) {
+                clubMapper.updateUserStatus(clubNo, account, "PENDING", "DENIED");
+            } else {
+                log.info("User denied successfully - current role is not MEMBER: {}", currentRole);
+            }
+        } catch (Exception e) {
+            log.info("Error in denyApplicant - clubNo: {}, account: {}", clubNo, account, e);
+            throw e;
+        }
+    }
 }
