@@ -58,6 +58,8 @@ public class FreeBoardService {
         return new FreeBoardDto(freeBoard);
     }
 
+
+
     // 삭제 중간 처리
     public boolean remove(long boardNo) {
         return freeBoardMapper.delete(boardNo);
