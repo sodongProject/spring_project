@@ -82,13 +82,13 @@ public class ClubService {
         clubMapper.userCountUp(clubNo);
     }
 
-    public void joinClub(long clubNo, String account) {
-        // 사용자 클럽 가입 정보 추가
-        clubMapper.insertUserClub(clubNo, account, "MEMBER");
-
-        // 클럽의 사용자 수 증가
-        clubMapper.userCountUp(clubNo);
-    }
+//    public void joinClub(long clubNo, String account) {
+//        // 사용자 클럽 가입 정보 추가
+//        clubMapper.insertUserClub(clubNo, account, "MEMBER");
+//
+//        // 클럽의 사용자 수 증가
+//        clubMapper.userCountUp(clubNo);
+//    }
 
     // 가입신청 누른 사람 조회
     public List<ApplicantDto> getApplicants(long clubNo) {
@@ -102,9 +102,10 @@ public class ClubService {
         return clubMapper.findUserRole(clubNo, account);
     }
 
-    public void requestJoin(long clubNo, String account) {
-        clubMapper.insertUserClub(clubNo, account, "PENDING");
-    }
+//    public void requestJoin(long clubNo, String account) {
+//        clubMapper.insertUserClub(clubNo, account);
+//    }
+
 
     // 클럽 로그인 사용자 정보 조회
     public ClubLoginUserInfoDto getClubLoginUserInfo(String account, HttpSession session) {
@@ -177,6 +178,10 @@ public class ClubService {
         clubMapper.updateMemberMax(clubNo, approvedMemberCount);
     }
 
+    // 가입신청을 눌렀을때 권한변경하는 충간처리
+    public void joinUpdateUser(Long clubNo, String account) {
+        clubMapper.updateUserStatus(clubNo, account, "PENDING", "WAITING");
+    }
 
     // 클럽 탈퇴하는 중간처리
     public void withdrawMember(Long clubNo, String account) {

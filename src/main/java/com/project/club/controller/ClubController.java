@@ -151,10 +151,10 @@ public class ClubController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "이미 가입되었거나 승인된 회원입니다."));
         } else {
             try {
-                clubService.requestJoin(clubNo, currentUserAccount);
+                clubService.joinUpdateUser(clubNo, currentUserAccount);
                 return ResponseEntity.ok(Map.of("message", "가입 신청이 완료되었습니다."));
             } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "가입 신청에 실패하였습니다."));
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "가입 신청에 실패하였습니다.", "error", e.getMessage()));
             }
         }
     }
@@ -193,7 +193,6 @@ public class ClubController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to deny user");
         }
     }
-
 
     // 동호회 탈퇴처리
     @PostMapping("/cancelled")

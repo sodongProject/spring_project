@@ -126,14 +126,15 @@
 
     <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
-        INSERT INTO users_clubs (club_no, account, user_club_role)
-        SELECT #{clubNo}, #{account}, #{role}
-        FROM dual
-        WHERE NOT EXISTS (
-        SELECT 1 FROM users_clubs
-        WHERE club_no = #{clubNo} AND account = #{account}
-        )
+        INSERT INTO users_clubs (club_no, account, user_club_application_status)
+        VALUES (#{clubNo}, #{account}, 'WAITING')
+        ON DUPLICATE KEY UPDATE
+        user_club_application_status = CASE WHEN user_club_application_status &lt;&gt; 'APPROVED' THEN 'WAITING' ELSE user_club_application_status END;
     </insert>
+
+
+
+
     <!-- 사용자 역할 업데이트 -->
     <update id="updateUserRole">
         UPDATE users_clubs
@@ -160,12 +161,12 @@
         UC.user_club_role AS role,
         UC.user_club_application_status AS status
         FROM users U
-        JOIN users_clubs UC
-        ON U.account = UC.account
+        JOIN users_clubs UC ON U.account = UC.account
         WHERE UC.club_no = #{clubNo}
-        AND UC.user_club_role = 'PENDING'
+        AND UC.user_club_application_status = 'WAITING'
     </select>
-<!--        AND UC.user_club_application_status != 'DENIED'-->
+
+    <!--        AND UC.user_club_application_status != 'DENIED'-->
 
     <update id="approveApplicant">
         UPDATE users_clubs

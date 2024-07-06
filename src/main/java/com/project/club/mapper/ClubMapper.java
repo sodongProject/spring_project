@@ -49,9 +49,8 @@ public interface ClubMapper {
                         @Param("account")String account);
 
 
-    void insertUserClub(@Param("clubNo")long clubNo,
-                        @Param("account")String account,
-                        @Param("role")String role);
+//    void insertUserClub(@Param("clubNo") long clubNo,
+//                        @Param("account") String account);
 
 
     // 클럽 로그인 사용자 정보 조회
