@@ -27,14 +27,14 @@
             <tr id="applicant-${applicant.account}">
                 <td>${applicant.userName}</td>
                 <td>${applicant.temperature}</td>
-                <td>${applicant.role}</td>
+                <td>${applicant.status}</td>
                 <td>
-                    <c:if test="${applicant.role == 'PENDING'}">
+                    <c:if test="${applicant.status == 'WAITING'}">
                         <button class="approve-btn" onclick="approveApplicant('${applicant.account}', ${param.clubNo})">승인</button>
                     </c:if>
                 </td>
                 <td>
-                    <c:if test="${applicant.role == 'PENDING'}">
+                    <c:if test="${applicant.status == 'WAITING'}">
                         <button class="deny-btn" onclick="denyApplicant('${applicant.account}', ${param.clubNo})">거절</button>
                     </c:if>
                 </td>

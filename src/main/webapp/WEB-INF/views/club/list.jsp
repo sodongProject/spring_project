@@ -59,7 +59,7 @@
                         <i class='bx bxs-moon'></i>
                         <c:if test="${login.auth == 'ADMIN' || clubLogin.account == b.account}">
                             <button class="del-btn" data-href="/club/delete?clubNo=${b.clubNo}">
-                                <i class="fas fa-times"></i>
+                                <i class="fas fa-times del-fa"></i>
                             </button>
                         </c:if>
 
@@ -194,7 +194,12 @@
 
         if (e.target.matches('.detail-btn')) {
             const bno = e.target.closest('.container').dataset.bno;
-            window.location.href = '/club/description?bno=' + bno;
+            const clubAuth = e.target.closest('.container').dataset.clubAuth;
+            if (clubAuth !== 'APPROVED'){
+                window.location.href = '/club/description?bno=' + bno;
+            } else {
+                window.location.href = '/club/detail?bno=' + bno;
+            }
         }
 
         if (e.target.matches('.btn') || e.target.closest('.bx') || e.target.closest('.image') || e.target.closest('img')) {
@@ -251,48 +256,51 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.join-btn').forEach(button => {
-            button.addEventListener('click', function () {
+        const joinButtons = document.querySelectorAll('.join-btn');
+        joinButtons.forEach(button => {
+            button.addEventListener('click', async function () {
                 const clubNo = this.getAttribute('data-bno');
                 loginModal.style.display = 'flex';
-                loginConfirmJoin.onclick = function () {
-                    sendJoinRequest(clubNo);
-                    loginModal.style.display = 'none';
+                loginConfirmJoin.onclick = async () => {
+                    try {
+                        await sendJoinRequest(clubNo);
+                        alert('가입 요청이 성공적으로 처리되었습니다.');
+                        loginModal.style.display = 'none';
+                    } catch (error) {
+                        console.error('Error sending join request:', error);
+                        alert('Error: ' + error);
+                        loginModal.style.display = 'none';
+                    }
                 };
-                loginCancelJoin.onclick = function () {
+                loginCancelJoin.onclick = () => {
                     loginModal.style.display = 'none';
                 };
             });
         });
+    });
 
-        function sendJoinRequest(clubNo) {
-            fetch('/club/join', {
+    async function sendJoinRequest(clubNo) {
+        try {
+            const response = await fetch('/club/join', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({clubNo: clubNo})
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.status === 'ok') {
-                        updateApplicantsList(clubNo);
-                    } else {
-                        alert('오류 발생: 서버로부터 응답을 받지 못했습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error sending join request:', error);
-                    alert('Error: ' + error.message);
-                });
+                body: JSON.stringify({ clubNo: clubNo })
+            });
+
+            const responseData = await response.json();
+            if (!response.ok) {
+                throw new Error(responseData.message || 'Failed to send join request');
+            }
+
+            return responseData; // 성공 응답 처리
+        } catch (error) {
+            console.error('Error sending join request:', error);
+            throw error; // 에러를 던져 상위 캐치 블록에서 처리
         }
-    });
+    }
 
     window.addEventListener('click', e => {
         if (e.target === modal || e.target === loginModal) {
