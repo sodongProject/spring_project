@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -31,7 +32,7 @@
         <p>${club.content}</p>
     </div>
     <div class="buttons">
-        <c:if test="${club.userAuthStatus == 'ADMIN'}">
+        <c:if test="${club.userAuthStatus eq 'ADMIN'}">
             <form action="/club/applicants" method="get" style="display: inline;">
                 <input type="hidden" name="clubNo" value="${club.clubNo}">
                 <button class="admin-btn" type="submit">가입 신청자 확인</button>
