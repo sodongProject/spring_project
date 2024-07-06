@@ -142,6 +142,15 @@
         WHERE club_no = #{clubNo} AND account = #{account}
     </update>
 
+<!--    사용자 역할 변경   -->
+    <update id="updateUserStatus">
+        UPDATE users_clubs
+        SET user_club_role = #{role},
+        user_club_application_status = #{status}
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
+
     <!-- 가입신청자 리스트 조회 -->
     <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
         SELECT DISTINCT

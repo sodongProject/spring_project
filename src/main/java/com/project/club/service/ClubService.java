@@ -178,4 +178,10 @@ public class ClubService {
     }
 
 
+    // 클럽 탈퇴하는 중간처리
+    public void withdrawMember(Long clubNo, String account) {
+        clubMapper.updateUserStatus(clubNo, account, "PENDING", "CANCELLED");
+    }
+
+
 }

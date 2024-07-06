@@ -70,6 +70,7 @@ public interface ClubMapper {
                         @Param("account")String account,
                         @Param("role")String role);
 
+
     void denyApplicant(@Param("clubNo")long clubNo,
                         @Param("account")String account,
                         @Param("role")String role);
@@ -83,4 +84,15 @@ public interface ClubMapper {
     void updateMemberMax(@Param("clubNo") long clubNo, @Param("approvedMemberCount") int approvedMemberCount);
 
     String findUserName(long clubNo);
+
+
+
+
+
+
+    // 삭제버튼 클릭시 권한 변경
+    void updateUserStatus(@Param("clubNo")long clubNo,
+                        @Param("account")String account,
+                        @Param("role")String role,
+                          @Param("status") String status) ;
 }

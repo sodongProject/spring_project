@@ -194,4 +194,23 @@ public class ClubController {
         }
     }
 
+
+    // 동호회 탈퇴처리
+    @PostMapping("/cancelled")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cancelled(@RequestParam("clubNo") Long clubNo, HttpSession session) {
+        String account = LoginUtil.getLoggedInUserAccount(session);
+        if (account == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인이 필요합니다."));
+        }
+        try {
+            clubService.withdrawMember(clubNo, account);
+            return ResponseEntity.ok(Map.of("message", "탈퇴 처리가 완료되었습니다."));
+        } catch (Exception e) {
+            log.error("탈퇴 처리 실패 - clubNo: {}, account: {}", clubNo, account, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "탈퇴 처리에 실패하였습니다."));
+        }
+    }
+
+
 }
