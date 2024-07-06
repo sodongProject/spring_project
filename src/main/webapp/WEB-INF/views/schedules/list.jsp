@@ -95,6 +95,31 @@
             </div>
         </div>
     </div>
+
+    <div class="schedule-member-modal">
+        <div class="schedule-member-modal-content">
+            <div class="member-list">
+                <div class="member-info">
+                    <span class="user-name">이름 : ???</span>
+                    <span class="user-temperature">유저 온도 : 36.5</span>
+                </div>
+                <div class="member-exile-btn">
+                    <button class="exile-btn">추방</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule-secession-modal">
+        <div class="secession-modal-content">
+            <h1 class="secession-content">???에 탈퇴하시겠습니까?</h1>
+            <div class="schedule-secession-btn">
+                <button class="secession-btn">탈퇴</button>
+                <button class="cancel-btn">취소</button>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 

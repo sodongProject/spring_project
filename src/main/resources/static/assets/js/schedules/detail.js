@@ -112,8 +112,12 @@ function registerBtnHandler() {
 
             if(loginUserInfoDto.userScheduleRole === 'ADMIN') {
                 tag += `<div class="register-list">
-                            <button>신청관리</button>
-                        </div>`
+                            <button class="register-admin-btn">신청관리</button>
+                        </div>
+                        <div class="schedule_members">
+                            <button class="schedule-member-btn">참가자 조회</button>
+                        </div>
+                        `
             }
 
             tag += `<h1>${loginUserInfoDto.userScheduleRole}</h1>
