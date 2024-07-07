@@ -19,7 +19,7 @@ hr {
 }
 
 .notice-detail {
-  padding: 20px;
+  padding: 30px;
   background-color: white;
   overflow: hidden; /* 스크롤바를 없애고 내용이 넘치지 않도록 설정 */
   box-sizing: border-box;
@@ -29,6 +29,7 @@ hr {
 
 .notice-detail h1 {
   font-size: 35px;
+  font-weight: 700;
 }
 
 .notice-detail .date {
