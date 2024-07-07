@@ -7,45 +7,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>공지사항 작성</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            width: 800px;
-            margin: 20px auto;
-        }
-
-        form {
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #f2cb05;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/mainNotice/write.css" />
 </head>
+
 <body>
-    
 <div class="container">
     <h1>공지사항 작성</h1>
     <form action="/main-notice/write" method="post" name="write">
