@@ -1,0 +1,29 @@
+.container {
+  width: 800px;
+  margin: 20px auto;
+}
+
+form {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #f2cb05;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
