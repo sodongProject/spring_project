@@ -5,179 +5,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ko">
   <head>
     <%@ include file="../include/static-head.jsp" %>
-    
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f8f8;
-        margin: 0;
-        padding: 0;
-      }
-
-      header {
-        background-color: #f2cb05;
-        padding: 20px;
-        color: white;
-        text-align: center;
-      }
-
-      main {
-        padding: 20px;
-      }
-
-      .notice-board {
-        width: 1200px;
-        margin: 0 auto;
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .notice-board h2 {
-        margin-top: 0;
-      }
-
-      .search-bar {
-        display: flex;
-        margin-bottom: 20px;
-        border-radius: 20px;
-      }
-
-      .search-bar input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px 0 0 4px;
-        font-size: 16px;
-      }
-
-      .search-bar button {
-        padding: 10px 20px;
-        border: none;
-        background-color: #f2cb05;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 0 4px 4px 0;
-      }
-
-      .notice-list {
-        list-style: none;
-        padding: 0;
-      }
-
-      .notice-list li {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .notice-list .date {
-        color: #999;
-      }
-
-      .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-      }
-
-      .pagination ul {
-        list-style: none;
-        padding: 0;
-        display: flex;
-      }
-
-      .pagination a {
-        padding: 10px 15px;
-        margin: 0 5px;
-        text-decoration: none;
-        color: #333;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-
-      .pagination a:hover,
-      .notice-list li:hover {
-        background-color: #f0f0f0;
-      }
-
-      /* 모달 스타일 */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        align-items: center;
-        justify-content: center;
-        padding: 50px;
-      }
-
-      .modal-content {
-        position: relative;
-        background-color: #fff;
-        width: 300px;
-        padding: 20px;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .modal-content p {
-        font-size: 24px;
-        margin-bottom: 15px;
-      }
-
-      .modal-buttons button {
-        padding: 5px 15px;
-        font-size: 20px;
-      }
-
-      .modal-buttons .confirm {
-        color: white;
-        background-color: #007bff;
-        border-radius: 4px;
-      }
-
-      .modal-buttons .cancel {
-        color: #f5f5f5;
-        background-color: #dd1111;
-        border-radius: 4px;
-      }
-
-      footer {
-        background-color: #f8f8f8;
-        padding: 20px;
-        text-align: center;
-        color: #999;
-        border-top: 1px solid #eee;
-        margin-top: 20px;
-      }
-
-      .notice-list li:hover {
-        background-color: #e0e0e0;
-        cursor: pointer;
-      }
-
-      button.write-btn,
-      button.modify-btn,
-      button.del-btn {
-        border: 1px solid #000;
-      }
-    </style>
+    <%@ include file="../include/header.jsp" %>
+    <link rel="stylesheet" href="/assets/css/mainNotice/list.css" />
   </head>
+  
   <body>
-    <header>
-      <h1>Sodong 공지사항</h1>
-    </header>
-    <main>
+    <section id="page">
       <section class="notice-board">
-        <h2>Sodong 서비스의 신규 및 업데이트 소식을 알려드립니다!</h2>
+        <h1>Sodong 서비스의 신규 및 업데이트 소식을 알려드립니다!</h1>
         <c:if test="${login.auth == 'ADMIN'}">
           <button class="write-btn">글 작성</button>
         </c:if>
@@ -313,10 +148,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </nav>
         </div>
       </section>
-    </main>
-    <footer>
-      <p>Sodong Copyright © Sodong Corp. All Rights Reserved.</p>
-    </footer>
+      <%@ include file="../include/footer.jsp" %>
+    </section>
+
 
     <script>
       const $board = document.querySelector(".notice-board");

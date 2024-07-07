@@ -41,6 +41,9 @@
          reader.onloadend = e => {
            const $img = document.querySelector('.sns-box img');
            $img.src = reader.result;
+           $img.style.width = '400px';
+           $img.style.height = '400px';
+           $img.style.objectFit = 'cover';
          }
 
        });

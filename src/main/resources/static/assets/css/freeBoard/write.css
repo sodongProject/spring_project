@@ -4,27 +4,30 @@
             background-color: #f0f0f0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            margin: 0 auto;
         }
         .container {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
+            max-width: 700px;
+            margin-top: 200px;
         }
 
         /* 사진 업로드 */
         .container .form-group .sns-box{
-            width:700px;
-            height: 700px;
             overflow: hidden;
+            padding: 20px 100px;
+        }
+        .container .form-group .sns-box img{
+            width:100px;
+            height: 100px;
+            
         }
 
 
+        /* label */
         .form-group {
             margin-bottom: 20px;
         }
@@ -32,6 +35,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
+            font-size: 15px;
         }
         .form-group input[type="file"] {
             width: 100%;
@@ -53,7 +57,9 @@
             outline: none;
         }
         .form-group button {
-            width: 100%;
+            width: 45%;
+            display: flex;
+            justify-content: center;
             padding: 15px;
             background-color: #007bff;
             border: none;
