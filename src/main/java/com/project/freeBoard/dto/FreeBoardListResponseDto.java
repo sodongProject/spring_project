@@ -28,7 +28,7 @@ public class FreeBoardListResponseDto {
         this.date = dateFormatting(regTime);
         this.account = b.getAccount();
         this.content = b.getClubCommunityContent();
-        this.boardImg = b.getClubCommunityImg();
+        this.boardImg = b.getClubCommunityImage();
         this.clubNo = b.getClubNo();
     }
 
