@@ -1,0 +1,42 @@
+#page {
+  height: 100vh;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+main {
+  margin-top: 180px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+}
+
+hr {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 15px;
+}
+
+.notice-detail {
+  padding: 20px;
+  background-color: white;
+  overflow: hidden; /* 스크롤바를 없애고 내용이 넘치지 않도록 설정 */
+  box-sizing: border-box;
+  word-wrap: break-word;
+  height: 300px;
+}
+
+.notice-detail h1 {
+  font-size: 35px;
+}
+
+.notice-detail .date {
+  color: #999;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.notice-detail .content {
+  font-size: 20px;
+}

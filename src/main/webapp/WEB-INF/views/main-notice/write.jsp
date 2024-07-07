@@ -37,7 +37,7 @@
 
         input[type="submit"] {
             padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: #f2cb05;
             color: white;
             border: none;
             cursor: pointer;
