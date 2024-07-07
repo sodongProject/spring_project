@@ -3,16 +3,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동호회 상세정보</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reset-css/5.0.1/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+
+    <%@ include file="../include/static-head.jsp" %>
     <link rel="stylesheet" href="/assets/css/club/clubDetail.css">
+
+
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
+
 <div id="wrap" class="form-container" data-cno="${club.clubNo}" data-account="${sessionScope.login.account}">
     <div class="header">
         <h1>${club.title}</h1>
@@ -33,7 +32,7 @@
     </div>
     <div class="buttons">
         <c:if test="${club.userAuthStatus eq 'ADMIN'}">
-            <form action="/club/applicants" method="get" style="display: inline;">
+            <form action="/club/applicants" method="get">
                 <input type="hidden" name="clubNo" value="${club.clubNo}">
                 <button class="admin-btn" type="submit">가입 신청자 확인</button>
             </form>
@@ -45,6 +44,8 @@
         <button class="member-btn" id="showMembersBtn">동호호 전체 인원 확인</button>
     </div>
 </div>
+
+<%@ include file="../include/footer.jsp" %>
 
 <%-- 모달 구조 --%>
 <div id="memberModal" class="modal">
