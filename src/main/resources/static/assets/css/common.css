@@ -157,12 +157,12 @@ body,html{
   
 }
 /* footer */
-footer {
+.footer {
   width: 100%;
   border-top: solid 1px var(--color-wh);
   padding: 0 calc((100% - 1200px)/2);
 }
-footer > div{
+.footer > div{
   padding: 20px 0;
   display: flex;
   justify-content: space-between;
@@ -175,13 +175,13 @@ footer > div{
 .f-logo{
   width: 90px;
 }
-footer > div>ul{
+.footer > div > ul{
   display: flex;
 }
-footer > div>ul li{
+.footer > div >  ul.bot li{
   margin-right: 40px;
 }
-footer > div>ul li:last-child{
+.footer > div > ul li:last-child{
   margin-right: 0;
 }
 .f-top ul li{

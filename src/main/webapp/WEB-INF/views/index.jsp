@@ -29,7 +29,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <p class="small">community</p>
         <h2 class="title">믿을 수 있는<b>소동 이야기</b></h2>
         <p class="btn_wrap">
-          <a href="#">CONTACT US</a>
+          <a href="/main-page/page">VIEW MORE</a>
         </p>
       </div>
     </section>

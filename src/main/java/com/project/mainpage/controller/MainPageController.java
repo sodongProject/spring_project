@@ -52,7 +52,6 @@ public class MainPageController {
         // 메인페이지 - 로그인한 유저의 가입한 동호회 목록 조회
         List<ClubListDto> clubList = rankingService.loginUsersClub(account);
         model.addAttribute("clubList", clubList);
-
         return "main-page/page";
     }
 }

@@ -10,6 +10,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script type="module" src="/assets/js/myPage/modify.js" defer></script>
   </head>
   <body>
+    <%@ include file="../include/header.jsp" %>
+
     <div class="myPage_wrap modify">
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner">
@@ -299,5 +301,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </form> -->
       </div>
     </div>
+    <%@ include file="../include/footer.jsp" %>
+
   </body>
 </html>

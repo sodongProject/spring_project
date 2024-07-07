@@ -8,6 +8,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link href="/assets/css/myPage/myPage.css" rel="stylesheet" />
   </head>
   <body>
+    <%@ include file="../include/header.jsp" %>
+
     <div class="myPage_wrap withdrawal">
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner">
@@ -22,5 +24,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
       </div>
     </div>
+    <%@ include file="../include/footer.jsp" %>
+
   </body>
 </html>

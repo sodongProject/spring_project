@@ -9,6 +9,7 @@ import com.project.util.FileUtil;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,8 @@ import static com.project.util.LoginUtil.LOGIN;
 @Slf4j
 public class MyPageService {
 
+    @Value("${file.upload.root-path}")
+    String rootPath;
 
     private final MyPageMappers myPageMapper;
     private final PasswordEncoder passwordEncoder;
@@ -144,7 +147,7 @@ public class MyPageService {
     }
 
     public void modifyProfile (HttpSession session, MultipartFile file){
-        String rootPath = "/Users/jieun/desktop/teamProject/springFile";
+//        String rootPath = "/Users/jieun/desktop/teamProject/springFile";
         String imgUrlPath = FileUtil.uploadFile(rootPath, file);
 
         myPageMapper.editUserProfile(getSessionAccount(session), imgUrlPath);

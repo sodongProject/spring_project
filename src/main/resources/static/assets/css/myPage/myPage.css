@@ -249,7 +249,7 @@ button#goHomeBtn{
   outline: 1px solid var(--color-exception);
 }
 .myPage_wrap .main_profile .text.phone_number{
-  width: calc((100% - 148px - 49px)/2);
+  width: calc((100% - 148px - 55px)/2);
   /* width: 140px; */
   margin-left: 0;
   /* margin-right: 10px; */

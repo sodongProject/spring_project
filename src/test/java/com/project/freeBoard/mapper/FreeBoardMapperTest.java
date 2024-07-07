@@ -20,7 +20,7 @@ class FreeBoardMapperTest {
     @DisplayName("게시글 등록에 성공해라")
     void saveTest() {
         FreeBoard freeBoard = FreeBoard.builder()
-                .boardTitle("Test Title")
+//                .boardTitle("Test Title")
                 .content("Test Content")
                 .account("pompom123")
                 .boardImg("testImage.jpg")
@@ -38,7 +38,7 @@ class FreeBoardMapperTest {
     void insertTest(){
             for(int i=1; i<=10; i++){
                 FreeBoard freeBoard = FreeBoard.builder()
-                        .boardTitle("Test Title")
+//                        .boardTitle("Test Title")
                         .content("Test Content")
                         .account("pompom123")
                         .boardImg("testImage.jpg")
