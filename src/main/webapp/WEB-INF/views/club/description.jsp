@@ -3,18 +3,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동호회 상세정보</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+
     <link rel="stylesheet" href="/assets/css/club/description.css">
+    <%@ include file="../include/static-head.jsp" %>
+
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
+
 <div id="wrap" class="form-container" data-cno="${club.clubNo}">
     <div class="header">
         <h1>${club.title}</h1>
@@ -37,5 +33,8 @@
         <button class="list-btn" onclick="window.location.href='/club/list'">목록</button>
     </div>
 </div>
+
+<%@ include file="../include/footer.jsp" %>
+
 </body>
 </html>
