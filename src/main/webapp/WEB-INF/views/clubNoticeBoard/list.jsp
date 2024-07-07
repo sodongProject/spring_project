@@ -17,9 +17,6 @@
 
     <title>공지사항</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
 
         .container {
             width: 800px;

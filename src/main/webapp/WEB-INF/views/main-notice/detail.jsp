@@ -9,12 +9,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>공지사항 상세정보</title>
     <style>
-      /* body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f8f8;
-        margin: 0;
-        padding: 0;
-      } */
+    
 
       /* header {
         background-color: #f2cb05;

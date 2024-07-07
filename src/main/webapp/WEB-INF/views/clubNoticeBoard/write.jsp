@@ -9,10 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>공지사항 작성</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
+   
         .container {
             width: 800px;
             margin: 20px auto;
