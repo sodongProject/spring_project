@@ -53,13 +53,6 @@ button {
     border: none;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-
-}
 
 .card-container {
     display: flex;
@@ -119,13 +112,14 @@ button {
 
 .form-select{
     font-size: 16px;
-    width: 140px;
+    width: 105px;
     height: 50px;
     border: none;
     border-radius: 500px;
     padding: 0 20px;
     background: #f2f2f2 none;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .form-control{
@@ -207,14 +201,14 @@ button {
     display :inline-block;
     height: 50px;
     width: 50px;
-    background-color: #222222;
+    background-color: var(--color-bk);
     border-radius: 50px;
     color: #f2f2f2;
     font-weight: 500;
     box-shadow: 0 1px 15px #33333330;
     border: none;
     outline: none;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     z-index: 1;
     cursor: pointer;
     scale: .95;

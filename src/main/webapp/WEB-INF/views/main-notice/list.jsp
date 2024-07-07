@@ -76,7 +76,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     </form>
                 </div>
             </div>
-
             <!-- 페이지 버튼 영역 -->
             <div class="bottom-section">
                 <nav aria-label="Page navigation example">
@@ -212,5 +211,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             editForm.submit();
         });
     </script>
+      <%@ include file="../include/footer.jsp" %>
 </body>
 </html>

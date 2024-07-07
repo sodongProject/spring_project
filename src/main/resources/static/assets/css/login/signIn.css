@@ -140,7 +140,6 @@ form {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
   box-shadow: 0 15px 30px rgba(233, 30, 99, .36);
   transition: .2s linear;
 }

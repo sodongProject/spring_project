@@ -10,7 +10,6 @@ section.second-page {
 
 /* 타이틀 */
 h1.main-title {
-  font-family: Montserrat;
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -72,7 +71,6 @@ div.most-member {
 }
 
 .ranking-box h3 {
-  font-family: Montserrat;
   font-size: 18px;
   font-weight: 700;
   color: #0d0d0d;
@@ -109,7 +107,6 @@ div.most-member {
 }
 
 .stats-text h2 {
-  font-family: Montserrat;
   font-size: 32px;
   font-weight: 700;
   color: #333;
@@ -117,7 +114,6 @@ div.most-member {
 }
 
 .stats-text p {
-  font-family: Montserrat;
   font-size: 16px;
   color: #666;
   margin: 0;
@@ -143,14 +139,12 @@ div.most-member {
 }
 
 .info-item h3 {
-  font-family: Montserrat;
   font-size: 20px;
   font-weight: 700;
   color: #333;
 }
 
 .info-item p {
-  font-family: Montserrat;
   font-size: 14px;
   color: #666;
 }
