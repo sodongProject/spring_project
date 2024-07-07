@@ -120,7 +120,7 @@ public class LoginController {
                 return "redirect:" + redirect;
             }
 
-            return "redirect:/index"; // 로그인 성공시
+            return "redirect:/"; // 로그인 성공시
         }
 
         return "redirect:/users/sign-in"; // 로그인 실패시

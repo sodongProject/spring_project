@@ -31,7 +31,7 @@ h2.title b{
 .community .btn_wrap{
   justify-content: right;
 }
-.community .btn_wrap a{
+.community .btn_wrap a:last-child{
   color: #fff;
 }
 .btn_wrap a{

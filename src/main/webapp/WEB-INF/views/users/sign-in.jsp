@@ -11,17 +11,9 @@
     <%@ include file="../include/header.jsp" %>
     <div class="container">
         <!-- Heading -->
-        <h1>SIGN IN</h1>
+        <h1>로그인</h1>
         
-        <!-- Links -->
-        <ul class="links">
-          <li>
-            <a href="/users/sign-in" id="signin">SIGN IN</a>
-          </li>
-          <li>
-            <a href="/users/sign-up" id="signup">SIGN UP</a>
-          </li>
-        </ul>
+
   
         
         <!-- Form -->
@@ -36,45 +28,27 @@
           <div class="input__block">
              <input type="password" size="17" maxlength="20"  placeholder="Password" class="input" id="signInPw" name="password" required="required"/>
           </div>
-
+  <!-- auto login -->
+  <label class="auto-label" for="auto-login">
+    <!-- <span><i class="fas fa-sign-in-alt"></i> -->
+      자동 로그인</span>
+    <input type="checkbox" id="auto-login" name="autoLogin">
+</label>
           <!-- sign in button -->
-          <input type="submit" value="로그인" id="signIn-btn" class="signin__btn">
-            Sign in
-          </input>
+          <button type="submit" value="로그인" id="signIn-btn" class="signin__btn">
+            로그인
+          </button>
 
-          <!-- auto login -->
-          <label class="auto-label" for="auto-login">
-            <span><i class="fas fa-sign-in-alt"></i>자동 로그인</span>
-            <input type="checkbox" id="auto-login" name="autoLogin">
-        </label>
+        
+        <a class="signUpBtn" href="/users/sign-up">
+          회원가입
+        </a>
 
         </form>
-
-        <!-- separator -->
-        <div class="separator">
-          <p>OR</p>
-        </div>
-        <!-- kakao button -->
-        <button class="kakao__btn">
-          <i class="fa fa-kakao"></i>
-          Sign in with kakao
-        </button>
-        <!-- google button -->
-        <button class="google__btn">
-          <i class="fa fa-github"></i>
-          Sign in with Google
-        </button>
+ 
       </div>
       
-      <footer>
-        <p>
-          Thank you for watching
-          <i class="fa fa-heart"></i> 
-          <i class="fa fa-heart"></i> 
-          <i class="fa fa-heart"></i> 
-        </p>
-        
-      </footer>
+
 
       <script src="/assets/js/login/signIn.js"></script>
 

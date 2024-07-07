@@ -10,17 +10,8 @@
     <%@ include file="../include/header.jsp" %>
     <div class="container">
         <!-- Heading -->
-        <h1>SIGN UP</h1>
+        <h1>회원가입</h1>
 
-        <!-- Links -->
-        <ul class="links">
-          <li>
-            <a href="/users/sign-in" id="signin">SIGN IN</a>
-          </li>
-          <li>
-            <a href="/users/sign-up" id="signup">SIGN UP</a>
-          </li>
-        </ul>
         
 
         <!-- Form -->
@@ -86,8 +77,11 @@
           <div class="input__block">
             <p>성별을 선택해주세요</p>
             <span id="genderChk"></span>
-            <label><input id="user_gender" type="radio" name="gender" value="M" required /> Male</label>
-            <label><input id="user_gender" type="radio" name="gender" value="F" required /> Female</label>
+            <div class="gender_box">
+              <label><input id="user_gender" type="radio" name="gender" value="M" required /> Male</label>
+              <label><input id="user_gender" type="radio" name="gender" value="F" required /> Female</label>
+            </div>
+       
           </div>
 
             <!-- phoneNumber 입력 -->
@@ -111,15 +105,6 @@
           </button>
         </form>
       </div>
-
-      <footer>
-        <p>
-          Thank you for watching
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-        </p>
-      </footer>
 
       
 
