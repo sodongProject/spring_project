@@ -778,6 +778,26 @@ body {
     border-radius: 22px;
 }
 
+.participation_point {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d0d0d;
+}
+
+.out-schedule button {
+    width: 120px;
+    height: 50px;
+    background: #f2cb05;
+    color: #0d0d0d;
+    font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    border-radius: 22px;
+}
+
 
 .schedule_members {
     display: flex;
@@ -906,3 +926,58 @@ body {
     border-radius: 22px;
 }
 
+.schedule-secession-btn {
+    display: flex;
+    justify-content: center;
+    color: #0d0d0d;
+    text-align: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.schedule-secession-btn button {
+    background: #f2cb05;
+    width: 90px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.schedule-secession-btn .cancel-btn{
+    background: #0d0d0d;
+    color: #f2cb05;
+}
+
+.member-list {
+    display: flex;
+    width: 620px;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    border-radius: 22px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+}
+
+.member-exile-btn button {
+    width: 60px;
+    height: 30px;
+    margin: 10px;
+    border-radius: 22px;
+}
+
+.exile-btn {
+    border: none;
+    background: #f2cb05;
+    color: #0d0d0d;
+    font-size: 16px;
+}
+.member-info span{
+    display: inline-block;
+    width: 150px;
+    margin: 10px;
+    font-size: 16px;
+    color: #0d0d0d;
+    text-align: left;
+    font-weight: 700;
+}

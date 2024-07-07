@@ -7,6 +7,8 @@ detailModalContent();
 registerBtnHandler();
 closeRegisterListModal();
 closeDetailModal();
+openUserListModal();
+closeScheduleMemberModal();
 // openRegisterModal();
 // registerBtnHandler();
 //
@@ -156,6 +158,7 @@ function registerBtnHandler() {
             document.querySelector(".detail-modal-content").innerHTML = tag;
 
             applicationUserList();
+            openUserListModal ();
         });
     }
 
@@ -178,5 +181,73 @@ function closeDetailModal () {
 
         $scheduleDetailModal.style.display = 'none';
     })
+}
+
+function closeScheduleMemberModal () {
+    const $scheduleMemberModal = document.querySelector(".schedule-member-modal");
+    $scheduleMemberModal.addEventListener('click', e => {
+        if(e.target !== $scheduleMemberModal) return;
+
+        $scheduleMemberModal.style.display = 'none';
+    })
+}
+
+function openUserListModal () {
+    const $scheduleMemberList = document.querySelector(".schedule_members");
+
+    $scheduleMemberList?.addEventListener("click", async e => {
+        document.querySelector(".schedule-member-modal").style.display = 'flex';
+
+        fetchScheduleMember();
+    });
+}
+
+async function fetchScheduleMember () {
+    const scheduleNo = document.getElementById("schedule_detail").dataset.sno;
+
+    const scheduleMembers = await callApi(`${BASE_URL}/member/${scheduleNo}`);
+
+    let tag = '';
+    for (const user of scheduleMembers) {
+        tag +=  `
+            <div class="member-list">
+                <div class="member-info" data-account="${user.account}">
+                    <span class="user-name">이름 : ${user.userName}</span>
+                    <span class="user-temperature">유저 온도 : ${user.temperature}</span>
+                </div>
+                <div class="member-exile-btn">
+                    <button class="exile-btn">추방</button>
+                </div>
+            </div>
+            `
+    }
+
+    document.querySelector(".schedule-member-modal-content").innerHTML = tag;
+    exileHandler();
+}
+
+function exileHandler () {
+    let exileBtns = document.querySelectorAll(".member-exile-btn");
+
+    for (const exileBtn of exileBtns) {
+        exileBtn.addEventListener('click', async e=> {
+            console.log("추방!!!!")
+            const sno = document.getElementById("schedule_detail").dataset.sno;
+            const cno = document.getElementById("schedule_detail").dataset.cno;
+            let userAccount = e.target.closest(".member-list").firstElementChild.dataset.account;
+
+            const payload = {
+                clubNo : cno,
+                scheduleNo : sno,
+                account : userAccount,
+            }
+            const exileURL = BASE_URL + "/exile"
+            await callApi(exileURL, 'POST', payload);
+            await fetchScheduleMember();
+
+        });
+    }
+
+
 }
 

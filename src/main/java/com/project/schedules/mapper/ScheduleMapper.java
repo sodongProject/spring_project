@@ -44,6 +44,8 @@ public interface ScheduleMapper {
     // 스케줄에 참여 신청을 한 유저 정보 찾기
     List<Users> findAllApplicationUser(Long scheduleNo);
 
+    List<Users> findAllScheduleUser(Long scheduleNo);
+
     Users findUser(String account);
 
     // 등록된 스케줄 정보 가져오기

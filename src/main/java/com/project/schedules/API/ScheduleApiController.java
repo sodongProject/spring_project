@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -136,6 +137,31 @@ public class ScheduleApiController {
         System.out.println("dto = " + dto);
 
         scheduleService.applicationProcessing(dto);
+
+        return ResponseEntity
+                .ok()
+                .body(dto);
+    }
+
+    @GetMapping("/detail/member/{scheduleNo}")
+    public ResponseEntity<?> scheduleMember(@PathVariable Long scheduleNo, HttpSession session) {
+        List<Users> scheduleMembers = scheduleService.findAllScheduleMemeber(scheduleNo);
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleMembers);
+    }
+
+    @PostMapping("/detail/exile")
+    public ResponseEntity<?> scheduleMember(@Validated @RequestBody ExileUserDto dto, HttpSession session) {
+
+        if(Objects.equals(LoginUtil.getLoggedInUserAccount(session), dto.getAccount())) {
+            return ResponseEntity
+                    .ok()
+                    .body(dto);
+        }
+
+        scheduleService.exileUser(dto);
 
         return ResponseEntity
                 .ok()
