@@ -4,28 +4,30 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
+    <%@ include file="../include/static-head.jsp" %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>공지사항 상세정보</title>
     <style>
-      body {
+      /* body {
         font-family: Arial, sans-serif;
         background-color: #f8f8f8;
         margin: 0;
         padding: 0;
-      }
+      } */
 
-      header {
+      /* header {
         background-color: #f2cb05;
         padding: 20px;
         color: white;
         text-align: center;
-      }
+      } */
 
       main {
-        padding: 20px;
-        max-width: 800px;
-        margin: 20px auto;
+        width: 1200px;
+        margin: 0 auto;
+        margin-top: 200px;
+        /* max-width: 800px; */
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -66,9 +68,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </style>
   </head>
   <body>
-    <header>
-      <h1>공지사항 상세정보</h1>
-    </header>
+    <%@ include file="../include/header.jsp" %>
     <main>
       <section class="notice-detail" data-main-notice-no="${b.mainNoticeNo}">
         <h2>${b.mainNoticeTitle}</h2>
