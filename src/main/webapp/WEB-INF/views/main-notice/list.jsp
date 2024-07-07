@@ -12,7 +12,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <section id="page">
       <section class="notice-board">
-        <h1>Sodong 서비스의 신규 및 업데이트 소식을 알려드립니다!</h1>
+        <h1>소동의 신규 및 업데이트 소식</h1>
         <c:if test="${login.auth == 'ADMIN'}">
           <button class="write-btn">글 작성</button>
         </c:if>
@@ -148,7 +148,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </nav>
         </div>
       </section>
-      <%@ include file="../include/footer.jsp" %>
     </section>
 
 
@@ -309,5 +308,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         editForm.submit();
       });
     </script>
+      <%@ include file="../include/footer.jsp" %>
+
   </body>
 </html>

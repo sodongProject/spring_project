@@ -71,8 +71,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <p class="content">${b.mainNoticeContent}</p>
       </section>
     </main>
-    <footer>
-      <p>Sodong Copyright © Sodong Corp. All Rights Reserved.</p>
-    </footer>
+    <%@ include file="../include/footer.jsp" %>
+   
   </body>
 </html>
