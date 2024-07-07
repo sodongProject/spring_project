@@ -69,7 +69,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         width: 100%;
         height: 50px;
         border-radius: 500px;
-        background: #F2F2F2;
+        background: #f2f2f2;
         align-items: center;
         margin-bottom: 4px;
       }
@@ -91,7 +91,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       .stats-box {
         display: flex;
         justify-content: space-between;
-        margin-top: 80px;
+        margin-top: 100px;
       }
 
       .stats-item {
@@ -137,6 +137,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         flex-wrap: wrap;
         justify-content: space-between;
         margin-top: 100px;
+        margin-bottom: 70px;
       }
 
       .info-item {
@@ -175,47 +176,74 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ include file="../include/header.jsp" %>
 
     <section id="page">
-    <!-- 2번째 페이지 시작 -->
-    <section class="second-page">
-      <!-- 페이지 타이틀 -->
-      <div class="main-title-wrapper">
-        <h1 class="main-title">
-          <img src="/assets/img/main-page/title-left.png" />RANKING<img
-            src="/assets/img/main-page/title-right.png"
-          />
-        </h1>
-        <button class="notice-btn">Sodong 공지사항</button>
-      </div>
-
-      <!-- 동호회 랭킹 순위 박스 -->
-      <div class="ranking-box">
-        <!-- 가장 최근에 생긴 -->
-        <div class="most-recent">
-          <ul class="rank-list">
-            <li></li>
-          </ul>
-          <h3>가장 최근에 생긴</h3>
+      <!-- 2번째 페이지 시작 -->
+      <section class="second-page">
+        <!-- 페이지 타이틀 -->
+        <div class="main-title-wrapper">
+          <h1 class="main-title">
+            <img src="/assets/img/main-page/title-left.png" />RANKING<img
+              src="/assets/img/main-page/title-right.png"
+            />
+          </h1>
+          <button class="notice-btn">Sodong 공지사항</button>
         </div>
 
-        <!-- 가장 회원이 많은 -->
-        <div class="most-member">
-          <div class="rank-list"></div>
-          <h3>가장 회원이 많은</h3>
-        </div>
+        <!-- 동호회 랭킹 순위 박스 -->
+        <div class="ranking-box">
+          <!-- 가장 최근에 생긴 -->
+          <div class="most-recent">
+            <ul class="rank-list">
+              <c:if test="${not empty recentList}">
+                <c:forEach var="c" items="${recentList}" varStatus="rank">
+                  <li>동호회명: ${c.clubName}, 생성일: ${c.date}</li>
+                </c:forEach>
+              </c:if>
+              <c:if test="${empty recentList}">
+                <div>최근에 만들어진 동호회가 없습니다.</div>
+              </c:if>
+            </ul>
+            <h3>가장 최근에 생긴</h3>
+          </div>
 
-        <!-- 가장 소모임이 많은 -->
-        <div class="most-schedule">
-          <div class="rank-list"></div>
-          <h3>가장 소모임이 많은</h3>
+          <!-- 가장 회원이 많은 -->
+          <div class="most-member">
+            <ul class="rank-list">
+              <c:if test="${not empty memberList}">
+                <c:forEach var="c" items="${memberList}" varStatus="rank">
+                  <li>
+                    동호회명: ${c.clubName}, 회원 수: ${c.clubMemberMax}명
+                  </li>
+                </c:forEach>
+              </c:if>
+              <c:if test="${empty memberList}">
+                <div>가입자가 가장 많은 동호회가 없습니다.</div>
+              </c:if>
+            </ul>
+            <h3>가장 회원이 많은</h3>
+          </div>
+
+          <!-- 가장 소모임이 많은 -->
+          <div class="most-schedule">
+            <ul class="rank-list">
+              <c:if test="${not empty scheduledList}">
+                <c:forEach var="c" items="${scheduledList}" varStatus="rank">
+                  <li>
+                    동호회명: ${c.clubName}, 소모임 수: ${c.scheduleCount}개
+                  </li>
+                </c:forEach>
+              </c:if>
+              <c:if test="${empty scheduledList}">
+                <div>소모임이 가장 많은 동호회가 없습니다.</div>
+              </c:if>
+            </ul>
+            <h3>가장 소모임이 많은</h3>
+          </div>
         </div>
-      </div>
       </section>
       <!-- 2번째 페이지 끝 -->
 
-
       <!-- 3번째 페이지 시작 -->
       <section class="third-page">
-
         <!-- SODONG 통계 카드 박스 -->
         <div class="stats-box">
           <div class="stats-item">
@@ -281,8 +309,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <a href="#">Read more →</a>
           </div>
         </div>
-
-
       </section>
       <!-- 3번째 페이지 끝 -->
       <%@ include file="../include/footer.jsp" %>
@@ -294,6 +320,5 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         window.location.href = "/main-notice/list";
       };
     </script>
-
   </body>
 </html>
