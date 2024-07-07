@@ -9,16 +9,16 @@
     <meta charset="UTF-8">
     <title>스케줄 생성하기</title>
     <%@ include file="../include/static-head.jsp" %>
-<%--    <link rel="preconnect" href="https://fonts.googleapis.com">--%>
-    <%--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--%>
-    <%--    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">--%>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">--%>
 
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link rel="stylesheet" href="/assets/css/schedules/schedules.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-thin-straight/css/uicons-thin-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
 </head>
 <body>
 <div id="schedule-section">
@@ -28,11 +28,12 @@
         <div class="modal-content">
             <span class="close"><i class="fi fi-br-cross"></i></span>
             <form>
-                <div id="club_no"  >
-                    <input type="number" name="clubNo" value="1" disabled>
+                <div id="title"><h1>스케줄 생성하기</h1></div>
+                <div id="club_no" >
+                    <input type="number" name="clubNo" value="1" disabled hidden>
                 </div>
                 <div class="schedule_title">
-                    <label>제목</label>
+                    <label>소모임 이름</label>
                     <input id="schedule_title" type="text" class="title" name="scheduleTitle" required>
                 </div>
                 <div class="schedule_content">
@@ -41,7 +42,7 @@
                 </div>
                 <div class="schedule_at">
                     <label>모임 시간</label>
-                    <input id="schedule_at" type="datetime-local" class="schedule_at" name="scheduleAt" value="${now}" min="${now}" required>
+                    <input id="schedule_at" type="datetime-local" name="scheduleAt" value="${now}" min="${now}" required>
                 </div>
                 <div class="participation_points">
                     <label>회비</label>
@@ -54,13 +55,13 @@
 
     <div id="wrap">
         <div class='page-item prev-btn'>
-            <i class="fi fi-sr-play page-link prev" data-pno="1"></i>
+            <i class="fi fi-ts-angle-small-right page-link prev" data-pno="1"></i>
         </div>
         <div class="card-container">
 
         </div>
         <div class='page-item'>
-            <i class="fi fi-sr-play page-link next" data-end="1"></i>
+            <i class="fi fi-ts-angle-small-right page-link next" data-end="1"></i>
         </div>
     </div>
 
@@ -95,6 +96,37 @@
             </div>
         </div>
     </div>
+
+    <div class="schedule-member-modal">
+        <div class="schedule-member-modal-content">
+            <div class="member-list">
+                <div class="member-info">
+                    <span class="user-name">이름 : ???</span>
+                    <span class="user-temperature">유저 온도 : 36.5</span>
+                </div>
+                <div class="member-exile-btn">
+                    <button class="exile-btn">추방</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule-secession-modal">
+        <div class="secession-modal-content">
+            <h1 class="secession-content">???에 탈퇴하시겠습니까?</h1>
+            <div class="schedule-secession-btn">
+                <button class="secession-btn">탈퇴</button>
+                <button class="cancel-btn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule-delete-modal">
+        <div class="delete-modal-content">
+
+        </div>
+    </div>
+
 </div>
 
 
@@ -108,7 +140,7 @@
     const $registerModal = document.getElementById("register-modal");
 
     btn.onclick = function() {
-        modal.style.display = "block";
+        modal.style.display = "flex";
     };
 
     $refuseBtn.onclick = function() {
@@ -130,6 +162,7 @@
             modal.style.display = "none";
         }
     };
+
 
 
 </script>

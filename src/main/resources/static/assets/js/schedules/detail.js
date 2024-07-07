@@ -43,6 +43,7 @@ async function applicationUserList  () {
 
 function openRegisterModalHandler() {
     const $registerModalBtn = document.querySelector('.register-list');
+    if($registerModalBtn === null) return;
     $registerModalBtn.addEventListener('click', async e=>{
         document.getElementById('register-list-modal').style.display='flex';
 });
@@ -94,29 +95,46 @@ function registerBtnHandler() {
             e.preventDefault();
 
             const $detailBtns = document.querySelectorAll(".detail-btn");
+            let scheduleNo = 0;
 
             let isDetailBtn = false;
             for (const $detailBtn of $detailBtns) {
-                if(e.target === $detailBtn) isDetailBtn = true;
+                if(e.target === $detailBtn) {
+                    isDetailBtn = true;
+                    scheduleNo = e.target.dataset.sno;
+                }
             }
 
             if(!isDetailBtn) return;
-
-            const scheduleNo = e.target.dataset.sno;
 
             const scheduleDetailResponse = await callApi(`${BASE_URL}/${scheduleNo}`);
 
             const {loginUserInfoDto, schedule} = scheduleDetailResponse;
 
+            console.log(loginUserInfoDto);
             let tag = '';
-
-            if(loginUserInfoDto.userScheduleRole === 'ADMIN') {
-                tag += `<div class="register-list">
-                            <button>신청관리</button>
-                        </div>`
+            if(loginUserInfoDto !== null) {
+                if(loginUserInfoDto.userScheduleRole !== null) {
+                    if(loginUserInfoDto.userScheduleRole === 'ADMIN') {
+                        tag += `<div class="register-list">
+                            <button class="register-admin-btn">신청관리</button>
+                        </div>
+                        <div class="schedule_members">
+                            <button class="schedule-member-btn">참가자 조회</button>
+                        </div>
+                        
+                        `
+                    } else if (loginUserInfoDto.userScheduleRole === 'MEMBER') {
+                        tag += `
+                        <div class="out-schedule">
+                            <button class="out-schedule-btn">소모임 탈퇴</button>
+                        </div>
+                        `
+                    }
+                }
             }
 
-            tag += `<h1>${loginUserInfoDto.userScheduleRole}</h1>
+            tag += `
                     <h1 id="schedule_detail" data-sno="${schedule.scheduleNo}" data-cno="${schedule.clubNo}">스케줄 상세보기</h1>
                     <div>제목${schedule.scheduleTitle}</div>
                     <div>스케줄 생성 시간 ${schedule.scheduleContent}</div>
