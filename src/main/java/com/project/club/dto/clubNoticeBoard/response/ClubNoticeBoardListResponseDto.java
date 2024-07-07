@@ -25,7 +25,7 @@ public class ClubNoticeBoardListResponseDto {
     private String userAuthStatus;
     private String userName;
 
-    public ClubNoticeBoardListResponseDto (ClubNoticeBoard C, String userAuthStatus) {
+    public ClubNoticeBoardListResponseDto (ClubNoticeBoard C, String userAuthStatus, String userName) {
         this.clubNoticeNo = C.getClubNoticeNo();
         this.clubNo = C.getClubNo();
         this.shortTitle = makeShortTitle(C.getClubNoticeTitle());
@@ -33,6 +33,7 @@ public class ClubNoticeBoardListResponseDto {
         this.account = C.getAccount();
         this.view = C.getClubNoticeViewCount();
         this.userAuthStatus = userAuthStatus;
+        this.userName = userName;
 
         LocalDateTime createAt = C.getClubNoticeCreatedAt();
         this.date = dateFormatting(createAt);

@@ -4,42 +4,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>공지사항 작성</title>
-    <style>
-   
-        .container {
-            width: 800px;
-            margin: 20px auto;
-        }
+    <link rel="stylesheet" href="/assets/css/clubNoticeBoard/clubNoticeWrite.css" />
 
-        form {
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
