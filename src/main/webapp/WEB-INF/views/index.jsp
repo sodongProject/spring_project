@@ -14,9 +14,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="text_wrap">
         <h2 class="title">서울에서 일어나는 <b>우리들의 작은 소동</b></h2>
         <p class="btn_wrap">
-          <a href="#">회원 가입 하기</a>
+          <a href="/users/sign-up">회원 가입 하기</a>
 
-          <a href="#">동호회 생성하기</a>
+          <a href="/club/list">동호회 생성하기</a>
         </p>
       </div>
       <p class="img"><img src="/assets/img/main/c-main-logo.png" alt=""></p>
