@@ -2,6 +2,7 @@ package com.project.entity;
 
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -36,6 +37,7 @@ public class Schedules {
     private int scheduleCount;
     // 스케줄 일자
     @Setter
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime scheduleAt;
 
     // 스케줄 총 포인트

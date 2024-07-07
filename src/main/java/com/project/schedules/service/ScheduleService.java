@@ -44,6 +44,7 @@ public class ScheduleService {
         Schedules newSchedules = scheduleMapper.findLastSaveSchedule();
         long scheduleNo = newSchedules.getScheduleNo();
         long loginUserInClubNo = scheduleMapper.userInClub(dto.getClubNo(), loginUserAccount);
+
         scheduleMapper.registerUserIntoSchedule(scheduleNo, loginUserInClubNo);
 
         // 스케줄 생성자 권한 업데이트
@@ -137,6 +138,7 @@ public class ScheduleService {
     }
 
     public List<ScheduleFindAllDto> findAllSchedule(long clubNo) {
+
 
         return scheduleMapper.findAll(clubNo);
     }

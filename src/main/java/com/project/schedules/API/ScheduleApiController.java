@@ -47,6 +47,8 @@ public class ScheduleApiController {
 
         List<ScheduleFindAllDto> scheduleList = scheduleService.findAllSchedule(clubNo);
 
+        System.out.println("scheduleList = " + scheduleList);
+
         List<ScheduleLoginUserInfoDto> scheduleLoginUserInfoDtoList = scheduleService.findAllUserAuthInSchedule(loginUserAccount);
 
         PageMaker pageMaker = new PageMaker(new Page(pageNo, 3), scheduleList.size());
