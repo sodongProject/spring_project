@@ -1,9 +1,12 @@
 import { callApi } from "./api.js";
+import {timeFormat} from "./list.js";
 
 let BASE_URL = 'http://localhost:8383/schedules/detail';
 
 detailModalContent();
 registerBtnHandler();
+closeRegisterListModal();
+closeDetailModal();
 // openRegisterModal();
 // registerBtnHandler();
 //
@@ -32,7 +35,7 @@ async function applicationUserList  () {
             </div>`;
             }
         } else {
-            tag += `<h1>신청자가 없습니다.</h1>`
+            tag += `<h1 id="no-member">신청자가 없습니다.</h1>`
         }
 
         const $userListContainer = document.querySelector('.register-list-modal-content');
@@ -120,7 +123,8 @@ function registerBtnHandler() {
                             <button class="register-admin-btn">신청관리</button>
                         </div>
                         <div class="schedule_members">
-                            <button class="schedule-member-btn">참가자 조회</button>
+                            <i class="fi fi-ss-users-alt"></i>                           
+                            <button class="schedule-member-btn">  <span>${schedule.scheduleCount}</span></button>
                         </div>
                         
                         `
@@ -134,18 +138,45 @@ function registerBtnHandler() {
                 }
             }
 
+            const targetScheduleAt = schedule.scheduleAt;
+            const at = timeFormat(targetScheduleAt);
+
+            const targetCreatedAt = schedule.scheduleCreatedAt;
+            const created = timeFormat(targetCreatedAt);
+
             tag += `
-                    <h1 id="schedule_detail" data-sno="${schedule.scheduleNo}" data-cno="${schedule.clubNo}">스케줄 상세보기</h1>
-                    <div>제목${schedule.scheduleTitle}</div>
-                    <div>스케줄 생성 시간 ${schedule.scheduleContent}</div>
-                    <div>스케줄 조회수 ${schedule.scheduleViewCount}</div>
-                    <div>스케줄 주최자 ${schedule.account}</div>
-                    <div>스케줄 일자 ${schedule.scheduleAt}</div>
-                    <div>스케줄 참여 인원 ${schedule.scheduleCount}</div>
-                    <div>회비 ${schedule.participationPoints}</div>`
+                    <h1 id="schedule_detail" data-sno="${schedule.scheduleNo}" data-cno="${schedule.clubNo}" hidden></h1>
+                    <div class="detail-title">${schedule.scheduleTitle}</div>
+                    <div class="detail-account"><i class="fi fi-rs-user"></i>_ ${schedule.account}</div>
+                    <div class="detail-content">${schedule.scheduleContent}</div>                 
+                    <div class="detail-a"><i class="fi fi-rr-calendar-clock"></i> ${at}</div>
+                    <div class="detail-created"><i class="fi fi-rs-calendar"></i> ${created}</div>
+                    <div class="detail-a"><i class="fi fi-rs-coins"></i> ${schedule.participationPoints}</div>`
 
             document.querySelector(".detail-modal-content").innerHTML = tag;
 
             applicationUserList();
         });
     }
+
+
+
+
+function closeRegisterListModal () {
+    const $registerListModal = document.getElementById("register-list-modal");
+    $registerListModal.addEventListener('click', e => {
+        if(e.target !== $registerListModal) return;
+
+        $registerListModal.style.display = 'none';
+    })
+}
+
+function closeDetailModal () {
+    const $scheduleDetailModal = document.getElementById("detail-modal");
+    $scheduleDetailModal.addEventListener('click', e => {
+        if(e.target !== $scheduleDetailModal) return;
+
+        $scheduleDetailModal.style.display = 'none';
+    })
+}
+

@@ -139,6 +139,7 @@
     const $refuseBtn = document.querySelector(".refuse-btn");
     const $registerModal = document.getElementById("register-modal");
 
+
     btn.onclick = function() {
         modal.style.display = "flex";
     };
