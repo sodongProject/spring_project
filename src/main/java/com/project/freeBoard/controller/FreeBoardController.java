@@ -1,10 +1,7 @@
 package com.project.freeBoard.controller;
 
-import com.project.club.dto.ClubLoginUserInfoDto;
-import com.project.entity.Auth;
 import com.project.freeBoard.dto.FreeBoardListResponseDto;
 import com.project.freeBoard.dto.FreeBoardWriteRequestDto;
-
 import com.project.freeBoard.mapper.FreeBoardDto;
 import com.project.freeBoard.service.FreeBoardService;
 import com.project.util.FileUtil;
@@ -36,7 +33,7 @@ public class FreeBoardController {
 
         // 세션 체크 추가
         if (session == null || !LoginUtil.isLoggedIn(session)) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/users/sign-in"; // 로그인 페이지로 리다이렉트
         }
 
         // 클럽 멤버 여부 확인
@@ -59,8 +56,23 @@ public class FreeBoardController {
 
     // 게시글 쓰기 화면 요청(/board/write : GET)
     @GetMapping("/write")
-    public String write() {
+    public String write(Model model, HttpSession session) {
         System.out.println("/freeBoard/write GET");
+
+        // 세션 체크 추가
+        if (session == null || !LoginUtil.isLoggedIn(session)) {
+            return "redirect:/users/sign-in"; // 로그인 페이지로 리다이렉트
+        }
+
+        // 로그인된 사용자 정보 가져오기
+        String account = LoginUtil.getLoggedInUserAccount(session);
+        Integer clubNo = (Integer) session.getAttribute("clubNo");
+        log.info("clubNo: {}", clubNo);
+
+        // 모델에 추가
+        model.addAttribute("account", account);
+        model.addAttribute("clubNo", clubNo);
+
         return "freeBoard/write";
     }
 
@@ -81,10 +93,12 @@ public class FreeBoardController {
         String snsContentsPath = FileUtil.uploadFile(rootPath, dto.getBoardImg());
         boolean flag = service.insert(dto, snsContentsPath);
 
+        //클럽 번호 가져오기
+        Integer clubNo = dto.getClubNo();
+
         return "redirect:/freeBoard/list";
     }
 
-    // 게시글 삭제 (/freeBoard/delete : GET)
     // 게시글 삭제 (/freeBoard/delete : GET)
     @GetMapping("/delete")
     public String delete(@RequestParam("bno") int bno, HttpSession session) {
@@ -92,7 +106,7 @@ public class FreeBoardController {
 
         // 세션 체크 추가
         if (session == null || !LoginUtil.isLoggedIn(session)) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/users/sign-gin"; // 로그인 페이지로 리다이렉트
         }
 
         // 클럽 멤버 여부 확인
