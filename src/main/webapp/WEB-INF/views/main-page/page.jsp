@@ -31,7 +31,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <ul class="rank-list">
               <c:if test="${not empty recentList}">
                 <c:forEach var="c" items="${recentList}" varStatus="rank">
-                  <li>동호회명: ${c.clubName}, 생성일: ${c.date}</li>
+                  <li>동호회명: ${c.clubName}<br>생성일: ${c.date}</li>
                 </c:forEach>
               </c:if>
               <c:if test="${empty recentList}">
@@ -47,7 +47,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <c:if test="${not empty memberList}">
                 <c:forEach var="c" items="${memberList}" varStatus="rank">
                   <li>
-                    동호회명: ${c.clubName}, 회원 수: ${c.clubMemberMax}명
+                    동호회명: ${c.clubName}<br>회원 수: ${c.clubMemberMax}명
                   </li>
                 </c:forEach>
               </c:if>
@@ -64,7 +64,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <c:if test="${not empty scheduledList}">
                 <c:forEach var="c" items="${scheduledList}" varStatus="rank">
                   <li>
-                    동호회명: ${c.clubName}, 소모임 수: ${c.scheduleCount}개
+                    동호회명: ${c.clubName}<br>소모임 수: ${c.scheduleCount}개
                   </li>
                 </c:forEach>
               </c:if>

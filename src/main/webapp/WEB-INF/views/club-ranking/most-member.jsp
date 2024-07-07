@@ -2,21 +2,6 @@
 pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-  /* .most-member {
-    border: 2px solid blue;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: #f0f8ff;
-  }
-
-  .member-box {
-    border: 1px solid blue;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #f0fff0;
-  } */
-</style>
 
 <div class="rank-list">
 

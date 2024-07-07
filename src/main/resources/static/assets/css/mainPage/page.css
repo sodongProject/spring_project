@@ -27,7 +27,7 @@ h1.main-title img {
 div.ranking-box {
   display: flex;
   justify-content: space-between;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 div.most-recent,
@@ -60,7 +60,9 @@ div.most-member {
   border-radius: 500px;
   background: #f2f2f2;
   align-items: center;
-  margin-bottom: 4px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .ranking-box .rank-list {
@@ -72,7 +74,7 @@ div.most-member {
   font-size: 18px;
   font-weight: 700;
   color: #0d0d0d;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 
 /* 통계 카드 스타일 */
