@@ -265,7 +265,7 @@ export async function fetchScheduleList(pageNo = '1') {
         }
     } else {
         schedule += `<div id="no-schedule">
-                        <h1 id="no-schedule">스케줄이 존재하지 않습니다.</h1>
+                        <h1 class="no-schedule">스케줄이 존재하지 않습니다.</h1>
                      </div>
                         `;
     }
@@ -289,7 +289,7 @@ export async function fetchScheduleList(pageNo = '1') {
     detailEventHandler();
 }
 
-function timeFormat(scheduleAt) {
+export function timeFormat(scheduleAt) {
     const aaa = scheduleAt.replace("T", " ");
 
     const fixAt = aaa.slice(0,16);
