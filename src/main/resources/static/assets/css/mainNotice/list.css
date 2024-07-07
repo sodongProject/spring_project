@@ -2,7 +2,6 @@
   width: 1200px;
   margin: 0 auto;
   padding-top: 120px;
-  /* height: 100vh; */
 }
 
 h1 {
@@ -13,16 +12,12 @@ h1 {
 }
 
 .notice-board {
-  /* background-color: white; */
-  /* border-radius: 40px; */
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  margin-bottom: 80px;
-  padding: 60px 0;
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 60px 0 60px 0;
+  padding: 30px 0;
 }
-
-/* .notice-board h2 {
-  margin-top: 0;
-} */
 
 .search-bar {
   width: 400px;
@@ -73,7 +68,7 @@ h1 {
 }
 
 .notice-list li {
-  padding: 10px;
+  padding: 15px;
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
@@ -86,8 +81,6 @@ h1 {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  height: 30px;
 }
 
 .pagination ul {

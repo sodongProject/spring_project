@@ -109,7 +109,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </nav>
             </div>
         </section>
-        <%@ include file="../include/footer.jsp" %>
     </section>
 
     <script>
