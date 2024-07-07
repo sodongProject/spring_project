@@ -70,14 +70,6 @@ button {
 
 }
 
-/*body {*/
-/*    background: rgba(0, 0, 0, .8);*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    height: 100vh;*/
-/*}*/
-
 .container{
     height: 450px;
     width: 380px;
@@ -117,11 +109,6 @@ button {
     flex-direction: row-reverse;
     width: 1200px;
     margin-bottom: 30px;
-}
-
-.top-section1 .search {
-    /*display: flex;*/
-    /*width: 35%;*/
 }
 
 .form-select{
@@ -376,10 +363,8 @@ button {
     border-radius: 4px;
 }
 
-/* 페이지 스타일 */
-/* pagination style */
-/* 기존 CSS 유지 */
 
+/* 페이지 스타일 */
 .bottom-section {
     width: 1200px;
     height: 150px;
@@ -407,24 +392,24 @@ button {
 .pagination-custom a {
     color: #444 !important;
     text-decoration: none;
-    padding: 15px 20px; /* 크기를 더 크게 조정 */
-    margin: 0 10px; /* 간격을 넓게 조정 */
+    padding: 15px 20px;
+    margin: 0 10px;
     background: #f1f1f1;
-    border-radius: 10px; /* 둥근 모서리 */
-    font-size: 2em; /* 폰트 크기를 크게 조정 */
+    border-radius: 10px;
+    font-size: 2em;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .pagination-custom a:hover {
     background: #ddd !important;
-    transform: scale(1.1); /* 호버 시 크기 확대 */
+    transform: scale(1.1);
 }
 
 .pagination-custom li.active a,
 .pagination-custom li a:focus {
     background: #333 !important;
     color: #f2f2f2 !important;
-    transform: scale(1.1); /* 활성화된 상태에서 크기 확대 */
+    transform: scale(1.1);
 }
 
 
