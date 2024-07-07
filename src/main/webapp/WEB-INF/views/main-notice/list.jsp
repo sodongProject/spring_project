@@ -5,31 +5,28 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ko">
   <head>
     <%@ include file="../include/static-head.jsp" %>
+    <%@ include file="../include/header.jsp" %>
+    <link href="/assets/css/common.css" rel="stylesheet" />
+    <link href="/assets/css/reset.css" rel="stylesheet" />
     
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f8f8;
-        margin: 0;
-        padding: 0;
+
+#page {
+        width: 1200px;
+        margin: 0 auto;
+        padding-top: 120px;
+        height: 100vh;
       }
 
-      header {
-        background-color: #f2cb05;
-        padding: 20px;
-        color: white;
+      h1 {
         text-align: center;
-      }
-
-      main {
-        padding: 20px;
+        font-size: 20px;
       }
 
       .notice-board {
-        width: 1200px;
-        margin: 0 auto;
+        /* margin: 0 auto; */
         background-color: white;
-        padding: 20px;
+        /* padding-top: 100px; */
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
@@ -72,6 +69,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         border-bottom: 1px solid #eee;
         display: flex;
         justify-content: space-between;
+        font-size: 10px;
       }
 
       .notice-list .date {
@@ -150,15 +148,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         border-radius: 4px;
       }
 
-      footer {
-        background-color: #f8f8f8;
-        padding: 20px;
-        text-align: center;
-        color: #999;
-        border-top: 1px solid #eee;
-        margin-top: 20px;
-      }
-
       .notice-list li:hover {
         background-color: #e0e0e0;
         cursor: pointer;
@@ -168,16 +157,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       button.modify-btn,
       button.del-btn {
         border: 1px solid #000;
+        border-radius: 50px;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Sodong 공지사항</h1>
-    </header>
-    <main>
+    <section id="page">
       <section class="notice-board">
-        <h2>Sodong 서비스의 신규 및 업데이트 소식을 알려드립니다!</h2>
+        <h1>Sodong 서비스의 신규 및 업데이트 소식을 알려드립니다!</h1>
         <c:if test="${login.auth == 'ADMIN'}">
           <button class="write-btn">글 작성</button>
         </c:if>
@@ -313,10 +300,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </nav>
         </div>
       </section>
-    </main>
-    <footer>
-      <p>Sodong Copyright © Sodong Corp. All Rights Reserved.</p>
-    </footer>
+      <%@ include file="../include/footer.jsp" %>
+    </section>
+
 
     <script>
       const $board = document.querySelector(".notice-board");
