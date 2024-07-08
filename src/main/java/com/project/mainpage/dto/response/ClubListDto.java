@@ -34,7 +34,7 @@ public class ClubListDto  {
     }
 
     private String dateFormatting(LocalDateTime regDateTime) {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd a HH시mm분");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yy-MM-dd");
         return pattern.format(regDateTime);
     }
 
