@@ -12,7 +12,7 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 
-<div id="wrap" class="form-container" data-cno="${club.clubNo}" data-account="${sessionScope.login.account}">
+<div id="clubDetailWrap" class="clubDetailForm-container" data-cno="${club.clubNo}" data-account="${sessionScope.login.account}">
     <div class="header">
         <h1>${club.title}</h1>
         <span class="writer">작성자: ${club.userName}</span>
@@ -27,14 +27,14 @@
             </c:otherwise>
         </c:choose>
     </div>
-    <div class="content-section">
+    <div class="clubDetailContent-section">
         <p>${club.content}</p>
     </div>
-    <div class="buttons">
+    <div class="clubDetailButtons">
         <c:if test="${club.userAuthStatus eq 'ADMIN'}">
             <form action="/club/applicants" method="get">
                 <input type="hidden" name="clubNo" value="${club.clubNo}">
-                <button class="admin-btn" type="submit">가입 신청자 확인</button>
+                <button class="clubDetailAdmin-btn" type="submit">가입 신청자 확인</button>
             </form>
         </c:if>
         <button class="notice-btn" onclick="window.location.href='/clubNoticeBoard/list?clubNo=${club.clubNo}'">공지사항</button>
@@ -48,9 +48,9 @@
 <%@ include file="../include/footer.jsp" %>
 
 <%-- 모달 구조 --%>
-<div id="memberModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
+<div id="clubDetailMemberModal" class="clubDetailModal">
+    <div class="clubDetailModal-content">
+        <span class="clubDetailClose">&times;</span>
         <h2>가입 신청자 목록</h2>
         <table>
             <thead>
@@ -90,27 +90,27 @@
 <script>
 
     // 모달 열기/닫기 로직
-    const modal = document.getElementById("memberModal");
-    const btn = document.getElementById("showMembersBtn");
-    const span = document.getElementsByClassName("close")[0];
+    const clubDetailModal = document.getElementById("clubDetailMemberModal");
+    const clubDetailBtn = document.getElementById("showMembersBtn");
+    const clubDetailSpan = document.getElementsByClassName("clubDetailClose")[0];
 
-    btn.onclick = function() {
-        modal.style.display = "block";
+    clubDetailBtn.onclick = function() {
+        clubDetailModal.style.display = "block";
     }
 
-    span.onclick = function() {
-        modal.style.display = "none";
+    clubDetailSpan.onclick = function() {
+        clubDetailModal.style.display = "none";
     }
 
     window.onclick = function(e) {
-        if (e.target == modal) {
-            modal.style.display = "none";
+        if (e.target == clubDetailModal) {
+            clubDetailModal.style.display = "none";
         }
     }
 
 
     document.getElementById('cancelButton').addEventListener('click', function() {
-        const clubNo = document.getElementById('wrap').getAttribute('data-cno');
+        const clubNo = document.getElementById('clubDetailWrap').getAttribute('data-cno');
         if (confirm('정말로 탈퇴하시겠습니까?')) {
             fetch('/club/cancelled', {
                 method: 'POST',
@@ -146,7 +146,7 @@
                     if (element) {
                         element.remove();  // 추방된 사용자의 테이블 행을 제거
                     }
-                    modal.style.display = "none";  // 모달 창을 닫음
+                    clubDetailModal.style.display = "none";  // 모달 창을 닫음
                 })
                 .catch(error => {
                     alert('Error: ' + error.message);  // 에러 발생 시 사용자에게 알림
