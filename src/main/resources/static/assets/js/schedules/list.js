@@ -21,8 +21,6 @@ function addScheduleBtnHandler() {
 
         let fixAt = at.replace("T", " ");
 
-        console.log(fixAt)
-
         const payload = {
             clubNo: document.getElementById('club_no').firstElementChild.value,
             scheduleTitle: document.getElementById('schedule_title').value,

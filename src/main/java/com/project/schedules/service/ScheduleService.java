@@ -225,4 +225,18 @@ public class ScheduleService {
         return scheduleMapper.findAllUserInSchedule(loginUserAccount);
 
     }
+
+    public List<Users> findAllScheduleMemeber(Long scheduleNo) {
+        return scheduleMapper.findAllScheduleUser(scheduleNo);
+    }
+
+    public void exileUser(ExileUserDto dto) {
+
+        Long clubJoinNo = scheduleMapper.userInClub(dto.getClubNo(), dto.getAccount());
+
+        scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), clubJoinNo, ScheduleAuth.DENIED);
+
+        Integer memberCount = scheduleMapper.scheduleUsers(dto.getScheduleNo());
+        scheduleMapper.UpdateScheduleUsers(memberCount, dto.getScheduleNo());
+    }
 }

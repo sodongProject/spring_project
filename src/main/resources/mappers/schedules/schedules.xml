@@ -117,6 +117,19 @@
             AND user_schedule_role = 'WAITING')
     </select>
 
+    <select id="findAllScheduleUser" resultType="com.project.entity.Users">
+        SELECT
+        *
+        FROM users
+        INNER JOIN users_clubs
+        ON users.account = users_clubs.account
+        WHERE users_clubs.user_club_join_no IN
+        (SELECT user_club_join_no FROM users_schedules
+        WHERE schedule_no = #{scheduleNO}
+        AND (user_schedule_role = 'MEMBER'
+        OR user_schedule_role = 'ADMIN'))
+    </select>
+
     <select id="findAllUserInSchedule" resultType="com.project.schedules.dto.ScheduleLoginUserInfoDto">
         SELECT
         *
@@ -189,7 +202,7 @@
         SELECT
         COUNT(*)
         FROM users_schedules
-        WHERE schedule_no = 110
+        WHERE schedule_no = #{scheduleNo}
         AND user_schedule_is_withdrawn = false
         AND user_schedule_role != 'WAITING'
         AND user_schedule_role != 'DENIED'

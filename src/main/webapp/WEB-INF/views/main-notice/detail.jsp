@@ -19,7 +19,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <p class="content">${b.mainNoticeContent}</p>
       </section>
     </main>
-    <%@ include file="../include/footer.jsp" %>
   </section>
-  </body>
+</body>
+<%@ include file="../include/footer.jsp" %>
   </html>

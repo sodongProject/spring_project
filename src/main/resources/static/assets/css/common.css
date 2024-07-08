@@ -156,6 +156,12 @@ body,html{
   transform: translateX(-10px) translateY(-9px);
   
 }
+.h-side_menu ul li.logout:last-child{
+  font-size: 16px;
+  text-align: center;
+  width: 100%;
+  
+}
 /* footer */
 .footer {
   width: 100%;
