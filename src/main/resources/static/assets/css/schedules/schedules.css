@@ -547,7 +547,7 @@ body {
 
 
 .del-btn {
-
+    display: block;
     position: absolute;
     color: #0d0d0d;
     cursor: pointer;
@@ -980,4 +980,8 @@ body {
     color: #0d0d0d;
     text-align: left;
     font-weight: 700;
+}
+
+.card-wrapper:hover .del-btn{
+    display: block;
 }
