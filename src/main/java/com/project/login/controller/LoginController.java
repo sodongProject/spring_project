@@ -108,20 +108,28 @@ public class LoginController {
         log.info("Authentication result: {}", result);
 
         ra.addFlashAttribute("result", result.name());
+        String redirect = (String) session.getAttribute("redirect");
 
         if (result == LoginResult.SUCCESS) {
 
             //리다이렉트 URL이 있다면
-            String redirect = (String) session.getAttribute("redirect");
             System.out.println("redirect = " + redirect);
-            
+
+
             if (redirect != null) {
                 session.removeAttribute("redirect");
                 return "redirect:" + redirect;
             }
 
             return "redirect:/"; // 로그인 성공시
+        } else {
+            if (redirect != null) {
+                session.removeAttribute("redirect");
+                return "redirect:/users/sign-in?redirect=" + redirect;
+            }
         }
+
+
 
         return "redirect:/users/sign-in"; // 로그인 실패시
     }
