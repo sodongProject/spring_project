@@ -2,11 +2,11 @@
     width: 1200px;
     height: 100vh;
     background-color: #f2f2f2;
-    padding: 120px 20px 20px 20px;
-    border-radius: 10px;
+    padding: 120px 50px 50px 50px;
+    border-radius: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    margin: 0 auto;
+    margin: 180px auto;
 
 }
 
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    padding: 50px;
+    padding: 50px  0;
 }
 
 .header h1 {
@@ -44,11 +44,11 @@
 
 
 .content-section{
-    padding: 50px;
+    padding: 50px 0;
 }
 
 .content-section p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     color: #333;
     flex-grow: 1;
@@ -72,7 +72,7 @@ button {
 }
 
 button:hover {
-    background-color: #e0b304;
+    /* background-color: #e0b304; */
 }
 
 /* 반응형 디자인 적용 */
@@ -88,4 +88,12 @@ button:hover {
     top: 50px;
     right: 280px;
     width: 150px;
+}
+.list-btn{
+    width: 120px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--color-bk);
+    color: #fff
 }

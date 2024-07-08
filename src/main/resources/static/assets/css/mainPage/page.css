@@ -1,7 +1,7 @@
 #page {
   width: 1200px;
   margin: 0 auto;
-  padding-top: 80px;
+  padding-top: 180px;
 }
 
 p.page-img img {
@@ -27,7 +27,7 @@ h1.main-title img {
 div.ranking-box {
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
+  margin-top: 130px;
 }
 
 div.most-recent,
@@ -38,9 +38,10 @@ div.most-schedule {
   align-items: center;
   padding: 20px;
   margin-top: 70px;
-  height: 530px;
   border-radius: 40px;
   box-shadow: 0 0 20px #00000020;
+  padding-bottom: 50px;
+  height: fit-content;
 }
 
 div.most-member {
@@ -49,41 +50,46 @@ div.most-member {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  height: 600px;
   border-radius: 40px;
   box-shadow: 0 0 20px #00000020;
+  transform: translateY(-40px);
+  padding-bottom: 50px;
+  height: fit-content;
+
 }
 
 .rank-list li {
   width: 100%;
-  height: 50px;
+  /* height: 50px; */
   border-radius: 500px;
   background: #f2f2f2;
   align-items: center;
   text-align: center;
   margin-bottom: 10px;
-  font-size: 15px;
+  font-size: 14px;
   position: relative;
   padding: 10px;
 }
-
+.rank-list li b{
+  font-size: 16px;
+  padding-bottom: 2px;
+}
 .ranking-box .rank-list {
   width: 100%;
-  height: 300px;
 }
 
 .ranking-box h3 {
   font-size: 18px;
   font-weight: 700;
   color: #0d0d0d;
-  margin-top: 45px;
+  margin-top: 50px;
 }
 
 /* 통계 카드 스타일 */
 .stats-box {
   display: flex;
   justify-content: space-between;
-  margin-top: 100px;
+  margin-top: 250px;
 }
 
 .stats-item {
@@ -91,21 +97,22 @@ div.most-member {
   align-items: center;
   width: calc((100% - 60px) / 4);
   background: #f8f9fa;
-  padding: 20px;
+  padding: 24px 20px;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 22px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .stats-item img {
   width: 40px;
   height: 40px;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .stats-text {
-  text-align: left;
+  text-align: center;
   margin-left: 20px;
+ width: calc(100% - 100px);
 }
 
 .stats-text h2 {
@@ -133,9 +140,9 @@ div.most-member {
 .info-item {
   width: calc((100% - 60px) / 3);
   background: #fff;
-  padding: 20px;
+  padding: 40px 20px;
   margin-bottom: 30px;
-  border-radius: 8px;
+  border-radius: 22px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
@@ -149,6 +156,7 @@ div.most-member {
 .info-item p {
   font-size: 14px;
   color: #666;
+  margin-top: 12px;
 }
 
 .info-item a {
@@ -157,4 +165,6 @@ div.most-member {
   color: #007bff;
   text-decoration: none;
   font-weight: 500;
+  margin-top: 20px;
+  font-size: 14px;
 }

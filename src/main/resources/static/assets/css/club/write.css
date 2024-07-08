@@ -1,8 +1,8 @@
 
 #wrap {
     max-width: 1200px;
-    width: 80%;
-    margin: 50px auto;
+    width: 1200px;
+    margin: 150px auto;
     background-color: #f2f2f2;
     padding: 120px 40px 40px 40px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -12,16 +12,16 @@
 
 .form-container h1 {
     font-size: 32px;
-    color: #333;
     text-align: center;
     margin-bottom: 30px;
+    font-weight: 600;
 }
 
 label {
     display: block;
-    color: #333;
     font-weight: 500;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 input[type="text"], textarea, input[type="file"] {
@@ -42,27 +42,36 @@ input[type="text"]:focus, textarea:focus {
 .buttons {
     display: flex;
     justify-content: space-between;
+    width: 600px;
+    margin-left: auto;
 }
 
 .form-container button {
     cursor: pointer;
-    padding: 12px 20px;
+    padding: 12px 30px;
     font-size: 16px;
-    color: #fff;
+    color: var(--color-bk);
     border-radius: 5px;
     border: none;
-    background-color: #f2CB05;
     transition: background-color 0.2s;
+    border-radius: 500px;
     flex-grow: 1;
     margin-right: 10px;
+    font-weight: 600;
+
+    border:solid 1px var(--color-bk);
 }
 
 .form-container button:last-child {
     margin-right: 0;
+    background-color: var(--color-bk);
+    color: #fff;
 }
 
 .form-container button:hover {
-    background-color: #dcb204;
+    /* background-color: #dcb204; */
+    background-color: var(--color-bk);
+    color: #fff;
 }
 
 
@@ -75,14 +84,13 @@ input[type="text"]:focus, textarea:focus {
 
 .profile label {
     font-weight: 700;
-    font-size: 1.2em;
+    font-size: 14px;
     cursor: pointer;
-    color: #333;
 }
 
 .profile .thumbnail-box {
-    width: 200px;
-    height: 200px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     overflow: hidden;
     margin: 20px auto;
@@ -141,7 +149,6 @@ input[type="text"]:focus, textarea:focus {
 
 .checkbox-container label {
     font-size: 16px;
-    color: #333;
     font-weight: 500;
     position: relative;
     top: 5px;

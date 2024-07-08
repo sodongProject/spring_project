@@ -95,6 +95,7 @@ button {
 .top-section{
     display: flex;
     justify-content: space-between;
+    font-size: 18px;
 }
 
 .top-section1{
@@ -148,6 +149,7 @@ button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-size: 16px;
 }
 
 .view {

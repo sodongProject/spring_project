@@ -96,7 +96,7 @@
         button.list-btn {
             background: #e61e8c;
         }
-        button:hover {
+        button.list-btn:hover {
             background-color: #3d8b40;
         }
         button.list-btn:hover {

@@ -101,7 +101,7 @@
 
           <!-- sign up button -->
           <button type="submit" id="signup-btn" class="form-controller">
-            Sign Up
+            회원가입
           </button>
         </form>
       </div>
