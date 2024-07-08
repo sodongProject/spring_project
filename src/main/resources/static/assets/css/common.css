@@ -156,6 +156,12 @@ body,html{
   transform: translateX(-10px) translateY(-9px);
   
 }
+.h-logout{
+  font-size: 16px;
+  text-align: center;
+  
+  
+}
 /* footer */
 .footer {
   width: 100%;
