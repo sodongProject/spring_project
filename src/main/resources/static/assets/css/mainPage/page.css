@@ -9,7 +9,7 @@ p.page-img img {
 }
 
 /* 타이틀 */
-h1.main-title, h1.third-title, h1.last-page {
+h1.main-title, h1.third-title, h1.last-page, h1.my-clubs {
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -154,7 +154,26 @@ section.third-page {
   margin: 0;
 }
 
-/* 정보 카드 스타일 */
+/* 가입되어 있는 동호회 목록 박스 */
+section.my-clubs {
+  margin-top: 250px;
+}
+
+.my-clubs h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.my-clubs p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+
+/* 동호회 바로가기 박스 */
 section.last-page {
   margin-top: 250px;
 }

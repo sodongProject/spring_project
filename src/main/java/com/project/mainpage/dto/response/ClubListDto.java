@@ -19,6 +19,7 @@ public class ClubListDto  {
     private String account; // 계정
     private long scheduleCount; // 스케줄 번호
     private String date; // 포맷팅된 날짜문자열
+    private String clubDescription; // 클럽 설명
 
     public ClubListDto(ClubFindAllDto dto) {
         this.clubNo = dto.getClubNo();
@@ -28,6 +29,7 @@ public class ClubListDto  {
         this.clubMemberMax = dto.getClubMemberMax();
         this.account = dto.getAccount();
         this.scheduleCount = dto.getScheduleCount();
+        this.clubDescription = dto.getClubDescription();
 
         LocalDateTime time = dto.getClubCreatedAt();
         this.date = dateFormatting(time);

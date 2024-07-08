@@ -21,7 +21,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <img src="/assets/img/main-page/title-left.png">RANKING<img
               src="/assets/img/main-page/title-right.png">
           </h1>
-          <!-- <button class="notice-btn">Sodong 공지사항</button> -->
         </div>
 
         <!-- 동호회 랭킹 순위 박스 -->
@@ -115,12 +114,25 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="stats-item">
             <img src="/assets/img/main-page/red.png">
             <div class="stats-text">
-              <h2>3124</h2>
+              <h2>1246</h2>
               <p>누적 방문수</p>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- 가입되어있는 동호회 목록(로그인 한 유저) -->
+       <c:if test="${login != null}">
+       <section class="my-clubs">
+        <h1 class="my-clubs">${login.account}님의 동호회</h1>
+        <div class="my-clubs">
+        <c:forEach var="c" items="${memberList}" >
+          <h2>${c.clubName}</h2>
+          <p>${c.clubDescription}</p>
+        </c:forEach>
+      </div>
+       </section>
+      </c:if>
 
         <!-- 동호회 바로가기 박스 -->
          <section class="last-page">
