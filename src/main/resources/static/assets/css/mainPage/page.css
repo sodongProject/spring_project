@@ -78,15 +78,15 @@ div.most-member {
 }
 /* 1등 */
 .rank-list li:first-child::before{
-  background: url();
+  background: url("assets/img/main-page/medal1.png");
 }
 /* 2등 */
 .rank-list li:nth-child(2)::before{
-  background: url();
+  background: url("assets/img/main-page/medal2.png");
 }
 /* 3등 */
 .rank-list li:nth-child(3)::before{
-  background: url();
+  background: url("assets/img/main-page/medal3.png");
 }
 /* 4등 */
 .rank-list li:nth-child(4)::before{
