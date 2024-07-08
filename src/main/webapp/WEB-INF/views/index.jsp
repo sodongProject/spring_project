@@ -23,7 +23,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     </section>
     <section id="commuSection" class="community">
-      <p class="img"><img src="/assets/img/main/c-phone.png" alt=""></p>
+      <p class="img"><img src="/assets/img/main/c-main.png" alt=""></p>
 
       <div class="text_wrap">
         <p class="small">community</p>
