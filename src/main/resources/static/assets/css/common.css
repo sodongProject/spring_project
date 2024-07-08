@@ -45,7 +45,7 @@ body,html{
   padding: 60px;
   padding-top: 80px;
   border-left: solid 1px var(--color-wh) ;
-  transition: right 1.2s ease-out ;
+  transition: right 0.8s ease-out ;
   padding-bottom: 100px;
 }
 .h-side_menu  nav{

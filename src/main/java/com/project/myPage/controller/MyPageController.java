@@ -279,12 +279,14 @@ public class MyPageController {
     public String exchangePointPost(HttpSession session, ExchangingPointDto exchangingPointDto, RedirectAttributes redirectAttributes) {
         double amount = exchangingPointDto.getExPointsAmount();
         boolean isPossible = myPageService.isPossibleExchange(session, amount);
-        if (!isPossible) {
-            redirectAttributes.addFlashAttribute("isPossible", false);
+        if (isPossible) {
+            redirectAttributes.addFlashAttribute("isPossible", true);
+            redirectAttributes.addFlashAttribute("points", myPageService.pointsExchange(session, amount));
+
             return "redirect:/myPage/viewPoint?isConfirmed=true";
         }
-        redirectAttributes.addFlashAttribute("isPossible", true);
-        redirectAttributes.addFlashAttribute("points", myPageService.pointsExchange(session, amount));
+        redirectAttributes.addFlashAttribute("isPossible", false);
+        redirectAttributes.addFlashAttribute("points", myPageService.viewPoints(session));
 
         return "redirect:/myPage/viewPoint?isConfirmed=true";
 
@@ -311,6 +313,7 @@ public class MyPageController {
             return "redirect:/myPage/withdrawal?isConfirmed=false";
         }
 
+
         return "redirect:/myPage/withdrawal?isConfirmed=true";
 
 
@@ -320,6 +323,12 @@ public class MyPageController {
     public String withdrawalCompl(HttpSession session) {
         System.out.println("withdrawalCompl");
         myPageService.userWithdrawal(session);
+
+        // 세션에서 로그인 기록 삭제
+        session.removeAttribute("login");
+
+        // 세션을 초기화 (reset)
+        session.invalidate();
 
         return "myPage/myPage-withdrawalCompl";
     }
