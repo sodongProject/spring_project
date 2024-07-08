@@ -27,22 +27,8 @@
 }
 
 
-
-/* .homeBtn{
-    font-size: 1.5em;
-    background: none;
-    font-weight: 600;
-} */
-/*
-.main-title {
-    font-size: 2em;
-    color: #333;
-} */
-
 .add-btn {
-    /*position: absolute;*/
-    /*left: 1090px;*/
-    /*top:253px;*/
+
     padding: 10px 20px;
     background-color: #f2cb05;
     color: #0d0d0d;
@@ -52,7 +38,6 @@
     font-size: 20px;
     font-weight: 600;
     height: 50px;
-    z-index: 100;
     margin-left: auto;
 }
 
