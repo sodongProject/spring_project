@@ -51,6 +51,11 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
             <li>
               <a href="/users/sign-up">회원가입</a>
             </li>
+            <c:if test="${login!=null}">
+              <li class="logout">
+                <a href="/users/sign-out">로그아웃</a>
+              </li>
+            </c:if>
           </c:if>
         </ul>
       </nav>
