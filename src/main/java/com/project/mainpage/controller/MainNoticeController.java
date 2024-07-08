@@ -65,9 +65,7 @@ public class MainNoticeController {
     // 5. 게시글 상세 조회 요청
     @GetMapping("/detail")
     public String detail(long mainNoticeNo, Model model, HttpSession session) {
-        String account = LoginUtil.getLoggedInUser(session).getAccount();
-
-        NoticeDetailDto dto = service.detail(mainNoticeNo, account);
+        NoticeDetailDto dto = service.detail(mainNoticeNo);
         model.addAttribute("b", dto);
         return "main-notice/detail";
     }
