@@ -587,8 +587,8 @@ body {
     color: #0d0d0d;
     cursor: pointer;
     font-size: 20px;
-    top: -10px;
-    right: -10px;
+    top: -6px;
+    right: -6px;
     border-radius: 50%;
     background: white;
     height: 30px;
@@ -872,14 +872,14 @@ body {
 .detail-account {
     position: absolute;
     top: 95px;
-    left: 10px;
+    left: 25px;
     font-size: 16px;
     font-weight: 500;
     color: #0d0d0d;
 }
 
 .detail-content {
-    width: 600px;
+    width: 660px;
     height: 250px;
     color: #0d0d0d;
     border: 1px solid #f2cb05;
@@ -890,7 +890,7 @@ body {
 }
 
 .detail-a {
-    padding-left: 50px;
+    padding-left: 8px;
     margin-bottom: 20px;
     font-size: 16px;
     color: #0d0d0d;
@@ -900,7 +900,7 @@ body {
 .detail-created {
     position: absolute;
     top: 95px;
-    right: 10px;
+    right: 25px;
     font-size: 16px;
     font-weight: 500;
     color: #0d0d0d;
