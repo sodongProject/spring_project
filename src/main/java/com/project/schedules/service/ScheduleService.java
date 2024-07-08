@@ -235,5 +235,8 @@ public class ScheduleService {
         Long clubJoinNo = scheduleMapper.userInClub(dto.getClubNo(), dto.getAccount());
 
         scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), clubJoinNo, ScheduleAuth.DENIED);
+
+        Integer memberCount = scheduleMapper.scheduleUsers(dto.getScheduleNo());
+        scheduleMapper.UpdateScheduleUsers(memberCount, dto.getScheduleNo());
     }
 }

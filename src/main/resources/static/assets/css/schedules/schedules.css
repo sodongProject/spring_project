@@ -547,7 +547,7 @@ body {
 
 
 .del-btn {
-    display: block;
+    display: none;
     position: absolute;
     color: #0d0d0d;
     cursor: pointer;

@@ -202,7 +202,7 @@
         SELECT
         COUNT(*)
         FROM users_schedules
-        WHERE schedule_no = 110
+        WHERE schedule_no = #{scheduleNo}
         AND user_schedule_is_withdrawn = false
         AND user_schedule_role != 'WAITING'
         AND user_schedule_role != 'DENIED'
