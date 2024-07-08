@@ -128,6 +128,12 @@
         </div>
     </div>
 
+    <div class="schedule-exit-modal">
+        <div class="exit-modal-content">
+
+        </div>
+    </div>
+
 </div>
 
 
