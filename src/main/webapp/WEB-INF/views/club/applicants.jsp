@@ -4,11 +4,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>가입 신청자 목록</title>
+
+    <%@ include file="../include/static-head.jsp" %>
     <link rel="stylesheet" href="/assets/css/club/applicants.css">
+
+
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
+
 <div class="container">
     <h1>가입 신청자 목록</h1>
     <div id="messages"></div>
@@ -44,6 +48,9 @@
     </table>
     <button class="back-btn" onclick="window.location.href='/club/detail?bno=${param.clubNo}'">돌아가기</button>
 </div>
+
+<%@ include file="../include/footer.jsp" %>
+
 
 <script>
     function approveApplicant(account, clubNo) {

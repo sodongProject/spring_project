@@ -8,6 +8,8 @@
 
 </head>
 <body>
+  <%@ include file="../include/header.jsp" %>
+
   <div class="myPage_wrap">
     <%@ include file="../include/myPage-nav.jsp" %>
     <div class="myPage_inner">
@@ -17,6 +19,7 @@
         <button type="submit">충전</button>
     </div>
   </div>
+  <%@ include file="../include/footer.jsp" %>
 
 </body>
 </html>

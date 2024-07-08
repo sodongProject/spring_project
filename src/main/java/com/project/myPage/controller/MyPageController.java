@@ -96,7 +96,6 @@ public class MyPageController {
      */
     @GetMapping("/modifyInformations")
     public String modifyInformationsPwConfirm(HttpSession session, boolean isConfirmed, Model model) {
-//        myPageService.saveLoginUser("mjsu10", session);
         String ref = "modifyInformations";
         return isPwConfirmedBefore(isConfirmed, ref, model);
     }
@@ -111,7 +110,6 @@ public class MyPageController {
      */
     @PostMapping("/modifyInformations")
     public String modifyInformations( HttpSession session, String inputValue, RedirectAttributes redirectAttributes) {
-//        myPageService.saveLoginUser("mjsu10", session);
 
         boolean isCorrect = myPageService.confirmPassword(session, inputValue, redirectAttributes);
 

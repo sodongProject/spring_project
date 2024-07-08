@@ -29,7 +29,7 @@ public class ClubNoticeBoardDetailResponseDto {
         this.userAuthStatus = userAuthStatus;
 
         DateTimeFormatter pattern
-                = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 a hh시 mm분 ss초");
+                = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 ");
         this.regDateTime = pattern.format(C.getClubNoticeCreatedAt());
     }
 

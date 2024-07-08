@@ -1,24 +1,13 @@
-body {
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* 뷰포트 높이를 기준으로 전체 페이지 높이 설정 */
-    margin: 0;
-    padding: 20px;
-}
-
 .form-container {
-    width: 100%;
-    max-width: 1200px;
-    height: 100vh; /* 컨테이너 높이도 뷰포트 높이에 맞춤 */
-    background-color: #fff;
-    padding: 20px;
+    width: 1200px;
+    height: 100vh;
+    background-color: #f2f2f2;
+    padding: 120px 20px 20px 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* 내용이 많아지면 스크롤바가 생기도록 설정 */
-    display: flex;
-    flex-direction: column; /* 세로 방향 정렬 */
+    overflow-y: auto;
+    margin: 0 auto;
+
 }
 
 .header {
@@ -45,12 +34,14 @@ body {
 .image-section img {
     max-width: 600px;
     max-height: 400px;
-    width: auto; /* 가로 세로 비율 유지 */
-    height: auto; /* 가로 세로 비율 유지 */
+    width: auto;
+    height: auto;
     border-radius: 8px;
     display: block;
     margin: 0 auto;
+    overflow: clip;
 }
+
 
 .content-section{
     padding: 50px;
@@ -60,7 +51,7 @@ body {
     font-size: 14px;
     line-height: 1.6;
     color: #333;
-    flex-grow: 1; /* 내용 섹션을 유연하게 늘려서 남는 공간 채움 */
+    flex-grow: 1;
 }
 
 .buttons {

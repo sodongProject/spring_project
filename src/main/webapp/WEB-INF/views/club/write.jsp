@@ -2,20 +2,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>클럽 만들기</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+    <%@ include file="../include/static-head.jsp" %>
+
     <link rel="stylesheet" href="/assets/css/club/write.css">
-    <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
+
 <div id="wrap" class="form-container">
     <h1>소동 만들기</h1>
     <form action="/club/write" method="post" enctype="multipart/form-data" name="write">
@@ -43,14 +37,19 @@
         <input type="text" id="title" name="title" required>
         <label for="content">내용</label>
         <textarea id="content" name="content" required></textarea>
-        <label for="clubCompetition">대회 참여 여부</label>
-        <input type="checkbox" id="clubCompetition" name="clubCompetition" value="true">
+        <div class="checkbox-container">
+            <input type="checkbox" id="clubCompetition" name="clubCompetition" value="true">
+            <label for="clubCompetition">대회 참여 여부</label>
+        </div>
         <div class="buttons">
             <button class="list-btn" type="button" onclick="window.location.href='/club/list'">목록</button>
             <button type="submit">글쓰기</button>
         </div>
     </form>
 </div>
+
+<%@ include file="../include/footer.jsp" %>
+
 <script>
     CKEDITOR.replace('content');
 

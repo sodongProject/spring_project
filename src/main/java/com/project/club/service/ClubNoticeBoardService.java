@@ -5,6 +5,7 @@ import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardListResponse
 import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardWriteResponseDto;
 import com.project.club.entity.ClubNoticeBoard;
 import com.project.club.mapper.ClubNoticeBoardMapper;
+import com.project.login.entity.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,9 @@ public class ClubNoticeBoardService {
     // 전체 목록
     public List<ClubNoticeBoardListResponseDto> findList(long clubNo, String account) {
         List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAll(clubNo);
+        Users usersAll = clubNoticeBoardMapper.findUsersAll(account);
         return CNBList.stream()
-                .map(c -> new ClubNoticeBoardListResponseDto(c, clubNoticeBoardMapper.findUserRole(c.getClubNo(), account)))
+                .map(c -> new ClubNoticeBoardListResponseDto(c, clubNoticeBoardMapper.findUserRole(c.getClubNo(), account), usersAll.getUserName()))
                 .collect(Collectors.toList());
     }
 

@@ -8,10 +8,15 @@
 
     <select id="findAll" parameterType="long" resultType="clubNoticeBoard">
         SELECT
-            *
-        FROM clubs_notice_boards
-        WHERE club_notice_is_deleted = FALSE
-        AND club_no = #{clubNo}
+        CNB.*,
+        U.user_name
+        FROM
+        clubs_notice_boards CNB
+        JOIN
+        users U ON U.account = CNB.account
+        WHERE
+        CNB.club_notice_is_deleted = FALSE
+        AND CNB.club_no = #{clubNo}
     </select>
 
     <select id="findOne" resultType="clubNoticeBoard">
@@ -53,8 +58,7 @@
         SELECT
         *
         FROM users
-        WHERE club_no = #{clubNo}
-        AND account = #{account}
+        WHERE account = #{account}
         LIMIT 1
     </select>
 

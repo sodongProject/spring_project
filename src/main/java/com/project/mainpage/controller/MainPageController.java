@@ -35,6 +35,10 @@ public class MainPageController {
     // 1. 메인페이지 조회 요청 (/board/list : GET)
     @GetMapping("/page")
     public String page(Search page, Model model, HttpSession session) {
+        if(!LoginUtil.isLoggedIn(session)){
+            return "main-page/page";
+        }
+
         String account = LoginUtil.getLoggedInUser(session).getAccount();
 
         // 메인페이지 - 가장 가입자가 많은 동호회 조회
@@ -52,7 +56,6 @@ public class MainPageController {
         // 메인페이지 - 로그인한 유저의 가입한 동호회 목록 조회
         List<ClubListDto> clubList = rankingService.loginUsersClub(account);
         model.addAttribute("clubList", clubList);
-
         return "main-page/page";
     }
 }
