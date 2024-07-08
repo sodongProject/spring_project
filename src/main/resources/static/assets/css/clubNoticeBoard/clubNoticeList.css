@@ -1,31 +1,28 @@
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f9f9f9;
+    /*font-family: 'Noto Sans KR', sans-serif;*/
+    background-color: #f2f2f2;
     margin: 0;
 }
 
-.container {
+.clubNoticeContainer {
     width: 1200px; /* 가로 길이 고정 */
-    margin: auto;
+    margin: 200px auto;
     background: #fff;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 20px;
-    border-radius: 5px;
+    padding: 80px 60px;
+    border-radius: 40px;
 }
 
-.top-section1 {
+.clubNoticeTop-section1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-top: 250px;
-    padding-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 h1 {
     margin: 0;
-    color: #333;
-    font-size: 70px;
+    font-size: 32px;
     font-weight: 700;
 }
 
@@ -35,6 +32,8 @@ h1 {
     /*display: flex;*/
     /*justify-content: space-between;*/
     /*align-items: center;*/
+    display: flex;
+    align-content: center;
 }
 
 .notice-header{
@@ -42,25 +41,33 @@ h1 {
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
-
+    width: calc(100% - 20px);
+    order: 1;
+    padding-right: 20px;
+}
+.notice-header .notice-title{
+    width: calc(100% - 400px);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
 .new-notice-button a {
+    border-radius: 500px;
     background-color: #f2cb05; /* 시그니처 색상 적용 */
-    color: #333;
     padding: 12px 24px;
-    border-radius: 5px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 16px;
 }
 
-.top-section{
-    position: relative;
-    top: -10px;
-    left: 1110px;
+.clubNoticeTop-section{
+    width: 20px;
+    height: 20px;
+    order: 2;
 }
 
-.modal {
+.clubNoticeModal {
     display: none;
     position: fixed;
     top: 0;
@@ -73,7 +80,7 @@ h1 {
     z-index: 9999;
 }
 
-.modal-content {
+.clubNoticeModal-content {
     width: 300px;
     background: white;
     padding: 20px;

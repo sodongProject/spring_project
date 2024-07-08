@@ -167,6 +167,7 @@ body,html{
   width: 100%;
   border-top: solid 1px var(--color-wh);
   padding: 0 calc((100% - 1200px)/2);
+  background: #fff;
 }
 .footer > div{
   padding: 20px 0;
