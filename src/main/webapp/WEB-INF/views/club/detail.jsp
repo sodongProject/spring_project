@@ -9,19 +9,29 @@
 
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link rel="stylesheet" href="/assets/css/schedules/schedules.css">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-thin-straight/css/uicons-thin-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-thin-straight/css/uicons-thin-straight.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+    <link rel="stylesheet" href="/assets/css/clubNoticeBoard/clubNoticeList.css"/>
 
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
 
-<div id="clubDetailWrap" class="clubDetailForm-container" data-cno="${club.clubNo}" data-account="${sessionScope.login.account}">
+<div id="clubDetailWrap" class="clubDetailForm-container" data-cno="${club.clubNo}"
+     data-account="${sessionScope.login.account}">
     <div class="header">
         <h1>${club.title}</h1>
         <span class="writer">작성자: ${club.userName}</span>
@@ -46,12 +56,46 @@
                 <button class="clubDetailAdmin-btn" type="submit">가입 신청자 확인</button>
             </form>
         </c:if>
-        <button class="notice-btn" onclick="window.location.href='/clubNoticeBoard/list?clubNo=${club.clubNo}'">공지사항</button>
-        <button class="free_board-btn" onclick="window.location.href='/freeBoard/list?clubNo=${club.clubNo}'">자유게시판</button>
+        <%--        <button class="notice-btn" onclick="window.location.href='/clubNoticeBoard/list?clubNo=${club.clubNo}'">공지사항</button>--%>
+        <button class="free_board-btn" onclick="window.location.href='/freeBoard/list?clubNo=${club.clubNo}'">자유게시판
+        </button>
         <button class="list-btn" onclick="window.location.href='/club/list'">목록</button>
         <button class="cancel-btn" id="cancelButton">탈퇴하기</button>
-        <button class="member-btn" id="showMembersBtn">동호호 전체 인원 확인</button>
+        <button class="member-btn" id="showMembersBtn">동호호 전체 인원</button>
     </div>
+
+
+    <div class="clubNoticeContainer">
+        <div class="clubNoticeTop-section1">
+            <h1>공지사항</h1>
+            <div class="new-notice-button">
+                <a href="/clubNoticeBoard/list?clubNo=${clubNo}">전체보기</a>
+                <c:if test="${club.userAuthStatus eq 'ADMIN'}">
+                    <a href="/clubNoticeBoard/write?clubNo=${clubNo}">새 공지사항 작성</a>
+                </c:if>
+            </div>
+        </div>
+
+        <c:forEach var="b" items="${CNBList}">
+            <div class="notice" data-bno="${b.clubNoticeNo}">
+                <div class="clubNoticeTop-section">
+                    <c:if test="${b.userAuthStatus == 'ADMIN'}">
+                        <button class="clubNoticeDel-btn" data-href="/clubNoticeBoard/delete"
+                                data-clubNoticeNo="${b.clubNoticeNo}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </c:if>
+                </div>
+                <div class="notice-header">
+                    <div class="notice-userName">작성자 : ${b.userName}</div>
+                    <div class="notice-title">${b.shortTitle}</div>
+                    <div class="notice-date">${b.date}</div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+
+
     <div id="schedule-section">
         <button id="open_modal_btn">새 스케쥴</button>
 
@@ -60,7 +104,7 @@
                 <span class="close"><i class="fi fi-br-cross"></i></span>
                 <form>
                     <div id="title"><h1>새 스케쥴</h1></div>
-                    <div id="club_no" >
+                    <div id="club_no">
                         <input type="number" name="clubNo" value="1" disabled hidden>
                     </div>
                     <div class="schedule_title">
@@ -73,7 +117,8 @@
                     </div>
                     <div class="schedule_at">
                         <label>모임 시간</label>
-                        <input id="schedule_at" type="datetime-local" name="scheduleAt" value="${now}" min="${now}" required>
+                        <input id="schedule_at" type="datetime-local" name="scheduleAt" value="${now}" min="${now}"
+                               required>
                     </div>
                     <div class="participation_points">
                         <label>회비</label>
@@ -189,7 +234,7 @@
                 <c:if test="${club.userAuthStatus eq 'ADMIN'}">
 
 
-                <th>추방</th>
+                    <th>추방</th>
                 </c:if>
             </tr>
             </thead>
@@ -202,7 +247,8 @@
                     <td>${member.joinDate}</td>
                     <td>
                         <c:if test="${club.userAuthStatus eq 'ADMIN'}">
-                            <button class="deny-btn" onclick="denyApplicant('${member.account}', ${club.clubNo})">추방</button>
+                            <button class="deny-btn" onclick="denyApplicant('${member.account}', ${club.clubNo})">추방
+                            </button>
                         </c:if>
                     </td>
                 </tr>
@@ -212,6 +258,17 @@
     </div>
 </div>
 
+<!-- 모달창 -->
+<div class="clubNoticeModal" id="clubNoticeModal">
+    <div class="clubNoticeModal-content">
+        <h2>삭제 확인</h2>
+        <p>정말로 삭제할까요?</p>
+        <div class="clubNoticeModal-buttons">
+            <button id="clubNoticeConfirmDelete"><i class="fas fa-check"></i> 예</button>
+            <button id="clubNoticeCancelDelete"><i class="fas fa-times"></i> 아니오</button>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -221,22 +278,22 @@
     const clubDetailBtn = document.getElementById("showMembersBtn");
     const clubDetailSpan = document.getElementsByClassName("clubDetailClose")[0];
 
-    clubDetailBtn.onclick = function() {
+    clubDetailBtn.onclick = function () {
         clubDetailModal.style.display = "block";
     }
 
-    clubDetailSpan.onclick = function() {
+    clubDetailSpan.onclick = function () {
         clubDetailModal.style.display = "none";
     }
 
-    window.onclick = function(e) {
+    window.onclick = function (e) {
         if (e.target == clubDetailModal) {
             clubDetailModal.style.display = "none";
         }
     }
 
 
-    document.getElementById('cancelButton').addEventListener('click', function() {
+    document.getElementById('cancelButton').addEventListener('click', function () {
         const clubNo = document.getElementById('clubDetailWrap').getAttribute('data-cno');
         if (confirm('정말로 탈퇴하시겠습니까?')) {
             fetch('/club/cancelled', {
@@ -264,7 +321,7 @@
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: new URLSearchParams({ account: account, clubNo: clubNo })
+                body: new URLSearchParams({account: account, clubNo: clubNo})
             })
                 .then(response => response.text())
                 .then(responseText => {
@@ -290,30 +347,84 @@
     const $registerModal = document.getElementById("register-modal");
 
 
-    btn.onclick = function() {
+    btn.onclick = function () {
         modal.style.display = "flex";
     };
 
-    $refuseBtn.onclick = function() {
+    $refuseBtn.onclick = function () {
         $registerModal.style.display = "none";
     };
 
-    $writeBtn.onclick = function() {
+    $writeBtn.onclick = function () {
         modal.style.display = "none";
     };
 
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     };
 
 
-
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     };
 
+    const $clubNoticeCardContainer = document.querySelector('.clubNoticeContainer');
+    const clubNoticeModal = document.getElementById('clubNoticeModal');
+    const clubNoticeConfirmDelete = document.getElementById('clubNoticeConfirmDelete');
+    const clubNoticeCancelDelete = document.getElementById('clubNoticeCancelDelete');
+    let deleteLocation = '';
+    let deleteClubNoticeNo = '';
+
+    $clubNoticeCardContainer.addEventListener('click', e => {
+        if (e.target.closest('.clubNoticeDel-btn')) {
+            e.preventDefault();
+            clubNoticeModal.style.display = 'flex';
+            deleteLocation = e.target.closest('.clubNoticeDel-btn').dataset.href;
+            deleteClubNoticeNo = e.target.closest('.clubNoticeDel-btn').dataset.clubnoticeno;
+        } else if (e.target.closest('.notice')) {
+            const bno = e.target.closest('.notice').dataset.bno;
+            window.location.href = '/clubNoticeBoard/detail?clubNoticeNo=' + bno;
+        }
+    });
+
+    clubNoticeConfirmDelete.onclick = () => {
+        fetch(deleteLocation, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                clubNoticeNo: deleteClubNoticeNo
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('삭제 성공:', deleteClubNoticeNo);
+                    document.querySelector(`.notice[data-bno="${deleteClubNoticeNo}"]`).remove();
+                    clubNoticeModal.style.display = 'none';
+                } else {
+                    console.error('삭제 실패:', response.status, response.statusText);
+                    alert('삭제에 실패했습니다.');
+                    clubNoticeModal.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('오류 발생:', error);
+                clubNoticeModal.style.display = 'none';
+            });
+    };
+
+    clubNoticeCancelDelete.onclick = () => {
+        clubNoticeModal.style.display = 'none';
+    };
+
+    window.addEventListener('click', e => {
+        if (e.target === clubNoticeModal) {
+            clubNoticeModal.style.display = 'none';
+        }
+    });
 </script>
 
 <script type="module" src="/assets/js/schedules/list.js"></script>

@@ -19,6 +19,21 @@
         AND CNB.club_no = #{clubNo}
     </select>
 
+    <select id="findAllLimit" parameterType="long" resultType="clubNoticeBoard">
+        SELECT
+        CNB.*,
+        U.user_name
+        FROM
+        clubs_notice_boards CNB
+        JOIN
+        users U ON U.account = CNB.account
+        WHERE
+        CNB.club_notice_is_deleted = FALSE
+        AND CNB.club_no = #{clubNo}
+        LIMIT 5
+    </select>
+
+
     <select id="findOne" resultType="clubNoticeBoard">
         SELECT
         *
