@@ -1,7 +1,7 @@
 #wrap {
     width: 1240px;
     margin: 0 auto;
-    padding: 200px 20px 20px 20px;
+    padding: 100px 20px 20px 20px;
 }
 
 .card-wrapper {
@@ -20,18 +20,29 @@
     width: 1200px;
 }
 
-.homeBtn{
+.main-title-wrapper .mainTitle{
+    position: relative;
+    background-color: #fff8e9;
+    width: 100%;
+}
+
+
+
+/* .homeBtn{  
     font-size: 1.5em;
     background: none;
     font-weight: 600;
-}
-
+} */
+/* 
 .main-title {
     font-size: 2em;
     color: #333;
-}
+} */
 
 .add-btn {
+    position: absolute;
+    left: 1090px;
+    top:253px;
     padding: 10px 20px;
     background-color: #f2cb05;
     color: #0d0d0d;
@@ -41,7 +52,7 @@
     font-size: 20px;
     font-weight: 600;
     height: 50px;
-    position: relative;
+    z-index: 100;
 }
 
 body {

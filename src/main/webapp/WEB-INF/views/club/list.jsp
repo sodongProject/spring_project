@@ -13,9 +13,10 @@
 
 <div id="wrap">
     <div class="main-title-wrapper">
-        <h1 class="main-title">
+        <img src="/assets/img/club/clubBanner.png" alt="즐거운 만남이 기다립니다" class="mainTitle">
+        <!-- <h1 class="main-title">
             <button class="homeBtn">소동 일으키기</button>
-        </h1>
+        </h1> -->
         <button class="add-btn">새 소동 만들기</button>
     </div>
 

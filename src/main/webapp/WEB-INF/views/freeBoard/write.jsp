@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label for="clubNo">ClubNo</label>
-                <input type="content" id="clubNo" name="clubNo" value="${b.clubNo}" readonly>
+                <input type="content" id="clubNo" name="clubNo" value="${b.clubNo}">
                </div>
            
             <div class="form-group">
