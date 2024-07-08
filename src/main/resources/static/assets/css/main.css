@@ -28,6 +28,14 @@ h2.title b{
   margin-top: 60px;
   display: flex;
 }
+
+.community{
+  position: relative;
+}
+.community .img img{
+position: absolute;
+top:30px;
+}
 .community .btn_wrap{
   justify-content: right;
 }
