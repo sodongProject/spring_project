@@ -13,15 +13,12 @@
 
 <div id="wrap">
     <div class="main-title-wrapper">
-        <img src="/assets/img/club/clubBanner.png" alt="즐거운 만남이 기다립니다" class="mainTitle">
-        <!-- <h1 class="main-title">
+        <h1 class="main-title">
             <button class="homeBtn">소동 일으키기</button>
-
         </h1>
-        <c:if test="${login.auth == 'USER' || login.auth == 'ADMIN'}">
+        <c:if test="${login.auth == 'ADMIN' || login.auth == 'USER'}">
             <button class="add-btn">새 소동 만들기</button>
         </c:if>
-
     </div>
 
     <div class="top-section1">
