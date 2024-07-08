@@ -11,11 +11,15 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 
+<%--서울에서 일어나는 작은 소동!--%>
+<%--즐거운 만남이 기다립니다.--%>
 <div id="wrap">
+    <div class="mainTitle">
+        <p class="main-title1">서울에서 일어나는 작은 소동!</p><br>
+        <p class="main-title2">즐거운 만남이 기다립니다.</p>
+    </div>
+
     <div class="main-title-wrapper">
-        <h1 class="main-title">
-            <button class="homeBtn">소동 일으키기</button>
-        </h1>
         <c:if test="${login.auth == 'ADMIN' || login.auth == 'USER'}">
             <button class="add-btn">새 소동 만들기</button>
         </c:if>
@@ -172,7 +176,6 @@
 </div>
 
 <script>
-    const $homeBtn = document.querySelector('.homeBtn');
     const $cardContainer = document.querySelector('.card-container');
     const modal = document.getElementById('modal');
     const confirmDelete = document.getElementById('confirmDelete');
@@ -181,10 +184,6 @@
     const loginConfirmJoin = document.getElementById('loginConfirmJoin');
     const loginCancelJoin = document.getElementById('loginCancelJoin');
     let currentClubNo;
-
-    $homeBtn.addEventListener('click', e => {
-        window.location.href = '/club/list';
-    });
 
     $cardContainer.addEventListener('click', e => {
         e.preventDefault();

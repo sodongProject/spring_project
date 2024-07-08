@@ -40,9 +40,9 @@
 } */
 
 .add-btn {
-    position: absolute;
-    left: 1090px;
-    top:253px;
+    /*position: absolute;*/
+    /*left: 1090px;*/
+    /*top:253px;*/
     padding: 10px 20px;
     background-color: #f2cb05;
     color: #0d0d0d;
@@ -53,6 +53,7 @@
     font-weight: 600;
     height: 50px;
     z-index: 100;
+    margin-left: auto;
 }
 
 body {
@@ -114,7 +115,7 @@ button {
     justify-content: space-between;
     flex-direction: row-reverse;
     width: 1200px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 .top-section1 .empty{
     font-size: 18px;
@@ -456,4 +457,21 @@ button {
     position: absolute;
     right: 30px;
     top: 20px;
+}
+
+.mainTitle{
+    /*background: red;*/
+    width: 1200px;
+    padding: 40px;
+    margin-top: 100px;
+}
+
+.main-title1 {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.main-title2 {
+    font-size: 30px;
+    font-weight: 500;
 }
