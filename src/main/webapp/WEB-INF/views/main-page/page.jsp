@@ -89,7 +89,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!-- 3번째 페이지 시작 -->
       <section class="third-page">
         <!-- SODONG 통계 카드 박스 -->
-        <h1 class="third-title">SODONG 현황</h1>
+        <h1 class="third-title">소동 현황</h1>
         <div class="stats-box">
           <div class="stats-item">
             <img src="/assets/img/main-page/member.png">
@@ -124,7 +124,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
         <!-- 동호회 바로가기 박스 -->
          <section class="last-page">
-           <h1 class="last-page">인기 동호회 바로가기</h1>
+           <h1 class="last-page">인기 동호회</h1>
         <div class="info-box">
           <div class="info-item">
             <h3>축구⚽</h3>

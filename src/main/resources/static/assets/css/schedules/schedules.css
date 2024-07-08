@@ -16,19 +16,19 @@ body {
 }
 
 .schedule_title {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: #0d0d0d;
 }
 
 #schedule_title {
-    margin-top: 15px;
-    border-radius: 22px;
-    width: 600px;
-    height: 40px;
+    margin-top: 10px;
+    border-radius: 500px;
+    width: 100%;
+    height: 50px;
     background: white;
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
     font-size: 16px;
+    background-color: var(--color-wh);
 }
 
 .schedule_at {
@@ -39,17 +39,16 @@ body {
 
 #schedule_at {
     margin-top: 15px;
-    border-radius: 22px;
-    width: 600px;
-    height: 40px;
-    background: white;
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 500px;
+    width: 100%;
+    height: 50px;
+    background: var(--color-wh);
 
     font-size: 16px;
 }
 
 .participation_points {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: #0d0d0d;
 }
@@ -57,15 +56,14 @@ body {
 #participation_points {
     margin-top: 15px;
     border-radius: 22px;
-    width: 600px;
+    width: 100%;
     height: 40px;
-    background: white;
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    background: var(--color-wh);
     font-size: 16px;
     padding-left: 10px;
 }
 .schedule_content {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: #0d0d0d;
 }
@@ -73,11 +71,12 @@ body {
 #schedule_content {
     margin-top: 15px;
     border-radius: 22px;
-    width: 600px;
+    width: 100%;
     height: 100px;
     background: white;
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
     font-size: 16px;
+    background-color: var(--color-wh);
+    border: none;
 }
 
 #schedule-section {
@@ -91,18 +90,17 @@ body {
 }
 
 #open_modal_btn {
-    width: 200px;
+    width: 140px;
     height: 50px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-    background: #f2cb05;
-    color: #0d0d0d;
-    position: relative;
-    left: 900px;
-    font-weight: 700;
-    font-size: 20px;
+    border-radius: 500px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: var(--color-point);
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 18px;
     -webkit-transition: .1s ease-in-out;
     transition: .1s ease-in-out;
+    margin-right: 100px;
 }
 
 #open_modal_btn:active {
@@ -114,13 +112,14 @@ body {
 
 #add_schedule_button {
     display: block;
-    width: 80px;
-    height: 40px;
-    margin: 20px auto;
+    width: 140px;
+    height: 50px;
+    margin: 20px auto 0;
     background: #f2cb05;
     color: #0d0d0d;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
+    border-radius: 500px;
 }
 
 #register-modal {
@@ -143,11 +142,11 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: 800px;
-    height: 300px;
-    border: 4px solid #f2cb05;
+    width: 400px;
     background: #f2f2f2;
     flex-direction: column;
+    border-radius: 30px;
+    padding: 40px 0;
 }
 
 
@@ -216,12 +215,13 @@ body {
     background: #f2cb05;
     color: #0d0d0d;
     font-size: 16px;
+    border-radius: 500px;
 }
 
 .refuse-btn {
     border: none;
     background: #0d0d0d;
-    color: #f2cb05;
+    color: #fff;
     font-size: 16px;
 }
 
@@ -237,28 +237,36 @@ body {
 
 
 .register-modal-content h1 {
-    font-size: 44px;
+    font-size: 24px;
     padding: 10px;
+    font-weight: 600;
 }
 
 .register-btn {
-    padding: 10px;
+    margin-top: 30px;
     color: #0d0d0d;
 }
 
 .accept-btn {
     font-size: 16px;
     background: #f2cb05;
-    width: 100px;
+    width: 140px;
     height: 50px;
+    border-radius: 500px;
+    font-weight: 700;
+    /*margin-right: 10px;*/
 }
 
 .refuse-btn {
     font-size: 16px;
-    background: #0d0d0d;
-    color: #f2cb05;
-    width: 100px;
+    font-weight: 600;
+    border: solid 1px #0d0d0d;
+    background-color: #fff;
+    color: var(--color-bk);
+    width: 140px;
     height: 50px;
+    border-radius: 500px;
+    margin-right: 10px;
 }
 
 .modal{
@@ -279,14 +287,17 @@ body {
 .modal-content {
     display: flex;
     width: 700px;
-    height: 600px;
-    border: 4px solid #f2cb05;
-    background: #f2f2f2;
+    /*height: 600px;*/
+    background: #fff;
     flex-direction: column;
-    padding: 30px;
+    padding: 50px 30px 30px;
+    border-radius: 30px;
+}
+.modal-content h1#title{
+    text-align: center;
 }
 
-. {
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -307,12 +318,13 @@ body {
 .schedule_title label, .schedule_content label, .schedule_image label, .schedule_at label {
     display: block;
     margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 16px;
 }
 
 .schedule_title input, .schedule_content textarea, .schedule_at input {
-    width: 80%;
-    padding: 10px;
-    border: 1px solid #ccc;
+    width: 100%;
+    padding: 0 20px;
     border-radius: 4px;
 }
 
@@ -339,8 +351,8 @@ body {
     /*width: calc(33.333% - 20px);*/
     position: relative;
     background-color: white;
-    border-radius: 22px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    border-radius: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     width: 320px;
     transition: 0.3s;
 }
@@ -397,66 +409,76 @@ body {
     width: 100%;
     background: #fff;
     position: relative;
-    border-radius: 22px;
+    border-radius: 40px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .schedule-mini-content {
     width: 100%;
-    border-radius: 22px;
+    border-radius: 24px;
 }
 
 .schedule-mini-content h2 {
-    border-radius: 17px 17px 0 0;
-    background: #f2cb05;
-    color: #0d0d0d;
+    border-radius: 500px;
+    background: var(--color-wh);
     font-weight: 700;
     text-align: left;
     font-size: 20px;
-    padding: 10px 16px;
-    margin-bottom: 20px;
-    width: 320px;
+    padding: 14px 20px;
+    width: calc(100% - 36px);
+    margin: 20px 18px 0;
+
 
 }
 
 .schedule-mini-content .sContent {
     line-height: 20px;
-    margin: 5px 8px;
-    margin-top: 20px;
     font-size: 16px;
     font-weight: 500;
     text-align: left;
-    border-top: 2px solid #f2cb05;
-    border-bottom: 2px solid #f2cb05;
-    padding: 10px 8px;
-    height: 80px;
+    border-bottom: 2px solid #f2f2f2;
+    padding: 20px ;
+    height: 100px;
     word-wrap: break-word;
-    overflow: hidden;
+    overflow: scroll;
+    margin-bottom: 12px;
 }
-
+.schedule-mini-content .sContent::-webkit-scrollbar{
+    display: none;
+}
 .schedule-mini-content .account {
-    position:absolute;
-    top: 53px;
-    left: 0;
+    /*position:absolute;*/
+    /*top: 53px;*/
+    /*left: 0;*/
     color: #0d0d0d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
     font-size: 16px;
     font-weight: 500;
-}
+    width: 50%;
+    float: left;
+    padding: 0 0 0 20px!important;
+    font-weight: 500;
 
+}
+.schedule-mini-content p:not(.schedule-mini-content .sContent){
+    padding: 12px 20px 0px;
+}
 .schedule-mini-content p {
+    width: 100%;
     padding-top: 5px;
     font-size: 16px;
     font-weight: 700;
     text-align: left;
     padding-left: 16px;
+    display: flex;
+    align-items: center;
 }
-
+.schedule-mini-content p i {
+    margin-right: 10px;
+}
 .schedule-mini-content p span {
     font-weight: 500;
     font-size: 14px;
@@ -482,22 +504,29 @@ body {
     flex-direction: column;
     width: 100%;
     background: white;
-    border-radius: 22px;
+    border-radius: 40px;
 }
 
 .view {
-    position: absolute;
-    top:53px;
-    right: 10px;
+    /*position: absolute;*/
+    /*top:53px;*/
+    /*right: 10px;*/
     color: #0d0d0d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
     gap: 10px;
     font-size: 20px;
     font-weight: 500;
+    width: 50%;
+    text-align: right;
+    padding-right: 25px;
+    font-weight: 500;
+    color: var(--color-point);
+    font-size: 18px;
 }
-
+.view i{
+    font-size: 18px;
+    transform: translateY(1px);
+}
 
 
 
@@ -519,29 +548,36 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    gap: 20px;
+    width:100%;
+
+    padding:0 20px 20px;
+    margin-top: 10px;
 }
 
 .btn {
     display :inline-block;
-    height: 35px;
-    width: 100px;
+    height: 50px;
+    /*width: 100px;*/
     font-size: 16px;
-    background-color: #f2cb05;
+    /*background-color: #f2cb05;*/
+    border: solid 1px var(--color-bk);
     border-radius: 50px;
     color: #0d0d0d;
     font-weight: 700;
-    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
-    border: none;
-    outline: none;
-    margin: 10px 0;
+    box-shadow: 0 5px 8px rgba(0,0,0,0.1);
     cursor: pointer;
-    scale: .95;
+    /*scale: .95;*/
     transition: .5s ease;
+    width: calc((100% - 10px)/2);
+    margin-right: 10px;
 }
-
+.btn:last-child{
+    margin-right: 0;
+    background-color: var(--color-point);
+    border: none;
+}
 .btn:hover {
-    scale: 1;
+    scale: 1.05;
 }
 
 
@@ -682,9 +718,10 @@ body {
 .schedule-mini-content {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    /*flex-direction: column;*/
     font-size: 20px;
     color: #0d0d0d;
+    flex-wrap: wrap;
 }
 
 .schedule-delete-modal {
@@ -759,10 +796,10 @@ body {
     position: absolute;
     width: 700px;
     height: 550px;
-    border: 4px solid #f2cb05;
     background: #f2f2f2;
     flex-direction: column;
     border-radius: 22px;
+    padding: 20px;
 }
 
 .register-list button{
@@ -830,11 +867,12 @@ body {
     text-align: center;
     padding-top: 15px;
     margin-bottom: 40px;
+    border-radius: 500px;
 }
 
 .detail-account {
     position: absolute;
-    top: 75px;
+    top: 95px;
     left: 10px;
     font-size: 16px;
     font-weight: 500;
@@ -862,7 +900,7 @@ body {
 
 .detail-created {
     position: absolute;
-    top: 75px;
+    top: 95px;
     right: 10px;
     font-size: 16px;
     font-weight: 500;

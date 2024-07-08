@@ -35,7 +35,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <input class="text short" name="exPointsAmount" type="number" min="1" />
               <button type="submit">환전</button>
             </form>
-            <c:if test="${isPossible == false}">보유 금액을 초과하지 않는 금액을 입력해주세요.</c:if>
+            <c:if test="${isPossible == false}"><span class="message-error point">보유 금액을 초과하지 않는 금액을 입력해주세요.</span></c:if>
           </div>
         
         </div>

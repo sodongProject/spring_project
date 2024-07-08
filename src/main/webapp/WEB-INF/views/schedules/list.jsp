@@ -22,13 +22,13 @@
 </head>
 <body>
 <div id="schedule-section">
-    <button id="open_modal_btn">스케줄 생성하기</button>
+    <button id="open_modal_btn">새 스케쥴</button>
 
     <div id="schedule-modal" class="modal" data-clubNo="1">
         <div class="modal-content">
             <span class="close"><i class="fi fi-br-cross"></i></span>
             <form>
-                <div id="title"><h1>스케줄 생성하기</h1></div>
+                <div id="title"><h1>새 스케쥴</h1></div>
                 <div id="club_no" >
                     <input type="number" name="clubNo" value="1" disabled hidden>
                 </div>
@@ -70,8 +70,9 @@
             <h1 class="register-content">???에 참여하시겠습니까?</h1>
             <p class="participation_point">참가비 : ???</p>
             <div class="register-btn">
-                <button class="accept-btn">참여</button>
                 <button class="refuse-btn">취소</button>
+                <button class="accept-btn">참여</button>
+
             </div>
         </div>
     </div>

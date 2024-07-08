@@ -226,17 +226,20 @@ export async function fetchScheduleList(pageNo = '1') {
             schedule +=   `
                         </div>
                         <div class="middle-section">
-                            <div class="view">
-                                <i class="fi fi-ss-users-alt"></i> 
-                                <span class="view-count">${scheduleList[i].scheduleCount}</span>
-                            </div>
+                         
                             <div class="schedule-mini-content">
                                 <h2>${scheduleList[i].scheduleTitle}</h2>
                                 <p class="sContent">${scheduleList[i].scheduleContent}</p>
-                                <p><i class="fi fi-rr-calendar-clock"></i> : <span>${at}</span></p>
-                                <p><i class="fi fi-rs-coins"></i> : <span>${scheduleList[i].participationPoints}P</span></p>
-                                <p class="account"><i class="fi fi-rs-user"></i>_ ${scheduleList[i].account}</p>
+                                <p class="account"><i class="fi fi-rs-user"></i> ${scheduleList[i].account}</p>
+                                <div class="view">
+                                    <i class="fi fi-ss-users-alt"></i> 
+                                    <span class="view-count">${scheduleList[i].scheduleCount}</span>
+                                </div>
+                                <p><i class="fi fi-rr-calendar-clock"></i> <span>${at}</span></p>
+                                <p><i class="fi fi-rs-coins"></i> <span>${scheduleList[i].participationPoints}P</span></p>
+                                
                             </div>
+                           
                             <div class="btnCenter" data-sno="${scheduleList[i].scheduleNo}">
                                 <button type="button" class="btn detail-btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
                                 `;

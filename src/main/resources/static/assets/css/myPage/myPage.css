@@ -335,7 +335,12 @@ button#goHomeBtn{
 color: var(--color-exception);
 
 }
-
+.myPage_wrap .main_profile .message-error.point{
+  position: static;
+  display: inline-block;
+  padding-top: 10px;
+  padding-left: 20px;
+}
 input::file-selector-button{
   width: 100px;
   height: 43px;

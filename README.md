@@ -32,17 +32,61 @@
 |   전혜린   | BACK,FRONT  |https://github.com/hyerin11|
 
 ## 기술 스택
+### FRONT-END
+<p align="left">
+
+ <img src="https://camo.githubusercontent.com/6a2624c36b0206b1adb57efb6ed4c54608bb12d65e84a9a7e4a7d95c21f4ee96/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f48544d4c352d4533344632363f7374796c653d666f722d7468652d6261646765266c6f676f3d48544d4c35266c6f676f436f6c6f723d7768697465">
+  <img src="https://camo.githubusercontent.com/a52247f036401f60302cf6bc87216f445b80298b227068dbfb0568c2c3aa2500/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f435353332d3135373242363f7374796c653d666f722d7468652d6261646765266c6f676f3d43535333266c6f676f436f6c6f723d7768697465">
+  <img src="https://camo.githubusercontent.com/93aa4e34059be462658f5f9d7fd5ad72974d57fd1a629dac4d1376a5482f5002/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4a6176615363726970742d4637444631453f7374796c653d666f722d7468652d6261646765266c6f676f3d4a617661536372697074266c6f676f436f6c6f723d7768697465">
+  <img src="https://img.shields.io/badge/JSP-6DB33F?style=for-the-badge&logo=JSP&logoColor=white"/>
+</p>
+
+### BACK-END
 <p align="left">
   <img src="https://camo.githubusercontent.com/48813940da08908dfd85d01253d0cc454e9c8401726cc1efd3ed324bd831f7ab/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4a4156412d3030373339363f7374796c653d666f722d7468652d6261646765266c6f676f3d4a617661266c6f676f436f6c6f723d7768697465">
-  <img src="https://camo.githubusercontent.com/93aa4e34059be462658f5f9d7fd5ad72974d57fd1a629dac4d1376a5482f5002/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4a6176615363726970742d4637444631453f7374796c653d666f722d7468652d6261646765266c6f676f3d4a617661536372697074266c6f676f436f6c6f723d7768697465">
+  <img src="https://img.shields.io/badge/MyBatis-red?style=for-the-badge&logo=MyBatis&logoColor=black"/>
+  <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
   <img src="https://camo.githubusercontent.com/6a6a85d19cab8142db590f61939fb8f765f8ce1b7e0a000b657ef712a8eb5c6c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f537072696e672d3644423333463f7374796c653d666f722d7468652d6261646765266c6f676f3d537072696e67266c6f676f436f6c6f723d7768697465">
-  <img src="https://camo.githubusercontent.com/6a2624c36b0206b1adb57efb6ed4c54608bb12d65e84a9a7e4a7d95c21f4ee96/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f48544d4c352d4533344632363f7374796c653d666f722d7468652d6261646765266c6f676f3d48544d4c35266c6f676f436f6c6f723d7768697465">
-  <img src="https://camo.githubusercontent.com/a52247f036401f60302cf6bc87216f445b80298b227068dbfb0568c2c3aa2500/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f435353332d3135373242363f7374796c653d666f722d7468652d6261646765266c6f676f3d43535333266c6f676f436f6c6f723d7768697465">
-  <img src="https://camo.githubusercontent.com/46cb7c4fea294e4191a9493a02ceee24f5781339c94116a601818a160ebf5a74/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d7953514c2d3434373941313f7374796c653d666f722d7468652d6261646765266c6f676f3d4d7953514c266c6f676f436f6c6f723d7768697465">
-  <img src="https://camo.githubusercontent.com/837b039bfeae926bbadf45553bf4522b279c9ccf60eba3fffa014cc84f37112e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769746875622d3138313731373f7374796c653d666f722d7468652d6261646765266c6f676f3d676974687562266c6f676f436f6c6f723d7768697465">
+ 
+  <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white">
+</p>
+
+### DEVELOPMENT-ENVIRONMENT
+<p align="left">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
+  <img src="https://img.shields.io/badge/IntelliJ-puple?style=for-the-badge&logo=IntelliJ&logoColor=white">
+  <img src="https://img.shields.io/badge/VSCODE-skyblue?style=for-the-badge&logo=VSCODE&logoColor=white">
+  <img src="https://img.shields.io/badge/FIGMA-yellow?style=for-the-badge&logo=FIGMA&logoColor=white">
+<img src="https://camo.githubusercontent.com/837b039bfeae926bbadf45553bf4522b279c9ccf60eba3fffa014cc84f37112e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769746875622d3138313731373f7374796c653d666f722d7468652d6261646765266c6f676f3d676974687562266c6f676f436f6c6f723d7768697465">
 </p>
 
 ## 주요 기능
+
+### 로그인 & 로그인 전 메인페이지 - 전혜린
+
+0. 로그인 전 초기 메인페이지(/index)
+1. 회원가입 (/users/sign-up)
+    - 사용자는 회원가입 페이지를 통해 새로운 계정을 생성할 수 있습니다.
+    회원가입 시 입력된 비밀번호는 보안 강화를 위해 암호화 처리되어 데이터베이스에 저장됩니다.
+    - 회원가입 완료 후 사용자는 로그인 페이지로 리다이렉트됩니다.
+
+2. 로그인 및 로그아웃 (/users/sign-in, /users/sign-out)
+    - 사용자는 아이디와 비밀번호를 입력하여 로그인할 수 있습니다. 이때 자동로그인을 클릭하면 쿠키가 중복되지 않게 생성되며 90일간 저장된다.
+    - 로그인 여부에 따라 접근할 수 있는 페이지가 제한됩니다.
+    - 사용자는 페이지 상단의 로그아웃 버튼을 클릭하여 로그아웃할 수 있습니다.
+
+3. SNS 커뮤니티 (/freeBoard/*) 
+  - 게시글 목록 조회(/freeBoard/list)
+    - 로그인한 사용자는 자유게시판 페이지에서 모든 게시글 목록을 조회할 수 있습니다. 각 게시글은 작성자, 작성 시간, 내용, 이미지를 포함합니다.
+  - 게시글 작성(/freeBoard/write)
+    - 소동의 유저이며 동호회 회원인 사용자는 게시글을 작성할 수 있습니다. 작성된 게시글은 데이터베이스에 저장되며, 자유게시판 목록에 새로 추가됩니다.
+    - 게시글 작성 시 정사각형 사이즈로 이미지를 업로드할 수 있습니다. 이미지는 FileUtil을 이용해 서버에 저장되고, 게시글과 함께 출력합니다.
+  - 게시글 삭제
+    - 사용자는 자신이 작성한 게시글에만 삭제 버튼이 뜨며 게시물을 삭제할 수 있으며 관리자는 관리자 권한으로 모든 게시글을 삭제할 수 있습니다.
+    - 삭제된 게시물은 데이터베이스에서 해당 게시글이 삭제되며, 목록에서 제거됩니다.
+
+<hr>
 
 ### 메인페이지 - 이찬희
 1. **동호회 순위 확인**
@@ -278,3 +322,20 @@
 
 <hr>
 
+### 소모임
+
+1. 포인트 시스템 개선 : 소모임이 종료된 후 사용된 포인트 이외의 포인트를 참여자들에게 분배
+ 
+3. 유저 온도 평가하기 : 소모임이 종료된 후 소모임 참가자들이 서로를 평가
+ 
+5. 참가자 정보 보기 : 참가자목록에서 참가자의 프로필을 클릭시 참가자의 정보를 좀 더 디테일하게 볼수있는 기능 추가
+  
+7. 정기 소모임 기능 : 정기적으로 소모임을 진행할 경우를 위해 계속 갱신되는 스케줄을 생성하는 기능
+
+<hr>
+
+### 마이페이지
+1. 프로필 이미지 미리보기 표시 : 프로필 이미지 미리보기로 확인 후 수정할 수 있도록 수정
+   
+3. 인증절차 개선 : 금전 관련해서 개인정보를 활용한 인증 절차 추가
+   
