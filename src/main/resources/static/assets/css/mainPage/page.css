@@ -16,7 +16,12 @@ h1.main-title, h1.third-title, h1.last-page {
   text-align: center;
 }
 
-h1.main-title img, .third-title img, .last-page img {
+h1.main-title img {
+  width: 55px;
+  height: 50px;
+}
+
+.third-title img, .last-page img {
   width: 60px;
   height: 60px;
   margin-top: 10px;
@@ -35,7 +40,10 @@ div.ranking-box {
 
 div.medal-img {
   width: 30px;
+  position: absolute;
   height: 30px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 div.most-recent,
@@ -82,7 +90,7 @@ div.most-member {
   margin-bottom: 10px;
   font-size: 14px;
   position: relative;
-  /* padding: 10px; */
+  padding: 10px;
 }
 .rank-list li b{
   font-size: 16px;

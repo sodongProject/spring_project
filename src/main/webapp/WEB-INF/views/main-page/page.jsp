@@ -94,28 +94,28 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="stats-item">
             <img src="/assets/img/main-page/member.png">
             <div class="stats-text">
-              <h2>232</h2>
-              <p>가입자 수</p>
+              <h2>${user}</h2>
+              <p>총 가입자 수</p>
             </div>
           </div>
           <div class="stats-item">
             <img src="/assets/img/main-page/yellow-star.png">
             <div class="stats-text">
-              <h2>521</h2>
-              <p>동호회 수</p>
+              <h2>${club}</h2>
+              <p>총 동호회 수</p>
             </div>
           </div>
           <div class="stats-item">
-            <img src="/assets/img/main-page/orange-star.png">
+            <img src="/assets/img/main-page/schedule.png">
             <div class="stats-text">
-              <h2>1463</h2>
-              <p>스케줄 수</p>
+              <h2>${schedule}</h2>
+              <p>총 스케줄 수</p>
             </div>
           </div>
           <div class="stats-item">
             <img src="/assets/img/main-page/red.png">
             <div class="stats-text">
-              <h2>15</h2>
+              <h2>3124</h2>
               <p>누적 방문수</p>
             </div>
           </div>

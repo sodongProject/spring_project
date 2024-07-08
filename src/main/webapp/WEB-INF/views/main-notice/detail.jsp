@@ -5,20 +5,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ko">
   <head>
     <%@ include file="../include/static-head.jsp" %>
+    <%@ include file="../include/header.jsp" %>
     <link rel="stylesheet" href="/assets/css/mainNotice/detail.css" />
   </head>
   
   <body>
     <section id="page">
-    <%@ include file="../include/header.jsp" %>
-    <main>
       <section class="notice-detail" data-main-notice-no="${b.mainNoticeNo}">
         <h1>${b.mainNoticeTitle}</h1>
         <p class="date">${b.date}</p>
         <hr>
         <p class="content">${b.mainNoticeContent}</p>
       </section>
-    </main>
   </section>
 </body>
 <%@ include file="../include/footer.jsp" %>

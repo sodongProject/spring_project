@@ -56,7 +56,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </div>
 
             <!-- 공지사항 수정 모달 창 -->
-            <div class="modal" id="editModal">
+            <!-- <div class="modal" id="editModal">
                 <div class="modal-content">
                     <h3>공지사항 수정</h3>
                     <form id="editForm" method="post" action="/main-notice/update">
@@ -75,7 +75,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
+            
             <!-- 페이지 버튼 영역 -->
             <div class="bottom-section">
                 <nav aria-label="Page navigation example">
