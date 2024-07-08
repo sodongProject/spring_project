@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.club.common.PageMaker;
 import com.project.club.common.Search;
 import com.project.club.dto.*;
+import com.project.club.dto.clubNoticeBoard.response.ClubNoticeBoardListResponseDto;
+import com.project.club.service.ClubNoticeBoardService;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
 import com.project.entity.ClubAuth;
@@ -32,6 +34,8 @@ public class ClubController {
 
     private final ClubService clubService;
     private final ObjectMapper objectMapper;
+    private final ClubNoticeBoardService clubNoticeBoardService;
+
 
     @Value("${file.upload.root-path}")
     private String rootPath;
@@ -114,9 +118,13 @@ public class ClubController {
     public String detail(@RequestParam("bno") long bno, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
         ClubDetailResponseDto club = clubService.detail(bno, account);
+        List<ClubNoticeBoardListResponseDto> CNBList = clubNoticeBoardService.findListLimit(bno, account);
+
         log.info("club : {}", club.getUserAuthStatus());
         log.info("들어온 사람의 account 뭐야 {},", club.getAccount());
         model.addAttribute("club", club);
+        model.addAttribute("clubNo", bno);
+        model.addAttribute("CNBList", CNBList);
 
         return "club/detail";
     }

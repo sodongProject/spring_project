@@ -40,11 +40,6 @@ public class ClubNoticeBoardController {
 
         log.info("userRole: {}", userRole);
 
-        boolean admin = LoginUtil.isAdmin(session);
-        log.info("admin:{}",admin);
-        boolean clubAdmin = LoginUtil.isClubAdmin(session);
-        log.info("clubAdmin:{}", clubAdmin);
-
         model.addAttribute("userRole", userRole);
         model.addAttribute("clubNo", clubNo);
         model.addAttribute("CNBList", CNBList);
@@ -65,7 +60,7 @@ public class ClubNoticeBoardController {
     public String write(ClubNoticeBoardWriteResponseDto dto){
         clubNoticeBoardService.insert(dto);
         log.debug("이게 도대채 뭐냐? {}", String.valueOf(dto.getClubNo()));
-        return "redirect:/clubNoticeBoard/list?clubNo=" + dto.getClubNo();
+        return "redirect:/club/detail?bno=" + dto.getClubNo();
     }
 
     // 5. 상세조회 요청

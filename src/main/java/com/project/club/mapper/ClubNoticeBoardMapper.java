@@ -13,6 +13,9 @@ public interface ClubNoticeBoardMapper {
     // 공지사항 전체 조회
     List<ClubNoticeBoard> findAll(long clubNo);
 
+
+    List<ClubNoticeBoard> findAllLimit(long clubNo);
+
     // 공지사항 세부 조회
     ClubNoticeBoard findOne(long clubNoticeNo);
 

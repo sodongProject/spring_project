@@ -29,6 +29,14 @@ public class ClubNoticeBoardService {
                 .collect(Collectors.toList());
     }
 
+    public List<ClubNoticeBoardListResponseDto> findListLimit(long clubNo, String account) {
+        List<ClubNoticeBoard> CNBList = clubNoticeBoardMapper.findAllLimit(clubNo);
+        Users usersAll = clubNoticeBoardMapper.findUsersAll(account);
+        return CNBList.stream()
+                .map(c -> new ClubNoticeBoardListResponseDto(c, clubNoticeBoardMapper.findUserRole(c.getClubNo(), account), usersAll.getUserName()))
+                .collect(Collectors.toList());
+    }
+
     public String findUserRole(long clubNo, String account) {
         String userRole = clubNoticeBoardMapper.findUserRole(clubNo, account);
         return userRole;
