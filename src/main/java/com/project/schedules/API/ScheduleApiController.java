@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -42,15 +43,24 @@ public class ScheduleApiController {
 
     @GetMapping("/list/{clubNo}/page/{pageNo}")
     public ResponseEntity<?> ScheduleList(@PathVariable long clubNo, @PathVariable int pageNo, HttpSession session) {
+
         String loginUserAccount = LoginUtil.getLoggedInUserAccount(session);
+
         List<ScheduleFindAllDto> scheduleList = scheduleService.findAllSchedule(clubNo);
+
+        System.out.println("scheduleList = " + scheduleList);
+
         List<ScheduleLoginUserInfoDto> scheduleLoginUserInfoDtoList = scheduleService.findAllUserAuthInSchedule(loginUserAccount);
+
         PageMaker pageMaker = new PageMaker(new Page(pageNo, 3), scheduleList.size());
 
         ScheduleListDto scheduleListAndPage = new ScheduleListDto(scheduleList, pageMaker, scheduleLoginUserInfoDtoList);
-        System.out.println("scheduleList = " + scheduleList);
 
-        System.out.println("scheduleListAndPage = " + scheduleListAndPage);
+        for (ScheduleFindAllDto schedule : scheduleList) {
+            if(schedule.getParticipationPoints() == null) {
+                schedule.setParticipationPoints((double) 0);
+            }
+        }
 
         return ResponseEntity
                 .ok()
@@ -127,6 +137,31 @@ public class ScheduleApiController {
         System.out.println("dto = " + dto);
 
         scheduleService.applicationProcessing(dto);
+
+        return ResponseEntity
+                .ok()
+                .body(dto);
+    }
+
+    @GetMapping("/detail/member/{scheduleNo}")
+    public ResponseEntity<?> scheduleMember(@PathVariable Long scheduleNo, HttpSession session) {
+        List<Users> scheduleMembers = scheduleService.findAllScheduleMemeber(scheduleNo);
+
+        return ResponseEntity
+                .ok()
+                .body(scheduleMembers);
+    }
+
+    @PostMapping("/detail/exile")
+    public ResponseEntity<?> scheduleMember(@Validated @RequestBody ExileUserDto dto, HttpSession session) {
+
+        if(Objects.equals(LoginUtil.getLoggedInUserAccount(session), dto.getAccount())) {
+            return ResponseEntity
+                    .ok()
+                    .body(dto);
+        }
+
+        scheduleService.exileUser(dto);
 
         return ResponseEntity
                 .ok()

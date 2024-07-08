@@ -1,5 +1,6 @@
 package com.project.mainpage.controller;
 
+import com.project.entity.Auth;
 import com.project.mainpage.common.PageMaker;
 import com.project.mainpage.common.Search;
 import com.project.mainpage.dto.request.NoticeWritePostDto;
@@ -50,10 +51,7 @@ public class MainNoticeController {
     // 3. 게시글 등록 요청 -> 목록조회 요청 리다이렉션
     @PostMapping("/write")
     public String save(NoticeWritePostDto dto) {
-        // 1. 브라우저가 전달한 게시글 내용 읽기
-        System.out.println("dto = " + dto);
         service.insert(dto);
-        log.info("뭘 가져어야 {}", dto.getMainNoticeTitle());
         return "redirect:/main-notice/list";
     }
 
@@ -68,6 +66,7 @@ public class MainNoticeController {
     @GetMapping("/detail")
     public String detail(long mainNoticeNo, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
+
         NoticeDetailDto dto = service.detail(mainNoticeNo, account);
         model.addAttribute("b", dto);
         return "main-notice/detail";

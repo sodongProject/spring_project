@@ -2,6 +2,8 @@ package com.project.schedules.dto;
 
 import com.project.entity.Schedules;
 import lombok.*;
+import org.checkerframework.checker.formatter.qual.Format;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +25,7 @@ public class ScheduleWriteDto {
 
     public Schedules toEntity() {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(scheduleAt, formatter);
 
         Schedules s = new Schedules();

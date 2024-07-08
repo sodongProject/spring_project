@@ -44,6 +44,7 @@ public class ScheduleService {
         Schedules newSchedules = scheduleMapper.findLastSaveSchedule();
         long scheduleNo = newSchedules.getScheduleNo();
         long loginUserInClubNo = scheduleMapper.userInClub(dto.getClubNo(), loginUserAccount);
+
         scheduleMapper.registerUserIntoSchedule(scheduleNo, loginUserInClubNo);
 
         // 스케줄 생성자 권한 업데이트
@@ -56,16 +57,19 @@ public class ScheduleService {
 
     public void deleteSchedule(Long scheduleNo) {
 
+        Schedules targetSchedule = scheduleMapper.findOne(scheduleNo);
         // 삭제가 아니라 false를 true로 바꾸기
         scheduleMapper.delete(scheduleNo);
 
-        Schedules targetSchedule = scheduleMapper.findOne(scheduleNo);
+        System.out.println("targetSchedule = " + targetSchedule);
 
         Double participationPoint = targetSchedule.getParticipationPoints();
 
         Double totalPointInSchedule = targetSchedule.getTotalPoint();
 
         List<String> refundUsers = scheduleMapper.refundUserAccount(scheduleNo);
+
+        if(refundUsers == null) return;
 
         if(totalPointInSchedule == (participationPoint * refundUsers.size())) {
             scheduleMapper.removeScheduleTotalPoint(scheduleNo, totalPointInSchedule);
@@ -134,6 +138,7 @@ public class ScheduleService {
     }
 
     public List<ScheduleFindAllDto> findAllSchedule(long clubNo) {
+
 
         return scheduleMapper.findAll(clubNo);
     }
@@ -219,5 +224,16 @@ public class ScheduleService {
 
         return scheduleMapper.findAllUserInSchedule(loginUserAccount);
 
+    }
+
+    public List<Users> findAllScheduleMemeber(Long scheduleNo) {
+        return scheduleMapper.findAllScheduleUser(scheduleNo);
+    }
+
+    public void exileUser(ExileUserDto dto) {
+
+        Long clubJoinNo = scheduleMapper.userInClub(dto.getClubNo(), dto.getAccount());
+
+        scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), clubJoinNo, ScheduleAuth.DENIED);
     }
 }

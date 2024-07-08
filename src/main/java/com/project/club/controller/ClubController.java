@@ -6,6 +6,7 @@ import com.project.club.common.Search;
 import com.project.club.dto.*;
 import com.project.club.service.ClubService;
 import com.project.club.util.FileUtil;
+import com.project.entity.ClubAuth;
 import com.project.login.dto.LoginUserInfoDto;
 import com.project.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +48,7 @@ public class ClubController {
         List<ClubListResponseDto> clubList = clubService.findList(search, account);
         PageMaker maker = new PageMaker(search, clubService.getCount(search));
 
-        clubList.forEach(c -> System.out.println(c.getClubProfile()));
+//        clubList.forEach(c -> System.out.println(c.getClubProfile()));
 
         if (account != null) {
             // 사용자 클럽 정보 추가
@@ -81,17 +84,29 @@ public class ClubController {
 
     // 3. 게시글 등록 요청 (/club/write : POST)
     @PostMapping("/write")
-    public String write(ClubWriteRequestDto C) {
-        String profilePath = FileUtil.uploadFile(rootPath, C.getClubProfile());
+    public String write(ClubWriteRequestDto C, @RequestParam(value = "clubProfile", required = false) MultipartFile file) {
+        String profilePath = null; // 기본값을 null로 설정
+        if (file != null && !file.isEmpty()) {
+            profilePath = FileUtil.uploadFile(rootPath, file);
+        }
         clubService.insert(C, profilePath);
         return "redirect:/club/list";
     }
 
     // 4. 삭제요청
     @GetMapping("/delete")
-    public String delete(@RequestParam("clubNo") long clubNo) {
-        clubService.remove(clubNo);
-        return "redirect:/club/list";
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> delete(@RequestParam("clubNo") long clubNo) {
+        boolean isDeleted = clubService.remove(clubNo);
+        Map<String, String> response = new HashMap<>();
+        if (isDeleted) {
+            response.put("status", "success");
+            response.put("message", "삭제 완료");
+        } else {
+            response.put("status", "error");
+            response.put("message", "삭제 실패");
+        }
+        return ResponseEntity.ok(response);
     }
 
     // 5. 상세조회 요청
@@ -99,8 +114,10 @@ public class ClubController {
     public String detail(@RequestParam("bno") long bno, Model model, HttpSession session) {
         String account = LoginUtil.getLoggedInUser(session).getAccount();
         ClubDetailResponseDto club = clubService.detail(bno, account);
-        log.info("컨트롤러야 뭐 가져오는거야?: {}", bno);
+        log.info("club : {}", club.getUserAuthStatus());
+        log.info("들어온 사람의 account 뭐야 {},", club.getAccount());
         model.addAttribute("club", club);
+
         return "club/detail";
     }
 
@@ -111,9 +128,6 @@ public class ClubController {
         ClubDescriptionResponseDto club = clubService.description(clubNo);
         model.addAttribute("club", club);
 
-//        if (loggedInUser != null) {
-//            return "club/detail";
-//        }
         return "club/description";
     }
 
@@ -137,10 +151,10 @@ public class ClubController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "이미 가입되었거나 승인된 회원입니다."));
         } else {
             try {
-                clubService.requestJoin(clubNo, currentUserAccount);
+                clubService.joinUpdateUser(clubNo, currentUserAccount);
                 return ResponseEntity.ok(Map.of("message", "가입 신청이 완료되었습니다."));
             } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "가입 신청에 실패하였습니다."));
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "가입 신청에 실패하였습니다.", "error", e.getMessage()));
             }
         }
     }
@@ -177,6 +191,37 @@ public class ClubController {
         } catch (Exception e) {
             log.error("에러가 떳어 - clubNo: {}, account: {}", clubNo, account, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to deny user");
+        }
+    }
+
+    // 동호회 탈퇴처리
+    @PostMapping("/cancelled")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cancelled(@RequestParam("clubNo") Long clubNo, HttpSession session) {
+        String account = LoginUtil.getLoggedInUserAccount(session);
+        if (account == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인이 필요합니다.", "success", false));
+        }
+        try {
+            clubService.withdrawMember(clubNo, account);
+            return ResponseEntity.ok(Map.of("message", "탈퇴 처리가 완료되었습니다.", "success", true));
+        } catch (Exception e) {
+            log.error("탈퇴 처리 실패 - clubNo: {}, account: {}", clubNo, account, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "탈퇴 처리에 실패하였습니다.", "success", false));
+        }
+    }
+
+
+
+    // 동호회 추방 처리
+    @PostMapping("/denyMember")
+    public ResponseEntity<Map<String, Object>> denyMember(@RequestParam Long clubNo, @RequestParam String account) {
+        try {
+            clubService.denyMemberApplicant(clubNo, account);
+            return ResponseEntity.ok(Map.of("message", "추방에 성공했습니다", "success", true));
+        } catch (Exception e) {
+            log.error("추방 처리 실패 - clubNo: {}, account: {}", clubNo, account, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed to deny user", "success", false));
         }
     }
 }

@@ -126,14 +126,15 @@
 
     <!-- 사용자 클럽 가입 요청 추가 -->
     <insert id="insertUserClub">
-        INSERT INTO users_clubs (club_no, account, user_club_role)
-        SELECT #{clubNo}, #{account}, #{role}
-        FROM dual
-        WHERE NOT EXISTS (
-        SELECT 1 FROM users_clubs
-        WHERE club_no = #{clubNo} AND account = #{account}
-        )
+        INSERT INTO users_clubs (club_no, account, user_club_application_status)
+        VALUES (#{clubNo}, #{account}, 'WAITING')
+        ON DUPLICATE KEY UPDATE
+        user_club_application_status = CASE WHEN user_club_application_status &lt;&gt; 'APPROVED' THEN 'WAITING' ELSE user_club_application_status END;
     </insert>
+
+
+
+
     <!-- 사용자 역할 업데이트 -->
     <update id="updateUserRole">
         UPDATE users_clubs
@@ -141,6 +142,15 @@
         user_club_application_status = 'APPROVED'
         WHERE club_no = #{clubNo} AND account = #{account}
     </update>
+
+<!--    사용자 역할 변경   -->
+    <update id="updateUserStatus">
+        UPDATE users_clubs
+        SET user_club_role = #{role},
+        user_club_application_status = #{status}
+        WHERE club_no = #{clubNo} AND account = #{account}
+    </update>
+
 
     <!-- 가입신청자 리스트 조회 -->
     <select id="findApplicants" resultType="com.project.club.dto.ApplicantDto">
@@ -151,12 +161,12 @@
         UC.user_club_role AS role,
         UC.user_club_application_status AS status
         FROM users U
-        JOIN users_clubs UC
-        ON U.account = UC.account
+        JOIN users_clubs UC ON U.account = UC.account
         WHERE UC.club_no = #{clubNo}
-        AND UC.user_club_role = 'PENDING'
+        AND UC.user_club_application_status = 'WAITING'
     </select>
-<!--        AND UC.user_club_application_status != 'DENIED'-->
+
+    <!--        AND UC.user_club_application_status != 'DENIED'-->
 
     <update id="approveApplicant">
         UPDATE users_clubs
@@ -228,4 +238,21 @@
         WHERE C.club_no = #{clubNo}
     </select>
 
+<!-- 동호회 전체 가입자 목록을 확인하는 쿼리 -->
+    <select id="findClubMembers" resultType="com.project.club.dto.ClubMemberInfoDto">
+        SELECT
+        UC.account,
+        U.user_name AS userName,
+        U.temperature,
+        UC.user_club_application_status AS status,
+        UC.user_club_role AS role,
+        UC.user_club_updated_at AS joinDate
+        FROM users_clubs UC
+        JOIN users U
+        ON UC.account = U.account
+        WHERE UC.club_no = #{clubNo}
+        AND UC.user_club_role IN ('ADMIN', 'MEMBER')
+        GROUP BY UC.user_club_role, U.user_name, U.temperature, UC.user_club_application_status, UC.user_club_updated_at
+        ORDER BY FIELD(UC.user_club_role, 'ADMIN', 'MEMBER')
+    </select>
 </mapper>

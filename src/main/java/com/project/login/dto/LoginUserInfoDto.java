@@ -30,7 +30,7 @@ public class LoginUserInfoDto {
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
         this.address = user.getAddress();
-        this.auth = user.getAuth();
+        this.auth = Auth.valueOf(user.getAuth().name());
         this.profile = user.getProfileImage();
         this.remainedPoint = user.getRemainedPoint();
         //this.temperature = user.getTemperature();

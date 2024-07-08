@@ -9,6 +9,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
   </head>
   <body>
+    <%@ include file="../include/header.jsp" %>
+
     <div class="myPage_wrap">
       <%@ include file="../include/myPage-nav.jsp" %>
       <div class="myPage_inner">
@@ -40,5 +42,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
        
       </div>
     </div>
+    <%@ include file="../include/footer.jsp" %>
+
   </body>
 </html>

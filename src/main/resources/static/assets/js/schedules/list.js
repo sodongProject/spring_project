@@ -8,7 +8,7 @@ const $addScheduleBtn = document.getElementById('add_schedule_button');
 const $deleteScheduleBtn = document.querySelector('.card-container');
 fetchScheduleList();
 addScheduleBtnHandler();
-deleteScheduleBtnHandler();
+openDeleteScheduleModal();
 registerModalHandler();
 registerBtnHandler();
 pageBtnHandler();
@@ -17,11 +17,15 @@ function addScheduleBtnHandler() {
     $addScheduleBtn.addEventListener('click', async e => {
         e.preventDefault();
 
+        let at = document.getElementById('schedule_at').value;
+
+        let fixAt = at.replace("T", " ");
+
         const payload = {
             clubNo: document.getElementById('club_no').firstElementChild.value,
             scheduleTitle: document.getElementById('schedule_title').value,
             scheduleContent: document.getElementById('schedule_content').value,
-            scheduleAt: document.getElementById('schedule_at').value,
+            scheduleAt: fixAt,
             participationPoints: document.getElementById('participation_points').value,
         };
 
@@ -30,13 +34,13 @@ function addScheduleBtnHandler() {
     });
 }
 
-function deleteScheduleBtnHandler() {
+function openDeleteScheduleModal() {
    const $deleteBtn = document.querySelector(".card-container");
    $deleteBtn.addEventListener('click', async e => {
        // 페이지 새로고침 막기
        e.preventDefault();
 
-       console.log("클릭!!!")
+
 
        const $btn = document.querySelectorAll(".del-btn i");
 
@@ -51,43 +55,77 @@ function deleteScheduleBtnHandler() {
 
        if(!isDeleteBtn) return;
 
-        // 삭제 요청을 위한 스케줄번호 받아오기
-       const scheduleNumber = e.target.closest(".container").dataset.schedule_no;
-
-       // 삭제시 페이지 유지를 위한 현재 페이지번호 받아오기
-       const $nowPage = document.querySelector('.p-active a');
-       let pageNo = 1;
-       if($nowPage !== null) {
-           pageNo = $nowPage.dataset.page;
-       }
-
+       const scheduleTitle = e.target.closest(".top-section").dataset.title;
+       const scheduleNumber = parseInt(e.target.closest(".container").dataset.schedule_no);
+       const tag = `
+            <h1 class="delete-content" data-sno="${scheduleNumber}">${scheduleTitle}을(를) 삭제하시겠습니까?</h1>
+            <div class="schedule-delete-btn">
+                <button class="delete-btn">삭제</button>
+                <button class="not-delete-btn">취소</button>
+            </div>`
 
 
-       if(pageNo !== null) pageNo = parseInt(pageNo);
+       document.querySelector(".delete-modal-content").innerHTML = tag;
 
-       // 삭제버튼 클릭시 삭제요청 보내기 위한 payload
-       const payload = {
-            scheduleNo: scheduleNumber,
-       }
+       document.querySelector(".schedule-delete-modal").style.display="flex";
 
-       await callApi(BASE_URL2, 'POST', payload);
-       await fetchScheduleList(pageNo);
+       deleteHandler();
    })
 }
 
+function deleteHandler() {
+
+    document.querySelector(".delete-btn").addEventListener('click', async e => {
+        const pageNo = document.querySelector('.prev').dataset.pno;
+
+
+        // 삭제버튼 클릭시 삭제요청 보내기 위한 payload
+        const payload = {
+            scheduleNo: document.querySelector(".delete-content").dataset.sno,
+        }
+
+        await callApi(BASE_URL2, 'POST', payload);
+        await fetchScheduleList(pageNo);
+
+        document.querySelector(".schedule-delete-modal").style.display="none";
+    });
+
+    document.querySelector(".not-delete-btn").addEventListener("click", e => {
+        document.querySelector(".schedule-delete-modal").style.display="none";
+    })
+
+}
+
 function pageBtnHandler() {
-    document.getElementById('page-btn-box').addEventListener('click', e => {
+    document.getElementById('wrap').addEventListener('click', e => {
         e.preventDefault();
-        const $pageBtn = document.querySelectorAll('.page-link');
-        for (const $pageBtnElement of $pageBtn) {
-            if(e.target === $pageBtnElement) {
-                let pageNo = e.target.dataset.page;
 
-                if (pageNo !== null) pageNo = parseInt(pageNo)
+        const $pagePrevBtn = document.querySelector('.prev');
+        const $pageNextBtn = document.querySelector('.next');
 
-                fetchScheduleList(pageNo);
+        if(e.target !== $pageNextBtn && e.target !== $pagePrevBtn) return;
+
+        const lastPage = $pageNextBtn.dataset.end;
+
+
+        if(e.target === $pagePrevBtn) {
+
+            if($pagePrevBtn.dataset.pno !== '1') {
+
+                $pagePrevBtn.dataset.pno=(parseInt($pagePrevBtn.dataset.pno) - 1).toString();
+                console.log($pagePrevBtn.dataset.pno)
+            }
+        } else if (e.target === $pageNextBtn) {
+            if($pagePrevBtn.dataset.pno !== lastPage) {
+
+                $pagePrevBtn.dataset.pno=(parseInt($pagePrevBtn.dataset.pno) + 1).toString();
+                console.log($pagePrevBtn.dataset.pno)
             }
         }
+
+
+
+        fetchScheduleList($pagePrevBtn.dataset.pno);
 
     })
 }
@@ -137,9 +175,7 @@ function registerBtnHandler() {
         }
 
         // 가입신청시 페이지 유지를 위한 현재 페이지번호 받아오기
-        let pageNo = document.querySelector('.p-active a').dataset.page;
-
-        if(pageNo !== null) pageNo = parseInt(pageNo);
+        const pageNo = document.querySelector('.prev').dataset.pno;
 
         $registerModal.style.display = 'none';
 
@@ -150,81 +186,56 @@ function registerBtnHandler() {
 }
 
 
-function renderPage({ begin, end, pageInfo }, pageNo=1) {
-    let tag = '';
 
-    const clubNo = document.getElementById('club_no').firstElementChild.value;
-    // prev 만들기
-    if (pageNo !== begin)
-        tag += `<li class='page-item'>
-            <a class='page-link' href='${begin - 1}' data-page="${pageNo - 1}">이전</a>
-            </li>`;
 
-    // 페이지 번호 태그 만들기
-    for (let i = begin; i <= end; i++) {
-        let active = '';
-        if (pageInfo.pageNo === i) active = 'p-active';
-
-        tag += `
-      <li class='page-item ${active}'>
-        <a class='page-link page-custom' href="${i}" data-page="${i}">${i}</a>
-      </li>`;
-    }
-
-    console.log("begin" + begin);
-    // prev 만들기
-    if (pageNo !== end && end !== 0)
-        tag += `<li class='page-item'>
-            <a class='page-link' href='${pageNo + 1}' data-page="${pageNo + 1}">다음</a>
-            </li>`;
-
-    return tag;
-}
-
-export async function fetchScheduleList(pageNo = 1) {
+export async function fetchScheduleList(pageNo = '1') {
     const clubNo = document.getElementById('club_no').firstElementChild.value;
 
     const scheduleResponse = await callApi(`${BASE_URL}/${clubNo}/page/${pageNo}`);
-    console.log(scheduleResponse);
+
+
+    const pageInfo = scheduleResponse.pageInfo;
+
     const scheduleList = scheduleResponse.scheduleList;
     const userInfoList = scheduleResponse.scheduleLoginUserInfoList;
-    console.log(userInfoList);
-    console.log("s" + scheduleList);
+
     let schedule = '';
-
-
-    console.log(scheduleResponse);
 
     if (scheduleList !== null && scheduleList.length > 0) {
         for (let i = 3*pageNo - 3; i < 3*(pageNo) && i < scheduleList.length; i++) {
-            schedule += `<div class="card-wrapper">
+            schedule += `
+                  <div class="card-wrapper" data-no="${i}">
                     <div class="container" data-schedule_no="${scheduleList[i].scheduleNo}">
-                        <div class="top-section">`;
+                        <div class="top-section" data-title="${scheduleList[i].scheduleTitle}">
+                     `;
             // 관리자가 아니면 삭제 버튼이 안보이도록 설정
             if(userInfoList.length > 0) {
                 for(const user of userInfoList) {
                     if(user.scheduleNo === scheduleList[i].scheduleNo && user.userScheduleRole === 'ADMIN') {
-                        schedule += `<button class="del-btn" data-href="#">
-                                <i class="fas fa-times"></i>
-                            </button>`;
+                        schedule += `
+                                        <button class="del-btn a${i}" data-no="${i}">
+                                            <i class="fi fi-rr-cross-circle"></i>
+                                        </button>`;
                     }
                 }
             }
-            schedule +=   `<i class='bx bxs-moon'></i>
+
+            const scheduleAt = `${scheduleList[i].scheduleAt}`;
+            const at = timeFormat(scheduleAt);
+
+            schedule +=   `
                         </div>
                         <div class="middle-section">
                             <div class="view">
-                                <i class="fas fa-eye"></i>
+                                <i class="fi fi-ss-users-alt"></i> 
                                 <span class="view-count">${scheduleList[i].scheduleCount}</span>
                             </div>
-                            <h2>${scheduleList[i].scheduleTitle}</h2>
-                            <p>${scheduleList[i].scheduleContent}</p>
-                            <p>참가비 : ${scheduleList[i].participationPoints}</p>
-                            <p class="account">주최자 : ${scheduleList[i].account}</p>
-                            <div class="social-media">
-                                <i class='bx bxl-twitter'></i>
-                                <i class='bx bxl-facebook'></i>
-                                <i class='bx bxl-instagram'></i>
+                            <div class="schedule-mini-content">
+                                <h2>${scheduleList[i].scheduleTitle}</h2>
+                                <p class="sContent">${scheduleList[i].scheduleContent}</p>
+                                <p><i class="fi fi-rr-calendar-clock"></i> : <span>${at}</span></p>
+                                <p><i class="fi fi-rs-coins"></i> : <span>${scheduleList[i].participationPoints}P</span></p>
+                                <p class="account"><i class="fi fi-rs-user"></i>_ ${scheduleList[i].account}</p>
                             </div>
                             <div class="btnCenter" data-sno="${scheduleList[i].scheduleNo}">
                                 <button type="button" class="btn detail-btn" data-sno="${scheduleList[i].scheduleNo}">상세보기</button>
@@ -252,30 +263,54 @@ export async function fetchScheduleList(pageNo = 1) {
         }
     } else {
         schedule += `<div id="no-schedule">
-                        <h1 id="no-schedule">스케줄이 존재하지 않습니다.</h1>
+                        <h1 class="no-schedule">스케줄이 존재하지 않습니다.</h1>
                      </div>
                         `;
     }
 
+    const totalPage = pageInfo.end;
 
-    let buttonTag = renderPage(scheduleResponse.pageInfo, pageNo);
-    document.getElementById('page-btn').innerHTML = buttonTag;
+
+
+
+
+    document.querySelector(".next").dataset.end=pageInfo.end
+
+
+    // document.getElementById('page-btn').innerHTML = buttonTag;
 
 
     document.querySelector('.card-container').innerHTML = schedule;
+
 
     // 이벤트 핸들러를 추가하기 위해 detailEventHandler 호출
     detailEventHandler();
 }
 
+export function timeFormat(scheduleAt) {
+    const aaa = scheduleAt.replace("T", " ");
+
+    const fixAt = aaa.slice(0,16);
+
+
+    const at = `${fixAt.slice(0,4)}` + "년 " + `${fixAt.slice(5, 7)}` + "월 " + `${fixAt.slice(8, 10)}` + "일 "
+        + `${fixAt.slice(11, 13)}` + "시 " + `${fixAt.slice(14)}` + "분";
+    console.log(at)
+    return at;
+}
+
 function detailEventHandler() {
     const detailButtons = document.querySelectorAll('.btnCenter .detail-btn');
     detailButtons.forEach(button => {
-        console.log('Adding event listener to button:', button); // 이벤트 리스너 추가 확인
+
         button.addEventListener('click', e => {
             e.preventDefault();
-            console.log('Button clicked:', e.target.dataset.sno); // 버튼 클릭 확인
+
             document.getElementById('detail-modal').style.display='flex';
         });
     });
 }
+
+
+
+

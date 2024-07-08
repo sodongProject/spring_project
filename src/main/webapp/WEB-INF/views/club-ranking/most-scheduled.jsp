@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-  .most-scheduled {
-    border: 2px solid green;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: #f0f8ff;
-  }
-
-  .scheduled-box {
-    border: 1px solid green;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #f0fff0;
-  }
-</style>
 
   <div class="most-scheduled">
     <h2>소모임이 가장 많은 동호회</h2>

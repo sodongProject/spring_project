@@ -4,11 +4,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>가입 신청자 목록</title>
+
+    <%@ include file="../include/static-head.jsp" %>
     <link rel="stylesheet" href="/assets/css/club/applicants.css">
+
+
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
+
 <div class="container">
     <h1>가입 신청자 목록</h1>
     <div id="messages"></div>
@@ -27,14 +31,14 @@
             <tr id="applicant-${applicant.account}">
                 <td>${applicant.userName}</td>
                 <td>${applicant.temperature}</td>
-                <td>${applicant.role}</td>
+                <td>${applicant.status}</td>
                 <td>
-                    <c:if test="${applicant.role == 'PENDING'}">
+                    <c:if test="${applicant.status == 'WAITING'}">
                         <button class="approve-btn" onclick="approveApplicant('${applicant.account}', ${param.clubNo})">승인</button>
                     </c:if>
                 </td>
                 <td>
-                    <c:if test="${applicant.role == 'PENDING'}">
+                    <c:if test="${applicant.status == 'WAITING'}">
                         <button class="deny-btn" onclick="denyApplicant('${applicant.account}', ${param.clubNo})">거절</button>
                     </c:if>
                 </td>
@@ -44,6 +48,9 @@
     </table>
     <button class="back-btn" onclick="window.location.href='/club/detail?bno=${param.clubNo}'">돌아가기</button>
 </div>
+
+<%@ include file="../include/footer.jsp" %>
+
 
 <script>
     function approveApplicant(account, clubNo) {

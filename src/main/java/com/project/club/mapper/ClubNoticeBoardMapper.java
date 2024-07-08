@@ -29,8 +29,7 @@ public interface ClubNoticeBoardMapper {
                         @Param("account")String account);
 
     // 클럽에 가입한 사용자의 모둔걸 가져와
-    Users findUsersAll(@Param("clubNo")long clubNo,
-                       @Param("account")String account);
+    Users findUsersAll(@Param("account")String account);
 
 
 }
