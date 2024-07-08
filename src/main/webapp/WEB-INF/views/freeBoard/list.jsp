@@ -21,7 +21,7 @@
         <div class="snsContainer">
 
           <c:forEach var="b" items="${bList}">
-            <div class="card-wrapper">
+            <div class="card-wrapper" data-bno="${clubNo}">
               <section class="card">
 
                 <!-- sns 상단부분(계정, 시간) -->
@@ -66,7 +66,7 @@
               <!-- 삭제버튼 -->
                <c:if test="${login.auth == 'ADMIN' || login.account == b.account }">
                 <div class="card-btn">
-                  <button class="del-btn" data-href="/freeBoard/delete?bno=${b.boardNo}">
+                  <button class="del-btn" data-href="/freeBoard/delete?bno=${b.boardNo}" data-bno="${b.boardNo}">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>

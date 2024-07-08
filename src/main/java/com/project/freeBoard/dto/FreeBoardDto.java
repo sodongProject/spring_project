@@ -1,4 +1,4 @@
-package com.project.freeBoard.mapper;
+package com.project.freeBoard.dto;
 
 import com.project.entity.FreeBoard;
 import lombok.*;

@@ -39,8 +39,14 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="account">Account</label>
+                <input type="text" id="account" name="account" value="${account}" readonly>
+            </div>
 
-            
+            <div class="form-group">
+             <input type="hidden" id="clubNo" name="clubNo" value="${clubNo}" readonly>
+            </div>
 
              <div class="form-group">
                 <label for="content">Content (max 100 characters)</label>

@@ -4,7 +4,7 @@ import com.project.entity.FreeBoard;
 import com.project.freeBoard.dto.FreeBoardFindAllDto;
 import com.project.freeBoard.dto.FreeBoardListResponseDto;
 import com.project.freeBoard.dto.FreeBoardWriteRequestDto;
-import com.project.freeBoard.mapper.FreeBoardDto;
+import com.project.freeBoard.dto.FreeBoardDto;
 import com.project.freeBoard.mapper.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +22,15 @@ public class FreeBoardService {
 
 
     // 목록 조회 요청 중간 처리
-    public List<FreeBoardListResponseDto> findList() {
-        List<FreeBoardFindAllDto> boardList = freeBoardMapper.findAll();
+    public List<FreeBoardListResponseDto> findList(long clubNo) {
+        log.info("서비스에서 받은 클럽 번호: {}", clubNo);
+        List<FreeBoardFindAllDto> boardList = freeBoardMapper.findAll(clubNo);
+        log.info("쿼리 결과 크기: {}", boardList.size());
+
+
+        for (FreeBoardFindAllDto freeBoardFindAllDto : boardList) {
+            log.info("조회된 데이터: {}", freeBoardFindAllDto);
+        }
 
         List<FreeBoardListResponseDto> dtoList =
                 boardList
@@ -40,14 +47,14 @@ public class FreeBoardService {
     }
 
     // 등록 중간 처리
-    public boolean insert(FreeBoardWriteRequestDto dto, String snsContentsPath) {
+    public void insert(FreeBoardWriteRequestDto dto, String snsContentsPath) {
         FreeBoard b = dto.toEntity();
         b.setBoardImg(snsContentsPath); //프로필 사진경로 엔터티 설정
 
         System.out.println("\n\n");
         System.out.println(b);
 
-        return freeBoardMapper.save(b);
+        freeBoardMapper.save(b);
     }
 
     public FreeBoardDto getPostByBno(int bno) {

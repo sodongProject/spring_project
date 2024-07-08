@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+<%--<script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>--%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
