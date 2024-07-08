@@ -3,12 +3,6 @@
 /* styles.css */
 
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 #title {
     font-size: 32px;
     font-weight: 700;
@@ -83,6 +77,7 @@ body {
     width: 1200px;
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
 }
 
 #participation_points:invalid {
@@ -127,12 +122,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 101; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
@@ -157,12 +152,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 101; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4);
 }
@@ -177,6 +172,7 @@ body {
     border: 4px solid #f2cb05;
     background: #f2f2f2;
     flex-direction: column;
+    border-radius: 40px;
 }
 
 #no-schedule .no-schedule {
@@ -273,15 +269,16 @@ body {
     display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
-    position: absolute; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: fixed; /* Stay in place */
+    z-index: 101; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4);
+
 }
 
 .modal-content {
@@ -729,12 +726,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 101; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4);
 
@@ -781,12 +778,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 101; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4);
 }
@@ -912,12 +909,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 101; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4);
 }
@@ -932,6 +929,7 @@ body {
     border: 4px solid #f2cb05;
     background: #f2f2f2;
     flex-direction: column;
+    border-radius: 40px;
 }
 
 .schedule-secession-modal {
@@ -1022,4 +1020,54 @@ body {
 
 .card-wrapper:hover .del-btn{
     display: block;
+}
+
+.schedule-exit-modal {
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Stay in place */
+    z-index: 101; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100vh; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);
+}
+
+.exit-modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 650px;
+    height: 250px;
+    border: 4px solid #f2cb05;
+    background: #f2f2f2;
+    flex-direction: column;
+    font-size: 25px;
+    border-radius: 22px;
+}
+.exit-modal-content .schedule-exit-btn {
+    display: flex;
+    justify-content: center;
+    color: #0d0d0d;
+    text-align: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.exit-modal-content .schedule-exit-btn button {
+    background: #f2cb05;
+    width: 90px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.exit-modal-content .schedule-exit-btn .not-exit-btn{
+    background: #0d0d0d;
+    color: #f2cb05;
 }

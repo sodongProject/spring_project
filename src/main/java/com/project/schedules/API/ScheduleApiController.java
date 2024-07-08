@@ -168,4 +168,16 @@ public class ScheduleApiController {
                 .body(dto);
     }
 
+    @PostMapping("/detail/exit")
+    public ResponseEntity<?> exitSchedule(@Validated @RequestBody ExitUserDto dto, HttpSession session) {
+
+
+
+        scheduleService.exitUser(dto, session);
+
+        return ResponseEntity
+                .ok()
+                .body(dto);
+    }
+
 }

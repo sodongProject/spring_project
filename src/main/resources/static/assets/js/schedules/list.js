@@ -22,7 +22,7 @@ function addScheduleBtnHandler() {
         let fixAt = at.replace("T", " ");
 
         const payload = {
-            clubNo: document.getElementById('club_no').firstElementChild.value,
+            clubNo: document.getElementById('clubDetailWrap').dataset.cno,
             scheduleTitle: document.getElementById('schedule_title').value,
             scheduleContent: document.getElementById('schedule_content').value,
             scheduleAt: fixAt,
@@ -170,7 +170,7 @@ function registerBtnHandler() {
         const $registerModal = document.getElementById("register-modal");
 
         const payload = {
-            clubNo:document.getElementById('club_no').firstElementChild.value,
+            clubNo:document.getElementById('clubDetailWrap').dataset.cno,
             scheduleNo:$registerModal.dataset.sno,
         }
 
@@ -189,7 +189,7 @@ function registerBtnHandler() {
 
 
 export async function fetchScheduleList(pageNo = '1') {
-    const clubNo = document.getElementById('club_no').firstElementChild.value;
+    const clubNo = document.getElementById('clubDetailWrap').dataset.cno;
 
     const scheduleResponse = await callApi(`${BASE_URL}/${clubNo}/page/${pageNo}`);
 
