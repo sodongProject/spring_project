@@ -16,30 +16,36 @@
     <div class="container">
         <%@ include file="../include/header.jsp" %>
         <form action="/freeBoard/write" method="post" enctype="multipart/form-data">
+           
+            <div class="form-group">
+                <label for="account">Account</label>
+                <input type="content" id="account" name="account" value="${account}" readonly>
+            </div>
+           
+
+            <div class="form-group">
+                <label for="clubNo">ClubNo</label>
+                <input type="content" id="clubNo" name="clubNo" value="${b.clubNo}" readonly>
+               </div>
+           
             <div class="form-group">
                 <label for="photo">Upload Photo</label>
                     <div class="form-group SnsProfile">
                         <div class="sns-box">
                             <img src="/assets/img/image-add.png" alt="프로필 썸네일">
                         </div>
+                        <span class="click">클릭하여 이미지를 추가하세요!</span>
                     <input type="file" id="photo" name="boardImg" accept="image/*" style="display: none;">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="account">Account</label>
-                <input type="content" id="account" name="account" value="${account}" readonly>
-            </div>
 
-            <div class="form-group">
-             <label for="clubNo">ClubNo</label>
-             <input type="content" id="clubNo" name="clubNo" value="${b.clubNo}" readonly>
-            </div>
+            
 
              <div class="form-group">
                 <label for="content">Content (max 100 characters)</label>
-                <textarea id="content" name="content" rows="4" placeholder="Enter your content here..." maxlength="200"></textarea>
-                <div class="char-count" id="charCount">0 / 200</div>
+                <textarea id="content" name="content" rows="4" placeholder="Enter your content here..." maxlength="100"></textarea>
+                <div class="char-count" id="charCount">0 / 100</div>
             </div>
             <div class="form-group">
             <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
