@@ -1,5 +1,5 @@
 import { callApi } from "./api.js";
-import {timeFormat} from "./list.js";
+import {fetchScheduleList, timeFormat} from "./list.js";
 
 let BASE_URL = 'http://localhost:8383/schedules/detail';
 
@@ -92,6 +92,11 @@ function registerBtnHandler() {
         await callApi(BASE_URL, 'POST', payload);
         await applicationUserList();
 
+        const scheduleNo = document.getElementById("schedule_detail").dataset.sno;
+
+        fetchDetailModal(scheduleNo);
+        fetchScheduleList();
+
     });
 }
 
@@ -112,16 +117,22 @@ function registerBtnHandler() {
 
             if(!isDetailBtn) return;
 
-            const scheduleDetailResponse = await callApi(`${BASE_URL}/${scheduleNo}`);
+            await fetchDetailModal(scheduleNo);
 
-            const {loginUserInfoDto, schedule} = scheduleDetailResponse;
+        });
+    }
 
-            console.log(loginUserInfoDto);
-            let tag = '';
-            if(loginUserInfoDto !== null) {
-                if(loginUserInfoDto.userScheduleRole !== null) {
-                    if(loginUserInfoDto.userScheduleRole === 'ADMIN') {
-                        tag += `<div class="register-list">
+async function fetchDetailModal(scheduleNo) {
+    const scheduleDetailResponse = await callApi(`${BASE_URL}/${scheduleNo}`);
+
+    const {loginUserInfoDto, schedule} = scheduleDetailResponse;
+
+    console.log(loginUserInfoDto);
+    let tag = '';
+    if(loginUserInfoDto !== null) {
+        if(loginUserInfoDto.userScheduleRole !== null) {
+            if(loginUserInfoDto.userScheduleRole === 'ADMIN') {
+                tag += `<div class="register-list">
                             <button class="register-admin-btn">신청관리</button>
                         </div>
                         <div class="schedule_members">
@@ -130,39 +141,37 @@ function registerBtnHandler() {
                         </div>
                         
                         `
-                    } else if (loginUserInfoDto.userScheduleRole === 'MEMBER') {
-                        tag += `
+            } else if (loginUserInfoDto.userScheduleRole === 'MEMBER') {
+                tag += `
                         <div class="out-schedule">
                             <button class="out-schedule-btn">소모임 탈퇴</button>
                         </div>
                         `
-                    }
-                }
             }
+        }
+    }
 
-            const targetScheduleAt = schedule.scheduleAt;
-            const at = timeFormat(targetScheduleAt);
+    const targetScheduleAt = schedule.scheduleAt;
+    const at = timeFormat(targetScheduleAt);
 
-            const targetCreatedAt = schedule.scheduleCreatedAt;
-            const created = timeFormat(targetCreatedAt);
+    const targetCreatedAt = schedule.scheduleCreatedAt;
+    const created = timeFormat(targetCreatedAt);
 
-            tag += `
+    tag += `
                     <h1 id="schedule_detail" data-sno="${schedule.scheduleNo}" data-cno="${schedule.clubNo}" hidden></h1>
-                    <div class="detail-title">${schedule.scheduleTitle}</div>
+                    <div class="detail-title" data-title="${schedule.scheduleTitle}" >${schedule.scheduleTitle}</div>
                     <div class="detail-account"><i class="fi fi-rs-user"></i>_ ${schedule.account}</div>
                     <div class="detail-content">${schedule.scheduleContent}</div>                 
                     <div class="detail-a"><i class="fi fi-rr-calendar-clock"></i> ${at}</div>
                     <div class="detail-created"><i class="fi fi-rs-calendar"></i> ${created}</div>
                     <div class="detail-a"><i class="fi fi-rs-coins"></i> ${schedule.participationPoints}</div>`
 
-            document.querySelector(".detail-modal-content").innerHTML = tag;
+    document.querySelector(".detail-modal-content").innerHTML = tag;
 
-            applicationUserList();
-            openUserListModal ();
-        });
-    }
-
-
+    applicationUserList();
+    openUserListModal ();
+    openExitModalHandler();
+}
 
 
 function closeRegisterListModal () {
@@ -231,7 +240,6 @@ function exileHandler () {
 
     for (const exileBtn of exileBtns) {
         exileBtn.addEventListener('click', async e=> {
-            console.log("추방!!!!")
             const sno = document.getElementById("schedule_detail").dataset.sno;
             const cno = document.getElementById("schedule_detail").dataset.cno;
             let userAccount = e.target.closest(".member-list").firstElementChild.dataset.account;
@@ -245,9 +253,69 @@ function exileHandler () {
             await callApi(exileURL, 'POST', payload);
             await fetchScheduleMember();
 
+
+            fetchDetailModal(sno);
+            fetchScheduleList();
+
         });
     }
 
+}
 
+function openExitModalHandler() {
+    let exitBtn = document.querySelector(".out-schedule");
+
+    exitBtn?.addEventListener("click",  async e => {
+
+        document.querySelector(".schedule-exit-modal").style.display = "flex";
+
+        const scheduleTitle = document.querySelector(".detail-title").dataset.title;
+
+        const tag = `
+                <h1 class="exit-content"> ${scheduleTitle}에서 탈퇴하시겠습니까?</h1>
+                <div class="schedule-exit-btn">
+                    <button class="exit-btn">탈퇴</button>
+                    <button class="not-exit-btn">취소</button>
+                </div>
+            `
+
+        document.querySelector(".exit-modal-content").innerHTML = tag;
+
+        notExitHandler();
+        exitHandler();
+    });
+}
+
+function exitHandler() {
+    let exitBtn = document.querySelector(".exit-btn");
+
+    exitBtn.addEventListener("click", async e => {
+
+        const sno = document.getElementById("schedule_detail").dataset.sno;
+        const cno = document.getElementById("schedule_detail").dataset.cno;
+
+        const payload = {
+            clubNo : cno,
+            scheduleNo : sno,
+        }
+        const exitURL = BASE_URL + "/exit"
+        await callApi(exitURL, 'POST', payload);
+
+        document.querySelector(".schedule-exit-modal").style.display = "none";
+
+        document.getElementById("detail-modal").style.display = "none";
+
+
+
+        fetchDetailModal(sno);
+        fetchScheduleList();
+    });
+}
+
+function notExitHandler () {
+    let notExitBtn = document.querySelector(".not-exit-btn");
+    notExitBtn.addEventListener('click', e => {
+        document.querySelector(".schedule-exit-modal").style.display = "none";
+    })
 }
 

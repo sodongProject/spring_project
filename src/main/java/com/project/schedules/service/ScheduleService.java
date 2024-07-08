@@ -36,7 +36,6 @@ public class ScheduleService {
         if(!userInClub) return;
 
         s.setAccount(loginUserAccount);
-        s.setClubNo(1);
         // 스케줄 테이블에 스케줄 등록
         scheduleMapper.save(s);
 
@@ -233,6 +232,18 @@ public class ScheduleService {
     public void exileUser(ExileUserDto dto) {
 
         Long clubJoinNo = scheduleMapper.userInClub(dto.getClubNo(), dto.getAccount());
+
+        scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), clubJoinNo, ScheduleAuth.DENIED);
+
+        Integer memberCount = scheduleMapper.scheduleUsers(dto.getScheduleNo());
+        scheduleMapper.UpdateScheduleUsers(memberCount, dto.getScheduleNo());
+    }
+
+    public void exitUser(ExitUserDto dto, HttpSession session) {
+
+        String userAccount = LoginUtil.getLoggedInUserAccount(session);
+
+        Long clubJoinNo = scheduleMapper.userInClub(dto.getClubNo(), userAccount);
 
         scheduleMapper.setUserRoleInSchedule(dto.getScheduleNo(), clubJoinNo, ScheduleAuth.DENIED);
 
