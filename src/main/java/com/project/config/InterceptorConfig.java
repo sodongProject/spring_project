@@ -50,6 +50,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(myPageInterceptor)
                 .addPathPatterns("/myPage/*")
+                .excludePathPatterns("/myPage/withdrawalCompl")
         ;
 
     };
