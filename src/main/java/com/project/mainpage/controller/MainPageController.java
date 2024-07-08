@@ -61,7 +61,6 @@ public class MainPageController {
         model.addAttribute("scheduledList", scheduledList);
         redirectAttributes.addAttribute("scheduledList", scheduledList);
 
-
         return "main-page/page";
     }
 }
