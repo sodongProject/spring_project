@@ -65,7 +65,14 @@ div.most-member {
   height: fit-content;
 
 }
-
+.rank-list > div{
+  width: 100%;
+  padding: 20px;
+  font-size: 18px;
+  background-color: var(--color-wh);
+  border-radius: 22px;
+  text-align: center;
+}
 .rank-list li {
   width: 100%;
   border-radius: 500px;
@@ -171,9 +178,9 @@ section.last-page {
 .info-item a {
   display: block;
   margin-top: 10px;
-  color: #007bff;
+  color: var(--color-exception);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 20px;
-  font-size: 14px;
+  font-size: 16px;
 }
