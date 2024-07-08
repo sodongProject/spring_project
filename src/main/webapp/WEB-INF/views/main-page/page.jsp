@@ -11,6 +11,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <%@ include file="../include/header.jsp" %>
 
+    <p class="page-img"><img src="/assets/img/main-page/image2.jpg" alt=""></p>
     <section id="page">
       <!-- 2번째 페이지 시작 -->
       <section class="second-page">

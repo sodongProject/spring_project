@@ -1,11 +1,12 @@
 #page {
   width: 1200px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 80px;
 }
 
-section.second-page {
-  height: 100vh;
+p.page-img img {
+  margin-top: 100px;
+  width: 100%;
 }
 
 /* 타이틀 */
@@ -14,7 +15,6 @@ h1.main-title {
   font-weight: 700;
   letter-spacing: -0.015em;
   text-align: center;
-  margin-top: 50px;
 }
 
 h1.main-title img {
@@ -64,37 +64,7 @@ div.most-member {
   margin-bottom: 10px;
   font-size: 15px;
   position: relative;
-}
-.rank-list li::before{
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-/* 1등 */
-.rank-list li:first-child::before{
-  background: url("assets/img/main-page/medal1.png");
-}
-/* 2등 */
-.rank-list li:nth-child(2)::before{
-  background: url("assets/img/main-page/medal2.png");
-}
-/* 3등 */
-.rank-list li:nth-child(3)::before{
-  background: url("assets/img/main-page/medal3.png");
-}
-/* 4등 */
-.rank-list li:nth-child(4)::before{
-  background: url();
-}
-/* 5등 */
-.rank-list li:nth-child(5)::before{
-  background: url();
+  padding: 10px;
 }
 
 .ranking-box .rank-list {

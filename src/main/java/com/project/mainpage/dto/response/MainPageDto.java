@@ -20,6 +20,4 @@ public class MainPageDto {
     private Boolean clubCompetition; // 클럽 대회 여부
     private long clubMemberMax; // 클럽 가입자 수
     private String account; // 계정
-
-
 }
