@@ -53,7 +53,7 @@ public class MainNoticeBoardService {
     }
 
     // 상세 조회 요청 중간처리
-    public NoticeDetailDto detail(long mainNoticeNo, String account) {
+    public NoticeDetailDto detail(long mainNoticeNo) {
         MainNoticeBoard detail = mapper.findOne(mainNoticeNo);
         return new NoticeDetailDto(detail);
     }

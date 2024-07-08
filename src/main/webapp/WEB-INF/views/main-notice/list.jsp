@@ -118,9 +118,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         const userAuth = "${login.auth}";
 
         // 공지사항 작성 경로
-        document.querySelector(".write-btn").onclick = (e) => {
-            window.location.href = "/main-notice/write";
-        };
+        const writeButton = document.querySelector(".write-btn");
+        if (writeButton) {
+            writeButton.onclick = function () {
+                window.location.href = "/main-notice/write";
+            };
+        }
+
 
         // 공지사항 검색버튼 스크립트
         const $searchInput = document.querySelector(".search-input");
@@ -151,6 +155,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         const cancelEdit = document.getElementById("cancelEdit");
 
         $board.addEventListener("click", (e) => {
+            console.log(e.target);
             const $li = e.target.closest("li.notice-list-box");
             if (!$li) return;
 

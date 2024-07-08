@@ -11,17 +11,18 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 
+<%--서울에서 일어나는 작은 소동!--%>
+<%--즐거운 만남이 기다립니다.--%>
 <div id="wrap">
-    <div class="main-title-wrapper">
-        <img src="/assets/img/club/clubBanner.png" alt="즐거운 만남이 기다립니다" class="mainTitle">
-        <!-- <h1 class="main-title">
-            <button class="homeBtn">소동 일으키기</button>
+    <div class="mainTitle">
+        <p class="main-title1">서울에서 일어나는 작은 소동!</p><br>
+        <p class="main-title2">즐거운 만남이 기다립니다.</p>
+    </div>
 
-        </h1>
-        <c:if test="${login.auth == 'USER' || login.auth == 'ADMIN'}">
+    <div class="main-title-wrapper">
+        <c:if test="${login.auth == 'ADMIN' || login.auth == 'USER'}">
             <button class="add-btn">새 소동 만들기</button>
         </c:if>
-
     </div>
 
     <div class="top-section1">
@@ -175,7 +176,6 @@
 </div>
 
 <script>
-    const $homeBtn = document.querySelector('.homeBtn');
     const $cardContainer = document.querySelector('.card-container');
     const modal = document.getElementById('modal');
     const confirmDelete = document.getElementById('confirmDelete');
@@ -184,10 +184,6 @@
     const loginConfirmJoin = document.getElementById('loginConfirmJoin');
     const loginCancelJoin = document.getElementById('loginCancelJoin');
     let currentClubNo;
-
-    $homeBtn.addEventListener('click', e => {
-        window.location.href = '/club/list';
-    });
 
     $cardContainer.addEventListener('click', e => {
         e.preventDefault();
