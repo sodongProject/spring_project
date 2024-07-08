@@ -18,7 +18,7 @@ public class FreeBoardFindAllDto {
     private LocalDateTime clubCommunityCreatedAt; // 작성시간
     private Boolean clubCommunityIsDelete; // 삭제여부
     private String account; // 유저ID
-    private int clubNo; // 동호회ID
+    private long clubNo; // 동호회ID
     private String clubCommunityImage; //이미지
 
 

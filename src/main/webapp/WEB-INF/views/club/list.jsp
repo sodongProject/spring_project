@@ -16,7 +16,9 @@
         <h1 class="main-title">
             <button class="homeBtn">소동 일으키기</button>
         </h1>
-        <button class="add-btn">새 소동 만들기</button>
+        <c:if test="${login.auth == 'USER' || login.auth == 'ADMIN'}">
+            <button class="add-btn">새 소동 만들기</button>
+        </c:if>
     </div>
 
     <div class="top-section1">

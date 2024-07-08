@@ -19,7 +19,7 @@ public class FreeBoardListResponseDto {
     private String account;
     private String content;
     private String boardImg;
-    private int clubNo;
+    private long clubNo;
 
     // 엔터티 -> DTO 변환하는 생성자
     public FreeBoardListResponseDto(FreeBoardFindAllDto b){

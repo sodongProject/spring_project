@@ -28,12 +28,11 @@
 
             <div class="form-group">
                 <label for="account">Account</label>
-                <input type="content" id="account" name="account" value="${account}" readonly>
+                <input type="text" id="account" name="account" value="${account}" readonly>
             </div>
 
             <div class="form-group">
-             <label for="clubNo">ClubNo</label>
-             <input type="content" id="clubNo" name="clubNo" value="${b.clubNo}" readonly>
+             <input type="hidden" id="clubNo" name="clubNo" value="${clubNo}" readonly>
             </div>
 
              <div class="form-group">

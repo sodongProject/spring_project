@@ -5,44 +5,51 @@
 
 <mapper namespace="com.project.freeBoard.mapper.FreeBoardMapper">
 
-
     <!-- 등록 -->
     <insert id="save">
-    INSERT INTO clubs_community_boards
-    (club_no, club_community_content, account, club_community_image)
-    VALUES
-    (#{clubNo}, #{content}, #{account}, #{boardImg} )
+        INSERT INTO clubs_community_boards
+        (club_no, club_community_content, account, club_community_image)
+        VALUES
+        (#{clubNo}, #{content}, #{account}, #{boardImg} )
     </insert>
 
     <!-- 목록 조회 -->
-    <select id="findAll" resultType="com.project.freeBoard.dto.FreeBoardFindAllDto">
+    <select id="findAll" parameterType="long" resultType="com.project.freeBoard.dto.FreeBoardFindAllDto">
         SELECT
-        CC.*
+        CC.*,
+        C.club_no
         FROM clubs_community_boards CC
         JOIN users_clubs C
         ON C.account = CC.account
+        WHERE C.club_no = #{clubNo}
+        AND club_community_is_deleted = FALSE
         ORDER BY CC.club_community_no DESC
     </select>
 
-<!--    상세 조회 -->
+    <!-- 상세 조회 -->
     <select id="findOne" parameterType="long" resultType="com.project.entity.FreeBoard">
-        SELECT * FROM clubs_community_boards
+        SELECT
+        CCB.*,
+        C.club_no
+        FROM clubs_community_boards CCB
+        JOIN users_clubs C
+        ON C.club_no = CCB.club_no
         WHERE club_community_no = #{boardNo}
+        LIMIT 1
     </select>
 
-
-    <!-- 삭제 -->
-    <delete id="delete">
-        DELETE FROM clubs_community_boards
+    <update id="delete">
+        UPDATE clubs_community_boards
+        SET club_community_is_deleted = TRUE
         WHERE club_community_no = #{boardNo}
-    </delete>
+    </update>
 
-    <!--  조회수  -->
+    <!-- 조회수 -->
     <update id="updateViewCount">
         UPDATE clubs_community_boards
         SET club_community_view_count = club_community_view_count + 1
         WHERE club_community_no = #{boardNo}
     </update>
 
-
 </mapper>
+

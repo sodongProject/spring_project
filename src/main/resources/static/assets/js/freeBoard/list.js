@@ -29,12 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
           cancelDelete.onclick = e => {
               modal.style.display = 'none'; // 모달 창 닫기
           };
-      } else { // 삭제 버튼 제외한 부분은 글 상세조회 요청
-
-          // section태그에 붙은 글번호 읽기
-          const bno = e.target.closest('section.card').dataset.bno;
-          // 요청 보내기
-          window.location.href = '/freeBoard/detail?bno=' + bno;
       }
   });
 
@@ -86,7 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // write button event
   document.querySelector('.postBtn').onclick = e => {
-      window.location.href = '/freeBoard/write';
+      const clubNo = document.querySelector('.card-wrapper').dataset.bno;
+      // const clubNo = e.target.closest('.card-wrapper').dataset.bno;
+      window.location.href = `/freeBoard/write?clubNo=` + clubNo;
   };
 });
 

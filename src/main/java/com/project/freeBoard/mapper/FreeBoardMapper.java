@@ -10,7 +10,7 @@ import java.util.List;
 public interface FreeBoardMapper {
 
     // 목록 조회
-    List<FreeBoardFindAllDto> findAll();
+    List<FreeBoardFindAllDto> findAll(long clubNo);
 
     // 상세 조회
     FreeBoard findOne(long boardNo);
