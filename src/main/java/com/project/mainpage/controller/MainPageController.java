@@ -2,9 +2,7 @@ package com.project.mainpage.controller;
 
 import com.project.mainpage.common.PageMaker;
 import com.project.mainpage.common.Search;
-import com.project.mainpage.dto.response.ClubListDto;
-import com.project.mainpage.dto.response.NoticeFindAllDto;
-import com.project.mainpage.dto.response.NoticeListDto;
+import com.project.mainpage.dto.response.*;
 import com.project.mainpage.entity.ClubRanking;
 import com.project.mainpage.service.ClubRankingService;
 import com.project.mainpage.service.MainNoticeBoardService;
@@ -26,12 +24,11 @@ import java.util.List;
 @Slf4j
 public class MainPageController {
 
-    private final MainNoticeBoardService noticeService;
     private final ClubRankingService rankingService;
 
     // 1. 메인페이지 조회 요청 (/board/list : GET)
     @GetMapping("/page")
-    public String page(Search page, Model model, HttpSession session) {
+    public String page(Model model, HttpSession session) {
         if(LoginUtil.isLoggedIn(session)){
             String account = LoginUtil.getLoggedInUser(session).getAccount();
 
@@ -61,6 +58,19 @@ public class MainPageController {
         }
         model.addAttribute("scheduledList", scheduledList);
 
+        // 메인페이지 - 가입한 총 유저 수
+        String user = rankingService.user();
+        model.addAttribute("user", user);
+
+        // 메인페이지 - 총 동호회 수
+        long club = rankingService.club();
+        model.addAttribute("club", club);
+
+        // 메인페이지 - 총 스케줄 수
+        long schedule = rankingService.schedule();
+        model.addAttribute("schedule", schedule);
+
         return "main-page/page";
     }
+
 }

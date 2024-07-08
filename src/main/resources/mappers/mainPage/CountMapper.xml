@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mainpage.mapper.CountMapper">
+
+    <select id="countUser" resultType="int">
+        SELECT COUNT(*)
+        account
+        FROM users
+    </select>
+
+    <select id="countClubs" resultType="int">
+        SELECT COUNT(*)
+        club_no
+        FROM clubs
+    </select>
+
+    <select id="countSchedules" resultType="int">
+        SELECT COUNT(*)
+        schedule_no
+        FROM schedules
+    </select>
+
+</mapper>
