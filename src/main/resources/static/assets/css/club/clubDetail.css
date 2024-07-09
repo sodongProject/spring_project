@@ -192,6 +192,6 @@ table tr:nth-child(even) {
     background-color: #0d0d0d;
     color: #f2f2f2;
     border-radius: 500px;
-    font-weight: 500
+    font-weight: 500;
     font-size: 16px;
 }
