@@ -41,7 +41,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
           <c:if test="${login!=null}">
             <li class="mySondong">
-              <a href="#">내 소동 바로가기</a>
+              <a href="/#myClubsList">내 소동 바로가기</a>
             </li>
             <li class="logout">
               <a href="/users/sign-out">로그아웃</a>
