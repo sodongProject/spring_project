@@ -19,7 +19,7 @@ h1 {
   padding: 10px 0;
 }
 
-.search-bar, .write-btn {
+.search-bar {
   width: 400px;
   margin-left: auto;
   display: flex;
@@ -155,7 +155,7 @@ h1 {
   cursor: pointer;
 }
 
-button.del-btn {
+button.del-btn, .write-btn {
   border: 1px solid #000;
   border-radius: 50px;
 }

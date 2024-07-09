@@ -1,29 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9; /* 배경색 설정 */
+}
+
 .container {
-  width: 800px;
+  width: 1200px; /* 가로 길이 설정 */
   margin: 20px auto;
+  padding: 20px;
+  background-color: #fff; /* 배경색 설정 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-top: 10px solid #f2cb05; /* 시그니처 색상 적용 */
+}
+
+h1 {
+  text-align: center;
+  color: #333;
 }
 
 form {
   margin-bottom: 20px;
   padding: 20px;
   border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #f2cb05; /* 시그니처 색상 적용 */
 }
 
 label {
   display: block;
   margin: 10px 0;
+  color: #333; /* 레이블 색상 설정 */
 }
 
 input[type="text"], textarea {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 input[type="submit"] {
   padding: 10px 20px;
-  background-color: #f2cb05;
+  background-color: #f2cb05; /* 시그니처 색상 적용 */
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #d4a604; /* 호버 색상 변경 */
 }
