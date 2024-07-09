@@ -125,10 +125,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
        <c:if test="${login != null}">
        <section class="my-clubs">
         <h1 class="my-clubs">${login.account}님의 동호회</h1>
-        <div class="my-clubs">
-        <c:forEach var="c" items="${memberList}" >
+        <div class="my-box">
+        <c:forEach var="c" items="${clubList}" >
+          <div class="clubs-box">
           <h2>${c.clubName}</h2>
           <p>${c.clubDescription}</p>
+        </div>
         </c:forEach>
       </div>
        </section>
