@@ -45,11 +45,11 @@ public class ClubListResponseDto {
     }
 
     private String makeShortContent(String content) {
-        return (content.length() > 30) ? content.substring(0, 30) + "..." : content;
+        return (content.length() > 30) ? content.substring(0, 30) : content;
     }
 
     private String makeShortTitle(String title) {
-        return (title.length() > 5) ? title.substring(0, 5) + "..." : title;
+        return (title.length() > 30) ? title.substring(0, 30)  : title;
     }
 
 }

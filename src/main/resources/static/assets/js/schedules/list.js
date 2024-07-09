@@ -29,6 +29,10 @@ function addScheduleBtnHandler() {
             participationPoints: document.getElementById('participation_points').value,
         };
 
+        document.getElementById('schedule_title').value = '';
+        document.getElementById('schedule_content').value = ''
+        document.getElementById('participation_points').value = '';
+
         await callApi(BASE_URL, 'POST', payload);
         await fetchScheduleList();
     });
