@@ -7,7 +7,7 @@
 
 <title>소동 | 서울에서 일어나는 작은 소동</title>
 
-
+<link rel="shortcut icon" href="/assets/img/common/favicon.svg">
 <link href="/assets/css/reset.css" rel="stylesheet"/>
 <link href="/assets/css/common.css" rel="stylesheet"/>
 
