@@ -41,7 +41,7 @@
             <div class="char-count" id="charCount">0 / 200</div>
         </div>
         <div class="form-group">
-            <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
+            <button class="list-btn" type="button" >목록</button>
             <button type="submit">Post</button>
         </div>
     </form>

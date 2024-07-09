@@ -15,7 +15,7 @@
 
         <div class="mainTop">
           <img src="/assets/img/freeBoard/listTitle.png" alt="소동을 공유해요" class="mainTitle">
-          <button class="postBtn">New Post!</button>
+          <button class="postBtn" data-cno="${clubNo}" >New Post!</button>
         </div>
 
         <div class="snsContainer">
