@@ -123,7 +123,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
       <!-- 가입되어있는 동호회 목록(로그인 한 유저) -->
        <c:if test="${login != null}">
-       <section class="my-clubs">
+       <section id="myClubsList" class="my-clubs">
         <h1 class="my-clubs">${login.account}님의 동호회</h1>
         <div class="my-box">
         <c:forEach var="c" items="${clubList}" >

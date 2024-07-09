@@ -80,8 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // write button event
   document.querySelector('.postBtn').onclick = e => {
-      const clubNo = document.querySelector('.card-wrapper').dataset.bno;
+      // const clubNo = document.querySelector('.card-wrapper').dataset.bno;
       // const clubNo = e.target.closest('.card-wrapper').dataset.bno;
+      const clubNo = e.target.dataset.cno;
       window.location.href = `/freeBoard/write?clubNo=` + clubNo;
   };
 });
