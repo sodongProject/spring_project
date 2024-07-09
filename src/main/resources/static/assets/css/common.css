@@ -69,6 +69,7 @@ body,html{
   justify-content: space-between;
 }
 .h-side_menu ul.bot li{
+  height: 60px;
   font-size: 18px;
   text-align: center;
   width: calc((100% - 10px)/2);
@@ -78,10 +79,18 @@ body,html{
   border: solid 1px var(--color-exception);
   border-radius: 22px;
   padding: 18px;
+  position: relative;
 } 
 .h-side_menu ul.bot li a{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-exception);
-
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .h-side_menu ul.bot li.login{
   background-color: var(--color-exception);
@@ -89,6 +98,7 @@ body,html{
 }
 .h-side_menu ul.bot li.login a{
   color: #fff;
+
 }
 .h-side_menu ul li.mySondong{
   width: 100%;
