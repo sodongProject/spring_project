@@ -14,8 +14,8 @@
 <div class="container">
     <h1>공지사항 작성</h1>
     <form action="/main-notice/write" method="post" name="write">
-        <label for="account">작성자:</label>
-        <input type="text" id="account" name="account" value="${login.account}" placeholder="관리자" readonly>
+        <label for="userName">작성자:</label>
+        <input type="text" id="userName" name="userName" value="${login.userName}" placeholder="관리자" readonly>
         <label for="title">제목:</label>
         <input type="text" id="title" name="mainNoticeTitle" required>
         <label for="content">내용:</label>

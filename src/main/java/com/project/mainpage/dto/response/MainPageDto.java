@@ -21,4 +21,5 @@ public class MainPageDto {
     private long clubMemberMax; // 클럽 가입자 수
     private String account; // 계정
     private long scheduleNo; // 스케줄 번호
+    private String userName; // 유저 이름
 }
