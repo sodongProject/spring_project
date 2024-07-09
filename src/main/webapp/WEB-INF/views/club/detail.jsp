@@ -59,9 +59,10 @@
         <%--        <button class="notice-btn" onclick="window.location.href='/clubNoticeBoard/list?clubNo=${club.clubNo}'">공지사항</button>--%>
         <button class="free_board-btn" onclick="window.location.href='/freeBoard/list?clubNo=${club.clubNo}'">자유게시판
         </button>
-        <button class="list-btn" onclick="window.location.href='/club/list'">목록</button>
         <button class="cancel-btn" id="cancelButton">탈퇴하기</button>
         <button class="member-btn" id="showMembersBtn">동호호 전체 인원</button>
+        <button class="list-btn" onclick="window.location.href='/club/list'">목록</button>
+
     </div>
 
 
