@@ -95,11 +95,11 @@ button:hover {
 }
 
 
-.clubDetailAdmin-btn{
+.clubDetailButtons button.clubDetailAdmin-btn{
     position: absolute;
-    top: 160px;
-    right: 305px;
-    width: 150px;
+    top: 200px;
+    right: 230px;
+    width: 180px;
 }
 
 /* 모달 스타일 */
