@@ -441,10 +441,12 @@ button {
 
 .competition{
     position: relative;
-    left: -275px;
+    left: -220px;
     top: 60px;
     color: red;
     font-size: 18px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .notCompetition {
