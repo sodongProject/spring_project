@@ -32,7 +32,7 @@
             />
         </div>
         <label for="writer">작성자</label>
-        <input type="text" id="writer" name="writer" value="${login.account}" readonly>
+        <input type="text" id="writer" name="writer" value="${login.us}" readonly>
         <label for="title">제목</label>
         <input type="text" id="title" name="title" required>
         <label for="content">내용</label>
